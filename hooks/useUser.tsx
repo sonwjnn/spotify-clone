@@ -1,10 +1,10 @@
+'use client'
 import { Subscription, UserDetails } from '@/types'
 import { User } from '@supabase/auth-helpers-nextjs'
 import {
   useSessionContext,
   useUser as useSupaUser
 } from '@supabase/auth-helpers-react'
-import { useSelectedLayoutSegment } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 type UserContextType = {
@@ -33,13 +33,14 @@ export const MyUserContextProvider = (props: Props) => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
 
-  const getUserDetails = supabase.from('user').select('*').single()
+  const getUserDetails = () => supabase.from('user').select('*').single()
 
-  const getSubscription = supabase
-    .from('description')
-    .select('*,prices(*,product(*))')
-    .in('status', ['trialing', 'active'])
-    .single()
+  const getSubscription = () =>
+    supabase
+      .from('description')
+      .select('*,prices(*,product(*))')
+      .in('status', ['trialing', 'active'])
+      .single()
 
   useEffect(() => {
     if (!user && !isLoadingData && !userDetails && !subscription) {
