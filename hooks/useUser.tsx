@@ -33,11 +33,11 @@ export const MyUserContextProvider = (props: Props) => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
 
-  const getUserDetails = () => supabase.from('user').select('*').single()
+  const getUserDetails = () => supabase.from('users').select('*').single()
 
   const getSubscription = () =>
     supabase
-      .from('description')
+      .from('subscription')
       .select('*,prices(*,product(*))')
       .in('status', ['trialing', 'active'])
       .single()
@@ -56,11 +56,14 @@ export const MyUserContextProvider = (props: Props) => {
           if (subscriptionPromise.status === 'fulfilled') {
             setSubscription(subscriptionPromise.value.data as Subscription)
           }
+          setIsLoadingData(false)
         }
       )
-      setIsLoadingData(false)
+    } else if (!user && !isLoadingUser && !isLoadingData) {
+      setUserDetails(null)
+      setSubscription(null)
     }
-  }, [isLoadingUser, user])
+  }, [user, isLoadingUser])
 
   const value = {
     accessToken,
