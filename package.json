@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.4",
+    "@stripe/stripe-js": "^2.1.1",
     "@supabase/auth-helpers-nextjs": "^0.7.2",
     "@supabase/auth-helpers-react": "^0.4.0",
     "@supabase/auth-ui-react": "^0.4.2",
@@ -31,6 +32,7 @@
     "react-hook-form": "^7.44.3",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.9.0",
+    "react-spinners": "^0.13.8",
     "stripe": "^12.9.0",
     "supabase": ">=1.8.1",
     "tailwind-merge": "^1.13.0",
