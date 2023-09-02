@@ -80,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
 						))}
 					</div>
 				</Box>
-				<Box classname='overflow-y-auto h-full'>
+				<Box className='overflow-y-auto h-full'>
 					<Library songs={songs} />
 				</Box>
 			</div>
