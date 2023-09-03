@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 import { stripe } from '@/libs/stripe'
-import { getURL } from 'next/dist/shared/lib/utils'
+import { getURL } from '@/libs/helpers'
 import { createOrRetrieveCustomer } from '@/libs/supabaseAdmin'
 
 export async function POST(
@@ -44,7 +44,8 @@ export async function POST(
 		})
 
 		return NextResponse.json({ sessionId: session.id })
-	} catch (error) {
+	} catch (error: any) {
+		console.log(error)
 		return new NextResponse('Internal Error', { status: 500 })
 	}
 }
