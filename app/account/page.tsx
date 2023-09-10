@@ -1,5 +1,4 @@
 import Header from '@/components/Header'
-import React from 'react'
 import AccountContent from './components/AccountContent'
 
 const Account = () => {

@@ -1,7 +1,6 @@
 import useLoadImage from '@/hooks/useLoadImage'
 import { Song } from '@/types'
 import Image from 'next/image'
-import React from 'react'
 
 interface MediaItemProps {
 	data: Song
@@ -42,6 +41,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
 				<Image
 					fill
 					src={imageUrl || '/images/liked.png'}
+					sizes='100%'
 					alt='Media-Item'
 					className='object-cover'
 				/>

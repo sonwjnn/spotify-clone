@@ -2,7 +2,6 @@
 import SongItem from '@/components/SongItem'
 import useOnPlay from '@/hooks/useOnPlay'
 import { Song } from '@/types'
-import React from 'react'
 
 interface PageContentProps {
 	songs: Song[]

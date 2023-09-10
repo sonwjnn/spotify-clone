@@ -2,7 +2,7 @@
 import { useUser } from '@/hooks/useUser'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import useAuthModal from '@/hooks/useAuthModal'
 import { toast } from 'react-hot-toast'

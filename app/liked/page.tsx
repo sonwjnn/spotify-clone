@@ -1,6 +1,5 @@
 import Header from '@/components/Header'
 import Image from 'next/image'
-import React from 'react'
 import LikedContent from './components/LikedContent'
 import getLikedSongs from '@/actions/getLikedSongs'
 
@@ -17,6 +16,7 @@ const Liked = async () => {
 							alt='playlist'
 							className='object-cover'
 							src='/images/liked.png'
+							sizes='100%'
 						/>
 					</div>
 					<div className='flex flex-col gap-y-2 mt-4 md:mt-0'>

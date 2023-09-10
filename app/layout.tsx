@@ -27,7 +27,7 @@ export default async function RootLayout({
 	const products = await getActiveProductsWithPrices()
 
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning={true}>
 			<body className={font.className}>
 				<ToasterProvider />
 				<SupabaseProvider>
