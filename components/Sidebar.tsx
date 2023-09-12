@@ -1,8 +1,13 @@
 'use client'
+
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
-import { BiSearch } from 'react-icons/bi'
-import { HiHome } from 'react-icons/hi'
+import {
+	HomeActiveIcon,
+	HomeIcon,
+	SearchActiveIcon,
+	SearchIcon,
+} from '@/assets/icons'
 import Box from './Box'
 import { IconType } from 'react-icons'
 import Link from 'next/link'
@@ -51,13 +56,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
 	const routes = useMemo(
 		() => [
 			{
-				icon: HiHome,
+				icon: pathname !== '/search' ? HomeActiveIcon : HomeIcon,
 				label: 'Home',
 				active: pathname !== '/search',
 				href: '/',
 			},
 			{
-				icon: BiSearch,
+				icon: pathname === '/search' ? SearchActiveIcon : SearchIcon,
 				label: 'Search',
 				active: pathname === '/search',
 				href: '/search',

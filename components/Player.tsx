@@ -13,7 +13,7 @@ const Player = () => {
 
 	const songUrl = useLoadSongUrl(song!)
 
-	const [volume, setVolume] = useState<number>(1)
+	const [volume, setVolume] = useState<number>(0.5)
 
 	if (!song || !songUrl || !player.activeId) {
 		return null

@@ -27,9 +27,10 @@ const Slider: React.FC<SliderProps> = ({ className, value = 1, onChange }) => {
 			arial-label='Volume'
 		>
 			<RadixSlider.Track className='bg-neutral-600  relative rounded-full grow h-[3px]'>
-				<RadixSlider.Range className='absolute bg-white group-hover:bg-[#22c55e] rounded-full h-full'>
+				<RadixSlider.Range className='absolute bg-white  group-hover:bg-[#22c55e] rounded-full h-full'>
 				</RadixSlider.Range>
 			</RadixSlider.Track>
+			<RadixSlider.Thumb className='absolute right-[-7px]   translate-y-[-50%] w-3 h-3 bg-white   scale-0 group-hover:scale-100  rounded-[10px] hover:bg-violet3 focus:outline-none ' />
 		</RadixSlider.Root>
 	)
 }

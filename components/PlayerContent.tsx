@@ -1,18 +1,22 @@
 'use client'
-
+import {
+	RepeatIcon,
+	ShuffleIcon,
+	SkipBackIcon,
+	SkipForwardIcon,
+	SoundIcon,
+	SoundLevel,
+} from '@/assets/icons'
 import { Song } from '@/types'
 import MediaItem from './MediaItem'
 import LikeButton from './LikeButton'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
-import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
-import { MdOutlineReplay } from 'react-icons/md'
-import { FaRandom } from 'react-icons/fa'
-import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2'
 import VolumeSlider from './VolumeSlider'
 import AudioSlider from './AudioSlider'
 import usePlayer from '@/hooks/usePlayer'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useSound from 'use-sound'
+import Tooltip from './Tooltip'
 
 interface PlayerContentProps {
 	song: Song
@@ -28,20 +32,23 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 
 	const [isPlaying, setIsPlaying] = useState<boolean>(false)
 	const [previousVolume, setPreviousVolume] = useState<number>(volume)
-	const [isReplay, setIsReplay] = useState<boolean>(false)
 	const [isRandom, setIsRandom] = useState<boolean>(false)
+	const [isReplay, setIsReplay] = useState<boolean>(false)
+	const [volumeLevel, setVolumeLevel] = useState<SoundLevel>('medium')
 
 	const [time, setTime] = useState({
 		min: '0',
 		sec: '00',
 	})
 
-	const [seconds, setSeconds] = useState(0) // current position of the audio in seconds
+	const [seconds, setSeconds] = useState(0)
 
 	const [currentTime, setCurrentTime] = useState({
 		min: '0',
 		sec: '00',
 	})
+
+	const isReplayRef = useRef(isReplay)
 
 	const [play, { duration, pause, sound }] = useSound(
 		songUrl,
@@ -57,10 +64,7 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 		},
 	)
 
-	// current position of the audio in minutes and seconds
-
 	const Icon = isPlaying ? BsPauseFill : BsPlayFill
-	const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave
 
 	useEffect(() => {
 		if (duration) {
@@ -76,7 +80,7 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 
 		const interval = setInterval(() => {
 			if (sound) {
-				setSeconds(sound.seek([])) // setting the seconds state with the current state
+				setSeconds(sound.seek([]))
 				const min = Math.floor(sound.seek([]) / 60).toString()
 				let sec = Math.floor(sound.seek([]) % 60).toString()
 				if (sec.length === 1) sec = '0' + sec
@@ -97,6 +101,22 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 		}
 	}, [sound])
 
+	useEffect(() => {
+		isReplayRef.current = isReplay
+	}, [isReplay])
+
+	const volumeLevelFilter = useCallback((value: number): SoundLevel => {
+		if (+value === 0) {
+			return 'mute'
+		} else if (+value < 0.33) {
+			return 'low'
+		} else if (+value < 0.66) {
+			return 'medium'
+		} else {
+			return 'high'
+		}
+	}, [])
+
 	const onPlayNext = () => {
 		if (player.ids.length === 0) {
 			return
@@ -106,9 +126,14 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 			id === player.activeId
 		)
 		const nextSong = player.ids[currentIndex + 1]
+		const currentSong = player.ids[currentIndex]
 
 		if (!nextSong) {
 			return player.setId(player.ids[0])
+		}
+
+		if (isReplayRef.current) {
+			return player.setId(currentSong)
 		}
 
 		player.setId(nextSong)
@@ -131,12 +156,6 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 		player.setId(previousSong)
 	}
 
-	const onReplay = () => {
-		if (player) {
-			return player.setId(player.activeId!)
-		}
-	}
-
 	const handlePlay = () => {
 		if (!isPlaying) {
 			play()
@@ -148,74 +167,107 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 	const toggleMute = () => {
 		if (volume === 0) {
 			setVolume(previousVolume)
+			setVolumeLevel(volumeLevelFilter(previousVolume))
 		} else {
 			setPreviousVolume(volume)
 			setVolume(0)
+			setVolumeLevel('mute')
 		}
 	}
 
+	const handleAudioSliderChange = (value: number) => {
+		setSeconds(value)
+		const min = Math.floor(sound.seek([]) / 60)
+			.toString()
+		let sec = Math.floor(sound.seek([]) % 60).toString()
+		if (sec.length === 1) sec = '0' + sec
+		setCurrentTime({
+			min,
+			sec,
+		})
+
+		sound.seek([value])
+	}
+
 	return (
-		<div className='grid grid-cols-2 md:grid-cols-3 h-full '>
-			<div className='flex  w-full justify-start '>
+		<div className='flex justify-between h-full'>
+			<div className='flex   w-[30%] justify-start '>
 				<div className='flex justify-center items-center gap-x-4'>
 					<MediaItem data={song} />
 					<LikeButton songId={song.id} />
 				</div>
 			</div>
 
-			<div className='hidden h-full md:flex md:flex-col gap-y-1  w-full max-w-[722px] '>
+			<div className='hidden h-full md:flex md:flex-col   gap-y-1  w-[40%] max-w-[722px] '>
 				<div className='flex gap-x-6 justify-center items-center'>
-					<FaRandom
-						onClick={() => setIsRandom(!isRandom)}
-						size={22}
-						className={`${
-							isRandom ? 'text-[#22c55e]' : 'text-neutral-400'
-						}  cursor-pointer  transition `}
-					/>
-					<AiFillStepBackward
-						onClick={onPlayPrevious}
-						size={26}
-						className='text-neutral-400 cursor-pointer hover:text-white transition'
-					/>
-
-					<div
-						onClick={handlePlay}
-						className='flex items-center justify-center w-10 h-10 rounded-full bg-white p-1 cursor-pointer'
+					<Tooltip
+						text={`${isReplay ? 'Disable' : 'Enable'} suffle`}
 					>
-						<Icon size={26} className='text-black' />
-					</div>
+						<button
+							onClick={() => setIsRandom(!isRandom)}
+							className={`${
+								isRandom ? 'text-[#22c55e]' : 'text-neutral-400'
+							}  cursor-pointer  transition hover:text-white`}
+						>
+							<ShuffleIcon />
+						</button>
+					</Tooltip>
 
-					<AiFillStepForward
-						onClick={onPlayNext}
-						size={26}
-						className='text-neutral-400 cursor-pointer hover:text-white transition
-          '
-					/>
+					<Tooltip text='Previous'>
+						<button
+							onClick={onPlayPrevious}
+							className='text-neutral-400 cursor-pointer hover:text-white transition'
+						>
+							<SkipBackIcon />
+						</button>
+					</Tooltip>
 
-					<MdOutlineReplay
-						onClick={() => setIsReplay(!isReplay)}
-						size={24}
-						className={`${
-							isReplay ? 'text-[#22c55e]' : 'text-neutral-400'
-						}  cursor-pointer  transition `}
-					/>
+					<Tooltip
+						text={`${isPlaying ? 'Pause' : 'Play'}`}
+					>
+						<div
+							onClick={handlePlay}
+							className='flex items-center justify-center w-10 h-10 rounded-full bg-white p-1 cursor-pointer'
+						>
+							<Icon size={26} className='text-black' />
+						</div>
+					</Tooltip>
+
+					<Tooltip text='Next'>
+						<button
+							onClick={onPlayNext}
+							className='text-neutral-400 cursor-pointer hover:text-white transition'
+						>
+							<SkipForwardIcon />
+						</button>
+					</Tooltip>
+
+					<Tooltip
+						text={`${isReplay ? 'Disable' : 'Enable'} replay`}
+					>
+						<button
+							onClick={() => setIsReplay(!isReplay)}
+							className={`${
+								isReplay ? 'text-[#22c55e]' : 'text-neutral-400'
+							}  cursor-pointer  transition hover:text-white`}
+						>
+							<RepeatIcon />
+						</button>
+					</Tooltip>
 				</div>
-				<div className='flex gap-1'>
-					<div className='text-neutral-400 text-xs'>
+				<div className='flex gap-x-1'>
+					<div className='text-neutral-400 text-xs w-8'>
 						{currentTime.min}:{currentTime.sec}
 					</div>
 
 					<AudioSlider
-						className='h-4'
+						className='h-4 mr-1'
 						value={seconds}
 						maxValue={duration ? duration / 1000 : 0}
-						onChange={(value) => {
-							setSeconds(value)
-							sound.seek([value])
-						}}
+						onChange={(value) => handleAudioSliderChange(value)}
 					/>
 
-					<div className='text-neutral-400 text-xs'>
+					<div className='text-neutral-400 text-xs w-8'>
 						{time.min}:{time.sec}
 					</div>
 				</div>
@@ -230,17 +282,22 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 				</div>
 			</div>
 
-			<div className='hidden md:flex w-full justify-end  pr-2 '>
+			<div className='hidden md:flex w-[30%] justify-end  pr-2 '>
 				<div className='flex items-center gap-x-2 w-[120px]'>
-					<VolumeIcon
-						onClick={toggleMute}
-						size={28}
-						className='cursor-pointer'
-					/>
+					<Tooltip
+						text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}
+					>
+						<button className='cursor-pointer' onClick={toggleMute}>
+							<SoundIcon level={volumeLevel} />
+						</button>
+					</Tooltip>
 
 					<VolumeSlider
 						value={volume}
-						onChange={(value) => setVolume(value)}
+						onChange={(value) => {
+							setVolume(value)
+							setVolumeLevel(volumeLevelFilter(value))
+						}}
 					/>
 				</div>
 			</div>
