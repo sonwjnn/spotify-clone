@@ -22,18 +22,19 @@ interface SidebarProps {
 }
 
 interface SidebarItemProps {
-	icon: IconType
+	icon: IconType[]
 	label: string
 	active?: boolean
 	href: string
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
-	icon: Icon,
+	icon,
 	label,
 	active,
 	href,
 }) => {
+	const Icon = active ? icon[0] : icon[1]
 	return (
 		<Link
 			href={href}
@@ -56,13 +57,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
 	const routes = useMemo(
 		() => [
 			{
-				icon: pathname !== '/search' ? HomeActiveIcon : HomeIcon,
+				icon: [HomeActiveIcon, HomeIcon],
 				label: 'Home',
 				active: pathname !== '/search',
 				href: '/',
 			},
 			{
-				icon: pathname === '/search' ? SearchActiveIcon : SearchIcon,
+				icon: [SearchActiveIcon, SearchIcon],
 				label: 'Search',
 				active: pathname === '/search',
 				href: '/search',
@@ -85,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
 						))}
 					</div>
 				</Box>
-				<Box className='overflow-y-auto h-full'>
+				<Box className='overflow-y-hidden hover:overflow-y-auto h-full'>
 					<Library songs={songs} />
 				</Box>
 			</div>

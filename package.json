@@ -32,6 +32,7 @@
     "react-hook-form": "^7.44.3",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.9.0",
+    "react-loading-skeleton": "^3.3.1",
     "react-spinners": "^0.13.8",
     "stripe": "^12.9.0",
     "supabase": ">=1.8.1",

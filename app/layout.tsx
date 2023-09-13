@@ -5,6 +5,7 @@ import SupabaseProvider from '@/providers/SupabaseProvider'
 import UserProvider from '@/providers/UserProvider'
 import ModalProvider from '@/providers/ModalProvider'
 import ToasterProvider from '@/providers/ToasterProvider'
+import SkeletonProvider from '@/providers/SkeletonProvider'
 import getSongsByUserId from '@/actions/getSongsByUserId'
 import Player from '@/components/Player'
 import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
@@ -30,13 +31,15 @@ export default async function RootLayout({
 		<html lang='en' suppressHydrationWarning={true}>
 			<body className={font.className}>
 				<ToasterProvider />
-				<SupabaseProvider>
-					<UserProvider>
-						<ModalProvider products={products} />
-						<Sidebar songs={userSongs}>{children}</Sidebar>
-						<Player />
-					</UserProvider>
-				</SupabaseProvider>
+				<SkeletonProvider>
+					<SupabaseProvider>
+						<UserProvider>
+							<ModalProvider products={products} />
+							<Sidebar songs={userSongs}>{children}</Sidebar>
+							<Player />
+						</UserProvider>
+					</SupabaseProvider>
+				</SkeletonProvider>
 			</body>
 		</html>
 	)

@@ -1,5 +1,7 @@
 'use client'
 import {
+	PauseIcon,
+	PlayIcon,
 	RepeatIcon,
 	ShuffleIcon,
 	SkipBackIcon,
@@ -10,7 +12,6 @@ import {
 import { Song } from '@/types'
 import MediaItem from './MediaItem'
 import LikeButton from './LikeButton'
-import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 import VolumeSlider from './VolumeSlider'
 import AudioSlider from './AudioSlider'
 import usePlayer from '@/hooks/usePlayer'
@@ -64,7 +65,7 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 		},
 	)
 
-	const Icon = isPlaying ? BsPauseFill : BsPlayFill
+	const Icon = isPlaying ? PauseIcon : PlayIcon
 
 	useEffect(() => {
 		if (duration) {
@@ -189,6 +190,28 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 		sound.seek([value])
 	}
 
+	//detect the click event on the keyboard: pause, play, back, forward,...
+
+	navigator.mediaSession.setActionHandler('play', () => {
+		handlePlay()
+	})
+
+	navigator.mediaSession.setActionHandler('pause', () => {
+		handlePlay()
+	})
+
+	// navigator.mediaSession.setActionHandler('stop', () => {
+	//   ()
+	// })
+
+	navigator.mediaSession.setActionHandler('previoustrack', () => {
+		onPlayPrevious()
+	})
+
+	navigator.mediaSession.setActionHandler('nexttrack', () => {
+		onPlayNext()
+	})
+
 	return (
 		<div className='flex justify-between h-full'>
 			<div className='flex   w-[30%] justify-start '>
@@ -227,9 +250,9 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 					>
 						<div
 							onClick={handlePlay}
-							className='flex items-center justify-center w-10 h-10 rounded-full bg-white p-1 cursor-pointer'
+							className='flex items-center justify-center w-[36px] h-[36px] rounded-full bg-white p-1 cursor-pointer'
 						>
-							<Icon size={26} className='text-black' />
+							<Icon />
 						</div>
 					</Tooltip>
 
@@ -276,9 +299,9 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 			<div className='flex md:hidden col-auto w-full justify-end items-center'>
 				<div
 					onClick={handlePlay}
-					className='h-10 w-10 flex items-center justify-start rounded-full bg-white p-1 cursor-pointer'
+					className='h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer'
 				>
-					<Icon size={30} className='text-black' />
+					<Icon size={20} />
 				</div>
 			</div>
 
@@ -287,7 +310,10 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 					<Tooltip
 						text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}
 					>
-						<button className='cursor-pointer' onClick={toggleMute}>
+						<button
+							className='cursor-pointer flex justify-center'
+							onClick={toggleMute}
+						>
 							<SoundIcon level={volumeLevel} />
 						</button>
 					</Tooltip>
