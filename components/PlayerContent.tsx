@@ -3,6 +3,7 @@ import {
 	PauseIcon,
 	PlayIcon,
 	RepeatIcon,
+	ShuffleActiveIcon,
 	ShuffleIcon,
 	SkipBackIcon,
 	SkipForwardIcon,
@@ -228,11 +229,11 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 					>
 						<button
 							onClick={() => setIsRandom(!isRandom)}
-							className={`${
-								isRandom ? 'text-[#22c55e]' : 'text-neutral-400'
-							}  cursor-pointer  transition hover:text-white`}
+							className={`${'text-neutral-400'}  cursor-pointer  transition hover:text-white`}
 						>
-							<ShuffleIcon />
+							{isRandom
+								? <ShuffleIcon color='#22e55c' />
+								: <ShuffleIcon />}
 						</button>
 					</Tooltip>
 
@@ -270,11 +271,11 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 					>
 						<button
 							onClick={() => setIsReplay(!isReplay)}
-							className={`${
-								isReplay ? 'text-[#22c55e]' : 'text-neutral-400'
-							}  cursor-pointer  transition hover:text-white`}
+							className={`text-neutral-400 cursor-pointer transition hover:text-white`}
 						>
-							<RepeatIcon />
+							{isReplay
+								? <RepeatIcon color='#22e55c' />
+								: <RepeatIcon />}
 						</button>
 					</Tooltip>
 				</div>

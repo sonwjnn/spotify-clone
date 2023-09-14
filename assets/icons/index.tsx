@@ -1,5 +1,6 @@
 interface IconProps {
 	size?: number
+	color?: string
 }
 
 export function SearchActiveIcon() {
@@ -21,13 +22,14 @@ export function SearchActiveIcon() {
 	)
 }
 
-export function SearchIcon() {
+export function SearchIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor', size = 24 } = props
 	return (
 		<svg
 			role='img'
-			fill='currentColor'
-			height='24'
-			width='24'
+			fill={color}
+			height={size}
+			width={size}
 			aria-hidden='true'
 			viewBox='0 0 24 24'
 			data-encore-id='icon'
@@ -38,13 +40,14 @@ export function SearchIcon() {
 	)
 }
 
-export function HomeActiveIcon() {
+export function HomeActiveIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor', size = 24 } = props
 	return (
 		<svg
 			role='img'
-			fill='currentColor'
-			height='24'
-			width='24'
+			fill={color}
+			height={size}
+			width={size}
 			aria-hidden='true'
 			viewBox='0 0 24 24'
 			data-encore-id='icon'
@@ -264,12 +267,13 @@ export function SkipForwardIcon() {
 	)
 }
 
-export function ShuffleIcon() {
+export function ShuffleIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor' } = props
 	return (
 		<svg
 			role='img'
 			height='16'
-			fill='currentColor'
+			fill={color}
 			width='16'
 			aria-hidden='true'
 			viewBox='0 0 16 16'
@@ -283,11 +287,12 @@ export function ShuffleIcon() {
 	)
 }
 
-export function RepeatIcon() {
+export function RepeatIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor' } = props
 	return (
 		<svg
 			role='img'
-			fill='currentColor'
+			fill={color}
 			height='16'
 			width='16'
 			aria-hidden='true'

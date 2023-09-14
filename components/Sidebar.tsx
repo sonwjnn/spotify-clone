@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import {
 	HomeActiveIcon,
 	HomeIcon,
@@ -97,4 +97,4 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
 	)
 }
 
-export default Sidebar
+export default memo(Sidebar)

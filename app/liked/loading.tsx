@@ -1,12 +1,12 @@
 'use client'
 
-import Header from '@/components/Header'
+import HeaderLoading from '@/components/LoadingLayout/HeaderLoading'
 import Skeleton from 'react-loading-skeleton'
 
 const Loading = () => {
 	return (
 		<div className='bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto'>
-			<Header className='from-neutral-700'>
+			<HeaderLoading className='from-neutral-700'>
 				<div className='flex flex-col md:flex-row items-center gap-x-5'>
 					<div className='relative h-32 w-32 lg:h-44 lg:w-44'>
 						<Skeleton height={'100%'} />
@@ -20,7 +20,7 @@ const Loading = () => {
 						</h1>
 					</div>
 				</div>
-			</Header>
+			</HeaderLoading>
 			<div className='flex flex-col gap-y-2 w-full p-6'>
 				{Array(4).fill(0).map((item, index) => (
 					<div
