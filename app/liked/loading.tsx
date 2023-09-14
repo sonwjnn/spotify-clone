@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton'
 const Loading = () => {
 	return (
 		<div className='bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto'>
-			<HeaderLoading className='from-neutral-700'>
+			<HeaderLoading className='from-emerald-800'>
 				<div className='flex flex-col md:flex-row items-center gap-x-5'>
 					<div className='relative h-32 w-32 lg:h-44 lg:w-44'>
 						<Skeleton height={'100%'} />

@@ -55,7 +55,7 @@ const AccountContent = () => {
 					<div className='flex flex-col gap-y-4'>
 						<p>
 							You are currency on the{' '}
-							<b>{subscription?.prices?.products?.name}</b> plan.
+							<b>{subscription?.prices?.product?.name}</b> plan.
 						</p>
 
 						<Button

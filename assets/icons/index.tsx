@@ -3,13 +3,14 @@ interface IconProps {
 	color?: string
 }
 
-export function SearchActiveIcon() {
+export function SearchActiveIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor', size = 24 } = props
 	return (
 		<svg
 			role='img'
-			fill='currentColor'
-			height='24'
-			width='24'
+			fill={color}
+			height={size}
+			width={size}
 			aria-hidden='true'
 			viewBox='0 0 24 24'
 			data-encore-id='icon'
@@ -58,13 +59,14 @@ export function HomeActiveIcon(props: Partial<IconProps>) {
 	)
 }
 
-export function HomeIcon() {
+export function HomeIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor', size = 24 } = props
 	return (
 		<svg
 			role='img'
-			fill='currentColor'
-			height='24'
-			width='24'
+			fill={color}
+			height={size}
+			width={size}
 			aria-hidden='true'
 			viewBox='0 0 24 24'
 			data-encore-id='icon'

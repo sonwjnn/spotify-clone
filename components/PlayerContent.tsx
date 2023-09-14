@@ -3,7 +3,6 @@ import {
 	PauseIcon,
 	PlayIcon,
 	RepeatIcon,
-	ShuffleActiveIcon,
 	ShuffleIcon,
 	SkipBackIcon,
 	SkipForwardIcon,

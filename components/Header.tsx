@@ -1,9 +1,14 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
-import { HomeActiveIcon, SearchIcon } from '@/assets/icons'
+import {
+	HomeActiveIcon,
+	HomeIcon,
+	SearchActiveIcon,
+	SearchIcon,
+} from '@/assets/icons'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Button from './Button'
 import useAuthModal from '@/hooks/useAuthModal'
@@ -11,7 +16,8 @@ import { FaUserAlt } from 'react-icons/fa'
 import { useUser } from '@/hooks/useUser'
 import { toast } from 'react-hot-toast'
 import usePlayer from '@/hooks/usePlayer'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
+import Link from 'next/link'
 
 interface HeaderProps {
 	children: React.ReactNode
@@ -26,6 +32,26 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
 	const supabaseClient = useSupabaseClient()
 
+	const pathname = usePathname()
+
+	const routes = useMemo(
+		() => [
+			{
+				icon: [HomeActiveIcon, HomeIcon],
+				label: 'Home',
+				active: pathname !== '/search',
+				href: '/',
+			},
+			{
+				icon: [SearchActiveIcon, SearchIcon],
+				label: 'Search',
+				active: pathname === '/search',
+				href: '/search',
+			},
+		],
+		[pathname],
+	)
+
 	const handleLogout = async () => {
 		const { error } = await supabaseClient.auth.signOut()
 		player.reset()
@@ -37,6 +63,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 			toast.success('Logged out!')
 		}
 	}
+
 	return (
 		<div
 			className={twMerge(
@@ -60,12 +87,20 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 					</button>
 				</div>
 				<div className='flex md:hidden gap-x-2 items-center'>
-					<button className='flex rounded-full w-10 h-10 bg-white p-2 items-center justify-center hover:opacity-75 transition'>
-						<HomeActiveIcon size={20} color='#000000' />
-					</button>
-					<button className='flex rounded-full w-10 h-10 bg-white p-2 items-center justify-center hover:opacity-75 transition'>
-						<SearchIcon size={20} color='#000000' />
-					</button>
+					{routes.map((item, index) => {
+						const Icon = item.active ? item.icon[0] : item.icon[1]
+						return (
+							<Link
+								key={index}
+								href={item.href}
+								className={twMerge(
+									`flex rounded-full w-10 h-10 bg-white p-2 items-center justify-center hover:opacity-75 transition`,
+								)}
+							>
+								<Icon size={22} color='#000000' />
+							</Link>
+						)
+					})}
 				</div>
 				<div className='flex justify-between items-center gap-x-4'>
 					{user
