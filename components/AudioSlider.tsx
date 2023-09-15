@@ -19,7 +19,7 @@ const Slider: React.FC<SliderProps> = (
 	return (
 		<RadixSlider.Root
 			className={twMerge(
-				'group  relative flex items-center select-none cursor-pointer touch-none w-full h-10',
+				'group  relative flex items-center select-none cursor-pointer touch-none w-[60%] lg:w-full h-10',
 				className,
 			)}
 			defaultValue={[0]}

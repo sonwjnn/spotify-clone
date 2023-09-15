@@ -9,9 +9,10 @@ import { toast } from 'react-hot-toast'
 
 interface LikeButtonProps {
 	songId: string
+	size?: number
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
+const LikeButton: React.FC<LikeButtonProps> = ({ songId, size = 25 }) => {
 	const router = useRouter()
 
 	const { supabaseClient } = useSessionContext()
@@ -72,7 +73,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
 
 	return (
 		<button onClick={handleLike} className='hover:opacity-75 transition'>
-			<Icon color={isLiked ? '#22c55e' : 'white'} size={25} />
+			<Icon color={isLiked ? '#22c55e' : 'white'} size={size} />
 		</button>
 	)
 }

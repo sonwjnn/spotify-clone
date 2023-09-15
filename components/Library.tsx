@@ -7,7 +7,6 @@ import { Song } from '@/types'
 import MediaItem from './MediaItem'
 import useOnPlay from '@/hooks/useOnPlay'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
-// import Tooltip from './Tooltip'
 
 interface LibraryProps {
 	songs: Song[]

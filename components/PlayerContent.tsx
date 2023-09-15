@@ -214,10 +214,10 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 
 	return (
 		<div className='flex justify-between h-full'>
-			<div className='flex   w-[30%] justify-start '>
-				<div className='flex justify-center items-center gap-x-4'>
+			<div className='flex   w-[50%] md:w-[30%] justify-start '>
+				<div className='flex justify-center items-center gap-x-1 max-w-full md:max-w-[200px] lg:max-w-full pl-2'>
 					<MediaItem data={song} />
-					<LikeButton songId={song.id} />
+					<LikeButton songId={song.id} size={22} />
 				</div>
 			</div>
 
@@ -278,7 +278,7 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 						</button>
 					</Tooltip>
 				</div>
-				<div className='flex gap-x-1'>
+				<div className='flex gap-x-1 items-center justify-center'>
 					<div className='text-neutral-400 text-xs w-8'>
 						{currentTime.min}:{currentTime.sec}
 					</div>
@@ -296,7 +296,7 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 				</div>
 			</div>
 
-			<div className='flex md:hidden col-auto w-full justify-end items-center'>
+			<div className='flex md:hidden  w-full justify-end items-center'>
 				<div
 					onClick={handlePlay}
 					className='h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer'
