@@ -1,10 +1,21 @@
-import { PlayIcon } from '@/assets/icons'
+import { PauseIcon, PlayIcon } from '@/assets/icons'
+import { useAppSelector } from '@/redux/hooks'
 
-const PlayButton = () => {
+interface PlayButtonProps {
+	id?: string
+}
+
+const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
+	const { currentSong, isPlaying } = useAppSelector((state) => state.player)
+
+	const isPlayingCurrentSong = currentSong?.id === id && isPlaying
+
+	const Icon = isPlayingCurrentSong ? PauseIcon : PlayIcon
 	return (
-		<button className='
+		<button
+			className={`
         transition
-        opacity-0
+        opacity-${isPlayingCurrentSong ? '1' : '0'}
         rounded-full
         flex
         items-center
@@ -13,12 +24,13 @@ const PlayButton = () => {
         p-4
         drop-shadow-md
         translate
-        translate-y-1/4
+        translate-y-${isPlayingCurrentSong ? '0' : '1/4'}
         group-hover:opacity-100
         group-hover:translate-y-0
         hover:scale-110
-      '>
-			<PlayIcon size={20} />
+      `}
+		>
+			<Icon />
 		</button>
 	)
 }

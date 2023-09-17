@@ -1,4 +1,5 @@
 'use client'
+
 import * as RadixSlider from '@radix-ui/react-slider'
 import { twMerge } from 'tailwind-merge'
 
@@ -23,7 +24,7 @@ const Slider: React.FC<SliderProps> = ({ className, value = 1, onChange }) => {
 			value={[value]}
 			onValueChange={handleChange}
 			max={[1]}
-			step={0.1}
+			step={0.05}
 			arial-label='Volume'
 		>
 			<RadixSlider.Track className='bg-neutral-600  relative rounded-full grow h-[3px]'>
