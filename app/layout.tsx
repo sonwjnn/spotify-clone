@@ -10,6 +10,7 @@ import SkeletonProvider from '@/providers/SkeletonProvider'
 import getSongsByUserId from '@/actions/getSongsByUserId'
 import Player from '@/components/Player'
 import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
+import { Providers as ReduxProvider } from '@/redux/provider'
 
 const font = Figtree({ subsets: ['latin'] })
 
@@ -37,24 +38,26 @@ export default async function RootLayout({
 				<ToasterProvider />
 				<SkeletonProvider>
 					<SupabaseProvider>
-						<UserProvider>
-							<ModalProvider products={products} />
-							{/* <Split */}
-							{/* 	cursor='col-resize' */}
-							{/* 	minSize={false ? [280, 400, 0] : [280, 600]} */}
-							{/* 	maxSize={false */}
-							{/* 		? [500, 99999, 400] */}
-							{/* 		: [500, 99999]} */}
-							{/* 	// sizes={[20, 70, 10]} */}
-							{/* 	sizes={false ? [20, 60, 20] : [20, 80]} */}
-							{/* 	className={'flex flex-row h-full w-full'} */}
-							{/* 	gutterSize={8} */}
-							{/* 	snapOffset={20} */}
-							{/* > */}
-							<Sidebar songs={userSongs}>{children}</Sidebar>
-							{/* </Split> */}
-							<Player />
-						</UserProvider>
+						<ReduxProvider>
+							<UserProvider>
+								<ModalProvider products={products} />
+								{/* <Split */}
+								{/* 	cursor='col-resize' */}
+								{/* 	minSize={false ? [280, 400, 0] : [280, 600]} */}
+								{/* 	maxSize={false */}
+								{/* 		? [500, 99999, 400] */}
+								{/* 		: [500, 99999]} */}
+								{/* 	// sizes={[20, 70, 10]} */}
+								{/* 	sizes={false ? [20, 60, 20] : [20, 80]} */}
+								{/* 	className={'flex flex-row h-full w-full'} */}
+								{/* 	gutterSize={8} */}
+								{/* 	snapOffset={20} */}
+								{/* > */}
+								<Sidebar songs={userSongs}>{children}</Sidebar>
+								{/* </Split> */}
+								<Player />
+							</UserProvider>
+						</ReduxProvider>
 					</SupabaseProvider>
 				</SkeletonProvider>
 			</body>
