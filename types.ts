@@ -65,3 +65,49 @@ export interface Subscription {
 	trial_end?: string
 	prices?: Price
 }
+
+export interface ArtistData {
+	name: string
+	id: string
+}
+
+export interface ImageSource {
+	url: string
+	width: number
+	height: number
+}
+
+export interface SpotifyAlbum {
+	artists?: ArtistData[]
+	images?: ImageSource[]
+	id?: string
+	name?: string
+	album_type?:
+		| 'album'
+		| 'Playlist'
+		| 'single'
+		| 'compilation'
+		| 'podcast'
+		| 'episode'
+
+	release_date?: string
+	description?: string
+	tracks?: {
+		total?: number
+		items: SpotifyTrack[]
+	}
+	copyrights?: {
+		text?: string
+		type?: string
+	}[]
+}
+
+export interface SpotifyTrack {
+	album?: SpotifyAlbum
+	artists?: ArtistData[]
+	explicit?: boolean
+	duration_ms?: number
+	name?: string
+	id?: string
+	popularity?: number
+}

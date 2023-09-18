@@ -22,7 +22,7 @@ import useSound from 'use-sound'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { Song } from '@/types'
 import usePlayer from '@/hooks/usePlayer'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { setCurrentTime } from '@/redux/features/playerSlice'
 import Slider from '../Slider'
 
@@ -65,7 +65,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		},
 	)
 
-	const startTimer = useCallback(() => {
+	const startTimer = () => {
 		clearInterval(intervalIdRef?.current)
 		intervalIdRef.current = setInterval(() => {
 			if (sound) {
@@ -78,7 +78,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 				})
 			}
 		}, 1000)
-	}, [duration, sound])
+	}
 
 	useEffect(() => {
 		sound?.play()
@@ -91,7 +91,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		return () => {
 			sound?.unload()
 		}
-	}, [sound, dispatch, startTimer])
+	}, [sound, dispatch])
 
 	useEffect(() => {
 		if (isPlaying) {
@@ -99,7 +99,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		} else {
 			clearInterval(intervalIdRef?.current)
 		}
-	}, [isPlaying, currentTime, startTimer])
+	}, [isPlaying, currentTime])
 
 	useEffect(() => {
 		if (sound) {
@@ -132,8 +132,8 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		if (!nextSong && !isReplay && !isSuffle) {
 			return player.setId(player.ids[0])
 		}
-		console.log(isSuffle)
 
+		// handle random
 		if (isSuffle) {
 			const randomLength = player.ids.length
 			const max = randomLength - 1
@@ -148,6 +148,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 			return player.setId(randomSong)
 		}
 
+		// handle replay
 		if (isReplay) {
 			dispatch(setCurrentTime(0))
 			if (sound) {
@@ -159,6 +160,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 			return
 		}
 
+		// default change next song
 		player.setId(nextSong)
 	}
 

@@ -41,13 +41,21 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
 						Your Library
 					</p>
 				</div>
-				{/* <Tooltip text='Add new song'> */}
-				<AiOutlinePlus
-					onClick={onClick}
-					size={20}
-					className='text-neutral-400 cursor-pointer hover:text-white transition'
-				/>
-				{/* </Tooltip> */}
+
+				<div
+					className={'min-h-8  flex flex-row justify-end'}
+				>
+					<div
+						className={'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'}
+					>
+						<button
+							className='absolute flex items-center justify-center  right-[1px] border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition'
+							onClick={onClick}
+						>
+							<AiOutlinePlus size={20} />
+						</button>
+					</div>
+				</div>
 			</div>
 			<div className='flex flex-col gap-y-2 mt-4 px-3 '>
 				{songs.map((item) => (

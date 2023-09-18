@@ -1,7 +1,5 @@
 import './globals.css'
 import { Figtree } from 'next/font/google'
-// import Split from 'react-split'
-import Sidebar from '@/components/Sidebar'
 import SupabaseProvider from '@/providers/SupabaseProvider'
 import UserProvider from '@/providers/UserProvider'
 import ModalProvider from '@/providers/ModalProvider'
@@ -11,6 +9,7 @@ import getSongsByUserId from '@/actions/getSongsByUserId'
 import Player from '@/components/Player'
 import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
 import { Providers as ReduxProvider } from '@/redux/provider'
+import MainContent from '@/components/MainContent'
 
 const font = Figtree({ subsets: ['latin'] })
 
@@ -26,12 +25,8 @@ export default async function RootLayout({
 }: {
 	children: React.ReactNode
 }) {
-	const userSongs = await getSongsByUserId()
 	const products = await getActiveProductsWithPrices()
-	// const test = <Split></Split>
-
-	// console.log(test ? true : false)
-
+	const userSongs = await getSongsByUserId()
 	return (
 		<html lang='en' suppressHydrationWarning={true}>
 			<body className={font.className}>
@@ -41,20 +36,9 @@ export default async function RootLayout({
 						<ReduxProvider>
 							<UserProvider>
 								<ModalProvider products={products} />
-								{/* <Split */}
-								{/* 	cursor='col-resize' */}
-								{/* 	minSize={false ? [280, 400, 0] : [280, 600]} */}
-								{/* 	maxSize={false */}
-								{/* 		? [500, 99999, 400] */}
-								{/* 		: [500, 99999]} */}
-								{/* 	// sizes={[20, 70, 10]} */}
-								{/* 	sizes={false ? [20, 60, 20] : [20, 80]} */}
-								{/* 	className={'flex flex-row h-full w-full'} */}
-								{/* 	gutterSize={8} */}
-								{/* 	snapOffset={20} */}
-								{/* > */}
-								<Sidebar songs={userSongs}>{children}</Sidebar>
-								{/* </Split> */}
+								<MainContent songs={userSongs}>
+									{children}
+								</MainContent>
 								<Player />
 							</UserProvider>
 						</ReduxProvider>

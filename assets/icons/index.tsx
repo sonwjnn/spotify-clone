@@ -307,11 +307,12 @@ export function RepeatIcon(props: Partial<IconProps>) {
 	)
 }
 
-export function PlayingViewIcon() {
+export function PlayingViewIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor' } = props
 	return (
 		<svg
 			role='img'
-			fill='currentColor'
+			fill={color}
 			height='16'
 			width='16'
 			aria-hidden='true'

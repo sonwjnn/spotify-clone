@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import playerReducer from './features/playerSlice'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
+
+import playerReducer from './features/playerSlice'
+import playingViewReducer from './features/playingViewSlice'
 
 export const store = configureStore({
 	reducer: {
 		player: playerReducer,
+		playingView: playingViewReducer,
 	},
 	devTools: process.env.NODE_ENV !== 'production',
 	// middleware: (getDefaultMiddleware) =>

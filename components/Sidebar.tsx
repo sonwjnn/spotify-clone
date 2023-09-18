@@ -11,30 +11,28 @@ import {
 import Box from './Box'
 import { IconType } from 'react-icons'
 import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
 import Library from './Library'
 import { Song } from '@/types'
-import usePlayer from '@/hooks/usePlayer'
+import { twMerge } from 'tailwind-merge'
 
 interface SidebarProps {
-	children: React.ReactNode
 	songs: Song[]
 }
 
 interface SidebarItemProps {
-	icon: IconType[]
+	icons: IconType[]
 	label: string
 	active?: boolean
 	href: string
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
-	icon,
+	icons,
 	label,
 	active,
 	href,
 }) => {
-	const Icon = active ? icon[0] : icon[1]
+	const Icon = active ? icons[0] : icons[1]
 	return (
 		<Link
 			href={href}
@@ -49,21 +47,19 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 	)
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
+const Sidebar: React.FC<SidebarProps> = ({ songs }) => {
 	const pathname = usePathname()
-
-	const player = usePlayer()
 
 	const routes = useMemo(
 		() => [
 			{
-				icon: [HomeActiveIcon, HomeIcon],
+				icons: [HomeActiveIcon, HomeIcon] as IconType[],
 				label: 'Home',
 				active: pathname !== '/search',
 				href: '/',
 			},
 			{
-				icon: [SearchActiveIcon, SearchIcon],
+				icons: [SearchActiveIcon, SearchIcon] as IconType[],
 				label: 'Search',
 				active: pathname === '/search',
 				href: '/search',
@@ -71,28 +67,19 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
 		],
 		[pathname],
 	)
+
 	return (
-		<div
-			className={twMerge(
-				`flex h-full`,
-				player.activeId && 'h-[calc(100%-80px)]',
-			)}
-		>
-			<div className='hidden md:flex flex-col bg-black gap-y-2 h-full w-[300px] p-2'>
-				<Box>
-					<div className='flex flex-col gap-y-4 px-5 py-4'>
-						{routes.map((item) => (
-							<SidebarItem key={item.label} {...item} />
-						))}
-					</div>
-				</Box>
-				<Box className='overflow-y-hidden hover:overflow-y-auto h-full'>
-					<Library songs={songs} />
-				</Box>
-			</div>
-			<main className='h-full flex-1 overflow-y-auto py-2'>
-				{children}
-			</main>
+		<div className='hidden md:flex flex-col bg-black gap-y-2 h-full min-w-[300px] max-w-[500px] py-2 pl-2'>
+			<Box>
+				<div className='flex flex-col gap-y-4 px-5 py-4'>
+					{routes.map((item) => (
+						<SidebarItem key={item.label} {...item} />
+					))}
+				</div>
+			</Box>
+			<Box className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'>
+				<Library songs={songs} />
+			</Box>
 		</div>
 	)
 }

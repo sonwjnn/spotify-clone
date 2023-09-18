@@ -2,14 +2,16 @@
 
 import { useCallback, useState } from 'react'
 import Tooltip from '../Tooltip'
-import { SoundIcon, SoundLevel } from '@/assets/icons'
+import { PlayingViewIcon, SoundIcon, SoundLevel } from '@/assets/icons'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setVolume } from '@/redux/features/playerSlice'
+import { setPlayingViewShowed } from '@/redux/features/playingViewSlice'
 import Slider from '../Slider'
 
 const Right = () => {
 	const dispatch = useAppDispatch()
 	const { volume } = useAppSelector((state) => state.player)
+	const { isPlayingViewShowed } = useAppSelector((state) => state.playingView)
 	const [previousVolume, setPreviousVolume] = useState<number>(volume)
 	const [volumeLevel, setVolumeLevel] = useState<SoundLevel>('medium')
 
@@ -42,7 +44,19 @@ const Right = () => {
 	}
 
 	return (
-		<div className='flex items-center gap-x-2 w-[120px]'>
+		<div className='flex items-center justify-end gap-x-2 w-[120px]'>
+			<Tooltip text='Playing View'>
+				<button
+					className='cursor-pointer flex justify-center'
+					onClick={() =>
+						dispatch(setPlayingViewShowed(!isPlayingViewShowed))}
+				>
+					<PlayingViewIcon
+						color={isPlayingViewShowed ? '#22e55c' : undefined}
+					/>
+				</button>
+			</Tooltip>
+
 			<Tooltip
 				text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}
 			>

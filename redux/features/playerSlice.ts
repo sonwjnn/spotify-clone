@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Song } from '@/types'
 interface PlayerState {
-	currentSong: Song | null
+	currentSong: Song | undefined
 	isPlaying: boolean
 	isReplay: boolean
 	isSuffle: boolean
@@ -10,7 +10,7 @@ interface PlayerState {
 }
 
 const initialState: PlayerState = {
-	currentSong: null,
+	currentSong: undefined,
 	isPlaying: false,
 	isReplay: false,
 	isSuffle: false,
