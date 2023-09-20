@@ -1,12 +1,13 @@
 'use client'
 
-import { SingleMusicNote } from '@/assets/icons'
+import { MusicNote, SingleMusicNote } from '@/assets/icons'
 import { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Marquee from 'react-fast-marquee'
 import useLoadImage from '@/hooks/useLoadImage'
 import { Song } from '@/types'
+import Skeleton from 'react-loading-skeleton'
 
 interface NextSongProps {
 	song: Song | undefined
@@ -41,37 +42,61 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
 						<SingleMusicNote size={16} />
 					</div>
 					<div
-						className={' h-full aspect-square overflow-hidden rounded'}
+						className={' h-12 w-12'}
 					>
-						<div className='relative aspect-square h-full w-full rounded-md overflow-hidden'>
-							<Image
-								className='
+						{imagePath
+							? (
+								<div className='relative aspect-square h-full w-full rounded-md overflow-hidden'>
+									<Image
+										className='
             object-cover
           '
-								src={imagePath || '/image/liked.png'}
-								fill
-								alt='Img'
-								sizes='100%'
-							/>
-						</div>
+										src={imagePath}
+										fill
+										alt='Img'
+										sizes='100%'
+									/>
+								</div>
+							)
+							: (
+								<div
+									className={'h-full w-full text-white rounded-lg bg-[#282828] flex items-center justify-center'}
+								>
+									<MusicNote size={20} />
+								</div>
+							)}
 					</div>
 					<div className={'flex flex-col overflow-hidden flex-1'}>
-						<Link href={`/`}>
-							<Marquee
-								pauseOnHover={true}
-								speed={20}
-								direction={'right'}
-							>
-								<span
-									className={'text-base text-white font-bold cursor-pointer hover:underline'}
-								>
-									{song?.title}
+						{song?.title
+							? (
+								<Link href={`/`}>
+									<Marquee
+										pauseOnHover={true}
+										speed={20}
+										direction={'right'}
+									>
+										<span
+											className={'text-base text-white font-bold cursor-pointer hover:underline'}
+										>
+											{song?.title}
+										</span>
+									</Marquee>
+								</Link>
+							)
+							: <Skeleton height={'100%'} borderRadius={50} />}
+						{song?.author
+							? (
+								<span className={'text-sm'}>
+									{song?.author}
 								</span>
-							</Marquee>
-						</Link>
-						<span className={'text-sm'}>
-							{song?.author}
-						</span>
+							)
+							: (
+								<Skeleton
+									height={'100%'}
+									width={'40%'}
+									borderRadius={50}
+								/>
+							)}
 					</div>
 				</div>
 			</div>

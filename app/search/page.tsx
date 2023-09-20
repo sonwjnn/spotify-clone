@@ -22,6 +22,7 @@ const Search = async ({ searchParams }: SearchProps) => {
       w-full
       overflow-hidden
       overflow-y-auto
+      [&::-webkit-scrollbar]:[width:0px]
       '>
 			<Header className='from-bg-neutral-900'>
 				<div className='mb-2 flex flex-col gap-y-6'>

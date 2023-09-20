@@ -17,6 +17,7 @@ import { twMerge } from 'tailwind-merge'
 
 interface SidebarProps {
 	songs: Song[]
+	className: string
 }
 
 interface SidebarItemProps {
@@ -47,7 +48,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 	)
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ songs }) => {
+const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 	const pathname = usePathname()
 
 	const routes = useMemo(
@@ -69,7 +70,12 @@ const Sidebar: React.FC<SidebarProps> = ({ songs }) => {
 	)
 
 	return (
-		<div className='hidden md:flex flex-col bg-black gap-y-2 h-full min-w-[300px] max-w-[500px] py-2 pl-2'>
+		<div
+			className={twMerge(
+				`hidden md:flex flex-col bg-black gap-y-2 h-full  py-2 pl-2`,
+				className,
+			)}
+		>
 			<Box>
 				<div className='flex flex-col gap-y-4 px-5 py-4'>
 					{routes.map((item) => (

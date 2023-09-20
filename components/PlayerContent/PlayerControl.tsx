@@ -9,21 +9,12 @@ import {
 	SkipForwardIcon,
 } from '@/assets/icons'
 
-import {
-	setCurrentSong,
-	setPlaying,
-	setReplay,
-	setSuffle,
-} from '@/redux/features/playerSlice'
-
 import Tooltip from '../Tooltip'
 import durationConvertor from '@/utils/durationConvertor'
 import useSound from 'use-sound'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { Song } from '@/types'
-import usePlayer from '@/hooks/usePlayer'
+import usePlayer from '@/stores/usePlayer'
 import { useEffect, useRef, useState } from 'react'
-import { setCurrentTime } from '@/redux/features/playerSlice'
 import Slider from '../Slider'
 
 interface PlayerControlProps {
@@ -34,18 +25,28 @@ interface PlayerControlProps {
 const PlayerControl: React.FC<PlayerControlProps> = (
 	{ song, songUrl },
 ) => {
-	const dispatch = useAppDispatch()
-	const player = usePlayer()
-
-	const { isReplay, isSuffle, isPlaying, volume, currentTime } =
-		useAppSelector((state) => state.player)
+	const {
+		ids: playerIds,
+		activeId,
+		isReplay,
+		isRandom,
+		isPlaying,
+		volume,
+		currentTime,
+		setPlaying,
+		setReplay,
+		setRandom,
+		setCurrentTime,
+		setId,
+		setCurrentSong,
+	} = usePlayer()
 
 	const [trackProcess, setTrackProcess] = useState<number>(0)
 
 	const intervalIdRef = useRef<any>()
 
 	const isReplayRef = useRef(false)
-	const isSuffleRef = useRef(false)
+	const isRandomRef = useRef(false)
 
 	const [play, { duration, pause, sound }] = useSound(
 		songUrl,
@@ -53,14 +54,14 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 			volume: volume,
 			loop: false,
 			onplay: () => {
-				dispatch(setPlaying(true))
-				dispatch(setCurrentSong(song))
+				setPlaying(true)
+				setCurrentSong(song)
 			},
 			onend: () => {
-				dispatch(setPlaying(false))
+				setPlaying(false)
 				onPlayNext()
 			},
-			onpause: () => dispatch(setPlaying(false)),
+			onpause: () => setPlaying(false),
 			format: ['mp3'],
 		},
 	)
@@ -83,7 +84,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 	useEffect(() => {
 		sound?.play()
 
-		dispatch(setCurrentTime(0))
+		setCurrentTime(0)
 		setTrackProcess(0)
 		clearInterval(intervalIdRef?.current)
 		startTimer()
@@ -91,7 +92,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		return () => {
 			sound?.unload()
 		}
-	}, [sound, dispatch])
+	}, [sound])
 
 	useEffect(() => {
 		if (isPlaying) {
@@ -113,29 +114,27 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 
 	useEffect(() => {
 		isReplayRef.current = isReplay
-		isSuffleRef.current = isSuffle
-	}, [isSuffle, isReplay])
+		isRandomRef.current = isRandom
+	}, [isRandom, isReplay])
 
 	const onPlayNext = () => {
-		if (player.ids.length === 0) {
+		if (playerIds.length === 0) {
 			return
 		}
 
 		const isReplay = isReplayRef.current
-		const isSuffle = isSuffleRef.current
+		const isRandom = isRandomRef.current
 
-		const currentIndex = player.ids.findIndex((id) =>
-			id === player.activeId
-		)
-		const nextSong = player.ids[currentIndex + 1]
+		const currentIndex = playerIds.findIndex((id) => id === activeId)
+		const nextSong = playerIds[currentIndex + 1]
 
-		if (!nextSong && !isReplay && !isSuffle) {
-			return player.setId(player.ids[0])
+		if (!nextSong && !isReplay && !isRandom) {
+			return setId(playerIds[0])
 		}
 
 		// handle random
-		if (isSuffle) {
-			const randomLength = player.ids.length
+		if (isRandom) {
+			const randomLength = playerIds.length
 			const max = randomLength - 1
 			let randomIndex = currentIndex
 
@@ -143,14 +142,14 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 				randomIndex = Math.floor(Math.random() * max)
 			}
 
-			const randomSong = player.ids[randomIndex]
+			const randomSong = playerIds[randomIndex]
 
-			return player.setId(randomSong)
+			return setId(randomSong)
 		}
 
 		// handle replay
 		if (isReplay) {
-			dispatch(setCurrentTime(0))
+			setCurrentTime(0)
 			if (sound) {
 				sound.seek([0])
 			}
@@ -161,24 +160,22 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		}
 
 		// default change next song
-		player.setId(nextSong)
+		setId(nextSong)
 	}
 
 	const onPlayPrevious = () => {
-		if (player.ids.length === 0) {
+		if (playerIds.length === 0) {
 			return
 		}
 
-		const currentIndex = player.ids.findIndex((id) =>
-			id === player.activeId
-		)
-		const previousSong = player.ids[currentIndex - 1]
+		const currentIndex = playerIds.findIndex((id) => id === activeId)
+		const previousSong = playerIds[currentIndex - 1]
 
 		if (!previousSong) {
-			return player.setId(player.ids[player.ids.length - 1])
+			return setId(playerIds[playerIds.length - 1])
 		}
 
-		player.setId(previousSong)
+		setId(previousSong)
 	}
 
 	const handlePlay = () => {
@@ -197,7 +194,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 	}
 
 	const handleMouseUp = (value: number) => {
-		dispatch(setCurrentTime(value))
+		setCurrentTime(value)
 		sound.seek([value])
 		startTimer()
 	}
@@ -206,13 +203,13 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		<>
 			<div className='flex gap-x-6 pb-1 justify-center items-center'>
 				<Tooltip
-					text={`${isSuffle ? 'Disable' : 'Enable'} suffle`}
+					text={`${isRandom ? 'Disable' : 'Enable'} suffle`}
 				>
 					<button
-						onClick={() => dispatch(setSuffle(!isSuffle))}
+						onClick={() => setRandom(!isRandom)}
 						className={'text-neutral-400  cursor-pointer  transition hover:text-white'}
 					>
-						<ShuffleIcon color={isSuffle ? '#22e55c' : undefined} />
+						<ShuffleIcon color={isRandom ? '#22e55c' : undefined} />
 					</button>
 				</Tooltip>
 
@@ -249,7 +246,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 					text={`${isReplay ? 'Disable' : 'Enable'} replay`}
 				>
 					<button
-						onClick={() => dispatch(setReplay(!isReplay))}
+						onClick={() => setReplay(!isReplay)}
 						className={`text-neutral-400 cursor-pointer transition hover:text-white`}
 					>
 						<RepeatIcon color={isReplay ? '#22e55c' : undefined} />

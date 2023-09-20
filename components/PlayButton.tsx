@@ -1,12 +1,12 @@
 import { PauseIcon, PlayIcon } from '@/assets/icons'
-import { useAppSelector } from '@/redux/hooks'
+import usePlayer from '@/stores/usePlayer'
 
 interface PlayButtonProps {
 	id?: string
 }
 
 const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
-	const { currentSong, isPlaying } = useAppSelector((state) => state.player)
+	const { currentSong, isPlaying } = usePlayer()
 
 	const isPlayingCurrentSong = currentSong?.id === id && isPlaying
 

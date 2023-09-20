@@ -4,28 +4,27 @@ import Marquee from 'react-fast-marquee'
 import { CloseIcon, MusicNote } from '@/assets/icons'
 import Link from 'next/link'
 import NextSong from './NextSong'
-import { setPlayingViewShowed } from '@/redux/features/playingViewSlice'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import Box from '../Box'
 import Image from 'next/image'
-import useLoadImage from '@/hooks/useLoadImage'
 import LikeButton from '../LikeButton'
-import usePlayer from '@/hooks/usePlayer'
+
+import useLoadImage from '@/hooks/useLoadImage'
+import usePlayer from '@/stores/usePlayer'
 import useGetSongById from '@/hooks/useGetSongById'
+import usePlayingView from '@/stores/usePlayingView'
 
 const PlayingView: React.FC = () => {
-	const dispatch = useAppDispatch()
-	const { currentSong } = useAppSelector((state) => state.player)
+	const playingView = usePlayingView()
+	const { currentSong, activeId, ids: playerIds } = usePlayer()
 	const imagePath = useLoadImage(currentSong)
 
 	// find next song
-	const player = usePlayer()
-	const currentIndex = player.ids.findIndex((id) => id === player.activeId)
-	const nextSongId = player.ids[currentIndex + 1] || player.ids[0]
+	const currentIndex = playerIds.findIndex((id) => id === activeId)
+	const nextSongId = playerIds[currentIndex + 1] || playerIds[0]
 	const { song: nextSong } = useGetSongById(nextSongId)
 
 	return (
-		<div className='max-w-[400px] min-w-[300px]   bg-black rounded-md py-2 pr-2  h-full '>
+		<div className='max-w-[400px] min-w-[280px]   bg-black rounded-md py-2 pr-2  h-full '>
 			<Box className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'>
 				<div className='flex flex-col gap-4 p-4'>
 					<div
@@ -36,8 +35,7 @@ const PlayingView: React.FC = () => {
 						>
 							<button
 								className='absolute flex items-center justify-center top-[1px] right-0 border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition'
-								onClick={() =>
-									dispatch(setPlayingViewShowed(false))}
+								onClick={() => playingView.setShowed(false)}
 							>
 								<CloseIcon />
 							</button>

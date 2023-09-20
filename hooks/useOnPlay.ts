@@ -1,8 +1,8 @@
 import { Song } from '@/types'
-import usePlayer from './usePlayer'
 import useAuthModal from './useAuthModal'
 import { useUser } from './useUser'
 import useSubscribeModal from './useSubscribeModal'
+import usePlayer from '@/stores/usePlayer'
 
 const useOnPlay = (songs: Song[]) => {
 	const player = usePlayer()

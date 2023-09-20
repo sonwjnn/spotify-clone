@@ -34,6 +34,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, size = 25 }) => {
 
 			if (!error && data) {
 				setIsLiked(true)
+			} else {
+				setIsLiked(false)
 			}
 		}
 
@@ -50,8 +52,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, size = 25 }) => {
 				.eq('user_id', user.id)
 				.eq('song_id', songId)
 
-			if (error) toast.error(error.message)
-			else setIsLiked(false)
+			if (error) return toast.error(error.message)
+			setIsLiked(false)
 		} else {
 			const { error } = await supabaseClient
 				.from('liked_songs')

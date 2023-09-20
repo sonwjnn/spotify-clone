@@ -15,7 +15,7 @@ import useAuthModal from '@/hooks/useAuthModal'
 import { FaUserAlt } from 'react-icons/fa'
 import { useUser } from '@/hooks/useUser'
 import { toast } from 'react-hot-toast'
-import usePlayer from '@/hooks/usePlayer'
+import usePlayer from '@/stores/usePlayer'
 import { memo, useMemo } from 'react'
 import Link from 'next/link'
 

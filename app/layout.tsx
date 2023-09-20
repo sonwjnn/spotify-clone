@@ -8,7 +8,6 @@ import SkeletonProvider from '@/providers/SkeletonProvider'
 import getSongsByUserId from '@/actions/getSongsByUserId'
 import Player from '@/components/Player'
 import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
-import { Providers as ReduxProvider } from '@/redux/provider'
 import MainContent from '@/components/MainContent'
 
 const font = Figtree({ subsets: ['latin'] })
@@ -27,21 +26,20 @@ export default async function RootLayout({
 }) {
 	const products = await getActiveProductsWithPrices()
 	const userSongs = await getSongsByUserId()
+
 	return (
 		<html lang='en' suppressHydrationWarning={true}>
 			<body className={font.className}>
 				<ToasterProvider />
 				<SkeletonProvider>
 					<SupabaseProvider>
-						<ReduxProvider>
-							<UserProvider>
-								<ModalProvider products={products} />
-								<MainContent songs={userSongs}>
-									{children}
-								</MainContent>
-								<Player />
-							</UserProvider>
-						</ReduxProvider>
+						<UserProvider>
+							<ModalProvider products={products} />
+							<MainContent songs={userSongs}>
+								{children}
+							</MainContent>
+							<Player />
+						</UserProvider>
 					</SupabaseProvider>
 				</SkeletonProvider>
 			</body>

@@ -12,10 +12,7 @@ interface SongItemProps {
 const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
 	const imagePath = useLoadImage(data)
 	return (
-		<div
-			className='relative flex flex-col group items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-3'
-			onClick={() => onClick(data.id)}
-		>
+		<div className='relative flex flex-col group items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-3 mb-3'>
 			<div className='relative aspect-square h-full w-full rounded-md overflow-hidden'>
 				<Image
 					className='
@@ -34,7 +31,10 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
 					By {data.author}
 				</p>
 			</div>
-			<div className='absolute bottom-24 right-5'>
+			<div
+				onClick={() => onClick(data.id)}
+				className='absolute bottom-24 right-5'
+			>
 				<PlayButton id={data.id} />
 			</div>
 		</div>
