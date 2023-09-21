@@ -42,7 +42,7 @@ const Right = () => {
 	}
 
 	return (
-		<div className='flex items-center justify-end gap-x-2 w-[120px]'>
+		<div className='flex items-center justify-end gap-x-2 min-w-[120px]'>
 			<Tooltip text='Playing View'>
 				<button
 					className='cursor-pointer flex justify-center'
@@ -54,23 +54,25 @@ const Right = () => {
 				</button>
 			</Tooltip>
 
-			<Tooltip
-				text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}
-			>
-				<button
-					className='cursor-pointer flex justify-center'
-					onClick={toggleMute}
+			<div className='flex items-center gap-x-1 w-full'>
+				<Tooltip
+					text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}
 				>
-					<SoundIcon level={volumeLevel} />
-				</button>
-			</Tooltip>
+					<button
+						className='cursor-pointer flex justify-center'
+						onClick={toggleMute}
+					>
+						<SoundIcon level={volumeLevel} />
+					</button>
+				</Tooltip>
 
-			<Slider
-				value={volume}
-				step={0.01}
-				maxValue={1}
-				onChange={handleVolumeChange}
-			/>
+				<Slider
+					value={volume}
+					step={0.01}
+					maxValue={1}
+					onChange={handleVolumeChange}
+				/>
+			</div>
 		</div>
 	)
 }

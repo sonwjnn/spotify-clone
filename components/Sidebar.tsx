@@ -14,6 +14,7 @@ import Link from 'next/link'
 import Library from './Library'
 import { Song } from '@/types'
 import { twMerge } from 'tailwind-merge'
+import usePlayingView from '@/stores/usePlayingView'
 
 interface SidebarProps {
 	songs: Song[]
@@ -69,10 +70,14 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 		[pathname],
 	)
 
+	const { isShowed } = usePlayingView()
+
 	return (
 		<div
 			className={twMerge(
-				`hidden md:flex flex-col bg-black gap-y-2 h-full  py-2 pl-2`,
+				`hidden ${
+					isShowed ? 'lg:flex' : 'md:flex'
+				}  flex-col bg-black gap-y-2 h-full  py-2 pl-2`,
 				className,
 			)}
 		>

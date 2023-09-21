@@ -24,7 +24,7 @@ const PlayingView: React.FC = () => {
 	const { song: nextSong } = useGetSongById(nextSongId)
 
 	return (
-		<div className='max-w-[400px] min-w-[280px]   bg-black rounded-md py-2 pr-2  h-full '>
+		<div className='hidden md:block max-w-[400px] min-w-[280px]   bg-black rounded-md py-2 pr-2  h-full '>
 			<Box className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'>
 				<div className='flex flex-col gap-4 p-4'>
 					<div

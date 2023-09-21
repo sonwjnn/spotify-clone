@@ -1,14 +1,19 @@
+'use client'
+
 import useComponentSize from '@/hooks/useComponentSize'
-import React, { FC, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import useMainLayout from '@/stores/useMainLayout'
 
 interface MainLayoutProviderProps {
 	children: React.ReactNode
 }
 
-export const MainLayoutProvider: FC<MainLayoutProviderProps> = (
+const MainLayoutProvider: React.FC<MainLayoutProviderProps> = (
 	{ children },
 ) => {
+	useEffect(() => {
+		useMainLayout.persist.rehydrate()
+	}, [])
 	const { setQuantityCol, setWidth } = useMainLayout()
 	const mainRef = useRef<HTMLDivElement>(null)
 
@@ -34,3 +39,5 @@ export const MainLayoutProvider: FC<MainLayoutProviderProps> = (
 		</div>
 	)
 }
+
+export default MainLayoutProvider

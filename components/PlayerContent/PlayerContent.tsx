@@ -19,9 +19,7 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 				<Left song={song} />
 			</div>
 
-			<div className='hidden h-full md:flex md:flex-col   gap-y-1  w-[40%] max-w-[722px] '>
-				<PlayerControl song={song} songUrl={songUrl} />
-			</div>
+			<PlayerControl song={song} songUrl={songUrl} />
 
 			<div className='hidden md:flex w-[30%] justify-end  pr-2 '>
 				<Right />

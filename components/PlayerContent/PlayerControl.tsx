@@ -201,78 +201,84 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 
 	return (
 		<>
-			<div className='flex gap-x-6 pb-1 justify-center items-center'>
-				<Tooltip
-					text={`${isRandom ? 'Disable' : 'Enable'} suffle`}
-				>
-					<button
-						onClick={() => setRandom(!isRandom)}
-						className={'text-neutral-400  cursor-pointer  transition hover:text-white'}
+			<div className='hidden h-full md:flex md:flex-col   gap-y-1  w-[40%] max-w-[722px]'>
+				<div className='flex gap-x-6 pb-1 justify-center items-center'>
+					<Tooltip
+						text={`${isRandom ? 'Disable' : 'Enable'} suffle`}
 					>
-						<ShuffleIcon color={isRandom ? '#22e55c' : undefined} />
-					</button>
-				</Tooltip>
+						<button
+							onClick={() => setRandom(!isRandom)}
+							className={'text-neutral-400  cursor-pointer  transition hover:text-white'}
+						>
+							<ShuffleIcon
+								color={isRandom ? '#22e55c' : undefined}
+							/>
+						</button>
+					</Tooltip>
 
-				<Tooltip text='Previous'>
-					<button
-						onClick={onPlayPrevious}
-						className='text-neutral-400 cursor-pointer hover:text-white transition'
-					>
-						<SkipBackIcon />
-					</button>
-				</Tooltip>
+					<Tooltip text='Previous'>
+						<button
+							onClick={onPlayPrevious}
+							className='text-neutral-400 cursor-pointer hover:text-white transition'
+						>
+							<SkipBackIcon />
+						</button>
+					</Tooltip>
 
-				<Tooltip
-					text={`${isPlaying ? 'Pause' : 'Play'}`}
-				>
-					<div
-						onClick={handlePlay}
-						className='flex items-center justify-center w-[36px] h-[36px] rounded-full bg-white p-1 cursor-pointer'
+					<Tooltip
+						text={`${isPlaying ? 'Pause' : 'Play'}`}
 					>
-						<Icon />
-					</div>
-				</Tooltip>
+						<div
+							onClick={handlePlay}
+							className='flex items-center justify-center w-[36px] h-[36px] rounded-full bg-white p-1 cursor-pointer'
+						>
+							<Icon />
+						</div>
+					</Tooltip>
 
-				<Tooltip text='Next'>
-					<button
-						onClick={onPlayNext}
-						className='text-neutral-400 cursor-pointer hover:text-white transition'
-					>
-						<SkipForwardIcon />
-					</button>
-				</Tooltip>
+					<Tooltip text='Next'>
+						<button
+							onClick={onPlayNext}
+							className='text-neutral-400 cursor-pointer hover:text-white transition'
+						>
+							<SkipForwardIcon />
+						</button>
+					</Tooltip>
 
-				<Tooltip
-					text={`${isReplay ? 'Disable' : 'Enable'} replay`}
-				>
-					<button
-						onClick={() => setReplay(!isReplay)}
-						className={`text-neutral-400 cursor-pointer transition hover:text-white`}
+					<Tooltip
+						text={`${isReplay ? 'Disable' : 'Enable'} replay`}
 					>
-						<RepeatIcon color={isReplay ? '#22e55c' : undefined} />
-					</button>
-				</Tooltip>
-			</div>
-			<div className='flex gap-x-1 items-center justify-center'>
-				<div className='text-neutral-400 text-xs w-8'>
-					{durationConvertor({
-						milliseconds: +trackProcess * 1000,
-					})}
+						<button
+							onClick={() => setReplay(!isReplay)}
+							className={`text-neutral-400 cursor-pointer transition hover:text-white`}
+						>
+							<RepeatIcon
+								color={isReplay ? '#22e55c' : undefined}
+							/>
+						</button>
+					</Tooltip>
 				</div>
+				<div className='flex gap-x-1 items-center justify-center'>
+					<div className='text-neutral-400 text-xs w-8'>
+						{durationConvertor({
+							milliseconds: +trackProcess * 1000,
+						})}
+					</div>
 
-				<Slider
-					className='h-4 mr-1'
-					value={trackProcess}
-					step={1}
-					maxValue={duration ? duration / 1000 : 0}
-					onChange={handleSliderChange}
-					onMouseUp={handleMouseUp}
-				/>
+					<Slider
+						className='h-4 mr-1'
+						value={trackProcess}
+						step={1}
+						maxValue={duration ? duration / 1000 : 0}
+						onChange={handleSliderChange}
+						onMouseUp={handleMouseUp}
+					/>
 
-				<div className='text-neutral-400 text-xs w-8'>
-					{durationConvertor({
-						milliseconds: duration ? duration : 0,
-					})}
+					<div className='text-neutral-400 text-xs w-8'>
+						{durationConvertor({
+							milliseconds: duration ? duration : 0,
+						})}
+					</div>
 				</div>
 			</div>
 
