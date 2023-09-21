@@ -3,9 +3,12 @@ import useAuthModal from './useAuthModal'
 import { useUser } from './useUser'
 import useSubscribeModal from './useSubscribeModal'
 import usePlayer from '@/stores/usePlayer'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
 
 const useOnPlay = (songs: Song[]) => {
 	const player = usePlayer()
+
+	const { setSelected } = useSelectedPlayer()
 
 	const authModal = useAuthModal()
 
@@ -19,6 +22,8 @@ const useOnPlay = (songs: Song[]) => {
 		if (!subscription) return subcribeModal.onOpen()
 
 		player.setId(id)
+
+		setSelected(true)
 
 		player.setIds(songs.map((item) => item.id))
 	}

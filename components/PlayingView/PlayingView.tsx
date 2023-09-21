@@ -12,6 +12,7 @@ import useLoadImage from '@/hooks/useLoadImage'
 import usePlayer from '@/stores/usePlayer'
 import useGetSongById from '@/hooks/useGetSongById'
 import usePlayingView from '@/stores/usePlayingView'
+import MarqueeWrapper from '../Marquee'
 
 const PlayingView: React.FC = () => {
 	const playingView = usePlayingView()
@@ -67,7 +68,7 @@ const PlayingView: React.FC = () => {
 					>
 						<div className={'flex-1 flex flex-col overflow-hidden'}>
 							<Link href={'/'}>
-								<Marquee
+								<MarqueeWrapper
 									pauseOnHover={true}
 									speed={20}
 								>
@@ -76,16 +77,16 @@ const PlayingView: React.FC = () => {
 									>
 										{currentSong?.title}
 									</h2>
-								</Marquee>
+								</MarqueeWrapper>
 							</Link>
 							<span className={''}>
 								<p className='text-neutral-400 text-base pb-4 w-full truncate'>
-									<Marquee
+									<MarqueeWrapper
 										pauseOnHover={true}
 										speed={20}
 									>
 										{currentSong?.author}
-									</Marquee>
+									</MarqueeWrapper>
 								</p>
 							</span>
 						</div>

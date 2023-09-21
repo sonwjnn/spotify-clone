@@ -16,6 +16,7 @@ import { Song } from '@/types'
 import usePlayer from '@/stores/usePlayer'
 import { useEffect, useRef, useState } from 'react'
 import Slider from '../Slider'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
 
 interface PlayerControlProps {
 	song: Song
@@ -40,6 +41,8 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		setId,
 		setCurrentSong,
 	} = usePlayer()
+
+	const selectedPlayer = useSelectedPlayer()
 
 	const [trackProcess, setTrackProcess] = useState<number>(0)
 
@@ -82,17 +85,25 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 	}
 
 	useEffect(() => {
-		sound?.play()
-
 		setCurrentTime(0)
 		setTrackProcess(0)
 		clearInterval(intervalIdRef?.current)
-		startTimer()
+
+		if (selectedPlayer.isSelected) {
+			sound?.play()
+			startTimer()
+		}
 
 		return () => {
 			sound?.unload()
 		}
 	}, [sound])
+
+	useEffect(() => {
+		if (!selectedPlayer.isSelected) {
+			setPlaying(false)
+		}
+	}, [selectedPlayer.isSelected])
 
 	useEffect(() => {
 		if (isPlaying) {
@@ -266,7 +277,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 					</div>
 
 					<Slider
-						className='h-4 mr-1'
+						className='h-4 mr-1 w-[60%] lg:w-full'
 						value={trackProcess}
 						step={1}
 						maxValue={duration ? duration / 1000 : 0}
