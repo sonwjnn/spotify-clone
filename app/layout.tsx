@@ -8,7 +8,7 @@ import SkeletonProvider from '@/providers/SkeletonProvider'
 import getSongsByUserId from '@/actions/getSongsByUserId'
 import Player from '@/components/Player'
 import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
-import MainContent from '@/components/MainContent'
+import MainContent from '@/components/MainContent/MainContent'
 
 const font = Figtree({ subsets: ['latin'] })
 

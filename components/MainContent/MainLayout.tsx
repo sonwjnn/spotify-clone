@@ -4,11 +4,11 @@ import useComponentSize from '@/hooks/useComponentSize'
 import { useEffect, useRef } from 'react'
 import useMainLayout from '@/stores/useMainLayout'
 
-interface MainLayoutProviderProps {
+interface MainLayoutProps {
 	children: React.ReactNode
 }
 
-const MainLayoutProvider: React.FC<MainLayoutProviderProps> = (
+const MainLayout: React.FC<MainLayoutProps> = (
 	{ children },
 ) => {
 	useEffect(() => {
@@ -40,4 +40,4 @@ const MainLayoutProvider: React.FC<MainLayoutProviderProps> = (
 	)
 }
 
-export default MainLayoutProvider
+export default MainLayout

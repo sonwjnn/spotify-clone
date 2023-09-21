@@ -2,15 +2,15 @@
 
 import Split from 'react-split'
 import { twMerge } from 'tailwind-merge'
-import Sidebar from './Sidebar'
+import Sidebar from '../Sidebar'
 import { Song } from '@/types'
-import PlayingView from './PlayingView/PlayingView'
+import PlayingView from '../PlayingView/PlayingView'
 
 import usePlayingView from '@/stores/usePlayingView'
 import usePlayer from '@/stores/usePlayer'
 import { useEffect, useState } from 'react'
-import GlobalLoading from './LoadingLayout/GlobalLoading'
-import MainLayoutProvider from '@/providers/MainLayoutProvider'
+import GlobalLoading from '../LoadingLayout/GlobalLoading'
+import MainLayout from './MainLayout'
 
 interface MainContentProps {
 	children: React.ReactNode
@@ -49,11 +49,11 @@ const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
 						songs={songs}
 					/>
 
-					<MainLayoutProvider>
+					<MainLayout>
 						<main className='h-full flex-grow overflow-y-auto py-2 '>
 							{children}
 						</main>
-					</MainLayoutProvider>
+					</MainLayout>
 
 					{isShowed ? <PlayingView /> : <div className=''></div>}
 				</Split>
