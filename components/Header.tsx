@@ -16,7 +16,7 @@ import { FaUserAlt } from 'react-icons/fa'
 import { useUser } from '@/hooks/useUser'
 import { toast } from 'react-hot-toast'
 import usePlayer from '@/stores/usePlayer'
-import { memo, useMemo } from 'react'
+import { useMemo } from 'react'
 import Link from 'next/link'
 
 interface HeaderProps {
@@ -74,13 +74,13 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 			<div className='w-full mb-4 flex items-center justify-between'>
 				<div className='hidden md:flex gap-x-2 items-center'>
 					<button
-						className='rounded-full bg-black items-center justify-center hover:opacity-75 transition'
+						className='rounded-full bg-black items-center justify-center transition active:scale-95'
 						onClick={() => router.back()}
 					>
 						<RxCaretLeft className='text-white' size={35} />
 					</button>
 					<button
-						className='rounded-full bg-black items-center justify-center hover:opacity-75 transition'
+						className='rounded-full bg-black items-center justify-center transition active:scale-95'
 						onClick={() => router.forward()}
 					>
 						<RxCaretRight className='text-white' size={35} />
@@ -147,4 +147,4 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 	)
 }
 
-export default memo(Header)
+export default Header

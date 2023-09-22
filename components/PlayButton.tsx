@@ -14,7 +14,6 @@ const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
 	return (
 		<button
 			className={`
-        transition
         opacity-${isPlayingCurrentSong ? '1' : '0'}
         rounded-full
         flex
@@ -28,6 +27,8 @@ const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
         group-hover:opacity-100
         group-hover:translate-y-0
         hover:scale-110
+        transition
+        active:scale-100
       `}
 		>
 			<Icon />

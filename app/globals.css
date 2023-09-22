@@ -9,3 +9,9 @@ body,
   background-color: black;
   color-scheme: dark;
 }
+
+.gutter.gutter-horizontal:hover {
+  border-left: 1px solid #71717a;
+  cursor: col-resize;
+  margin: 8px 0;
+}

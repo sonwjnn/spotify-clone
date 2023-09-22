@@ -171,6 +171,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 		}
 
 		// default change next song
+		selectedPlayer.setSelected(true)
 		setId(nextSong)
 	}
 
@@ -186,6 +187,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 			return setId(playerIds[playerIds.length - 1])
 		}
 
+		selectedPlayer.setSelected(true)
 		setId(previousSong)
 	}
 
@@ -241,7 +243,7 @@ const PlayerControl: React.FC<PlayerControlProps> = (
 					>
 						<div
 							onClick={handlePlay}
-							className='flex items-center justify-center w-[36px] h-[36px] rounded-full bg-white p-1 cursor-pointer'
+							className={`flex items-center justify-center w-[36px] h-[36px] rounded-full bg-white p-1 cursor-pointer transition active:scale-100 hover:scale-110`}
 						>
 							<Icon />
 						</div>

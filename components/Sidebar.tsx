@@ -57,7 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 			{
 				icons: [HomeActiveIcon, HomeIcon] as IconType[],
 				label: 'Home',
-				active: pathname !== '/search',
+				active: pathname === '/',
 				href: '/',
 			},
 			{

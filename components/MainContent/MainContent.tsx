@@ -40,7 +40,7 @@ const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
 					gutterSize={8}
 					snapOffset={20}
 					className={twMerge(
-						`flex flex-row w-full h-full`,
+						`flex flex-row w-full h-full `,
 						player.activeId && 'h-[calc(100%-80px)]',
 					)}
 				>
@@ -55,7 +55,9 @@ const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
 						</main>
 					</MainLayout>
 
-					{isShowed ? <PlayingView /> : <div className=''></div>}
+					{isShowed
+						? <PlayingView />
+						: <div className='w-2 absolute right-0 h-full'></div>}
 				</Split>
 			)}
 		</>

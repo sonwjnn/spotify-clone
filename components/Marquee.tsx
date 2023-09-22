@@ -3,6 +3,7 @@
 import Marquee from 'react-fast-marquee'
 import { useEffect, useRef, useState } from 'react'
 import useComponentSize from '@/hooks/useComponentSize'
+import { useIsOverflow } from '@/hooks/useIsOverflow'
 
 interface MarqueeWrapperProps {
 	children: React.ReactNode
@@ -14,23 +15,14 @@ interface MarqueeWrapperProps {
 const MarqueeWrapper: React.FC<MarqueeWrapperProps> = (
 	{ children, pauseOnHover = false, speed = 20, direction = 'left' },
 ) => {
-	const [isOverflow, setOverflow] = useState(false)
-
 	const marqueeRef = useRef<HTMLDivElement>(null)
 
 	const size = useComponentSize(marqueeRef)
 
-	const [previousHeight, setPreviousHeight] = useState(size.height)
-
-	useEffect(() => {
-		if (size.height > previousHeight) {
-			console.log(size.height, previousHeight)
-			setOverflow(true)
-		}
-	}, [size.height, previousHeight])
+	const isOverflow = useIsOverflow(marqueeRef)
 
 	return (
-		<div ref={marqueeRef}>
+		<div className='w-full h-8' ref={marqueeRef}>
 			{isOverflow
 				? (
 					<Marquee

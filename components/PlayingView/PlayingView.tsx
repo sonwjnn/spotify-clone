@@ -81,12 +81,7 @@ const PlayingView: React.FC = () => {
 							</Link>
 							<span className={''}>
 								<p className='text-neutral-400 text-base pb-4 w-full truncate'>
-									<MarqueeWrapper
-										pauseOnHover={true}
-										speed={20}
-									>
-										{currentSong?.author}
-									</MarqueeWrapper>
+									{currentSong?.author}
 								</p>
 							</span>
 						</div>
