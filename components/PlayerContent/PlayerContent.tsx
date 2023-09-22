@@ -15,7 +15,7 @@ const PlayerContent: React.FC<PlayerContentProps> = (
 ) => {
 	return (
 		<div className='flex justify-between h-full'>
-			<div className='flex   w-[50%] md:w-[30%] justify-start '>
+			<div className='flex w-[50%] md:w-[30%] justify-start '>
 				<Left song={song} />
 			</div>
 

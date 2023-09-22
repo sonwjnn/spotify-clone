@@ -1,3 +1,5 @@
+'use client'
+
 import { LibraryIcon } from '@/assets/icons'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useUser } from '@/hooks/useUser'
@@ -30,10 +32,13 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
 
 		return uploadModal.onOpen()
 	}
+
 	return (
-		<div className='flex flex-col '>
-			<div className='flex items-center justify-between px-5 pt-4 '>
-				<div className='inline-flex items-center gap-x-2'>
+		<div className='flex flex-col relative'>
+			<div
+				className={`flex items-center justify-between px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-2`}
+			>
+				<div className='inline-flex items-center gap-x-2 '>
 					<button className='text-neutral-400'>
 						<LibraryIcon />
 					</button>
@@ -57,7 +62,7 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
 					</div>
 				</div>
 			</div>
-			<div className='flex flex-col gap-y-2 mt-4 px-3 '>
+			<div className='flex flex-col gap-y-2 mt-2 px-3 '>
 				{songs.map((item) => (
 					<MediaItem
 						onClick={(id: string) => onPlay(id)}
