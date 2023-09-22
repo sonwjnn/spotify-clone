@@ -27,21 +27,21 @@ const PlayingView: React.FC = () => {
 	return (
 		<div className='hidden md:block max-w-[400px] min-w-[280px]   bg-black rounded-md py-2 pr-2  h-full '>
 			<Box className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'>
-				<div className='flex flex-col gap-4 p-4'>
+				<div
+					className={'min-h-8 p-4 pb-3  flex flex-row justify-end sticky top-0 bg-neutral-900 z-10 '}
+				>
 					<div
-						className={'min-h-8  flex flex-row justify-end'}
+						className={'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'}
 					>
-						<div
-							className={'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'}
+						<button
+							className='absolute flex items-center justify-center top-[1px] right-0 border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition'
+							onClick={() => playingView.setShowed(false)}
 						>
-							<button
-								className='absolute flex items-center justify-center top-[1px] right-0 border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition'
-								onClick={() => playingView.setShowed(false)}
-							>
-								<CloseIcon />
-							</button>
-						</div>
+							<CloseIcon />
+						</button>
 					</div>
+				</div>
+				<div className='flex flex-col gap-4 p-4 pt-0'>
 					{imagePath
 						? (
 							<div className='relative aspect-square h-full w-full rounded-lg overflow-hidden'>

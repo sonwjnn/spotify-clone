@@ -10,8 +10,22 @@ body,
   color-scheme: dark;
 }
 
-.gutter.gutter-horizontal:hover {
-  border-left: 1px solid #71717a;
-  cursor: col-resize;
+.gutter.gutter-horizontal {
+  position: relative;
   margin: 8px 0;
+  cursor: col-resize;
+}
+
+.gutter.gutter-horizontal::after {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  content: "";
+  background-color: #71717a;
+  width: 1px;
+  height: 100%;
+}
+.gutter.gutter-horizontal:hover::after {
+  opacity: 1;
 }

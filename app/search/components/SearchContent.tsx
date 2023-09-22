@@ -29,6 +29,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
 							onClick={(id: string) =>
 								onPlay(id)}
 							data={song}
+							isDisplayDuration={true}
 						/>
 					</div>
 
