@@ -1,10 +1,11 @@
 import Header from '@/components/Header'
 import AccountContent from './components/AccountContent'
+import AccountWrapper from './components/AccountWrapper'
 
 const Account = () => {
 	return (
-		<div className='bg-neutral-900 rounded-lg w-full h-full overflow-hidden overflow-y-auto'>
-			<Header className='from-bg-neutral-900'>
+		<AccountWrapper>
+			<Header bgColor={'neutral-900'}>
 				<div className='mb-2 flex flex-col gap-y-6 '>
 					<div className='text-white text-3xl font-semibold'>
 						Account Settings
@@ -12,7 +13,7 @@ const Account = () => {
 				</div>
 			</Header>
 			<AccountContent />
-		</div>
+		</AccountWrapper>
 	)
 }
 

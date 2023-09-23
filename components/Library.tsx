@@ -12,9 +12,10 @@ import useSubscribeModal from '@/hooks/useSubscribeModal'
 
 interface LibraryProps {
 	songs: Song[]
+	isScroll?: boolean
 }
 
-const Library: React.FC<LibraryProps> = ({ songs }) => {
+const Library: React.FC<LibraryProps> = ({ songs, isScroll = false }) => {
 	const { user, subscription } = useUser()
 	const authModal = useAuthModal()
 	const uploadModal = useUploadModal()
@@ -36,7 +37,9 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
 	return (
 		<div className='flex flex-col relative'>
 			<div
-				className={`flex items-center justify-between px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-2`}
+				className={`flex items-center justify-between px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-2 ${
+					isScroll ? 'shadow-2xl' : ''
+				}`}
 			>
 				<div className='inline-flex items-center gap-x-2 '>
 					<button className='text-neutral-400'>

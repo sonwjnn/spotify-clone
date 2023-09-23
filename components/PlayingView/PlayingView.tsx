@@ -13,6 +13,7 @@ import usePlayer from '@/stores/usePlayer'
 import useGetSongById from '@/hooks/useGetSongById'
 import usePlayingView from '@/stores/usePlayingView'
 import MarqueeWrapper from '../Marquee'
+import { useState } from 'react'
 
 const PlayingView: React.FC = () => {
 	const playingView = usePlayingView()
@@ -24,11 +25,25 @@ const PlayingView: React.FC = () => {
 	const nextSongId = playerIds[currentIndex + 1] || playerIds[0]
 	const { song: nextSong } = useGetSongById(nextSongId)
 
+	const [isScroll, setScroll] = useState<boolean>(false)
+
+	const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {
+		const yAxis = e.currentTarget.scrollTop
+		if (yAxis) {
+			setScroll(true)
+		} else setScroll(false)
+	}
+
 	return (
 		<div className='hidden md:block max-w-[400px] min-w-[280px]   bg-black rounded-md py-2 pr-2  h-full '>
-			<Box className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'>
+			<Box
+				onScroll={handleScroll}
+				className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'
+			>
 				<div
-					className={'min-h-8 p-4 pb-3  flex flex-row justify-end sticky top-0 bg-neutral-900 z-10 '}
+					className={`min-h-8 p-4 pb-3  flex flex-row justify-end sticky top-0 bg-neutral-900 z-10 ${
+						isScroll ? 'shadow-2xl' : ''
+					}`}
 				>
 					<div
 						className={'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'}

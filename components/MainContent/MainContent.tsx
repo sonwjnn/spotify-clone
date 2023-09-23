@@ -26,7 +26,7 @@ const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false)
-		}, 500)
+		}, 800)
 	}, [])
 
 	return (
@@ -50,7 +50,7 @@ const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
 					/>
 
 					<MainLayout>
-						<main className='h-full flex-grow overflow-y-auto py-2 '>
+						<main className='h-full flex-grow overflow-y-auto py-2 relative'>
 							{children}
 						</main>
 					</MainLayout>

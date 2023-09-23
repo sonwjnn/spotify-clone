@@ -18,17 +18,23 @@ import { toast } from 'react-hot-toast'
 import usePlayer from '@/stores/usePlayer'
 import { useMemo } from 'react'
 import Link from 'next/link'
+import useHeaderNavigate from '@/stores/useHeaderNavigate'
 
 interface HeaderProps {
 	children: React.ReactNode
 	className?: string
+	bgColor?: string | null
 }
 
-const Header: React.FC<HeaderProps> = ({ children, className }) => {
+const Header: React.FC<HeaderProps> = (
+	{ children, className, bgColor = 'emerald-800' },
+) => {
 	const router = useRouter()
 	const authModal = useAuthModal()
 	const { user } = useUser()
 	const player = usePlayer()
+
+	const { opacity } = useHeaderNavigate()
 
 	const supabaseClient = useSupabaseClient()
 
@@ -67,11 +73,20 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 	return (
 		<div
 			className={twMerge(
-				` h-fit bg-gradient-to-b from-emerald-800 p-6`,
+				` h-fit bg-gradient-to-b from-${bgColor} p-6 pt-16 `,
 				className,
 			)}
 		>
-			<div className='w-full mb-4 flex items-center justify-between'>
+			<div
+				className={twMerge(
+					`absolute top-2 h-16 left-0 bg-${bgColor}  right-0 rounded-t-lg z-10 `,
+				)}
+				style={{ opacity: opacity }}
+			>
+			</div>
+			<div
+				className={` rounded-t-lg   w-full mb-4 flex items-center justify-between absolute top-2 h-16 left-0 p-4 px-6 z-10`}
+			>
 				<div className='hidden md:flex gap-x-2 items-center'>
 					<button
 						className='rounded-full bg-black items-center justify-center transition active:scale-95'

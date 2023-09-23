@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { memo, useMemo } from 'react'
+import { memo, useMemo, useState } from 'react'
 import {
 	HomeActiveIcon,
 	HomeIcon,
@@ -72,6 +72,15 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 
 	const { isShowed } = usePlayingView()
 
+	const [isScroll, setScroll] = useState<boolean>(false)
+
+	const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {
+		const yAxis = e.currentTarget.scrollTop
+		if (yAxis) {
+			setScroll(true)
+		} else setScroll(false)
+	}
+
 	return (
 		<div
 			className={twMerge(
@@ -88,8 +97,11 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 					))}
 				</div>
 			</Box>
-			<Box className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'>
-				<Library songs={songs} />
+			<Box
+				onScroll={handleScroll}
+				className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'
+			>
+				<Library songs={songs} isScroll={isScroll} />
 			</Box>
 		</div>
 	)
