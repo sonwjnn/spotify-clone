@@ -21,7 +21,7 @@ export const useIsOverflow = (
 		}
 
 		if (current) {
-			console.log(current.scrollHeight, current.clientHeight)
+			// console.log(current.scrollHeight, current.clientHeight)
 			trigger()
 		}
 	}, [callback, ref, size.width])

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar {
+    scrollbar-width: 0px;
+    -ms-overflow-style: none;
+  }
+}
+
 html,
 body,
 :root {

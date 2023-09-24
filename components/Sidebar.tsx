@@ -15,6 +15,7 @@ import Library from './Library'
 import { Song } from '@/types'
 import { twMerge } from 'tailwind-merge'
 import usePlayingView from '@/stores/usePlayingView'
+import ScrollbarProvider from '@/providers/ScrollbarProvider'
 
 interface SidebarProps {
 	songs: Song[]
@@ -97,12 +98,16 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 					))}
 				</div>
 			</Box>
-			<Box
-				onScroll={handleScroll}
-				className='overflow-y-auto h-full [&::-webkit-scrollbar]:[width:0px]'
-			>
-				<Library songs={songs} isScroll={isScroll} />
-			</Box>
+			<div className='h-full w-full bg-neutral-900 rounded-lg overflow-hidden'>
+				<Box
+					onScroll={handleScroll}
+					className=' h-full '
+				>
+					<ScrollbarProvider>
+						<Library songs={songs} isScroll={isScroll} />
+					</ScrollbarProvider>
+				</Box>
+			</div>
 		</div>
 	)
 }

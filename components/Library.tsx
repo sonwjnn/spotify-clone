@@ -35,7 +35,7 @@ const Library: React.FC<LibraryProps> = ({ songs, isScroll = false }) => {
 	}
 
 	return (
-		<div className='flex flex-col relative'>
+		<div className='flex flex-col'>
 			<div
 				className={`flex items-center justify-between px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-2 ${
 					isScroll ? 'shadow-2xl' : ''

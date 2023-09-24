@@ -37,6 +37,7 @@
     "react-spinners": "^0.13.8",
     "react-split": "^2.0.14",
     "redux-persist": "^6.0.0",
+    "simplebar-react": "^3.2.4",
     "stripe": "^12.9.0",
     "supabase": ">=1.8.1",
     "tailwind-merge": "^1.13.0",
