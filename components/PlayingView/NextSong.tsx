@@ -70,23 +70,23 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
 						{song?.title
 							? (
 								<Link href={`/`}>
-									<Marquee
-										pauseOnHover={true}
-										speed={20}
-										direction={'right'}
+									{/* <Marquee */}
+									{/* 	pauseOnHover={true} */}
+									{/* 	speed={20} */}
+									{/* 	direction={'right'} */}
+									{/* > */}
+									<span
+										className={'text-base text-white font-bold cursor-pointer hover:underline truncate'}
 									>
-										<span
-											className={'text-base text-white font-bold cursor-pointer hover:underline'}
-										>
-											{song?.title}
-										</span>
-									</Marquee>
+										{song?.title}
+									</span>
+									{/* </Marquee> */}
 								</Link>
 							)
 							: <Skeleton height={'100%'} borderRadius={50} />}
 						{song?.author
 							? (
-								<span className={'text-sm'}>
+								<span className={'text-sm truncate'}>
 									{song?.author}
 								</span>
 							)
