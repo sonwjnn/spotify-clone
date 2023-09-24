@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { FaPlay } from 'react-icons/fa'
+import { PlayIcon } from '@/assets/icons'
 
 interface ListItemProps {
 	image: string
@@ -30,7 +30,7 @@ const ListItem: React.FC<ListItemProps> = ({ image, name, href }) => {
 			</div>
 			<p className='font-medium truncate py-5'>{name}</p>
 			<div className='absolute transition opacity-0 hover:scale-110 items-center justify-center rounded-full flex bg-green-500 p-4 drop-shadow-md right-5 group-hover/song:opacity-100'>
-				<FaPlay className='text-black' />
+				<PlayIcon size={20} />
 			</div>
 		</button>
 	)

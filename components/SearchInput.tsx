@@ -1,7 +1,9 @@
 'use client'
+
 import qs from 'query-string'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { SearchIcon } from '@/assets/icons'
 
 import useDebounce from '@/hooks/useDebounce'
 
@@ -25,11 +27,14 @@ const SearchInput = () => {
 
 		router.push(url)
 	}, [debouncedValue, router])
+
 	return (
 		<Input
 			placeholder='What do you want to listen to ?'
 			value={value}
 			onChange={(e) => setValue(e.target.value)}
+			className='rounded-full px-4 pl-10 bg-neutral-800'
+			startIcon={<SearchIcon size={20} />}
 		/>
 	)
 }

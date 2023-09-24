@@ -74,7 +74,7 @@ const PlayingView: React.FC = () => {
 						<div className='flex flex-col gap-4 p-4 pt-0'>
 							{imagePath
 								? (
-									<div className='relative aspect-square h-full w-full rounded-lg overflow-hidden'>
+									<div className='relative aspect-square h-full w-full rounded-lg overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,.5)]'>
 										<Image
 											className='
             object-cover
@@ -100,16 +100,16 @@ const PlayingView: React.FC = () => {
 									className={'flex-1 flex flex-col overflow-hidden'}
 								>
 									<Link href={'/'}>
-										<MarqueeWrapper
-											pauseOnHover={true}
-											speed={20}
+										{/* <MarqueeWrapper */}
+										{/* 	pauseOnHover={true} */}
+										{/* 	speed={20} */}
+										{/* > */}
+										<h2
+											className={'text-2xl text-white m-0 pb-2 font-bold hover:underline hover:decoration-2 truncate'}
 										>
-											<h2
-												className={'text-2xl text-white m-0 pb-2 font-bold hover:underline hover:decoration-2'}
-											>
-												{currentSong?.title}
-											</h2>
-										</MarqueeWrapper>
+											{currentSong?.title}
+										</h2>
+										{/* </MarqueeWrapper> */}
 									</Link>
 									<span className={''}>
 										<p className='text-neutral-400 text-base pb-4 w-full truncate'>
