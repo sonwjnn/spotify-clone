@@ -12,7 +12,7 @@ import usePlayer from '@/stores/usePlayer'
 import useGetSongById from '@/hooks/useGetSongById'
 import usePlayingView from '@/stores/usePlayingView'
 import MarqueeWrapper from '../Marquee'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ScrollbarProvider from '@/providers/ScrollbarProvider'
 
 const PlayingView: React.FC = () => {
@@ -27,19 +27,34 @@ const PlayingView: React.FC = () => {
 
 	const [isScroll, setScroll] = useState<boolean>(false)
 
-	const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {
-		const yAxis = e.currentTarget.scrollTop
-		console.log(123)
-		if (yAxis) {
-			setScroll(true)
-		} else setScroll(false)
-	}
+	const scrollRef = useRef<any>()
+
+	useEffect(() => {
+		if (scrollRef.current) {
+			const scrollElement = scrollRef.current.getScrollElement()
+
+			const handleScroll = () => {
+				const yAxis = scrollElement.scrollTop
+				if (yAxis) {
+					setScroll(true)
+				} else {
+					setScroll(false)
+				}
+			}
+
+			scrollElement.addEventListener('scroll', handleScroll)
+
+			return () => {
+				scrollElement.removeEventListener('scroll', handleScroll)
+			}
+		}
+	}, [])
 
 	return (
 		<div className='hidden md:block max-w-[400px] min-w-[280px] relative   bg-black rounded-md py-2 pr-2  h-full '>
 			<div className='h-full w-full bg-neutral-900 rounded-lg overflow-hidden'>
 				<Box className='h-full'>
-					<ScrollbarProvider onScroll={handleScroll}>
+					<ScrollbarProvider scrollRef={scrollRef}>
 						<div
 							className={`min-h-8 p-4 pb-3  flex flex-row justify-end sticky top-0 bg-neutral-900 z-10 ${
 								isScroll ? 'shadow-2xl' : ''

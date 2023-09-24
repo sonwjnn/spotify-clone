@@ -2,8 +2,8 @@ import getSongs from '@/actions/getSongs'
 import Header from '@/components/Header'
 import ListItem from '@/components/ListItem'
 import PageContent from './components/PageContent'
-import HomeWrapper from './components/HomeWrapper'
 import Navbar from '@/components/Navbar'
+import PageWrapper from '@/components/PageWrapper'
 
 export const revalidate = 0
 
@@ -13,7 +13,7 @@ const Home = async () => {
 	return (
 		<div className='relative h-full w-full'>
 			<Navbar />
-			<HomeWrapper>
+			<PageWrapper>
 				<Header>
 					<div className='mb-2'>
 						<h1 className='text-white text-3xl font-semibold'>
@@ -36,7 +36,7 @@ const Home = async () => {
 					</div>
 					<PageContent songs={songs} />
 				</div>
-			</HomeWrapper>
+			</PageWrapper>
 		</div>
 	)
 }

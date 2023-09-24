@@ -1,14 +1,13 @@
 'use client'
-
 import useHeaderNavigate from '@/stores/useHeaderNavigate'
 import { useEffect, useRef } from 'react'
 import ScrollbarProvider from '@/providers/ScrollbarProvider'
 
-interface HomeWrapperProps {
+interface PageWrapperProps {
 	children: React.ReactNode
 }
 
-const HomeWrapper: React.FC<HomeWrapperProps> = ({ children }) => {
+const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
 	const { setOpacity } = useHeaderNavigate()
 
 	const scrollRef = useRef<any>()
@@ -18,15 +17,20 @@ const HomeWrapper: React.FC<HomeWrapperProps> = ({ children }) => {
 	}, [])
 
 	useEffect(() => {
-		if (scrollRef.current) {
-			const { current: scrollCurrent } = scrollRef
-			scrollCurrent.getScrollElement().onscroll = (e) => {
-				const yAxis = scrollCurrent.getScrollElement().scrollTop
+		const scrollElement = scrollRef.current.getScrollElement()
 
-				if (yAxis > 120) {
-					setOpacity(1)
-				} else setOpacity(yAxis / 120)
-			}
+		const handleScroll = () => {
+			const yAxis = scrollElement.scrollTop
+
+			if (yAxis > 64) {
+				setOpacity(1)
+			} else setOpacity(yAxis / 64)
+		}
+
+		scrollElement.addEventListener('scroll', handleScroll)
+
+		return () => {
+			scrollElement.removeEventListener('scroll', handleScroll)
 		}
 	}, [])
 
@@ -39,4 +43,4 @@ const HomeWrapper: React.FC<HomeWrapperProps> = ({ children }) => {
 	)
 }
 
-export default HomeWrapper
+export default PageWrapper

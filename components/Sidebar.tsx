@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { memo, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import {
 	HomeActiveIcon,
 	HomeIcon,
@@ -75,12 +75,28 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 
 	const [isScroll, setScroll] = useState<boolean>(false)
 
-	const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {
-		const yAxis = e.currentTarget.scrollTop
-		if (yAxis) {
-			setScroll(true)
-		} else setScroll(false)
-	}
+	const scrollRef = useRef<any>()
+
+	useEffect(() => {
+		if (scrollRef.current) {
+			const scrollElement = scrollRef.current.getScrollElement()
+
+			const handleScroll = () => {
+				const yAxis = scrollElement.scrollTop
+				if (yAxis) {
+					setScroll(true)
+				} else {
+					setScroll(false)
+				}
+			}
+
+			scrollElement.addEventListener('scroll', handleScroll)
+
+			return () => {
+				scrollElement.removeEventListener('scroll', handleScroll)
+			}
+		}
+	}, [])
 
 	return (
 		<div
@@ -99,11 +115,8 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 				</div>
 			</Box>
 			<div className='h-full w-full bg-neutral-900 rounded-lg overflow-hidden'>
-				<Box
-					onScroll={handleScroll}
-					className=' h-full '
-				>
-					<ScrollbarProvider>
+				<Box className=' h-full '>
+					<ScrollbarProvider scrollRef={scrollRef}>
 						<Library songs={songs} isScroll={isScroll} />
 					</ScrollbarProvider>
 				</Box>

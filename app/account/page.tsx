@@ -1,13 +1,13 @@
 import Header from '@/components/Header'
 import AccountContent from './components/AccountContent'
-import AccountWrapper from './components/AccountWrapper'
 import Navbar from '@/components/Navbar'
+import PageWrapper from '@/components/PageWrapper'
 
 const Account = () => {
 	return (
 		<div className='relative h-full w-full'>
-			<AccountWrapper>
-				<Navbar bgColor={'bg-neutral-900'} />
+			<Navbar bgColor={'bg-neutral-900'} />
+			<PageWrapper>
 				<Header
 					className='bg-gradient-to-b from-neutral-900'
 					bgColor={'bg-neutral-900'}
@@ -19,7 +19,7 @@ const Account = () => {
 					</div>
 				</Header>
 				<AccountContent />
-			</AccountWrapper>
+			</PageWrapper>
 		</div>
 	)
 }
