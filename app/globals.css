@@ -28,6 +28,8 @@ body,
   position: relative;
   margin: 8px 0;
   cursor: col-resize;
+  min-width: 8px;
+  max-width: 8px;
 }
 
 .gutter.gutter-horizontal::after {
