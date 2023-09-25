@@ -99,7 +99,7 @@ const UploadModal = () => {
 	}
 	return (
 		<Modal
-			title='upload modal title'
+			title='Upload your songs'
 			description='upload modal description'
 			isOpen={uploadModal.isOpen}
 			onChange={onChange}
@@ -109,20 +109,23 @@ const UploadModal = () => {
 				className='flex flex-col gap-y-4'
 			>
 				<Input
+					className='bg-neutral-800'
 					id='title'
 					disabled={isLoading}
 					{...register('title', { required: true })}
-					placeholder='Song title'
+					placeholder='Song title...'
 				/>
 				<Input
+					className='bg-neutral-800'
 					id='author'
 					disabled={isLoading}
 					{...register('author', { required: true })}
-					placeholder='Song author'
+					placeholder='Song author...'
 				/>
 				<div>
 					<div className='pb-1'>Select a song file</div>
 					<Input
+						className='bg-neutral-800 '
 						id='song'
 						disabled={isLoading}
 						type='file'
@@ -135,6 +138,7 @@ const UploadModal = () => {
 				<div>
 					<div className='pb-1'>Select an image</div>
 					<Input
+						className='bg-neutral-800 '
 						id='image'
 						disabled={isLoading}
 						type='file'
@@ -143,7 +147,11 @@ const UploadModal = () => {
 						placeholder='Song author'
 					/>
 				</div>
-				<Button type='submit' disabled={isLoading}>
+				<Button
+					type='submit'
+					className='w-[50%] mx-auto mt-2'
+					disabled={isLoading}
+				>
 					Create
 				</Button>
 			</form>

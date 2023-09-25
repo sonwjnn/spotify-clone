@@ -65,7 +65,7 @@ const Library: React.FC<LibraryProps> = ({ songs, isScroll = false }) => {
 					</div>
 				</div>
 			</div>
-			<div className='flex flex-col gap-y-2 mt-2 px-3 '>
+			<div className='flex flex-col gap-y-2 mt-2 px-3 pb-2'>
 				{songs.map((item) => (
 					<MediaItem
 						onClick={(id: string) => onPlay(id)}

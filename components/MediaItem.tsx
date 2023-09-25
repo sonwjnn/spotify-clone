@@ -4,15 +4,29 @@ import { Song } from '@/types'
 import durationConvertor from '@/utils/durationConvertor'
 import Image from 'next/image'
 import useSound from 'use-sound'
+import dayjs from 'dayjs'
+import { twMerge } from 'tailwind-merge'
 
 interface MediaItemProps {
 	data: Song
-	isDisplayDuration?: boolean
+	index?: number
+	isDuration?: boolean
+	isCreatedAt?: boolean
+	className?: string
 	onClick?: (id: string) => void
+	children?: React.ReactNode
 }
 
 const MediaItem: React.FC<MediaItemProps> = (
-	{ data, isDisplayDuration = false, onClick },
+	{
+		data,
+		className,
+		isDuration = false,
+		isCreatedAt = false,
+		index,
+		onClick,
+		children,
+	},
 ) => {
 	const imageUrl = useLoadImage(data)
 	const songUrl = useLoadSongUrl(data!)
@@ -27,16 +41,26 @@ const MediaItem: React.FC<MediaItemProps> = (
 	}
 
 	return (
-		<div className='flex items-center justify-between cursor-pointer rounded-md p-2 w-full hover:bg-neutral-800/50'>
+		<div
+			className={twMerge(
+				` cursor-pointer rounded-md p-2 w-full hover:bg-neutral-800/50`,
+				className,
+			)}
+		>
 			<div
 				onClick={handleClick}
 				className='
         flex
         item-center
         gap-x-3
-        w-full
+        col-span-2
       '
 			>
+				{index && (
+					<div className='text-neutral-400 text-sm flex items-center  justify-end w-4 mr-2'>
+						{index}
+					</div>
+				)}
 				<div className='
           relative
           rounded-md
@@ -66,13 +90,22 @@ const MediaItem: React.FC<MediaItemProps> = (
 					</p>
 				</div>
 			</div>
-			{isDisplayDuration && (
-				<div className='text-neutral-400 text-sm'>
+
+			{isCreatedAt && (
+				<div className='text-neutral-400 text-sm flex items-center justify-end'>
+					{dayjs(data.created_at).format('DD-MM-YYYY')}
+				</div>
+			)}
+
+			{isDuration && (
+				<div className='text-neutral-400 text-sm flex items-center justify-end'>
 					{durationConvertor({
 						milliseconds: duration ? duration : 0,
 					})}
 				</div>
 			)}
+
+			{children}
 		</div>
 	)
 }

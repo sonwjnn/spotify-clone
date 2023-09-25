@@ -12,6 +12,10 @@
   }
 }
 
+.search-layout-grid {
+  @apply grid-cols-[[index]_16px_[first]_6fr_[var1]_4fr_[var2]_3fr_[last]_minmax(120px,1fr)];
+}
+
 html,
 body,
 :root {
