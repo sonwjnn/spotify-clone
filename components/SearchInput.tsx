@@ -30,11 +30,11 @@ const SearchInput = () => {
 
 	return (
 		<Input
-			placeholder='What do you want to listen to ?'
+			placeholder='Search for your song to want to listen to !'
 			value={value}
 			onChange={(e) => setValue(e.target.value)}
 			className='rounded-full px-4 pl-10 bg-neutral-800'
-			startIcon={<SearchIcon size={20} />}
+			startIcon={<SearchIcon size={18} />}
 		/>
 	)
 }

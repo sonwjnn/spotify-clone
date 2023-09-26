@@ -6,13 +6,17 @@ import { useEffect, useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import useAuthModal from '@/hooks/useAuthModal'
 import { toast } from 'react-hot-toast'
+import { twMerge } from 'tailwind-merge'
 
 interface LikeButtonProps {
 	songId: string
 	size?: number
+	className?: string
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ songId, size = 25 }) => {
+const LikeButton: React.FC<LikeButtonProps> = (
+	{ songId, size = 25, className },
+) => {
 	const router = useRouter()
 
 	const { supabaseClient } = useSessionContext()
@@ -74,8 +78,18 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId, size = 25 }) => {
 	const Icon = isLiked ? AiFillHeart : AiOutlineHeart
 
 	return (
-		<button onClick={handleLike} className='hover:opacity-75 transition'>
-			<Icon color={isLiked ? '#22c55e' : 'white'} size={size} />
+		<button
+			onClick={handleLike}
+			className={twMerge(`justify-center items-center`, className)}
+		>
+			<Icon
+				className={` transition ${
+					isLiked
+						? 'hover:brightness-125 text-[#22c55e]'
+						: ' hover:text-white text-neutral-400'
+				}`}
+				size={size}
+			/>
 		</button>
 	)
 }

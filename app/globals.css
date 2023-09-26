@@ -13,7 +13,19 @@
 }
 
 .search-layout-grid {
-  @apply grid-cols-[[index]_16px_[first]_6fr_[var1]_4fr_[var2]_3fr_[last]_minmax(120px,1fr)];
+  grid-template-columns: 16px minmax(280px, 6fr) 4fr 3fr minmax(120px, 1fr);
+}
+
+.search-layout-grid-md {
+  grid-template-columns: 16px minmax(300px, 4fr) 2fr 50px !important;
+}
+
+.search-layout-grid-sm {
+  grid-template-columns: 16px minmax(200px, 4fr) 50px !important;
+}
+
+.search-layout-grid-se {
+  grid-template-columns: 16px minmax(200px, 1fr) !important;
 }
 
 html,

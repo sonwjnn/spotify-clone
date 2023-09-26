@@ -40,7 +40,7 @@ const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
 					gutterSize={8}
 					snapOffset={20}
 					className={twMerge(
-						`flex flex-row w-full h-full overflow-x-hidden`,
+						`flex flex-row w-full h-full `,
 						player.activeId && 'h-[calc(100%-80px)]',
 					)}
 				>

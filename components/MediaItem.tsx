@@ -6,6 +6,7 @@ import Image from 'next/image'
 import useSound from 'use-sound'
 import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
+import useMainLayout from '@/stores/useMainLayout'
 
 interface MediaItemProps {
 	data: Song
@@ -28,6 +29,7 @@ const MediaItem: React.FC<MediaItemProps> = (
 		children,
 	},
 ) => {
+	const { width } = useMainLayout()
 	const imageUrl = useLoadImage(data)
 	const songUrl = useLoadSongUrl(data!)
 	const [play, { duration }] = useSound(songUrl, { format: ['mp3'] })
@@ -47,20 +49,19 @@ const MediaItem: React.FC<MediaItemProps> = (
 				className,
 			)}
 		>
+			{index && (
+				<div className='text-neutral-400 text-sm flex items-center  justify-end w-4 mr-2'>
+					{index}
+				</div>
+			)}
 			<div
 				onClick={handleClick}
 				className='
         flex
         item-center
         gap-x-3
-        col-span-2
       '
 			>
-				{index && (
-					<div className='text-neutral-400 text-sm flex items-center  justify-end w-4 mr-2'>
-						{index}
-					</div>
-				)}
 				<div className='
           relative
           rounded-md
@@ -92,13 +93,21 @@ const MediaItem: React.FC<MediaItemProps> = (
 			</div>
 
 			{isCreatedAt && (
-				<div className='text-neutral-400 text-sm flex items-center justify-end'>
+				<div
+					className={`${
+						width <= 780 ? 'hidden' : 'flex'
+					} text-neutral-400 text-sm items-center justify-end`}
+				>
 					{dayjs(data.created_at).format('DD-MM-YYYY')}
 				</div>
 			)}
 
 			{isDuration && (
-				<div className='text-neutral-400 text-sm flex items-center justify-end'>
+				<div
+					className={`${
+						width <= 550 ? 'hidden' : 'flex'
+					} text-neutral-400 text-sm items-center justify-end`}
+				>
 					{durationConvertor({
 						milliseconds: duration ? duration : 0,
 					})}

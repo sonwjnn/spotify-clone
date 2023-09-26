@@ -24,7 +24,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
        p-4
        drop-shadow-md
        translate
-       translate-y-${isPlayingCurrentSong ? '0' : '1/4'}
+       ${isPlayingCurrentSong ? 'translate-y-0' : 'translate-y-1/4'}
        group-hover:opacity-100
        group-hover:translate-y-0
        hover:brightness-110
