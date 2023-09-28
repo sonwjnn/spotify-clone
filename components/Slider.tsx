@@ -38,7 +38,7 @@ const Slider: React.FC<SliderProps> = (
 				<RadixSlider.Range className='absolute bg-white  group-hover:bg-[#22c55e] rounded-full h-full'>
 				</RadixSlider.Range>
 			</RadixSlider.Track>
-			<RadixSlider.Thumb className='absolute right-[-7px]  translate-y-[-50%] w-3 h-3 bg-white    scale-0 group-hover:scale-100  rounded-[10px] hover:bg-violet3 focus:outline-none ' />
+			<RadixSlider.Thumb className='absolute right-[-7px]  translate-y-[-50%] w-3 h-3 bg-white scale-0 transition group-hover:scale-100  rounded-[10px] hover:bg-violet3 focus:outline-none ' />
 		</RadixSlider.Root>
 	)
 }

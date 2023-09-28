@@ -23,7 +23,7 @@ export interface Song {
 export interface Playlist {
 	id: string
 	user_id: string
-	songs?: Song[]
+	song_ids?: string[]
 	title: string
 	description?: string
 	image_path: string

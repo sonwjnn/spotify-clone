@@ -6,6 +6,7 @@ import useLoadImage from '@/hooks/useLoadImage'
 import usePlaylistModal from '@/hooks/usePlaylistModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useUser } from '@/hooks/useUser'
+import useMainLayout from '@/stores/useMainLayout'
 import { Playlist } from '@/types'
 import Image from 'next/image'
 
@@ -14,6 +15,7 @@ interface HeaderContentProps {
 	id: string
 }
 const HeaderContent: React.FC<HeaderContentProps> = ({ id, data }) => {
+	const { width } = useMainLayout()
 	const { user, subscription } = useUser()
 	const authModal = useAuthModal()
 	const uploadModal = usePlaylistModal()
@@ -35,7 +37,9 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data }) => {
 	return (
 		<div className='flex flex-col md:flex-row items-center gap-x-5'>
 			<div
-				className={'h-32 w-32 lg:h-[232px] lg:w-[232px] text-white bg-[#282828] rounded-sm flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,.5)]'}
+				className={`${
+					width <= 875 && '!h-[192px] !w-[192px]'
+				} h-[232px] w-[232px] text-white bg-[#282828] rounded-sm flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,.5)] `}
 			>
 				{imagePath
 					? (
@@ -54,15 +58,22 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data }) => {
 					: <MusicNote size={50} />}
 			</div>
 			<div className='flex flex-col gap-y-2 mt-4 md:mt-0'>
-				<p className='hidden md:block font-semibold text-sm'>
+				<p className='hidden md:block  text-base'>
 					Playlist
 				</p>
 				<h1
 					onClick={onClick}
-					className='text-white text-4xl sm:text-5xl lg:text-7xl font-bold cursor-pointer'
+					className={`${
+						width <= 875 && '!text-5xl'
+					} text-white  text-7xl font-bold cursor-pointer`}
 				>
 					{data?.title || 'Playlist Title'}
 				</h1>
+				{data?.description && (
+					<p className='hidden md:block text-sm'>
+						{data.description}
+					</p>
+				)}
 			</div>
 		</div>
 	)

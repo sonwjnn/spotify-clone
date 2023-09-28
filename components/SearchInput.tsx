@@ -8,8 +8,17 @@ import { SearchIcon } from '@/assets/icons'
 import useDebounce from '@/hooks/useDebounce'
 
 import Input from './Input'
+import { twMerge } from 'tailwind-merge'
 
-const SearchInput = () => {
+interface SearchInputProps {
+	url: string
+	placeholder?: string
+	className?: string
+}
+
+const SearchInput: React.FC<SearchInputProps> = (
+	{ className, url, placeholder },
+) => {
 	const router = useRouter()
 
 	const [value, setValue] = useState<string>('')
@@ -20,20 +29,24 @@ const SearchInput = () => {
 			title: debouncedValue,
 		}
 
-		const url = qs.stringifyUrl({
-			url: '/search',
+		const stringifiedUrl = qs.stringifyUrl({
+			url: url,
 			query: query,
 		})
 
-		router.push(url)
+		router.push(stringifiedUrl, { scroll: false })
 	}, [debouncedValue, router])
 
 	return (
 		<Input
-			placeholder='Search for your song to want to listen to !'
+			placeholder={placeholder ||
+				'Search for your song to want to listen to !'}
 			value={value}
 			onChange={(e) => setValue(e.target.value)}
-			className='rounded-full px-4 pl-10 bg-neutral-800'
+			className={twMerge(
+				`rounded-full px-4 pl-10 bg-neutral-800`,
+				className,
+			)}
 			startIcon={<SearchIcon size={18} />}
 		/>
 	)

@@ -25,7 +25,7 @@ const Search = async ({ searchParams }: SearchProps) => {
 						<h1 className='text-white text-3xl font-semibold'>
 							Search
 						</h1>
-						<SearchInput />
+						<SearchInput url='/search' />
 					</div>
 				</Header>
 				<SearchContent songs={songs} />

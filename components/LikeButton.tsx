@@ -12,6 +12,7 @@ interface LikeButtonProps {
 	songId: string
 	size?: number
 	className?: string
+	playlistId?: string
 }
 
 const LikeButton: React.FC<LikeButtonProps> = (
