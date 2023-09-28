@@ -30,7 +30,7 @@ const MediaItem: React.FC<MediaItemProps> = (
 	},
 ) => {
 	const { width } = useMainLayout()
-	const imageUrl = useLoadImage(data)
+	const imageUrl = useLoadImage(data.image_path, 'images')
 	const songUrl = useLoadSongUrl(data!)
 	const [play, { duration }] = useSound(songUrl, { format: ['mp3'] })
 

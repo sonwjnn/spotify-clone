@@ -23,10 +23,9 @@ const UploadPlaylistModal = () => {
 
 	const { reset, handleSubmit, register } = useForm<FieldValues>({
 		defaultValues: {
-			author: '',
+			description: '',
 			title: '',
-			song: null,
-			image: null,
+			playlist_img: null,
 		},
 	})
 
@@ -38,55 +37,46 @@ const UploadPlaylistModal = () => {
 	}
 
 	const handleChange = (event: any) => {
-		setFile(URL.createObjectURL(event.target.files[0]))
+		if (event.target.files[0]) {
+			setFile(URL.createObjectURL(event.target.files[0]))
+		}
 	}
 
 	const onSubmit: SubmitHandler<FieldValues> = async (values) => {
 		try {
 			setIsLoading(true)
 
-			const imageFile = values.image?.[0]
-			const songFile = values.song?.[0]
-			if (!user || !imageFile || !songFile) {
+			console.log(values)
+			const imageFile = values.playlist_img?.[0]
+
+			if (!user || !imageFile) {
 				toast.error('Missing fields')
 				return
 			}
-			const uniqID = uniqid()
 
-			//Upload song
-			const { data: songData, error: songError } = await supabaseClient
-				.storage
-				.from('songs')
-				.upload(`song-${values.title}-${uniqID}`, songFile, {
-					cacheControl: '3600',
-					upsert: false,
-				})
-			if (songError) {
-				setIsLoading(false)
-				return toast.error('Failed song upload.')
-			}
+			const uniqID = uniqid()
 
 			//Upload images
 			const { data: imageData, error: imageError } = await supabaseClient
 				.storage
 				.from('images')
-				.upload(`image-${values.title}-${uniqID}`, imageFile, {
+				.upload(`playlist-image-${values.title}-${uniqID}`, imageFile, {
 					cacheControl: '3600',
 					upsert: false,
 				})
+
 			if (imageError) {
 				setIsLoading(false)
-				return toast.error('Failed image upload.')
+				return toast.error('Failed playlist image upload.')
 			}
 
 			const { error: supabaseError } = await supabaseClient
-				.from('songs')
+				.from('playlists')
 				.insert({
 					user_id: user.id,
 					title: values.title,
-					author: values.author,
+					description: values.description,
 					image_path: imageData.path,
-					song_path: songData.path,
 				})
 			if (supabaseError) {
 				setIsLoading(false)
@@ -95,7 +85,7 @@ const UploadPlaylistModal = () => {
 
 			router.refresh()
 			setIsLoading(false)
-			toast.success('Song created!')
+			toast.success('Playlist created!')
 			reset()
 			uploadModal.onOpen()
 		} catch (error) {
@@ -119,12 +109,12 @@ const UploadPlaylistModal = () => {
 				<div className='flex flex-row gap-4 '>
 					<div className='w-[180px] h-[180px] shadow-xl'>
 						<label
-							htmlFor='image-playlist'
-							className='w-[180px]  h-[180px] flex items-center justify-center'
+							htmlFor='playlist_img'
+							className='w-[180px]  h-[180px] rounded-sm flex items-center justify-center'
 						>
 							{file !== ''
 								? (
-									<div className='relative aspect-square h-full w-full rounded-md overflow-hidden'>
+									<div className='relative aspect-square h-full w-full rounded-sm overflow-hidden'>
 										<Image
 											className='
             object-cover
@@ -139,12 +129,12 @@ const UploadPlaylistModal = () => {
 								: <MusicNote size={50} />}
 						</label>
 						<Input
-							className='bg-neutral-800 hidden'
-							id='image-playlist'
+							className='bg-neutral-800 h-0 p-0'
+							id='playlist_img'
 							disabled={isLoading}
 							type='file'
 							accept='image/*'
-							{...register('image', { required: true })}
+							{...register('playlist_img', { required: true })}
 							onChange={handleChange}
 							placeholder='Song author'
 						/>
@@ -159,7 +149,9 @@ const UploadPlaylistModal = () => {
 							placeholder='Playlist title'
 						/>
 						<textarea
+							id='description'
 							className='border border-transparent px-3 py-3 text-sm resize-none outline-none w-full h-full bg-neutral-800 rounded-md placeholder:text-neutral-400 disabled:cursor-not-allowed focus:outline-none'
+							{...register('description', { required: false })}
 							placeholder='Write your description'
 						/>
 					</div>

@@ -18,7 +18,7 @@ import ScrollbarProvider from '@/providers/ScrollbarProvider'
 const PlayingView: React.FC = () => {
 	const playingView = usePlayingView()
 	const { currentSong, activeId, ids: playerIds } = usePlayer()
-	const imagePath = useLoadImage(currentSong)
+	const imagePath = useLoadImage(currentSong?.image_path!, 'images')
 
 	// find next song
 	const currentIndex = playerIds.findIndex((id) => id === activeId)

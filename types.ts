@@ -20,6 +20,16 @@ export interface Song {
 	created_at: string
 }
 
+export interface Playlist {
+	id: string
+	user_id: string
+	songs?: Song[]
+	title: string
+	description?: string
+	image_path: string
+	created_at: string
+}
+
 export interface Product {
 	id: string
 	active?: boolean

@@ -13,7 +13,7 @@ interface NextSongProps {
 	song: Song | undefined
 }
 const NextSong: FC<NextSongProps> = ({ song }) => {
-	const imagePath = useLoadImage(song)
+	const imagePath = useLoadImage(song?.image_path!, 'images')
 
 	const handleOnNextSong = () => {}
 
