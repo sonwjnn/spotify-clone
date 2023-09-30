@@ -13,10 +13,11 @@ interface LikeButtonProps {
 	size?: number
 	className?: string
 	playlistId?: string
+	selected?: string
 }
 
 const LikeButton: React.FC<LikeButtonProps> = (
-	{ songId, size = 25, className },
+	{ songId, size = 25, className, selected },
 ) => {
 	const router = useRouter()
 
@@ -27,6 +28,8 @@ const LikeButton: React.FC<LikeButtonProps> = (
 	const authModal = useAuthModal()
 
 	const [isLiked, setIsLiked] = useState<boolean>(false)
+
+	const [isRequired, setRequired] = useState<boolean>(false)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -49,6 +52,9 @@ const LikeButton: React.FC<LikeButtonProps> = (
 
 	const handleLike = async () => {
 		if (!user) return authModal.onOpen()
+		if (isRequired) return
+
+		setRequired(true)
 
 		if (isLiked) {
 			const { data, error } = await supabaseClient
@@ -73,6 +79,7 @@ const LikeButton: React.FC<LikeButtonProps> = (
 
 			toast.success('Liked!')
 		}
+		setRequired(false)
 
 		router.refresh()
 	}
@@ -81,7 +88,12 @@ const LikeButton: React.FC<LikeButtonProps> = (
 	return (
 		<button
 			onClick={handleLike}
-			className={twMerge(`justify-center items-center`, className)}
+			className={twMerge(
+				`justify-center items-center ${
+					isLiked || selected === songId ? 'flex' : 'hidden'
+				}  group-hover/media:flex`,
+				className,
+			)}
 		>
 			<Icon
 				className={` transition ${

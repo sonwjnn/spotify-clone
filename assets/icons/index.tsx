@@ -3,6 +3,47 @@ interface IconProps {
 	color?: string
 }
 
+export function DeleteIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor', size = 16 } = props
+	return (
+		<svg
+			xmlns='http://www.w3.org/2000/svg'
+			width={size}
+			height={size}
+			viewBox='0 0 24 24'
+			fill='none'
+			stroke={color}
+			strokeWidth='2'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		>
+			<polyline points='3 6 5 6 21 6'></polyline>
+			<path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'>
+			</path>
+			<line x1='10' y1='11' x2='10' y2='17'></line>
+			<line x1='14' y1='11' x2='14' y2='17'></line>
+		</svg>
+	)
+}
+
+export function AddPlaylistIcon(props: Partial<IconProps>) {
+	const { color = 'currentColor', size = 16 } = props
+	return (
+		<svg
+			role='img'
+			fill={color}
+			height={size}
+			width={size}
+			aria-hidden='true'
+			viewBox='0 0 16 16'
+			data-encore-id='icon'
+		>
+			<path d='M2 0v2H0v1.5h2v2h1.5v-2h2V2h-2V0H2zm11.5 2.5H8.244A5.482 5.482 0 0 0 7.966 1H15v11.75A2.75 2.75 0 1 1 12.25 10h1.25V2.5zm0 9h-1.25a1.25 1.25 0 1 0 1.25 1.25V11.5zM4 8.107a5.465 5.465 0 0 0 1.5-.593v5.236A2.75 2.75 0 1 1 2.75 10H4V8.107zM4 11.5H2.75A1.25 1.25 0 1 0 4 12.75V11.5z'>
+			</path>
+		</svg>
+	)
+}
+
 export function SearchActiveIcon(props: Partial<IconProps>) {
 	const { color = 'currentColor', size = 24 } = props
 	return (

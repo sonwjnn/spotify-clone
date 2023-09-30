@@ -7,21 +7,19 @@ import PlaylistSong from './PlaylistSong'
 interface PlaylistContentProps {
 	playlist: Playlist
 	songs: Song[]
+	addedSongs: Song[]
 }
 
 const PlaylistContent: React.FC<PlaylistContentProps> = (
-	{ playlist, songs },
+	{ playlist, songs, addedSongs },
 ) => {
-	const addedSongs = songs.filter((song) =>
-		playlist?.song_ids?.includes(song.id)
-	)
 	const unaddedSongs = songs.filter((song) =>
 		!playlist?.song_ids?.includes(song.id)
 	)
 
 	return (
 		<>
-			<PlaylistSong songs={addedSongs} />
+			<PlaylistSong songs={addedSongs} playlist={playlist} />
 			<PlaylistSearch songs={unaddedSongs} playlist={playlist} />
 		</>
 	)

@@ -1,4 +1,5 @@
 'use client'
+
 import uniqid from 'uniqid'
 import { useState } from 'react'
 import Modal from './Modal'
@@ -8,23 +9,32 @@ import Button from './Button'
 import { toast } from 'react-hot-toast'
 import { useUser } from '@/hooks/useUser'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import usePlaylistModal from '@/hooks/usePlaylistModal'
 import { MusicNote } from '@/assets/icons'
 import Image from 'next/image'
+import useLoadImage from '@/hooks/useLoadImage'
+import { buckets } from '@/utils/constants'
 
 const UploadPlaylistModal = () => {
 	const [isLoading, setIsLoading] = useState(false)
-	const [file, setFile] = useState<string>('')
 	const uploadModal = usePlaylistModal()
+	const playlistImgDefault = useLoadImage(
+		uploadModal.playlist?.image_path!,
+		buckets.playlist_images,
+	)
+	const [file, setFile] = useState<string>(playlistImgDefault || '')
 	const { user } = useUser()
 	const supabaseClient = useSupabaseClient()
 	const router = useRouter()
+	const params = useParams()
+
+	const playlistId = params.id || uploadModal.playlist?.id
 
 	const { reset, handleSubmit, register } = useForm<FieldValues>({
 		defaultValues: {
-			description: '',
-			title: '',
+			description: uploadModal.playlist?.description,
+			title: uploadModal.playlist?.title,
 			playlist_img: null,
 		},
 	})
@@ -46,7 +56,6 @@ const UploadPlaylistModal = () => {
 		try {
 			setIsLoading(true)
 
-			console.log(values)
 			const imageFile = values.playlist_img?.[0]
 
 			if (!user || !imageFile) {
@@ -59,25 +68,42 @@ const UploadPlaylistModal = () => {
 			//Upload images
 			const { data: imageData, error: imageError } = await supabaseClient
 				.storage
-				.from('images')
-				.upload(`playlist-image-${values.title}-${uniqID}`, imageFile, {
-					cacheControl: '3600',
-					upsert: false,
-				})
-
+				.from(buckets.playlist_images)
+				.upload(
+					`playlist-image-${uniqID}`,
+					imageFile,
+					{
+						cacheControl: '3600',
+						upsert: false,
+					},
+				)
 			if (imageError) {
 				setIsLoading(false)
-				return toast.error('Failed playlist image upload.')
+				return toast.error(imageError.message)
+			}
+
+			//Remove old images
+			if (uploadModal.playlist?.image_path) {
+				const { error: oldImageError } = await supabaseClient
+					.storage
+					.from(buckets.playlist_images)
+					.remove([uploadModal.playlist?.image_path])
+
+				if (oldImageError) {
+					setIsLoading(false)
+					return toast.error(oldImageError.message)
+				}
 			}
 
 			const { error: supabaseError } = await supabaseClient
 				.from('playlists')
-				.insert({
-					user_id: user.id,
+				.update({
 					title: values.title,
 					description: values.description,
 					image_path: imageData.path,
 				})
+				.eq('id', playlistId)
+
 			if (supabaseError) {
 				setIsLoading(false)
 				return toast.error(supabaseError.message)
@@ -87,7 +113,7 @@ const UploadPlaylistModal = () => {
 			setIsLoading(false)
 			toast.success('Playlist created!')
 			reset()
-			uploadModal.onOpen()
+			uploadModal.onClose()
 		} catch (error) {
 			toast.error('Something went wrong')
 		} finally {
@@ -161,7 +187,7 @@ const UploadPlaylistModal = () => {
 					className='w-[50%] mx-auto mt-2'
 					disabled={isLoading}
 				>
-					Create
+					Save
 				</Button>
 			</form>
 		</Modal>

@@ -8,6 +8,7 @@ import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useUser } from '@/hooks/useUser'
 import useMainLayout from '@/stores/useMainLayout'
 import { Playlist } from '@/types'
+import { buckets } from '@/utils/constants'
 import Image from 'next/image'
 
 interface HeaderContentProps {
@@ -22,7 +23,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data }) => {
 
 	const subcribeModal = useSubscribeModal()
 
-	const imagePath = useLoadImage(data?.image_path!, 'images')
+	const imagePath = useLoadImage(data?.image_path!, buckets.playlist_images)
 
 	const onClick = () => {
 		if (!user) {
@@ -64,7 +65,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data }) => {
 				<h1
 					onClick={onClick}
 					className={`${
-						width <= 875 && '!text-5xl'
+						width <= 1012 && '!text-5xl'
 					} text-white  text-7xl font-bold cursor-pointer`}
 				>
 					{data?.title || 'Playlist Title'}

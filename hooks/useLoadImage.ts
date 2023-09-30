@@ -5,7 +5,7 @@ const useLoadImage = (imagePath: string, bucket: string) => {
 	if (!imagePath || !bucket) return null
 
 	const { data: imageData } = supabaseClient.storage
-		.from('images')
+		.from(bucket)
 		.getPublicUrl(imagePath)
 
 	return imageData.publicUrl

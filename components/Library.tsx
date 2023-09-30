@@ -1,79 +1,53 @@
 'use client'
 
 import { LibraryIcon } from '@/assets/icons'
-import { AiOutlinePlus } from 'react-icons/ai'
-import { useUser } from '@/hooks/useUser'
-import useAuthModal from '@/hooks/useAuthModal'
-import useUploadModal from '@/hooks/useUploadModal'
-import { Song } from '@/types'
-import MediaItem from './MediaItem'
-import useOnPlay from '@/hooks/useOnPlay'
-import useSubscribeModal from '@/hooks/useSubscribeModal'
+
+import UploadDropdown from './UploadDropdown'
+import Playlist from './Playlist'
 
 interface LibraryProps {
-	songs: Song[]
+	playlists: Playlist[]
 	isScroll?: boolean
 }
 
-const Library: React.FC<LibraryProps> = ({ songs, isScroll = false }) => {
-	const { user, subscription } = useUser()
-	const authModal = useAuthModal()
-	const uploadModal = useUploadModal()
-	const onPlay = useOnPlay(songs)
-
-	const subcribeModal = useSubscribeModal()
-
-	const onClick = () => {
-		if (!user) {
-			return authModal.onOpen()
-		}
-		if (!subscription) {
-			return subcribeModal.onOpen()
-		}
-
-		return uploadModal.onOpen()
-	}
-
+const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
 	return (
 		<div className='flex flex-col'>
 			<div
-				className={`flex items-center justify-between px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-2 ${
+				className={`flex flex-col items-center px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-0 ${
 					isScroll ? 'shadow-2xl' : ''
 				}`}
 			>
-				<div className='inline-flex items-center gap-x-2 '>
-					<button className='text-neutral-400'>
-						<LibraryIcon />
-					</button>
-					<p className='font-medium text-md text-neutral-400'>
-						Your Library
-					</p>
-				</div>
-
-				<div
-					className={'min-h-8  flex flex-row justify-end'}
-				>
-					<div
-						className={'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'}
-					>
-						<button
-							className='absolute flex items-center justify-center  right-[1px] border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition'
-							onClick={onClick}
-						>
-							<AiOutlinePlus size={20} />
+				<div className='w-full flex items-center justify-between'>
+					<div className='inline-flex items-center gap-x-2 '>
+						<button className='text-neutral-400'>
+							<LibraryIcon />
 						</button>
+						<p className='font-medium text-md text-neutral-400'>
+							Your Library
+						</p>
+					</div>
+
+					<div
+						className={'min-h-8  flex flex-row justify-end'}
+					>
+						<UploadDropdown />
 					</div>
 				</div>
+
+				<div className='h-12 w-full flex items-center gap-x-2 mt-2'>
+					<button className=' rounded-full bg-neutral-800 text-white text-sm border border-transparent py-1 px-3 disabled:cursor-not-allowed disabled:opacity-50 transition hover:brightness-110'>
+						Playlists
+					</button>
+					<button
+						disabled
+						className=' rounded-full bg-neutral-800 text-white text-sm border border-transparent py-1 px-3 disabled:select-none  disabled:opacity-50 transition hover:brightness-110'
+					>
+						Albums
+					</button>
+				</div>
 			</div>
-			<div className='flex flex-col gap-y-2 mt-2 px-3 pb-2'>
-				{songs.map((item) => (
-					<MediaItem
-						onClick={(id: string) => onPlay(id)}
-						key={item.id}
-						data={item}
-					/>
-				))}
-			</div>
+			<Playlist data={playlists} />
 		</div>
 	)
 }

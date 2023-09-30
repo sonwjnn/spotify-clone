@@ -9,6 +9,7 @@ import getSongsByUserId from '@/actions/getSongsByUserId'
 import Player from '@/components/Player'
 import getActiveProductsWithPrices from '@/actions/getActiveProductsWithPrices'
 import MainContent from '@/components/MainContent/MainContent'
+import getPlaylistsByUserId from '@/actions/getPlaylistsByUserId'
 
 const font = Figtree({ subsets: ['latin'] })
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
 }) {
 	const products = await getActiveProductsWithPrices()
 	const userSongs = await getSongsByUserId()
+	const playlists = await getPlaylistsByUserId()
 
 	return (
 		<html lang='en' suppressHydrationWarning={true}>
@@ -35,7 +37,10 @@ export default async function RootLayout({
 					<SupabaseProvider>
 						<UserProvider>
 							<ModalProvider products={products} />
-							<MainContent songs={userSongs}>
+							<MainContent
+								songs={userSongs}
+								playlists={playlists}
+							>
 								{children}
 							</MainContent>
 							<Player />

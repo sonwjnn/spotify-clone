@@ -12,13 +12,13 @@ import Box from './Box'
 import { IconType } from 'react-icons'
 import Link from 'next/link'
 import Library from './Library'
-import { Song } from '@/types'
+import { Playlist } from '@/types'
 import { twMerge } from 'tailwind-merge'
 import usePlayingView from '@/stores/usePlayingView'
 import ScrollbarProvider from '@/providers/ScrollbarProvider'
 
 interface SidebarProps {
-	songs: Song[]
+	playlists: Playlist[]
 	className: string
 }
 
@@ -50,7 +50,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 	)
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
+const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
 	const pathname = usePathname()
 
 	const routes = useMemo(
@@ -117,7 +117,7 @@ const Sidebar: React.FC<SidebarProps> = ({ songs, className }) => {
 			<div className='h-full w-full bg-neutral-900 rounded-lg overflow-hidden'>
 				<Box className=' h-full '>
 					<ScrollbarProvider scrollRef={scrollRef}>
-						<Library songs={songs} isScroll={isScroll} />
+						<Library playlists={playlists} isScroll={isScroll} />
 					</ScrollbarProvider>
 				</Box>
 			</div>

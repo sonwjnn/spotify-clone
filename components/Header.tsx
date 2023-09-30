@@ -5,11 +5,10 @@ import { twMerge } from 'tailwind-merge'
 interface HeaderProps {
 	children: React.ReactNode
 	className?: string
-	bgColor?: string | null
 }
 
 const Header: React.FC<HeaderProps> = (
-	{ children, className, bgColor = 'emerald-800' },
+	{ children, className },
 ) => {
 	return (
 		<div

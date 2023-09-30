@@ -5,14 +5,16 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useAuthModal from '@/hooks/useAuthModal'
 import { toast } from 'react-hot-toast'
+import { ClipLoader } from 'react-spinners'
 
 interface PlaylistButtonProps {
+	type: 'add' | 'remove'
 	songId: string
 	playlistId: string
 }
 
 const PlaylistButton: React.FC<PlaylistButtonProps> = (
-	{ songId, playlistId },
+	{ type, songId, playlistId },
 ) => {
 	const router = useRouter()
 
@@ -22,7 +24,7 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = (
 
 	const authModal = useAuthModal()
 
-	const [isAdded, setIsAdded] = useState<boolean>(false)
+	const [isRequired, setRequired] = useState<boolean>(false)
 
 	// useEffect(() => {
 	// 	const fetchData = async () => {
@@ -46,46 +48,74 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = (
 	const handleLike = async () => {
 		if (!user) return authModal.onOpen()
 
-		// const { data, error } = await supabaseClient
-		// 	.from('playlists')
-		// 	.delete()
-		// 	.eq('id', playlistId)
-		// 	.eq('song_ids', songId)
-		//
-		// if (error) return toast.error(error.message)
-		// setIsAdded(false)
-		const { data, error: playlistError } = await supabaseClient
-			.from('playlists')
-			.select('*')
-			.eq('id', playlistId)
-			.single()
-		if (playlistError) return toast.error(playlistError.message)
+		if (isRequired) return
 
-		const song_ids = data.song_ids || []
+		setRequired(true)
 
-		const { error } = await supabaseClient
-			.from('playlists')
-			.upsert({
-				id: playlistId,
-				song_ids: [...song_ids, songId],
-				user_id: user.id,
-			})
+		if (type === 'add') {
+			const { data, error: playlistError } = await supabaseClient
+				.from('playlists')
+				.select('*')
+				.eq('id', playlistId)
+				.single()
+			if (playlistError) return toast.error(playlistError.message)
 
-		if (error) return toast.error(error.message)
+			const song_ids = data.song_ids || []
 
-		setIsAdded(true)
+			const { error } = await supabaseClient
+				.from('playlists')
+				.upsert({
+					id: playlistId,
+					song_ids: [...song_ids, songId],
+					user_id: user.id,
+				})
 
-		toast.success('Added song to your playlist!')
+			if (error) return toast.error(error.message)
+
+			toast.success('Added!')
+		} else {
+			const { data, error: playlistError } = await supabaseClient
+				.from('playlists')
+				.select('*')
+				.eq('id', playlistId)
+				.single()
+			if (playlistError) return toast.error(playlistError.message)
+
+			let song_ids = data.song_ids || []
+
+			if (song_ids.length) {
+				song_ids = [...song_ids].filter((id) => id !== songId)
+			}
+
+			const { error } = await supabaseClient
+				.from('playlists')
+				.upsert({
+					id: playlistId,
+					song_ids: song_ids,
+					user_id: user.id,
+				})
+
+			if (error) return toast.error(error.message)
+
+			toast.success('Removed!')
+		}
+
+		setRequired(false)
+
 		router.refresh()
 	}
 
 	return (
 		<button
 			onClick={handleLike}
-			className={`w-[50px] rounded-full border border-white px-2 py-2 disabled:cursor-not-allowed disabled:opacity-50  font-semibold transition hover:scale-105 active:scale-100 bg-transparent text-white
+			className={`min-w-[50px] flex items-center justify-center h-8 rounded-full border border-white px-2 py-2 disabled:cursor-not-allowed disabled:opacity-50  font-semibold transition hover:scale-105 active:scale-100 bg-transparent text-white
 `}
 		>
-			Add
+			{isRequired
+				? <ClipLoader color='white' size={18} />
+				: type === 'add'
+				? 'Add'
+				: 'Remove'}
 		</button>
 	)
 }

@@ -5,6 +5,7 @@ import HeaderContent from './components/HeaderContent'
 import getPlaylistById from '@/actions/getPlaylistById'
 import PlaylistContent from './components/PlaylistContent'
 import getSongsByTitle from '@/actions/getSongsByTitle'
+import getSongsByIds from '@/actions/getSongsByIds'
 
 interface PlaylistProps {
 	params: {
@@ -17,7 +18,6 @@ export const revalidate = 0
 
 const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
 	const playlist = await getPlaylistById(params.id)
-	const songs = await getSongsByTitle(searchParams?.title)
 
 	if (!playlist) {
 		return (
@@ -27,6 +27,9 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
 		)
 	}
 
+	const addedSongs = await getSongsByIds(playlist?.song_ids || [])
+	const songs = await getSongsByTitle(searchParams?.title)
+
 	return (
 		<div className='relative h-full w-full'>
 			<Navbar bgColor={'bg-neutral-600'} />
@@ -34,7 +37,11 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
 				<Header className='bg-gradient-to-b from-neutral-600'>
 					<HeaderContent id={params.id} data={playlist} />
 				</Header>
-				<PlaylistContent playlist={playlist} songs={songs} />
+				<PlaylistContent
+					playlist={playlist}
+					songs={songs}
+					addedSongs={addedSongs}
+				/>
 			</PageWrapper>
 		</div>
 	)

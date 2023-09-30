@@ -3,7 +3,7 @@
 import Split from 'react-split'
 import { twMerge } from 'tailwind-merge'
 import Sidebar from '../Sidebar'
-import { Song } from '@/types'
+import { Playlist, Song } from '@/types'
 import PlayingView from '../PlayingView/PlayingView'
 
 import usePlayingView from '@/stores/usePlayingView'
@@ -15,9 +15,12 @@ import MainLayout from './MainLayout'
 interface MainContentProps {
 	children: React.ReactNode
 	songs: Song[]
+	playlists: Playlist[]
 }
 
-const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
+const MainContent: React.FC<MainContentProps> = (
+	{ children, playlists },
+) => {
 	const [isLoading, setLoading] = useState(true)
 	const player = usePlayer()
 
@@ -46,7 +49,7 @@ const MainContent: React.FC<MainContentProps> = ({ children, songs }) => {
 				>
 					<Sidebar
 						className='min-w-[280px] max-w-[500px]'
-						songs={songs}
+						playlists={playlists}
 					/>
 
 					<MainLayout>

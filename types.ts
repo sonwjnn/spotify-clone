@@ -27,6 +27,7 @@ export interface Playlist {
 	title: string
 	description?: string
 	image_path: string
+	users?: UserDetails
 	created_at: string
 }
 
