@@ -32,9 +32,13 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
 
 	return (
 		<div className='relative h-full w-full'>
-			<Navbar bgColor={'bg-neutral-600'} />
+			<Navbar
+				bgColor={playlist.bg_color ? playlist.bg_color : undefined}
+			/>
 			<PageWrapper>
-				<Header className='bg-gradient-to-b from-neutral-600'>
+				<Header
+					bgColor={playlist.bg_color ? playlist.bg_color : undefined}
+				>
 					<HeaderContent id={params.id} data={playlist} />
 				</Header>
 				<PlaylistContent

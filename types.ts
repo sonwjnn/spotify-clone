@@ -28,6 +28,7 @@ export interface Playlist {
 	description?: string
 	image_path: string
 	users?: UserDetails
+	bg_color?: string
 	created_at: string
 }
 

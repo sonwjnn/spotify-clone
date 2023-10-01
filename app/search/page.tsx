@@ -18,9 +18,9 @@ const Search = async ({ searchParams }: SearchProps) => {
 
 	return (
 		<div className='relative h-full w-full'>
-			<Navbar bgColor={'bg-neutral-900'} />
+			<Navbar bgColor={'#171717'} darker={false} />
 			<PageWrapper>
-				<Header className='bg-gradient-to-b from-neutral-900'>
+				<Header bgColor='#171717'>
 					<div className='mb-2 flex flex-col gap-y-6'>
 						<h1 className='text-white text-3xl font-semibold'>
 							Search

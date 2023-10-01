@@ -55,9 +55,10 @@ const UploadDropdown = () => {
 			.from('playlists')
 			.insert({
 				user_id: user.id,
-				title: `My playlist #`,
+				title: `My new playlist`,
 				description: '',
 				song_ids: [],
+				bg_color: '#525252',
 			})
 			.select()
 			.single()

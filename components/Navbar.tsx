@@ -22,11 +22,12 @@ import useHeaderNavigate from '@/stores/useHeaderNavigate'
 
 interface NavbarProps {
 	className?: string
-	bgColor?: string | null
+	bgColor?: string
+	darker?: boolean
 }
 
 const Navbar: React.FC<NavbarProps> = (
-	{ className, bgColor = 'emerald-800' },
+	{ className, bgColor = '#065f46', darker = true },
 ) => {
 	const router = useRouter()
 	const authModal = useAuthModal()
@@ -72,16 +73,20 @@ const Navbar: React.FC<NavbarProps> = (
 	return (
 		<div
 			className={twMerge(
-				`absolute top-0 right-0 left-0 h-16     rounded-t-lg`,
+				`absolute top-0 right-0 left-0 h-16  rounded-t-lg`,
 				className,
 			)}
 		>
 			<div
 				className={twMerge(
-					`rounded-t-lg absolute top-0 h-full left-0 bg-emerald-800 right-0  z-10 `,
-					bgColor,
+					`rounded-t-lg absolute top-0 h-full left-0 ${
+						darker && 'brightness-50'
+					}  right-0 z-10 `,
 				)}
-				style={{ opacity: opacity }}
+				style={{
+					opacity: opacity,
+					backgroundColor: bgColor,
+				}}
 			>
 			</div>
 			<div

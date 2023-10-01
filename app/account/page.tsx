@@ -6,11 +6,10 @@ import PageWrapper from '@/components/PageWrapper'
 const Account = () => {
 	return (
 		<div className='relative h-full w-full'>
-			<Navbar bgColor={'bg-neutral-900'} />
+			<Navbar bgColor='#171717' darker={false} />
 			<PageWrapper>
 				<Header
-					className='bg-gradient-to-b from-neutral-900'
-					bgColor={'bg-neutral-900'}
+					bgColor={'#171717'}
 				>
 					<div className='mb-2 flex flex-col gap-y-6 '>
 						<div className='text-white text-3xl font-semibold'>

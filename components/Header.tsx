@@ -5,17 +5,22 @@ import { twMerge } from 'tailwind-merge'
 interface HeaderProps {
 	children: React.ReactNode
 	className?: string
+	bgColor?: string
 }
 
 const Header: React.FC<HeaderProps> = (
-	{ children, className },
+	{ children, className, bgColor = '#065f46' },
 ) => {
 	return (
 		<div
 			className={twMerge(
-				` h-fit bg-gradient-to-b from-emerald-800 p-6 pt-16`,
+				` h-fit  p-6 pt-16`,
 				className,
 			)}
+			style={{
+				backgroundImage:
+					`linear-gradient(to bottom, ${bgColor}, rgba(255,0,0,0))`,
+			}}
 		>
 			{children}
 		</div>

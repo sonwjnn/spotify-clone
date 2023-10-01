@@ -67,7 +67,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data }) => {
 					onClick={onClick}
 					className={`${
 						width <= 1012 && '!text-5xl'
-					} text-white  text-7xl font-bold cursor-pointer`}
+					} text-white text-center md:text-left text-7xl font-bold cursor-pointer`}
 				>
 					{data?.title || 'Playlist Title'}
 				</h1>
