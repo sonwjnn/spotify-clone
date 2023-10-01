@@ -1,7 +1,7 @@
 'use client'
 
 import uniqid from 'uniqid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from './Modal'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import Input from './Input'
@@ -19,6 +19,7 @@ import { buckets } from '@/utils/constants'
 const UploadPlaylistModal = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const uploadModal = usePlaylistModal()
+
 	const playlistImgDefault = useLoadImage(
 		uploadModal.playlist?.image_path!,
 		buckets.playlist_images,
@@ -29,7 +30,7 @@ const UploadPlaylistModal = () => {
 	const router = useRouter()
 	const params = useParams()
 
-	const playlistId = params.id || uploadModal.playlist?.id
+	const playlistId = uploadModal.playlist?.id || params.id
 
 	const { reset, handleSubmit, register } = useForm<FieldValues>({
 		defaultValues: {
@@ -120,6 +121,7 @@ const UploadPlaylistModal = () => {
 			setIsLoading(false)
 		}
 	}
+
 	return (
 		<Modal
 			className='md:max-w-[550px]'

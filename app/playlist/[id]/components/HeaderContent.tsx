@@ -53,6 +53,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data }) => {
 								fill
 								alt='Img'
 								sizes='100%'
+								priority={true}
 							/>
 						</div>
 					)

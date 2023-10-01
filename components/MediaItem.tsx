@@ -10,16 +10,20 @@ import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import useMainLayout from '@/stores/useMainLayout'
 import usePlayer from '@/stores/usePlayer'
+import equaliser from '@/assets/image/animation/equaliser-animated-green.f5eb96f2.gif'
+import { useEffect } from 'react'
 
 interface MediaItemProps {
 	data: Song
 	index?: number
+	isPlaying?: boolean
 	isDuration?: boolean
 	isCreatedAt?: boolean
 	selected?: string
+	actived?: string
 	className?: string
-	onDoubleClick?: (id: string) => void
-	onClick?: (id: string) => void
+	onDoubleClick?: (value?: any) => void
+	onClick?: (value?: any) => void
 	children?: React.ReactNode
 }
 
@@ -30,7 +34,10 @@ const MediaItem: React.FC<MediaItemProps> = (
 		isDuration = false,
 		isCreatedAt = false,
 		index,
+		isPlaying,
 		selected,
+		actived,
+		onDoubleClick,
 		onClick,
 		children,
 	},
@@ -38,53 +45,43 @@ const MediaItem: React.FC<MediaItemProps> = (
 	const { width } = useMainLayout()
 	const imageUrl = useLoadImage(data.image_path, 'images')
 	const songUrl = useLoadSongUrl(data!)
-	const [play, { duration }] = useSound(songUrl, { format: ['mp3'] })
+	const [play, { duration }] = useSound(songUrl, { format: ['mp4'] })
 	const player = usePlayer()
 
-	const handleClick = () => {
-		if (onClick) {
-			return onClick(data.id)
-		}
-
-		return
-	}
-
-	const isTextColorChange = player.activeId === data.id && selected
+	const isSelected = selected === data.id
+	const isActived = actived === data.id && isPlaying
 
 	return (
 		<div
 			className={twMerge(
-				`transition cursor-pointer rounded-md p-2 w-full hover:bg-neutral-800/50 ${
-					selected === data.id && 'bg-neutral-800/50'
+				`transition cursor-pointer rounded-md p-1 w-full gap-x-2 hover:bg-neutral-800/50 ${
+					isSelected && 'bg-neutral-800/50'
 				}`,
 				className,
 			)}
 		>
-			{index && (
-				<div
-					className={`${
-						isTextColorChange &&
-						'text-[#1ed760]'
-					} text-neutral-400 text-sm flex items-center  justify-end w-4 mr-2`}
-				>
-					{index}
-				</div>
-			)}
+			{index && (player.isPlaying && isActived)
+				? (
+					<div className='relative h-full w-3  ml-2 overflow-hidden flex items-center '>
+						<Image src={equaliser} alt='equaliser' />
+					</div>
+				)
+				: (
+					<div
+						className={`${
+							isActived ? 'text-[#2ed760]' : 'text-neutral-400'
+						}  text-sm flex items-center  justify-end w-4 `}
+					>
+						{index}
+					</div>
+				)}
 			<div
-				onClick={handleClick}
-				className='
-        flex
-        item-center
-        gap-x-3
+				onDoubleClick={onDoubleClick}
+				onClick={onClick}
+				className='flex item-center gap-x-3
       '
 			>
-				<div className='
-          relative
-          rounded-md
-          min-h-[48px]
-          min-w-[48px]
-          overflow-hidden
-        '>
+				<div className='relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden'>
 					<Image
 						fill
 						src={imageUrl || '/images/liked.png'}
@@ -93,17 +90,11 @@ const MediaItem: React.FC<MediaItemProps> = (
 						className='object-cover'
 					/>
 				</div>
-				<div className='
-          flex
-          flex-col
-          gap-y-1
-          overflow-hidden
-      '>
+				<div className='flex flex-col gap-y-1 overflow-hidden'>
 					<p
-						className={`${
-							isTextColorChange &&
-							'text-[#1ed760]'
-						} hover:underline text-white truncate`}
+						className={` hover:underline  truncate ${
+							isActived ? 'text-[#2ed760]' : 'text-white'
+						}`}
 					>
 						{data.title}
 					</p>
@@ -116,8 +107,8 @@ const MediaItem: React.FC<MediaItemProps> = (
 			{isCreatedAt && (
 				<div
 					className={`${
-						width <= 780 ? 'hidden' : 'flex'
-					} text-neutral-400 text-sm items-center justify-end`}
+						width <= 781 ? 'hidden' : 'flex'
+					} text-neutral-400 text-sm items-center justify-end select-none`}
 				>
 					{dayjs(data.created_at).format('DD-MM-YYYY')}
 				</div>
@@ -126,8 +117,8 @@ const MediaItem: React.FC<MediaItemProps> = (
 			{isDuration && (
 				<div
 					className={`${
-						width <= 550 ? 'hidden' : 'flex'
-					} text-neutral-400 text-sm items-center justify-end`}
+						width <= 551 ? 'hidden' : 'flex'
+					} text-neutral-400 text-sm items-center justify-end select-none`}
 				>
 					{durationConvertor({
 						milliseconds: duration ? duration : 0,

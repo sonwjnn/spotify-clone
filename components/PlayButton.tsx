@@ -1,21 +1,23 @@
 import { PauseIcon, PlayIcon } from '@/assets/icons'
-import usePlayer from '@/stores/usePlayer'
+import { twMerge } from 'tailwind-merge'
 
 interface PlayButtonProps {
-	id?: string
+	onClick?: (value?: any) => void
+	className?: string
+	isPlaying?: boolean
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
-	const { currentSong, isPlaying } = usePlayer()
-
-	const isPlayingCurrentSong = currentSong?.id === id && isPlaying
-
-	const Icon = isPlayingCurrentSong ? PauseIcon : PlayIcon
+const PlayButton: React.FC<PlayButtonProps> = (
+	{ className, isPlaying = false, onClick },
+) => {
+	const Icon = isPlaying ? PauseIcon : PlayIcon
 
 	return (
 		<button
-			className={`
-       opacity-${isPlayingCurrentSong ? '1' : '0'}
+			onClick={onClick}
+			className={twMerge(
+				`
+       opacity-${isPlaying ? '1' : '0'}
        rounded-full
        flex
        items-center
@@ -24,7 +26,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
        p-4
        drop-shadow-md
        translate
-       ${isPlayingCurrentSong ? 'translate-y-0' : 'translate-y-1/4'}
+       ${isPlaying ? 'translate-y-0' : 'translate-y-1/4'}
        group-hover:opacity-100
        group-hover:translate-y-0
        hover:brightness-110
@@ -32,7 +34,9 @@ const PlayButton: React.FC<PlayButtonProps> = ({ id }) => {
        transition
        active:scale-100
        shadow-[0_8px_8px_rgba(0,0,0,.3)]
-     `}
+     `,
+				className,
+			)}
 		>
 			<Icon size={20} />
 		</button>
