@@ -1,39 +1,39 @@
-'use client'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { PlayIcon } from '@/assets/icons'
+"use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { PlayIcon } from "@/public/icons";
 
 interface ListItemProps {
-	image: string
-	name: string
-	href: string
+  image: string;
+  name: string;
+  href: string;
 }
 const ListItem: React.FC<ListItemProps> = ({ image, name, href }) => {
-	const router = useRouter()
-	const onClick = () => {
-		// Add authentication befire push
-		router.push(href)
-	}
-	return (
-		<button
-			className='relative group/song flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition pr-4'
-			onClick={onClick}
-		>
-			<div className='relative min-h-[64px] min-w-[64px]'>
-				<Image
-					className='object-cover'
-					fill
-					src={image}
-					alt='Image'
-					sizes='100%'
-				/>
-			</div>
-			<p className='font-medium truncate py-5'>{name}</p>
-			<div className='absolute transition opacity-0 hover:scale-110 items-center justify-center rounded-full flex bg-green-500 p-4 drop-shadow-md right-5 group-hover/song:opacity-100'>
-				<PlayIcon size={20} />
-			</div>
-		</button>
-	)
-}
+  const router = useRouter();
+  const onClick = () => {
+    // Add authentication befire push
+    router.push(href);
+  };
+  return (
+    <button
+      className="relative group/song flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition pr-4"
+      onClick={onClick}
+    >
+      <div className="relative min-h-[64px] min-w-[64px]">
+        <Image
+          className="object-cover"
+          fill
+          src={image}
+          alt="Image"
+          sizes="100%"
+        />
+      </div>
+      <p className="font-medium truncate py-5">{name}</p>
+      <div className="absolute transition opacity-0 hover:scale-110 items-center justify-center rounded-full flex bg-green-500 p-4 drop-shadow-md right-5 group-hover/song:opacity-100">
+        <PlayIcon size={20} />
+      </div>
+    </button>
+  );
+};
 
-export default ListItem
+export default ListItem;

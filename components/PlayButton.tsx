@@ -1,23 +1,25 @@
-import { PauseIcon, PlayIcon } from '@/assets/icons'
-import { twMerge } from 'tailwind-merge'
+import { PauseIcon, PlayIcon } from "@/public/icons";
+import { twMerge } from "tailwind-merge";
 
 interface PlayButtonProps {
-	onClick?: (value?: any) => void
-	className?: string
-	isPlaying?: boolean
+  onClick?: (value?: any) => void;
+  className?: string;
+  isPlaying?: boolean;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = (
-	{ className, isPlaying = false, onClick },
-) => {
-	const Icon = isPlaying ? PauseIcon : PlayIcon
+const PlayButton: React.FC<PlayButtonProps> = ({
+  className,
+  isPlaying = false,
+  onClick,
+}) => {
+  const Icon = isPlaying ? PauseIcon : PlayIcon;
 
-	return (
-		<button
-			onClick={onClick}
-			className={twMerge(
-				`
-       opacity-${isPlaying ? '1' : '0'}
+  return (
+    <button
+      onClick={onClick}
+      className={twMerge(
+        `
+       opacity-${isPlaying ? "1" : "0"}
        rounded-full
        flex
        items-center
@@ -26,7 +28,7 @@ const PlayButton: React.FC<PlayButtonProps> = (
        p-4
        drop-shadow-md
        translate
-       ${isPlaying ? 'translate-y-0' : 'translate-y-1/4'}
+       ${isPlaying ? "translate-y-0" : "translate-y-1/4"}
        group-hover:opacity-100
        group-hover:translate-y-0
        hover:brightness-110
@@ -35,12 +37,12 @@ const PlayButton: React.FC<PlayButtonProps> = (
        active:scale-100
        shadow-[0_8px_8px_rgba(0,0,0,.3)]
      `,
-				className,
-			)}
-		>
-			<Icon size={20} />
-		</button>
-	)
-}
+        className
+      )}
+    >
+      <Icon size={20} />
+    </button>
+  );
+};
 
-export default PlayButton
+export default PlayButton;
