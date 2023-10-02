@@ -36,7 +36,7 @@ const Slider: React.FC<SliderProps> = ({
       value={[value]}
       onValueChange={handleChange}
       onValueCommit={handleMouseUp}
-      max={[maxValue]}
+      max={maxValue}
       step={step}
     >
       <RadixSlider.Track className="bg-neutral-600  relative rounded-full grow h-[3px]">
