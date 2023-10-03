@@ -1,70 +1,85 @@
-'use client'
+"use client";
 
-import Split from 'react-split'
-import { twMerge } from 'tailwind-merge'
-import Sidebar from '../Sidebar'
-import { Playlist, Song } from '@/types'
-import PlayingView from '../PlayingView/PlayingView'
+import Split from "react-split";
+import { twMerge } from "tailwind-merge";
+import Sidebar from "../Sidebar";
+import { Playlist, Song } from "@/types";
+import PlayingView from "../PlayingView/PlayingView";
 
-import usePlayingView from '@/stores/usePlayingView'
-import usePlayer from '@/stores/usePlayer'
-import { useEffect, useState } from 'react'
-import GlobalLoading from '../LoadingLayout/GlobalLoading'
-import MainLayout from './MainLayout'
+import usePlayingView from "@/stores/usePlayingView";
+import usePlayer from "@/stores/usePlayer";
+import { useEffect, useState } from "react";
+import GlobalLoading from "../LoadingLayout/GlobalLoading";
+import MainLayout from "./MainLayout";
+import useUserStore from "@/stores/useUserStore";
 
 interface MainContentProps {
-	children: React.ReactNode
-	songs: Song[]
-	playlists: Playlist[]
+  children: React.ReactNode;
+  songs: Song[];
+  playlists: Playlist[];
+  likedSongs: Song[];
 }
 
-const MainContent: React.FC<MainContentProps> = (
-	{ children, playlists },
-) => {
-	const [isLoading, setLoading] = useState(true)
-	const player = usePlayer()
+const MainContent: React.FC<MainContentProps> = ({
+  children,
+  playlists,
+  likedSongs,
+}) => {
+  const [isLoading, setLoading] = useState(true);
+  const player = usePlayer();
+  const { setLikedSongs } = useUserStore();
 
-	const { isShowed } = usePlayingView()
+  const { isShowed } = usePlayingView();
 
-	useEffect(() => {
-		setTimeout(() => {
-			setLoading(false)
-		}, 800)
-	}, [])
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
+  }, []);
 
-	return (
-		<>
-			{isLoading ? <GlobalLoading /> : (
-				<Split
-					cursor='col-resize'
-					minSize={isShowed ? [300, 400, 0] : [280, 600]}
-					maxSize={isShowed ? [500, 99999, 400] : [500, 99999]}
-					sizes={isShowed ? [20, 60, 20] : [20, 80]}
-					gutterSize={8}
-					snapOffset={20}
-					className={twMerge(
-						`flex flex-row w-full h-full `,
-						player.activeId && 'h-[calc(100%-80px)]',
-					)}
-				>
-					<Sidebar
-						className='min-w-[280px] max-w-[500px]'
-						playlists={playlists}
-					/>
+  useEffect(() => {
+    if (likedSongs.length) {
+      setLikedSongs(likedSongs);
+    }
+  }, [likedSongs, setLikedSongs]);
 
-					<MainLayout>
-						<main className='h-full flex-grow overflow-y-auto py-2 relative'>
-							{children}
-						</main>
-					</MainLayout>
+  return (
+    <>
+      {isLoading ? (
+        <GlobalLoading />
+      ) : (
+        <Split
+          cursor="col-resize"
+          minSize={isShowed ? [300, 400, 0] : [280, 600]}
+          maxSize={isShowed ? [500, 99999, 400] : [500, 99999]}
+          sizes={isShowed ? [20, 60, 20] : [20, 80]}
+          gutterSize={8}
+          snapOffset={20}
+          className={twMerge(
+            `flex flex-row w-full h-full `,
+            player.activeId && "h-[calc(100%-80px)]"
+          )}
+        >
+          <Sidebar
+            className="min-w-[280px] max-w-[500px]"
+            playlists={playlists}
+          />
 
-					{isShowed
-						? <PlayingView />
-						: <div className='w-2 absolute right-0 h-full'></div>}
-				</Split>
-			)}
-		</>
-	)
-}
+          <MainLayout>
+            <main className="h-full flex-grow overflow-y-auto py-2 relative">
+              {children}
+            </main>
+          </MainLayout>
 
-export default MainContent
+          {isShowed ? (
+            <PlayingView />
+          ) : (
+            <div className="w-2 absolute right-0 h-full"></div>
+          )}
+        </Split>
+      )}
+    </>
+  );
+};
+
+export default MainContent;

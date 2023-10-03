@@ -11,6 +11,7 @@ import usePlaylistModal from "@/hooks/usePlaylistModal";
 import { MusicNote } from "@/public/icons";
 import { buckets } from "@/utils/constants";
 import PlaylistItemDropdown from "./PlaylistItemDropdown";
+import ListItem from "./ListItem";
 
 interface PlaylistItemProps {
   data: Playlist;
@@ -93,6 +94,7 @@ const Playlist: React.FC<PlaylistProps> = ({ data }) => {
           <PlaylistItem data={item} />
         </PlaylistItemDropdown>
       ))}
+      <ListItem image="/images/liked.png" name="Liked Songs" href="liked" />
     </div>
   );
 };

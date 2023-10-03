@@ -4,6 +4,7 @@ import { LibraryIcon } from "@/public/icons";
 
 import UploadDropdown from "./UploadDropdown";
 import Playlist from "./Playlist";
+import ListItem from "./ListItem";
 
 interface LibraryProps {
   playlists: Playlist[];

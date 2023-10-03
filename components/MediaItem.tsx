@@ -60,7 +60,10 @@ const MediaItem: React.FC<MediaItemProps> = ({
       {index && player.isPlaying && isActived ? (
         <div className="relative h-full w-3  ml-2 overflow-hidden flex items-center ">
           <Image
-            src={"images/animation/equaliser-animated-green.f5eb96f2.gif"}
+            src={"/images/animation/equaliser-animated-green.f5eb96f2.gif"}
+            sizes={"100%"}
+            height={20}
+            width={20}
             alt="equaliser"
           />
         </div>
