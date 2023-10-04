@@ -1,6 +1,5 @@
 import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header";
-import ListItem from "@/components/PlaylistTag";
 import PageContent from "./components/PageContent";
 import Navbar from "@/components/Navbar";
 import PageWrapper from "@/components/PageWrapper";

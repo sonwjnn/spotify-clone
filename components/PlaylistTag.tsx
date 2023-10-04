@@ -32,7 +32,7 @@ const PlaylistTag: React.FC<PlaylistTagProps> = ({ data }) => {
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-neutral-800">
-            <MusicNote size={40} />
+            <MusicNote size={25} />
           </div>
         )}
       </div>

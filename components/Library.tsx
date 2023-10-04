@@ -3,8 +3,9 @@
 import { LibraryIcon } from "@/public/icons";
 
 import UploadDropdown from "./UploadDropdown";
-import Playlist from "./Playlist";
-import ListItem from "./ListItem";
+import PlaylistSidebar from "./PlaylistSidebar/PlaylistSidebar";
+import { Playlist } from "@/types";
+import Tooltip from "./Tooltip";
 
 interface LibraryProps {
   playlists: Playlist[];
@@ -28,7 +29,9 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
           </div>
 
           <div className={"min-h-8  flex flex-row justify-end"}>
-            <UploadDropdown />
+            <Tooltip className="z-[999]" text="Create playlist or song">
+              <UploadDropdown />
+            </Tooltip>
           </div>
         </div>
 
@@ -44,7 +47,7 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
           </button>
         </div>
       </div>
-      <Playlist data={playlists} />
+      <PlaylistSidebar data={playlists} />
     </div>
   );
 };

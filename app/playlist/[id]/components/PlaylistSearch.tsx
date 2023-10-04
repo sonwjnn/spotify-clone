@@ -2,7 +2,6 @@
 
 import { SearchIcon } from "@/public/icons";
 import Input from "@/components/Input";
-import LikeButton from "@/components/LikeButton";
 import MediaItem from "@/components/MediaItem";
 import PlaylistButton from "@/components/PlaylistButton";
 import useDebounce from "@/hooks/useDebounce";
@@ -50,7 +49,7 @@ const PlaylistSearch: React.FC<PlaylistSearchProps> = ({ playlist }) => {
     };
 
     fetchDataByTitle();
-  }, [debouncedValue, supabaseClient]);
+  }, [debouncedValue, supabaseClient, playlist?.song_ids]);
 
   return (
     <>

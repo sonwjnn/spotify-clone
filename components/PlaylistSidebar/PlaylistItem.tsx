@@ -1,27 +1,21 @@
 "use client";
 
 import useLoadImage from "@/hooks/useLoadImage";
-import { Playlist } from "@/types";
-import Image from "next/image";
-import dayjs from "dayjs";
-import { twMerge } from "tailwind-merge";
-import useMainLayout from "@/stores/useMainLayout";
-import { useParams, useRouter } from "next/navigation";
 import usePlaylistModal from "@/hooks/usePlaylistModal";
 import { MusicNote } from "@/public/icons";
+import useMainLayout from "@/stores/useMainLayout";
+import { Playlist } from "@/types";
 import { buckets } from "@/utils/constants";
-import PlaylistItemDropdown from "./PlaylistItemDropdown";
-import ListItem from "./ListItem";
+import dayjs from "dayjs";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 interface PlaylistItemProps {
   data: Playlist;
   index?: number;
   isCreatedAt?: boolean;
   className?: string;
-}
-
-interface PlaylistProps {
-  data: Playlist[];
 }
 
 const PlaylistItem: React.FC<PlaylistItemProps> = ({
@@ -86,17 +80,4 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({
   );
 };
 
-const Playlist: React.FC<PlaylistProps> = ({ data }) => {
-  return (
-    <div className="flex flex-col gap-y-2 mt-2 px-3 pb-2">
-      {data.map((item) => (
-        <PlaylistItemDropdown key={item.id} data={item}>
-          <PlaylistItem data={item} />
-        </PlaylistItemDropdown>
-      ))}
-      <ListItem image="/images/liked.png" name="Liked Songs" href="liked" />
-    </div>
-  );
-};
-
-export default Playlist;
+export default PlaylistItem;

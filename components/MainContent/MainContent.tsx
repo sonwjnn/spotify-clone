@@ -38,7 +38,7 @@ const MainContent: React.FC<MainContentProps> = ({
   }, []);
 
   useEffect(() => {
-    if (likedSongs.length) {
+    if (likedSongs.length !== 0) {
       setLikedSongs(likedSongs);
     }
   }, [likedSongs, setLikedSongs]);
