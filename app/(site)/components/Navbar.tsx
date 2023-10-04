@@ -10,7 +10,7 @@ import {
   SearchIcon,
 } from "@/public/icons";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import Button from "./Button";
+import Button from "@/components/Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { FaUserAlt } from "react-icons/fa";
 import { useUser } from "@/hooks/useUser";
@@ -19,26 +19,19 @@ import usePlayer from "@/stores/usePlayer";
 import { useMemo } from "react";
 import Link from "next/link";
 import useNavOpacity from "@/stores/useNavOpacity";
-import { Playlist } from "@/types";
-import { buckets } from "@/utils/constants";
-import useGetColorImage from "@/hooks/useGetColorImage";
+import useHeaderColor from "@/stores/useHeaderColor";
 
 interface NavbarProps {
   className?: string;
-  darker?: boolean;
-  data?: Playlist;
   bgColor?: string;
+  darker?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({
-  className,
-  data,
-  darker = true,
-  bgColor,
-}) => {
+const Navbar: React.FC<NavbarProps> = ({ className, darker = true }) => {
   const router = useRouter();
   const authModal = useAuthModal();
   const { user } = useUser();
+  const { bgColor } = useHeaderColor();
   const player = usePlayer();
 
   const { opacity } = useNavOpacity();
@@ -63,11 +56,6 @@ const Navbar: React.FC<NavbarProps> = ({
       },
     ],
     [pathname]
-  );
-
-  const [newBgColor] = useGetColorImage(
-    data?.image_path!,
-    buckets.playlist_images
   );
 
   const handleLogout = async () => {
@@ -97,7 +85,7 @@ const Navbar: React.FC<NavbarProps> = ({
         )}
         style={{
           opacity: opacity,
-          backgroundColor: bgColor || newBgColor,
+          backgroundColor: bgColor,
         }}
       ></div>
       <div

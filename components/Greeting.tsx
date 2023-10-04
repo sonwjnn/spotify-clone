@@ -4,6 +4,9 @@ import { Playlist } from "@/types";
 import { memo, useEffect, useMemo, useState } from "react";
 import PlaylistTag from "./PlaylistTag";
 import useMainLayout from "@/stores/useMainLayout";
+import useHeaderColor from "@/stores/useHeaderColor";
+import useGetColorImage from "@/hooks/useGetColorImage";
+import { buckets } from "@/utils/constants";
 
 interface GreetingProps {
   playlists: Playlist[];
@@ -11,7 +14,13 @@ interface GreetingProps {
 
 const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
   const [currentHour, setCurrentHour] = useState(new Date().getHours());
+  const [isHover, setHover] = useState(false);
   const { width } = useMainLayout();
+  const { setBgBase } = useHeaderColor();
+  const [bgColor] = useGetColorImage(
+    playlists[0]?.image_path,
+    buckets.playlist_images
+  );
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -22,6 +31,12 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
       clearInterval(intervalId);
     };
   }, []);
+
+  useEffect(() => {
+    if (isHover) {
+      setBgBase(bgColor);
+    }
+  }, [isHover, setBgBase, bgColor]);
 
   const greeting = useMemo(() => {
     if (5 <= currentHour && currentHour <= 11) return "Good morning";
@@ -42,7 +57,12 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
         {playlists
           ?.slice(0, 6)
           .map((item: Playlist, index) => (
-            <PlaylistTag key={index} data={item} />
+            <PlaylistTag
+              key={index}
+              data={item}
+              index={index}
+              setHover={setHover}
+            />
           ))}
       </div>
     </div>

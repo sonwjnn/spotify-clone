@@ -29,6 +29,8 @@ const UploadDropdown = () => {
   const router = useRouter();
 
   const onUploadSong = () => {
+    setDropdown(false);
+
     if (!user) {
       return authModal.onOpen();
     }
@@ -36,18 +38,18 @@ const UploadDropdown = () => {
       return subcribeModal.onOpen();
     }
 
-    setDropdown(false);
     return uploadModal.onOpen();
   };
 
   const onUploadPlaylist = async () => {
+    setDropdown(false);
+
     if (!user) {
       return authModal.onOpen();
     }
     if (!subscription) {
       return subcribeModal.onOpen();
     }
-    setDropdown(false);
 
     setRequired(true);
 

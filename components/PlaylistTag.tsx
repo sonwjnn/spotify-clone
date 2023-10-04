@@ -1,17 +1,34 @@
 "use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { MusicNote, PlayIcon } from "@/public/icons";
 import { Playlist } from "@/types";
 import useLoadImage from "@/hooks/useLoadImage";
 import { buckets } from "@/utils/constants";
+import { usePalette } from "color-thief-react";
+import useHeaderColor from "@/stores/useHeaderColor";
+import useGetColorImage from "@/hooks/useGetColorImage";
 
 interface PlaylistTagProps {
   data: Playlist;
+  index: number;
+  setHover: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const PlaylistTag: React.FC<PlaylistTagProps> = ({ data }) => {
+const PlaylistTag: React.FC<PlaylistTagProps> = ({ data, index, setHover }) => {
   const router = useRouter();
-  const imageUrl = useLoadImage(data.image_path, buckets.playlist_images);
+  const { bgBase, setBgColor, setHasBgImage } = useHeaderColor();
+
+  const [bgColor, imageUrl] = useGetColorImage(
+    data.image_path,
+    buckets.playlist_images
+  );
+
+  const handleHover = (): void => {
+    setHover(true);
+    setHasBgImage(true);
+    setBgColor(bgColor as string);
+  };
   const onClick = () => {
     // Add authentication befire push
     router.push(`playlist/${data.id}`);
@@ -19,6 +36,8 @@ const PlaylistTag: React.FC<PlaylistTagProps> = ({ data }) => {
   return (
     <button
       className="relative group/song flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition pr-4"
+      onMouseEnter={handleHover}
+      onMouseLeave={() => setBgColor(bgBase)}
       onClick={onClick}
     >
       <div className="relative min-h-[80px] min-w-[80px]">

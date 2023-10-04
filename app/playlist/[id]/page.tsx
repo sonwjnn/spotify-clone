@@ -33,9 +33,9 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
 
   return (
     <div className="relative h-full w-full">
-      <Navbar bgColor={playlist.bg_color ? playlist.bg_color : undefined} />
+      <Navbar data={playlist} />
       <PageWrapper>
-        <Header bgColor={playlist.bg_color ? playlist.bg_color : undefined}>
+        <Header data={playlist}>
           <HeaderContent id={params.id} data={playlist} />
         </Header>
         <PlaylistContent

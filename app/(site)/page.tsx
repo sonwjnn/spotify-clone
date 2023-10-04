@@ -1,11 +1,11 @@
 import getSongs from "@/actions/getSongs";
-import Header from "@/components/Header";
 import PageContent from "./components/PageContent";
-import Navbar from "@/components/Navbar";
+import Navbar from "./components/Navbar";
 import PageWrapper from "@/components/PageWrapper";
 import Greeting from "@/components/Greeting";
 import Footer from "@/components/Footer";
 import getPlaylists from "@/actions/getPlaylists";
+import Header from "./components/Header";
 
 export const revalidate = 0;
 

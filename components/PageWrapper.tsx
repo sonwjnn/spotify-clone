@@ -1,46 +1,44 @@
-'use client'
-import useHeaderNavigate from '@/stores/useHeaderNavigate'
-import { useEffect, useRef } from 'react'
-import ScrollbarProvider from '@/providers/ScrollbarProvider'
+"use client";
+import useNavOpacity from "@/stores/useNavOpacity";
+import { useEffect, useRef } from "react";
+import ScrollbarProvider from "@/providers/ScrollbarProvider";
 
 interface PageWrapperProps {
-	children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
-	const { setOpacity } = useHeaderNavigate()
+  const { setOpacity } = useNavOpacity();
 
-	const scrollRef = useRef<any>()
+  const scrollRef = useRef<any>();
 
-	useEffect(() => {
-		setOpacity(0)
-	}, [])
+  useEffect(() => {
+    setOpacity(0);
+  }, []);
 
-	useEffect(() => {
-		const scrollElement = scrollRef.current.getScrollElement()
+  useEffect(() => {
+    const scrollElement = scrollRef.current.getScrollElement();
 
-		const handleScroll = () => {
-			const yAxis = scrollElement.scrollTop
+    const handleScroll = () => {
+      const yAxis = scrollElement.scrollTop;
 
-			if (yAxis > 64) {
-				setOpacity(1)
-			} else setOpacity(yAxis / 64)
-		}
+      if (yAxis > 64) {
+        setOpacity(1);
+      } else setOpacity(yAxis / 64);
+    };
 
-		scrollElement.addEventListener('scroll', handleScroll)
+    scrollElement.addEventListener("scroll", handleScroll);
 
-		return () => {
-			scrollElement.removeEventListener('scroll', handleScroll)
-		}
-	}, [])
+    return () => {
+      scrollElement.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
-	return (
-		<div className='bg-neutral-900 h-full w-full rounded-lg overflow-hidden relative'>
-			<ScrollbarProvider scrollRef={scrollRef}>
-				{children}
-			</ScrollbarProvider>
-		</div>
-	)
-}
+  return (
+    <div className="bg-neutral-900 h-full w-full rounded-lg overflow-hidden relative">
+      <ScrollbarProvider scrollRef={scrollRef}>{children}</ScrollbarProvider>
+    </div>
+  );
+};
 
-export default PageWrapper
+export default PageWrapper;

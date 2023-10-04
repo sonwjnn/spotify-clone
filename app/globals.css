@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+:root {
+  --bg-base: #171717;
+  --bg-noise: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=);
+  height: 100%;
+  background-color: black;
+  color-scheme: dark;
+}
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     display: none;
@@ -15,6 +25,26 @@
   }
   .dropdown-menu-item {
     @apply text-sm leading-none gap-x-1  rounded-[3px] flex items-center h-8 px-[5px]  relative  select-none outline-none  data-[disabled]:pointer-events-none  hover:bg-neutral-700 transition cursor-pointer;
+  }
+
+  .header-bg-image {
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.6) 0,
+        var(--bg-base),
+        100%
+      ),
+      var(--bg-noise);
+  }
+
+  .header-bg-image {
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(rgba(0, 0, 0, 0.6)),
+        to(var(--bg-base))
+      ),
+      var(--bg-noise) !important;
   }
 }
 
@@ -32,14 +62,6 @@
 
 .search-layout-grid-se {
   grid-template-columns: 16px minmax(200px, 1fr) !important;
-}
-
-html,
-body,
-:root {
-  height: 100%;
-  background-color: black;
-  color-scheme: dark;
 }
 
 .gutter.gutter-horizontal {

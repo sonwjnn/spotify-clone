@@ -1,7 +1,6 @@
 "use client";
 
 import { MusicNote } from "@/public/icons";
-import useUserStore from "@/stores/useUserStore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -9,11 +8,11 @@ interface ListItemProps {
   image: string;
   name: string;
   href: string;
+  count?: number;
 }
 
-const ListItem: React.FC<ListItemProps> = ({ image, name, href }) => {
+const ListItem: React.FC<ListItemProps> = ({ image, name, href, count }) => {
   const router = useRouter();
-  const user = useUserStore();
 
   const onClick = () => {
     router.push(href);
@@ -41,7 +40,7 @@ const ListItem: React.FC<ListItemProps> = ({ image, name, href }) => {
         </div>
         <div className="flex flex-col gap-y-1 overflow-hidden">
           <p className="text-white truncate">{name}</p>
-          <p className="text-neutral-400 text-sm truncate">{`Playlist - ${user.likedSongs.length} songs`}</p>
+          <p className="text-neutral-400 text-sm truncate">{`Playlist - ${count} songs`}</p>
         </div>
       </div>
     </div>
