@@ -12,6 +12,7 @@ import useMainLayout from "@/stores/useMainLayout";
 import usePlayer from "@/stores/usePlayer";
 import { MusicNote } from "@/public/icons";
 import { buckets } from "@/utils/constants";
+import { useEffect } from "react";
 
 interface MediaItemProps {
   data: Song;

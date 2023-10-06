@@ -3,6 +3,7 @@
 import useGetColorImage from "@/hooks/useGetColorImage";
 import { Playlist, Song } from "@/types";
 import { buckets } from "@/utils/constants";
+import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface HeaderProps {
@@ -18,17 +19,12 @@ const Header: React.FC<HeaderProps> = ({
   data,
   bgColor,
 }) => {
-  const [newBgColor] = useGetColorImage(
-    data?.image_path!,
-    buckets.playlist_images
-  );
-
   return (
     <div
       className={twMerge(` h-fit  p-6 pt-16`, className)}
       style={{
         backgroundImage: `linear-gradient(to bottom, ${
-          bgColor || newBgColor
+          bgColor || data?.bg_color
         }, rgba(255,0,0,0))`,
       }}
     >

@@ -11,13 +11,13 @@ import { Playlist, Song } from "@/types";
 import { buckets } from "@/utils/constants";
 import Image from "next/image";
 import { useCallback } from "react";
+import { getDurationSongs } from "@/utils/durationConvertor";
 
 interface HeaderContentProps {
   data: Playlist | null;
-  id: string;
   songs: Song[];
 }
-const HeaderContent: React.FC<HeaderContentProps> = ({ id, data, songs }) => {
+const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
   const { width } = useMainLayout();
   const { user, subscription } = useUser();
   const authModal = useAuthModal();
@@ -37,6 +37,13 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data, songs }) => {
 
     return uploadModal.onOpen();
   };
+
+  const duration = useCallback(() => {
+    const durations = songs.map((item) => item.duration_ms);
+    const durationStr = getDurationSongs({ durations, type: "long" });
+
+    return durationStr;
+  }, [songs]);
 
   return (
     <div className="flex flex-col  md:flex-row items-end gap-x-5">
@@ -78,10 +85,11 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ id, data, songs }) => {
               {data.description}
             </p>
           )}
-          <p className="text-sm">
-            {`${data?.users?.full_name || "No name"} - ${data?.song_ids
-              ?.length} songs`}
-          </p>
+          <div className="text-sm flex gap-x-2">
+            <p>{`${data?.users?.full_name || "No name"} - ${data?.song_ids
+              ?.length} songs${data?.song_ids?.length ? "," : ""}`}</p>
+            <p className="text-desc">{`${duration()}`}</p>
+          </div>
         </div>
       </div>
     </div>

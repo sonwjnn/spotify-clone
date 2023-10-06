@@ -1,5 +1,5 @@
 import "./globals.css";
-import localFont from "@next/font/local";
+import localFont from "next/font/local";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";

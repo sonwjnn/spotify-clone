@@ -1,6 +1,7 @@
 "use client";
+
 import uniqid from "uniqid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import useUploadModal from "@/hooks/useUploadModal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -12,11 +13,40 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 
 const UploadSongModal = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const uploadModal = useUploadModal();
   const { user } = useUser();
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [fileMp3, setFileMp3] = useState<string>("");
+  const [duration, setDuration] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (fileMp3) {
+      const sound = new Audio(fileMp3);
+      sound.addEventListener("loadedmetadata", () => {
+        setDuration(sound.duration * 1000);
+      });
+
+      return () => {
+        sound.removeEventListener("loadedmetadata", () => {
+          setDuration(null);
+        });
+      };
+    }
+  }, [fileMp3]);
+
+  useEffect(() => {
+    console.log(duration);
+  }, [duration]);
+
+  const handleChange = (event: any) => {
+    if (event.target.files[0]) {
+      const file = URL.createObjectURL(event.target.files[0]);
+      setFileMp3(file);
+    }
+  };
 
   const { reset, handleSubmit, register } = useForm<FieldValues>({
     defaultValues: {
@@ -78,6 +108,7 @@ const UploadSongModal = () => {
           author: values.author,
           image_path: imageData.path,
           song_path: songData.path,
+          duration_ms: duration,
         });
       if (supabaseError) {
         setIsLoading(false);
@@ -126,6 +157,7 @@ const UploadSongModal = () => {
             type="file"
             accept=".mp3"
             {...register("song", { required: true })}
+            onChange={handleChange}
           />
         </div>
 

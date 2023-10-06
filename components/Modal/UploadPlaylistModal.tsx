@@ -15,6 +15,8 @@ import { MusicNote } from "@/public/icons";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
 import { buckets } from "@/utils/constants";
+import usePlaylistStore from "@/stores/usePlaylistStore";
+import { usePalette } from "color-thief-react";
 
 const UploadPlaylistModal = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,13 +26,27 @@ const UploadPlaylistModal = () => {
     uploadModal.playlist?.image_path!,
     buckets.playlist_images
   );
-  const [file, setFile] = useState<string>(playlistImgDefault || "");
   const { user } = useUser();
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const params = useParams();
 
+  const [file, setFile] = useState<string>(playlistImgDefault || "");
+  const [bgColor, setBgColor] = useState<string>("");
+
   const playlistId = uploadModal.playlist?.id || params.id;
+
+  const { data: dataColor } = usePalette(file as string, 10, "hex", {
+    crossOrigin: "Anonymous",
+    quality: 100,
+  });
+
+  useEffect(() => {
+    if (dataColor) {
+      const bgColor = dataColor?.[2] ?? "#e0e0e0";
+      setBgColor(bgColor);
+    }
+  }, [dataColor]);
 
   const { reset, handleSubmit, register } = useForm<FieldValues>({
     defaultValues: {
@@ -49,7 +65,8 @@ const UploadPlaylistModal = () => {
 
   const handleChange = (event: any) => {
     if (event.target.files[0]) {
-      setFile(URL.createObjectURL(event.target.files[0]));
+      const imageUrl = URL.createObjectURL(event.target.files[0]);
+      setFile(imageUrl);
     }
   };
 
@@ -97,6 +114,7 @@ const UploadPlaylistModal = () => {
           title: values.title,
           description: values.description,
           image_path: imageData.path,
+          bg_color: bgColor,
         })
         .eq("id", playlistId);
 
