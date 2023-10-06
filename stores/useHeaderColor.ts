@@ -10,9 +10,9 @@ interface HeaderColorStore {
 }
 
 const useHeaderColor = create<HeaderColorStore>()((set) => ({
-  bgBase: "#171717",
-  bgColor: "#171717",
-  hasBgImage: false,
+  bgBase: "#3f3f46",
+  bgColor: "#3f3f46",
+  hasBgImage: true,
   setHasBgImage: (hasBgImage: boolean) => set({ hasBgImage }),
   setBgColor: (bgColor: string) => set({ bgColor }),
   setBgBase: (bgBase: string) => set({ bgBase }),

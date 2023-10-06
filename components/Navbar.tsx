@@ -20,8 +20,6 @@ import { useMemo } from "react";
 import Link from "next/link";
 import useNavOpacity from "@/stores/useNavOpacity";
 import { Playlist } from "@/types";
-import { buckets } from "@/utils/constants";
-import useGetColorImage from "@/hooks/useGetColorImage";
 
 interface NavbarProps {
   className?: string;
@@ -65,11 +63,6 @@ const Navbar: React.FC<NavbarProps> = ({
     [pathname]
   );
 
-  const [newBgColor] = useGetColorImage(
-    data?.image_path!,
-    buckets.playlist_images
-  );
-
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
     player.reset();
@@ -97,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({
         )}
         style={{
           opacity: opacity,
-          backgroundColor: bgColor || newBgColor,
+          backgroundColor: bgColor || data?.bg_color,
         }}
       ></div>
       <div

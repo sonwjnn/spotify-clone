@@ -4,43 +4,42 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { MusicNote, PlayIcon } from "@/public/icons";
 import { Playlist } from "@/types";
-import useLoadImage from "@/hooks/useLoadImage";
 import { buckets } from "@/utils/constants";
-import { usePalette } from "color-thief-react";
 import useHeaderColor from "@/stores/useHeaderColor";
-import useGetColorImage from "@/hooks/useGetColorImage";
 import PlayButton from "./PlayButton";
+import useLoadImage from "@/hooks/useLoadImage";
+import { useEffect } from "react";
 
 interface PlaylistRecommendProps {
   data: Playlist;
   index: number;
+  isHover: boolean;
   setHover: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
   data,
   index,
+  isHover,
   setHover,
 }) => {
   const router = useRouter();
-  const { bgBase, setBgColor, setHasBgImage } = useHeaderColor();
+  const { bgBase, bgColor, setBgColor, setHasBgImage } = useHeaderColor();
 
-  const [bgColor, imageUrl] = useGetColorImage(
-    data.image_path,
-    buckets.playlist_images
-  );
+  const imageUrl = useLoadImage(data.image_path, buckets.playlist_images);
 
-  const handleHover = (): void => {
+  const handleHover = () => {
     setHover(true);
     setHasBgImage(true);
-    setBgColor(bgColor as string);
+    setBgColor(data?.bg_color || bgColor);
   };
   const onClick = () => {
     // Add authentication befire push
     router.push(`playlist/${data.id}`);
   };
+
   return (
-    <button
-      className="relative group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition "
+    <div
+      className="relative group flex items-center rounded-md overflow-hidden gap-x-4 cursor-pointer bg-neutral-100/10 hover:bg-neutral-100/20 transition "
       onMouseEnter={handleHover}
       onMouseLeave={() => setBgColor(bgBase)}
       onClick={onClick}
@@ -65,7 +64,7 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
       <div className="absolute right-4">
         <PlayButton className="translate-y-0" />
       </div>
-    </button>
+    </div>
   );
 };
 

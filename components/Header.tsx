@@ -1,9 +1,6 @@
 "use client";
 
-import useGetColorImage from "@/hooks/useGetColorImage";
 import { Playlist, Song } from "@/types";
-import { buckets } from "@/utils/constants";
-import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface HeaderProps {
