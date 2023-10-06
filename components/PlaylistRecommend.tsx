@@ -9,13 +9,18 @@ import { buckets } from "@/utils/constants";
 import { usePalette } from "color-thief-react";
 import useHeaderColor from "@/stores/useHeaderColor";
 import useGetColorImage from "@/hooks/useGetColorImage";
+import PlayButton from "./PlayButton";
 
-interface PlaylistTagProps {
+interface PlaylistRecommendProps {
   data: Playlist;
   index: number;
   setHover: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const PlaylistTag: React.FC<PlaylistTagProps> = ({ data, index, setHover }) => {
+const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
+  data,
+  index,
+  setHover,
+}) => {
   const router = useRouter();
   const { bgBase, setBgColor, setHasBgImage } = useHeaderColor();
 
@@ -35,12 +40,12 @@ const PlaylistTag: React.FC<PlaylistTagProps> = ({ data, index, setHover }) => {
   };
   return (
     <button
-      className="relative group/song flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition pr-4"
+      className="relative group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10 hover:bg-neutral-100/20 transition "
       onMouseEnter={handleHover}
       onMouseLeave={() => setBgColor(bgBase)}
       onClick={onClick}
     >
-      <div className="relative min-h-[80px] min-w-[80px]">
+      <div className="relative min-h-[80px] min-w-[80px] shadow-base">
         {imageUrl ? (
           <Image
             className="object-cover"
@@ -56,11 +61,12 @@ const PlaylistTag: React.FC<PlaylistTagProps> = ({ data, index, setHover }) => {
         )}
       </div>
       <p className="font-bold text-base truncate py-5">{data.title}</p>
-      <div className="absolute transition opacity-0 hover:scale-110 items-center justify-center rounded-full flex bg-green-500 p-4 drop-shadow-md right-5 group-hover/song:opacity-100">
-        <PlayIcon size={20} />
+
+      <div className="absolute right-4">
+        <PlayButton className="translate-y-0" />
       </div>
     </button>
   );
 };
 
-export default PlaylistTag;
+export default PlaylistRecommend;

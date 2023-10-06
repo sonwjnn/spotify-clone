@@ -3,7 +3,7 @@
 import useLoadImage from "@/hooks/useLoadImage";
 import useLoadSongUrl from "@/hooks/useLoadSongUrl";
 import { Song } from "@/types";
-import durationConvertor from "@/utils/durationConvertor";
+import { getDurationSong } from "@/utils/durationConvertor";
 import Image from "next/image";
 import useSound from "use-sound";
 import dayjs from "dayjs";
@@ -11,6 +11,7 @@ import { twMerge } from "tailwind-merge";
 import useMainLayout from "@/stores/useMainLayout";
 import usePlayer from "@/stores/usePlayer";
 import { MusicNote } from "@/public/icons";
+import { buckets } from "@/utils/constants";
 
 interface MediaItemProps {
   data: Song;
@@ -40,9 +41,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
   children,
 }) => {
   const { width } = useMainLayout();
-  const imageUrl = useLoadImage(data.image_path, "images");
+  const imageUrl = useLoadImage(data.image_path, buckets.images);
   const songUrl = useLoadSongUrl(data!);
-  const [play, { duration }] = useSound(songUrl, { format: ["mp4"] });
+  const [play, { duration }] = useSound(songUrl, { format: ["mp3"] });
   const player = usePlayer();
 
   const isSelected = selected === data.id;
@@ -125,7 +126,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
             width <= 551 ? "hidden" : "flex"
           } text-neutral-400 text-sm items-center justify-end select-none`}
         >
-          {durationConvertor({
+          {getDurationSong({
             milliseconds: duration ? duration : 0,
           })}
         </div>

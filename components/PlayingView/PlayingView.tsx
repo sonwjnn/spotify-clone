@@ -75,7 +75,7 @@ const PlayingView: React.FC = () => {
             </div>
             <div className="flex flex-col gap-4 p-4 pt-0">
               {imagePath ? (
-                <div className="relative aspect-square h-full w-full rounded-lg overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,.5)]">
+                <div className="relative aspect-square h-full w-full rounded-lg overflow-hidden shadow-base">
                   <Image
                     className="
             object-cover

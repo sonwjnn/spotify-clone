@@ -10,7 +10,7 @@ import {
 } from "@/public/icons";
 
 import Tooltip from "../Tooltip";
-import durationConvertor from "@/utils/durationConvertor";
+import { getDurationSong } from "@/utils/durationConvertor";
 import useSound from "use-sound";
 import { Song } from "@/types";
 import usePlayer from "@/stores/usePlayer";
@@ -38,6 +38,8 @@ const PlayerControl: React.FC<PlayerControlProps> = ({ song, songUrl }) => {
     setCurrentTime,
     setId,
     setCurrentSong,
+    handlePlay,
+    setHandlePlay,
   } = usePlayer();
 
   const selectedPlayer = useSelectedPlayer();
@@ -81,22 +83,21 @@ const PlayerControl: React.FC<PlayerControlProps> = ({ song, songUrl }) => {
     setCurrentTime(0);
     setTrackProcess(0);
     clearInterval(intervalIdRef?.current);
+    setHandlePlay(play, pause);
 
     if (selectedPlayer.isSelected) {
       sound?.play();
       startTimer();
     }
 
-    return () => {
-      sound?.unload();
-    };
+    return () => sound?.unload();
   }, [sound]);
 
   useEffect(() => {
     if (!selectedPlayer.isSelected) {
       setPlaying(false);
     }
-  }, [selectedPlayer.isSelected]);
+  }, [selectedPlayer.isSelected, setPlaying]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -184,14 +185,6 @@ const PlayerControl: React.FC<PlayerControlProps> = ({ song, songUrl }) => {
     setId(previousSong);
   };
 
-  const handlePlay = () => {
-    if (!isPlaying) {
-      play();
-    } else {
-      pause();
-    }
-  };
-
   const Icon = isPlaying ? PauseIcon : PlayIcon;
 
   const handleSliderChange = (value: number) => {
@@ -258,7 +251,7 @@ const PlayerControl: React.FC<PlayerControlProps> = ({ song, songUrl }) => {
         </div>
         <div className="flex gap-x-1 items-center justify-center">
           <div className="text-neutral-400 text-xs w-8">
-            {durationConvertor({
+            {getDurationSong({
               milliseconds: +trackProcess * 1000,
             })}
           </div>
@@ -273,7 +266,7 @@ const PlayerControl: React.FC<PlayerControlProps> = ({ song, songUrl }) => {
           />
 
           <div className="text-neutral-400 text-xs w-8">
-            {durationConvertor({
+            {getDurationSong({
               milliseconds: duration ? duration : 0,
             })}
           </div>

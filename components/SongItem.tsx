@@ -22,7 +22,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
       onClick={() => onClick(data.id)}
       className="relative flex flex-col group items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-4 mb-3"
     >
-      <div className="relative aspect-square h-full w-full rounded-md overflow-hidden  shadow-[0_8px_24px_rgba(0,0,0,.5)]">
+      <div className="relative aspect-square h-full w-full rounded-md overflow-hidden shadow-base">
         {imagePath ? (
           <Image
             className="object-cover"
@@ -45,7 +45,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
           By {data.author}
         </p>
       </div>
-      <div className="absolute bottom-[102px] right-6 ">
+      <div className="absolute bottom-[102px] right-6">
         <PlayButton isPlaying={isPlayingCurrentSong} />
       </div>
     </div>

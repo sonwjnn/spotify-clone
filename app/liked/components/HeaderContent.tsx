@@ -12,7 +12,7 @@ const HeaderContent: React.FC<HeaderContentProps> = () => {
       <div
         className={`${
           width <= 875 && "!h-[192px] !w-[192px]"
-        } h-[232px] w-[232px] text-white bg-[#282828] rounded-sm flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,.5)] `}
+        } h-[232px] w-[232px] text-white bg-[#282828] rounded-sm flex items-center justify-center shadow-base`}
       >
         <div className="relative aspect-square h-full w-full rounded-sm overflow-hidden">
           <Image

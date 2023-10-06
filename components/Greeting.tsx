@@ -2,7 +2,7 @@
 
 import { Playlist } from "@/types";
 import { memo, useEffect, useMemo, useState } from "react";
-import PlaylistTag from "./PlaylistTag";
+import PlaylistRecommend from "./PlaylistRecommend";
 import useMainLayout from "@/stores/useMainLayout";
 import useHeaderColor from "@/stores/useHeaderColor";
 import useGetColorImage from "@/hooks/useGetColorImage";
@@ -57,7 +57,7 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
         {playlists
           ?.slice(0, 6)
           .map((item: Playlist, index) => (
-            <PlaylistTag
+            <PlaylistRecommend
               key={index}
               data={item}
               index={index}

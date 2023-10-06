@@ -1,7 +1,7 @@
 "use client";
 
 import useGetColorImage from "@/hooks/useGetColorImage";
-import { Playlist } from "@/types";
+import { Playlist, Song } from "@/types";
 import { buckets } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 

@@ -36,7 +36,7 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
       <Navbar data={playlist} />
       <PageWrapper>
         <Header data={playlist}>
-          <HeaderContent id={params.id} data={playlist} />
+          <HeaderContent id={params.id} data={playlist} songs={addedSongs} />
         </Header>
         <PlaylistContent
           playlist={playlist}

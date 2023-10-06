@@ -70,7 +70,6 @@ const UploadSongModal = () => {
         setIsLoading(false);
         return toast.error("Failed image upload.");
       }
-
       const { error: supabaseError } = await supabaseClient
         .from("songs")
         .insert({
@@ -127,7 +126,6 @@ const UploadSongModal = () => {
             type="file"
             accept=".mp3"
             {...register("song", { required: true })}
-            placeholder="Song author"
           />
         </div>
 
@@ -140,7 +138,6 @@ const UploadSongModal = () => {
             type="file"
             accept="image/*"
             {...register("image", { required: true })}
-            placeholder="Song author"
           />
         </div>
         <Button
