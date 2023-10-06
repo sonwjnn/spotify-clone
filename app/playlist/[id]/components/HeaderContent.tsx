@@ -46,7 +46,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
   }, [songs]);
 
   return (
-    <div className="flex flex-col  md:flex-row items-end gap-x-5">
+    <div className="flex flex-col  md:flex-row items-center md:items-end gap-x-5">
       <div
         className={`${
           width <= 875 && "!h-[192px] !w-[192px]"
@@ -79,7 +79,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
         >
           {data?.title || "Playlist Title"}
         </h1>
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col items-center md:items-start gap-y-2 ">
           {data?.description && (
             <p className="hidden md:block text-sm text-desc">
               {data.description}

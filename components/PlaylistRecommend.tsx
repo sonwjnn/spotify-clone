@@ -18,18 +18,17 @@ interface PlaylistRecommendProps {
 }
 const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
   data,
-  index,
   isHover,
   setHover,
 }) => {
   const router = useRouter();
-  const { bgBase, bgColor, setBgColor, setHasBgImage } = useHeaderColor();
+  const { bgBase, bgColor, setBgColor } = useHeaderColor();
 
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images);
 
   const handleHover = () => {
-    setHover(true);
-    setHasBgImage(true);
+    if (!isHover) setHover(true);
+
     setBgColor(data?.bg_color || bgColor);
   };
   const onClick = () => {
