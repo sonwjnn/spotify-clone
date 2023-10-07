@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import {
@@ -24,6 +24,14 @@ import useOnPlay from "@/hooks/useOnPlay";
 import PlayButton from "./PlayButton";
 
 interface NavbarProps {
+  type?:
+    | "default"
+    | "home"
+    | "section"
+    | "search"
+    | "artist"
+    | "genre"
+    | "playlist";
   songs?: Song[];
   playlist?: Playlist;
   className?: string;
@@ -37,6 +45,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = (props) => {
   const {
+    type = "default",
     playlist,
     songs,
     className,
@@ -44,14 +53,13 @@ const Navbar: React.FC<NavbarProps> = (props) => {
     darker = true,
     bgColor,
     hasPlayBtn = false,
-    title = "",
-    showTitle = false,
   } = props;
 
   const router = useRouter();
   const authModal = useAuthModal();
   const { user } = useUser();
   const player = usePlayer();
+  const params = useParams();
 
   const { opacity, playBtnVisible } = useNavStyles();
 
@@ -61,7 +69,6 @@ const Navbar: React.FC<NavbarProps> = (props) => {
 
   const onPlay = useOnPlay(songs as Song[]);
   const [isPlaying, setPlaying] = useState(false);
-  const [isTracking, setTracking] = useState(false);
 
   const routes = useMemo(
     () => [
@@ -82,14 +89,17 @@ const Navbar: React.FC<NavbarProps> = (props) => {
   );
 
   useEffect(() => {
-    if (isTracking) {
+    if (
+      type === "playlist" &&
+      player.playlistPlayingId === params.id.toString()
+    ) {
       setPlaying(player.isPlaying);
     }
-  }, [player.isPlaying, isTracking]);
+  }, [type, player.isPlaying, player.playlistPlayingId, params.id]);
 
   const handleClickPlay = () => {
-    if (!isTracking && songs?.length) {
-      setTracking(true);
+    if (!player.playlistPlayingId && songs?.length) {
+      player.setPlaylistActiveId(params.id.toString());
       onPlay(songs[0].id);
     } else {
       player.handlePlay();
@@ -144,21 +154,23 @@ const Navbar: React.FC<NavbarProps> = (props) => {
             <RxCaretRight className="text-white" size={35} />
           </button>
 
-          <div
-            className={`ml-1  flex gap-x-2 transition  items-center w-full min-w-0 flex-grow max-w-[400px] ${
-              hasPlayBtn && playBtnVisible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <PlayButton
-              className="opacity-100 translate-y-0  h-12 w-12 hover:scale-105"
-              onClick={handleClickPlay}
-              isPlaying={isPlaying}
-            />
+          {playBtnVisible && hasPlayBtn ? (
+            <div
+              className={`ml-1  flex gap-x-2 transition  items-center w-full min-w-0 flex-grow max-w-[400px] ${
+                playBtnVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <PlayButton
+                className="opacity-100 translate-y-0  h-12 w-12 hover:scale-105"
+                onClick={handleClickPlay}
+                isPlaying={isPlaying}
+              />
 
-            <span className="text-2xl truncate font-bold mr-1">
-              {playlist?.title}
-            </span>
-          </div>
+              <span className="text-2xl truncate font-bold mr-1">
+                {playlist?.title}
+              </span>
+            </div>
+          ) : null}
         </div>
 
         <div className="flex md:hidden gap-x-2 items-center ">

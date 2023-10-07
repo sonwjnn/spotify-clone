@@ -2,11 +2,10 @@
 
 import useLoadImage from "@/hooks/useLoadImage";
 import usePlaylistModal from "@/hooks/usePlaylistModal";
-import { MusicNote } from "@/public/icons";
-import useMainLayout from "@/stores/useMainLayout";
+import { MusicNote, SoundIconSolid } from "@/public/icons";
+import usePlayer from "@/stores/usePlayer";
 import { Playlist } from "@/types/types";
 import { buckets } from "@/utils/constants";
-import dayjs from "dayjs";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
@@ -14,17 +13,12 @@ import { twMerge } from "tailwind-merge";
 interface PlaylistItemProps {
   data: Playlist;
   index?: number;
-  isCreatedAt?: boolean;
   className?: string;
 }
 
-const PlaylistItem: React.FC<PlaylistItemProps> = ({
-  data,
-  className,
-  isCreatedAt = false,
-}) => {
+const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
+  const { playlistPlayingId, isPlaying } = usePlayer();
   const router = useRouter();
-  const { width } = useMainLayout();
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images);
   const uploadModal = usePlaylistModal();
   const { id } = useParams();
@@ -34,16 +28,17 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({
     router.push(`/playlist/${data.id}`);
   };
 
+  const isActived = playlistPlayingId === data.id.toString();
   return (
     <div
       className={twMerge(
-        ` cursor-pointer rounded-md p-2 transition w-full hover:bg-neutral-800/50 ${
+        ` cursor-pointer rounded-md p-2 flex justify-between items-center transition w-full hover:bg-neutral-800/50 ${
           id === data.id.toString() && "bg-neutral-800/50"
         }`,
         className
       )}
     >
-      <div onClick={onClick} className="flex item-center gap-x-3">
+      <div onClick={onClick} className="flex item-center gap-x-3 min-w-0">
         <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
           {imageUrl ? (
             <Image
@@ -59,23 +54,24 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-y-1 overflow-hidden">
-          <p className="text-white truncate">{data.title}</p>
+        <div className="flex flex-col gap-y-1 overflow-hidden ">
+          <p
+            className={` truncate  ${
+              isActived ? "text-[#2ed760]" : "text-white"
+            }`}
+          >
+            {data.title}
+          </p>
           <p className="text-neutral-400 text-sm truncate">
             {`Playlist - ${data?.users?.full_name}`}
           </p>
         </div>
       </div>
-
-      {isCreatedAt && (
-        <div
-          className={`${
-            width <= 780 ? "hidden" : "flex"
-          } text-neutral-400 text-sm items-center justify-end`}
-        >
-          {dayjs(data.created_at).format("DD-MM-YYYY")}
+      {isActived && isPlaying ? (
+        <div className="pr-2">
+          <SoundIconSolid color="#2ed760" />
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

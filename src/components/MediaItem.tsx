@@ -16,11 +16,11 @@ import { buckets } from "@/utils/constants";
 interface MediaItemProps {
   data: Song;
   index?: number;
-  isPlaying?: boolean;
   isDuration?: boolean;
   isCreatedAt?: boolean;
   selected?: string;
   actived?: string;
+  playlistId: string;
   className?: string;
   onDoubleClick?: (value?: any) => void;
   onClick?: (value?: any) => void;
@@ -33,9 +33,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
   isDuration = false,
   isCreatedAt = false,
   index,
-  isPlaying,
   selected,
   actived,
+  playlistId,
   onDoubleClick,
   onClick,
   children,
@@ -47,7 +47,8 @@ const MediaItem: React.FC<MediaItemProps> = ({
   const player = usePlayer();
 
   const isSelected = selected === data.id;
-  const isActived = actived === data.id && isPlaying;
+  const isActived =
+    actived === data.id && playlistId === player.playlistPlayingId;
 
   return (
     <div

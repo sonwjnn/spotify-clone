@@ -34,6 +34,7 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
   return (
     <div className="relative h-full w-full">
       <Navbar
+        type="playlist"
         data={playlist}
         songs={addedSongs}
         playlist={playlist}

@@ -46,7 +46,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
   }, [songs]);
 
   return (
-    <div className="flex flex-col  md:flex-row items-center md:items-end gap-x-5">
+    <div className="flex flex-col  md:flex-row items-center  md:items-end gap-x-5">
       <div
         className={`${
           width <= 875 && "!h-[192px] !w-[192px]"
@@ -69,7 +69,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
           <MusicNote size={50} />
         )}
       </div>
-      <div className="flex flex-col  gap-y-6 mt-4 md:mt-0">
+      <div className="flex flex-col  gap-y-3 md:gap-y-6 mt-4 md:mt-0">
         <p className="hidden md:block  text-base">Playlist</p>
         <h1
           onClick={onClick}

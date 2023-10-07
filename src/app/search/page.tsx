@@ -22,7 +22,7 @@ const Search = async ({ searchParams }: SearchProps) => {
       <Navbar bgColor={"#171717"} darker={false} />
       <PageWrapper>
         <Header bgColor="#171717">
-          <div className="mb-2 flex flex-col gap-y-6">
+          <div className="mb-2 flex flex-col gap-y-6  w-full">
             <h1 className="text-white text-3xl font-semibold">Search</h1>
             <SearchInput url="/search" />
           </div>

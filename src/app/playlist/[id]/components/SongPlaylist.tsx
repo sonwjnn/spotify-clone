@@ -10,6 +10,7 @@ import useMainLayout from "@/stores/useMainLayout";
 import usePlayer from "@/stores/usePlayer";
 import { Playlist, Song } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "next/navigation";
 
 interface PlaylistSongProps {
   songs: Song[];
@@ -21,9 +22,8 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
   const player = usePlayer();
   const { width } = useMainLayout();
   const [selected, setSelected] = useState<string>("");
-  const [actived, setActived] = useState<string>("");
   const [isPlaying, setPlaying] = useState(false);
-  const [isTracking, setTracking] = useState(false);
+  const params = useParams();
 
   const wrapperRef = useRef(null);
   useClickOutside(wrapperRef, () => {
@@ -31,20 +31,14 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
   });
 
   useEffect(() => {
-    if (player.activeId) {
-      setActived(player.activeId);
-    }
-  }, [player.activeId]);
-
-  useEffect(() => {
-    if (isTracking) {
+    if (player.playlistPlayingId === params.id.toString()) {
       setPlaying(player.isPlaying);
     }
-  }, [player.isPlaying, isTracking]);
+  }, [player.isPlaying, player.playlistPlayingId, params.id]);
 
   const handleClickPlay = () => {
-    if (!isTracking) {
-      setTracking(true);
+    if (player.playlistPlayingId !== params.id && songs?.length) {
+      player.setPlaylistActiveId(params.id.toString());
       onPlay(songs[0].id);
     } else {
       player.handlePlay();
@@ -105,10 +99,7 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
           <div
             className="flex-1"
             onClick={() => setSelected(song.id)}
-            onDoubleClick={() => {
-              setTracking(true);
-              onPlay(song.id);
-            }}
+            onDoubleClick={() => onPlay(song.id)}
           >
             <MediaItem
               className={`group/media grid gap-4 search-layout-grid ${
@@ -120,8 +111,8 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
                   ? "search-layout-grid-se"
                   : null
               } `}
-              isPlaying={isPlaying}
-              actived={actived}
+              actived={player.activeId}
+              playlistId={params.id.toString()}
               selected={selected}
               data={song}
               index={index + 1}
