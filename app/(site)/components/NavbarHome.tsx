@@ -18,8 +18,8 @@ import { toast } from "react-hot-toast";
 import usePlayer from "@/stores/usePlayer";
 import { useMemo } from "react";
 import Link from "next/link";
-import useNavOpacity from "@/stores/useNavOpacity";
-import useHeaderColor from "@/stores/useHeaderColor";
+import useNavStyles from "@/stores/useNavStyles";
+import useHeader from "@/stores/useHeader";
 
 interface NavbarProps {
   className?: string;
@@ -31,10 +31,10 @@ const Navbar: React.FC<NavbarProps> = ({ className, darker = true }) => {
   const router = useRouter();
   const authModal = useAuthModal();
   const { user } = useUser();
-  const { bgColor } = useHeaderColor();
+  const { bgColor } = useHeader();
   const player = usePlayer();
 
-  const { opacity } = useNavOpacity();
+  const { opacity } = useNavStyles();
 
   const supabaseClient = useSupabaseClient();
 

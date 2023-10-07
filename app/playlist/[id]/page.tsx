@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import PageWrapper from "@/components/PageWrapper";
-import HeaderContent from "./components/HeaderContent";
+import HeaderPlaylistContent from "./components/HeaderPlaylistContent";
 import getPlaylistById from "@/actions/getPlaylistById";
 import PlaylistContent from "./components/PlaylistContent";
 import getSongsByTitle from "@/actions/getSongsByTitle";
@@ -33,10 +33,15 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
 
   return (
     <div className="relative h-full w-full">
-      <Navbar data={playlist} />
+      <Navbar
+        data={playlist}
+        songs={addedSongs}
+        playlist={playlist}
+        hasPlayBtn
+      />
       <PageWrapper>
-        <Header data={playlist}>
-          <HeaderContent id={params.id} data={playlist} songs={addedSongs} />
+        <Header data={playlist} type="playlist">
+          <HeaderPlaylistContent data={playlist} songs={addedSongs} />
         </Header>
         <PlaylistContent
           playlist={playlist}

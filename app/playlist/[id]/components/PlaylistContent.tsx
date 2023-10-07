@@ -1,8 +1,8 @@
 "use client";
 
 import { Playlist, Song } from "@/types";
-import PlaylistSearch from "./PlaylistSearch";
-import PlaylistSong from "./PlaylistSong";
+import SearchPlaylist from "./SearchPlaylist";
+import SongPlaylist from "./SongPlaylist";
 
 interface PlaylistContentProps {
   playlist: Playlist;
@@ -21,8 +21,8 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({
 
   return (
     <>
-      <PlaylistSong songs={addedSongs} playlist={playlist} />
-      <PlaylistSearch songs={unaddedSongs} playlist={playlist} />
+      <SongPlaylist songs={addedSongs} playlist={playlist} />
+      <SearchPlaylist songs={unaddedSongs} playlist={playlist} />
     </>
   );
 };

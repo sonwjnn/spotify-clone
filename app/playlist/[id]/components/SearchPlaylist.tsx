@@ -75,9 +75,13 @@ const PlaylistSearch: React.FC<PlaylistSearchProps> = ({ playlist }) => {
               <MediaItem
                 onClick={(id: string) => onPlay(id)}
                 className={`grid gap-4 search-layout-grid ${
-                  width <= 550 && "search-layout-grid-sm"
-                } ${width <= 780 && "search-layout-grid-md"} ${
-                  width <= 440 && "search-layout-grid-se"
+                  width <= 550
+                    ? "search-layout-grid-sm"
+                    : width <= 780
+                    ? "search-layout-grid-md"
+                    : width <= 440
+                    ? "search-layout-grid-se"
+                    : null
                 }`}
                 data={song}
                 index={index + 1}

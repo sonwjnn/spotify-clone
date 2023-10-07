@@ -105,13 +105,20 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
           <div
             className="flex-1"
             onClick={() => setSelected(song.id)}
-            onDoubleClick={() => onPlay(song.id)}
+            onDoubleClick={() => {
+              setTracking(true);
+              onPlay(song.id);
+            }}
           >
             <MediaItem
               className={`group/media grid gap-4 search-layout-grid ${
-                width <= 550 && "search-layout-grid-sm"
-              } ${width <= 780 && "search-layout-grid-md"} ${
-                width <= 440 && "search-layout-grid-se"
+                width <= 550
+                  ? "search-layout-grid-sm"
+                  : width <= 780
+                  ? "search-layout-grid-md"
+                  : width <= 440
+                  ? "search-layout-grid-se"
+                  : null
               } `}
               isPlaying={isPlaying}
               actived={actived}

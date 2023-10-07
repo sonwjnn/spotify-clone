@@ -3,14 +3,14 @@
 import Skeleton from "react-loading-skeleton";
 import useMainLayout from "@/stores/useMainLayout";
 import Footer from "@/components/Footer";
-import Header from "./components/Header";
+import Header from "./components/HeaderHome";
 import Navbar from "@/components/Navbar";
 import PageWrapper from "@/components/PageWrapper";
-import useHeaderColor from "@/stores/useHeaderColor";
+import useHeader from "@/stores/useHeader";
 
 const Loading = () => {
   const { width, quantityCol } = useMainLayout();
-  const { bgColor } = useHeaderColor();
+  const { bgColor } = useHeader();
   return (
     <div className="bg-neutral-900 rounded-lg relative h-full w-full overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:[width:0px]">
       <Navbar bgColor={bgColor} />

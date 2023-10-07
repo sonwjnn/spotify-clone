@@ -73,8 +73,8 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
         <p className="hidden md:block  text-base">Playlist</p>
         <h1
           onClick={onClick}
-          className={`${
-            width <= 1012 && "!text-5xl"
+          className={`${width <= 1012 && "!text-5xl"} ${
+            width <= 901 && "!text-3xl"
           } text-white flex text-center md:text-left text-7xl font-bold cursor-pointer`}
         >
           {data?.title || "Playlist Title"}

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { MusicNote, PlayIcon } from "@/public/icons";
 import { Playlist } from "@/types";
 import { buckets } from "@/utils/constants";
-import useHeaderColor from "@/stores/useHeaderColor";
+import useHeader from "@/stores/useHeader";
 import PlayButton from "./PlayButton";
 import useLoadImage from "@/hooks/useLoadImage";
 import { useEffect } from "react";
@@ -22,7 +22,7 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
   setHover,
 }) => {
   const router = useRouter();
-  const { bgBase, bgColor, setBgColor } = useHeaderColor();
+  const { bgBase, bgColor, setBgColor } = useHeader();
 
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images);
 

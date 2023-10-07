@@ -1,6 +1,6 @@
 "use client";
 
-import useHeaderColor from "@/stores/useHeaderColor";
+import useHeader from "@/stores/useHeader";
 import { twMerge } from "tailwind-merge";
 
 interface HeaderProps {
@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
-  const { bgColor, hasBgImage } = useHeaderColor();
+  const { bgColor, hasBgImage } = useHeader();
 
   return (
     <div

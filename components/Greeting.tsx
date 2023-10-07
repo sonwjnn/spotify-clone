@@ -4,7 +4,7 @@ import { Playlist } from "@/types";
 import { memo, useEffect, useMemo, useState } from "react";
 import PlaylistRecommend from "./PlaylistRecommend";
 import useMainLayout from "@/stores/useMainLayout";
-import useHeaderColor from "@/stores/useHeaderColor";
+import useHeader from "@/stores/useHeader";
 
 interface GreetingProps {
   playlists: Playlist[];
@@ -14,7 +14,7 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
   const [currentHour, setCurrentHour] = useState(new Date().getHours());
   const [isHover, setHover] = useState(false);
   const { width } = useMainLayout();
-  const { bgBase, setBgBase } = useHeaderColor();
+  const { bgBase, setBgBase } = useHeader();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -46,9 +46,9 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
         <p>{greeting}</p>
       </h1>
       <div
-        className={`grid ${width <= 519 && "!grid-cols-1"} ${
-          width <= 878 && "grid-cols-2"
-        } grid-cols-3 gap-3 mt-4`}
+        className={`grid ${
+          width <= 519 ? "!grid-cols-1" : width <= 878 ? "!grid-cols-2" : ""
+        }  grid-cols-3 gap-3 mt-4`}
       >
         {playlists
           ?.slice(0, 6)
