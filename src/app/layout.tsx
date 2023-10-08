@@ -11,6 +11,7 @@ import MainContent from "@/components/MainContent/MainContent";
 import getPlaylistsByUserId from "@/server-actions/playlists/getPlaylistsByUserId";
 import getLikedSongs from "@/server-actions/songs/getLikedSongs";
 import MusicPlayer from "@/components/MusicPlayer/MusicPlayer";
+import getLikedPlaylists from "@/server-actions/playlists/getLikedPlaylists";
 
 const circularSp = localFont({
   src: [
@@ -42,6 +43,7 @@ export default async function RootLayout({
   const userSongs = await getSongsByUserId();
   const playlists = await getPlaylistsByUserId();
   const likedSongs = await getLikedSongs();
+  const likedPlaylists = await getLikedPlaylists();
 
   return (
     <html lang="en" suppressHydrationWarning={true}>
@@ -55,6 +57,7 @@ export default async function RootLayout({
                 songs={userSongs}
                 playlists={playlists}
                 likedSongs={likedSongs}
+                likedPlaylists={likedPlaylists}
               >
                 {children}
               </MainContent>

@@ -8,19 +8,16 @@ import useAuthModal from "@/hooks/useAuthModal";
 import { toast } from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
-interface LikeButtonProps {
-  songId: string;
+interface PlaylistLikeButtonProps {
   size?: number;
   className?: string;
   playlistId?: string;
-  selected?: string;
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({
-  songId,
+const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
+  playlistId,
   size = 25,
   className,
-  selected,
 }) => {
   const router = useRouter();
 
@@ -37,10 +34,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabaseClient
-        .from("liked_songs")
+        .from("liked_playlists")
         .select("*")
         .eq("user_id", user?.id)
-        .eq("song_id", songId)
+        .eq("playlist_id", playlistId)
         .single();
 
       if (!error && data) {
@@ -51,7 +48,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     };
 
     fetchData();
-  }, [songId, supabaseClient, user?.id]);
+  }, [playlistId, supabaseClient, user?.id]);
 
   const handleLike = async () => {
     if (!user) return authModal.onOpen();
@@ -61,16 +58,16 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 
     if (isLiked) {
       const { data, error } = await supabaseClient
-        .from("liked_songs")
+        .from("liked_playlists")
         .delete()
         .eq("user_id", user.id)
-        .eq("song_id", songId);
+        .eq("playlist_id", playlistId);
 
       if (error) return toast.error(error.message);
       setIsLiked(false);
     } else {
-      const { error } = await supabaseClient.from("liked_songs").insert({
-        song_id: songId,
+      const { error } = await supabaseClient.from("liked_playlists").insert({
+        playlist_id: playlistId,
         user_id: user.id,
       });
 
@@ -78,7 +75,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 
       setIsLiked(true);
 
-      toast.success("Song liked!");
+      toast.success("Playlist liked!");
     }
     setRequired(false);
 
@@ -89,12 +86,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   return (
     <button
       onClick={handleLike}
-      className={twMerge(
-        `justify-center items-center ${
-          isLiked || selected === songId ? "flex" : "hidden"
-        }  group-hover/media:flex transition`,
-        className
-      )}
+      className={twMerge(`justify-center items-center transition`, className)}
     >
       <Icon
         className={` transition ${
@@ -108,4 +100,4 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   );
 };
 
-export default LikeButton;
+export default PlaylistLikeButton;

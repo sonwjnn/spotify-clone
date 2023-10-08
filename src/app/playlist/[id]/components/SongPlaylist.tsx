@@ -12,6 +12,8 @@ import { Playlist, Song } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import usePlayingSidebar from "@/stores/usePlayingSidebar";
+import { useUser } from "@/hooks/useUser";
+import PlaylistLikeButton from "@/components/PlaylistLikeButton";
 
 interface PlaylistSongProps {
   songs: Song[];
@@ -19,6 +21,7 @@ interface PlaylistSongProps {
 }
 
 const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
+  const { user } = useUser();
   const onPlay = useOnPlay(songs);
   const player = usePlayer();
   const { setShowed } = usePlayingSidebar();
@@ -55,13 +58,16 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
     >
       {songs.length ? (
         <>
-          <div className="p-5 w-full flex gap-x-2">
+          <div className="p-5 w-full flex gap-x-6">
             <PlayButton
               className="opacity-1 translate-y-0 h-14 w-14"
               onClick={handleClickPlay}
               isPlaying={isPlaying}
             />
             {/* <MediaDropdown /> */}
+            {user?.id !== playlist.user_id ? (
+              <PlaylistLikeButton size={36} playlistId={playlist.id} />
+            ) : null}
           </div>
           <div
             className={`relative grid gap-4 search-layout-grid ${

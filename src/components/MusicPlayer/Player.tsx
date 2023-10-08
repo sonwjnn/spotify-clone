@@ -132,8 +132,12 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
 
     const nextSong = playerIds[nextTrackIndex];
 
+    // handle when play done queue
     if (!nextSong && !isReplay && !isRandom) {
-      return setId(playerIds[0]);
+      setId(playerIds[0]);
+      setCurrentTrack({ ...queue[0] });
+      setCurrentTrackIndex(0);
+      return;
     }
 
     // handle replay

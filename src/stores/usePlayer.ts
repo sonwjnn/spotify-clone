@@ -71,17 +71,26 @@ const usePlayer = create<PlayerStore>()(
       setCurrentTime: (currentTime: number) => set({ currentTime }),
       setCurrentTrack: (song: Song | undefined) => set({ currentTrack: song }),
       calNextTrackIndex: () => {
-        const { isRandom, currentTrackIndex, queue, setNextTrackIndex } = get();
+        const {
+          isRandom,
+          currentTrackIndex,
+          queue,
+          setNextTrackIndex,
+          currentTrack,
+        } = get();
         if (isRandom) {
           let randomIndex = currentTrackIndex;
           while (randomIndex === currentTrackIndex) {
             randomIndex = Math.floor(Math.random() * queue?.length);
           }
           setNextTrackIndex(randomIndex);
+        } else if (
+          (currentTrackIndex >= queue?.length - 1 && currentTrack) ||
+          queue.length < 2
+        ) {
+          setNextTrackIndex(0);
         } else if (queue.length >= 2) {
           setNextTrackIndex(currentTrackIndex + 1);
-        } else {
-          setNextTrackIndex(0);
         }
       },
       handlePlay: () => {},

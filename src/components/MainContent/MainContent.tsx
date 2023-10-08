@@ -18,16 +18,18 @@ interface MainContentProps {
   songs: Song[];
   playlists: Playlist[];
   likedSongs: Song[];
+  likedPlaylists: Playlist[];
 }
 
 const MainContent: React.FC<MainContentProps> = ({
   children,
   playlists,
   likedSongs,
+  likedPlaylists,
 }) => {
   const [isLoading, setLoading] = useState(true);
   const player = usePlayer();
-  const { setLikedSongs } = useUserStore();
+  const { setLikedSongs, setLikedPlaylists } = useUserStore();
 
   const { isShowed } = usePlayingSidebar();
 
@@ -36,6 +38,12 @@ const MainContent: React.FC<MainContentProps> = ({
       setLoading(false);
     }, 800);
   }, []);
+
+  useEffect(() => {
+    if (likedPlaylists.length !== 0) {
+      setLikedPlaylists(likedPlaylists);
+    }
+  }, [likedPlaylists, setLikedPlaylists]);
 
   useEffect(() => {
     if (likedSongs.length !== 0) {

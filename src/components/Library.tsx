@@ -18,7 +18,7 @@ interface LibraryProps {
 
 const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
   const { user, subscription } = useUser();
-  const { likedSongs } = useUserStore();
+  const { likedSongs, likedPlaylists } = useUserStore();
   const authModal = useAuthModal();
   const subcribeModal = useSubscribeModal();
 
@@ -77,16 +77,17 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
           </button>
         </div>
       </div>
-      {playlists.length ? (
-        <PlaylistSidebar data={playlists} />
-      ) : (
+      {!playlists.length && !likedPlaylists.length ? (
         <div
           onClick={handleClick}
           className="flex justify-center items-center text-center w-full px-4 my-8 text-neutral-400 hover:text-white transition cursor-pointer"
         >
           You have no any playlists, create your playlists.
         </div>
+      ) : (
+        <PlaylistSidebar data={playlists} likedPlaylist={likedPlaylists} />
       )}
+
       <div className="mt-2 px-3 pb-2">
         <ListItem
           image="/images/liked.png"

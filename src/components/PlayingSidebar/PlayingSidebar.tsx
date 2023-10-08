@@ -1,7 +1,6 @@
 "use client";
 
 import { CloseIcon, MusicNote } from "@/public/icons";
-import Link from "next/link";
 import NextSong from "./NextSong";
 import Box from "../Box";
 import Image from "next/image";
@@ -9,21 +8,17 @@ import LikeButton from "../LikeButton";
 
 import useLoadImage from "@/hooks/useLoadImage";
 import usePlayer from "@/stores/usePlayer";
-import useGetSongById from "@/hooks/useGetSongById";
 import usePlayingSidebar from "@/stores/usePlayingSidebar";
-// import MarqueeWrapper from "../Marquee";
 import { useEffect, useRef, useState } from "react";
 import ScrollbarProvider from "@/providers/ScrollbarProvider";
 
 const PlayingSidebar: React.FC = () => {
   const playingSidebar = usePlayingSidebar();
-  const { currentTrack, activeId, ids: playerIds } = usePlayer();
+  const { currentTrack, queue, nextTrackIndex } = usePlayer();
   const imagePath = useLoadImage(currentTrack?.image_path!, "images");
 
   // find next song
-  const currentIndex = playerIds.findIndex((id) => id === activeId);
-  const nextSongId = playerIds[currentIndex + 1] || playerIds[0];
-  const { song: nextSong } = useGetSongById(nextSongId);
+  const nextSong = { ...queue[nextTrackIndex] };
 
   const [isScroll, setScroll] = useState<boolean>(false);
 
@@ -87,7 +82,7 @@ const PlayingSidebar: React.FC = () => {
               ) : (
                 <div
                   className={
-                    " w-full aspect-square h-full text-white rounded-lg bg-[#282828] flex items-center justify-center"
+                    " w-full aspect-square h-full text-white rounded-lg bg-[#282828] shadow-base flex items-center justify-center"
                   }
                 >
                   <MusicNote size={114} />
@@ -95,7 +90,7 @@ const PlayingSidebar: React.FC = () => {
               )}
               <div
                 className={
-                  "flex flex-row items-center justify-between gap-6 w-full h-[64px]"
+                  "flex flex-row items-center justify-between gap-6 w-full h-[64px] mt-2"
                 }
               >
                 <div className={"flex-1 flex flex-col overflow-hidden "}>
@@ -117,7 +112,11 @@ const PlayingSidebar: React.FC = () => {
                     "w-8 text-neutral-400 cursor-pointer hover:text-white"
                   }
                 >
-                  <LikeButton songId={currentTrack?.id || ""} size={22} />
+                  <LikeButton
+                    className="flex"
+                    songId={currentTrack?.id || ""}
+                    size={24}
+                  />
                 </div>
               </div>
 
