@@ -13,7 +13,7 @@ const getPlaylistById = async (id: string): Promise<Playlist | null> => {
 
   const { data, error } = await supabase
     .from("playlists")
-    .select("*, users(*)")
+    .select("*, users!playlists_user_id_fkey(*)")
     .eq("id", id)
     .order("created_at", { ascending: false })
     .single();

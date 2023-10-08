@@ -11,12 +11,12 @@ import { Playlist, Song } from "@/types/types";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 
-interface PlaylistSearchProps {
+interface SearchPlaylistProps {
   songs: Song[];
   playlist: Playlist;
 }
 
-const PlaylistSearch: React.FC<PlaylistSearchProps> = ({ playlist }) => {
+const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
   const { width } = useMainLayout();
 
   const { supabaseClient } = useSessionContext();
@@ -104,4 +104,4 @@ const PlaylistSearch: React.FC<PlaylistSearchProps> = ({ playlist }) => {
   );
 };
 
-export default PlaylistSearch;
+export default SearchPlaylist;

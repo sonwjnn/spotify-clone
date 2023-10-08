@@ -3,6 +3,8 @@
 import { Playlist, Song } from "@/types/types";
 import SearchPlaylist from "./SearchPlaylist";
 import SongPlaylist from "./SongPlaylist";
+import { useUser } from "@/hooks/useUser";
+import { useRouter } from "next/navigation";
 
 interface PlaylistContentProps {
   playlist: Playlist;
@@ -15,9 +17,15 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({
   songs,
   addedSongs,
 }) => {
+  const { user } = useUser();
+  const router = useRouter();
   const unaddedSongs = songs.filter(
     (song: Song) => !playlist?.song_ids?.includes(song.id)
   );
+
+  if (!user) {
+    router.replace("/");
+  }
 
   return (
     <>

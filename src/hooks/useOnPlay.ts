@@ -4,9 +4,20 @@ import { useUser } from "./useUser";
 import useSubscribeModal from "./useSubscribeModal";
 import usePlayer from "@/stores/usePlayer";
 import useSelectedPlayer from "@/stores/useSelectedPlayer";
+import { usePathname } from "next/navigation";
 
 const useOnPlay = (songs: Song[]) => {
-  const player = usePlayer();
+  const {
+    setId,
+    setCurrentTrackIndex,
+    setCurrentTrack,
+    setQueue,
+    calNextTrackIndex,
+    setPlaylistActiveId,
+    setIds,
+  } = usePlayer();
+  2;
+  const pathName = usePathname();
 
   const { setSelected } = useSelectedPlayer();
 
@@ -21,11 +32,26 @@ const useOnPlay = (songs: Song[]) => {
 
     if (!subscription) return subcribeModal.onOpen();
 
-    player.setId(id);
+    if (!pathName.includes("/playlist")) {
+      setPlaylistActiveId(undefined);
+    }
 
     setSelected(true);
 
-    player.setIds(songs.map((item) => item.id));
+    // handle player store
+    setId(id);
+
+    const currentTrack = songs.find((song, index) => {
+      if (song.id === id) {
+        setCurrentTrackIndex(index);
+        return true;
+      }
+    });
+
+    setCurrentTrack(currentTrack);
+    setQueue(songs);
+    calNextTrackIndex();
+    setIds(songs.map((item) => item.id));
   };
 
   return onPlay;

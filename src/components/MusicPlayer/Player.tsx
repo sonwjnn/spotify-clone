@@ -25,10 +25,16 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     isPlaying,
     volume,
     currentTime,
+    currentTrack,
+    nextTrackIndex,
+    queue,
+    currentTrackIndex,
+    calNextTrackIndex,
     setPlaying,
     setCurrentTime,
+    setCurrentTrack,
+    setCurrentTrackIndex,
     setId,
-    setCurrentSong,
     handlePlay,
     setHandlePlay,
   } = usePlayer();
@@ -47,7 +53,6 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     loop: false,
     onplay: () => {
       setPlaying(true);
-      setCurrentSong(song);
     },
     onend: () => {
       setPlaying(false);
@@ -113,6 +118,10 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     isRandomRef.current = isRandom;
   }, [isRandom, isReplay]);
 
+  useEffect(() => {
+    calNextTrackIndex();
+  }, [currentTrack, isRandom, calNextTrackIndex]);
+
   const onPlayNext = () => {
     if (playerIds.length === 0) {
       return;
@@ -121,26 +130,10 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     const isReplay = isReplayRef.current;
     const isRandom = isRandomRef.current;
 
-    const currentIndex = playerIds.findIndex((id) => id === activeId);
-    const nextSong = playerIds[currentIndex + 1];
+    const nextSong = playerIds[nextTrackIndex];
 
     if (!nextSong && !isReplay && !isRandom) {
       return setId(playerIds[0]);
-    }
-
-    // handle random
-    if (isRandom) {
-      const randomLength = playerIds.length;
-      const max = randomLength - 1;
-      let randomIndex = currentIndex;
-
-      while (currentIndex === randomIndex) {
-        randomIndex = Math.floor(Math.random() * max);
-      }
-
-      const randomSong = playerIds[randomIndex];
-
-      return setId(randomSong);
     }
 
     // handle replay
@@ -156,6 +149,9 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     }
 
     // default change next song
+    setCurrentTrack({ ...queue[nextTrackIndex] });
+    setCurrentTrackIndex(nextTrackIndex);
+    calNextTrackIndex();
     selectedPlayer.setSelected(true);
     setId(nextSong);
   };
@@ -172,6 +168,8 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
       return setId(playerIds[playerIds.length - 1]);
     }
 
+    setCurrentTrack({ ...queue[currentTrackIndex - 1] });
+    setCurrentTrackIndex(currentTrackIndex - 1);
     selectedPlayer.setSelected(true);
     setId(previousSong);
   };

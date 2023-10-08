@@ -13,9 +13,9 @@ interface SongItemProps {
 }
 
 const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
-  const { currentSong, isPlaying, handlePlay } = usePlayer();
+  const { currentTrack, isPlaying, handlePlay } = usePlayer();
 
-  const isPlayingCurrentSong = currentSong?.id === data.id && isPlaying;
+  const isPlayingCurrentTrack = currentTrack?.id === data.id && isPlaying;
   const imagePath = useLoadImage(data.image_path, "images");
   return (
     <div
@@ -46,7 +46,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
         </p>
       </div>
       <div className="absolute bottom-[102px] right-6">
-        <PlayButton onClick={handlePlay} isPlaying={isPlayingCurrentSong} />
+        <PlayButton onClick={handlePlay} isPlaying={isPlayingCurrentTrack} />
       </div>
     </div>
   );

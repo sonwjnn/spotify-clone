@@ -1,17 +1,16 @@
 "use client";
 
 import useLoadImage from "@/hooks/useLoadImage";
-import useLoadSongUrl from "@/hooks/useLoadSongUrl";
 import { Song } from "@/types/types";
 import { getDurationSong } from "@/utils/durationConvertor";
 import Image from "next/image";
-import useSound from "use-sound";
 import dayjs from "dayjs";
 import { twMerge } from "tailwind-merge";
 import useMainLayout from "@/stores/useMainLayout";
 import usePlayer from "@/stores/usePlayer";
-import { MusicNote } from "@/public/icons";
+import { MusicNote, PlayIcon } from "@/public/icons";
 import { buckets } from "@/utils/constants";
+import { useState } from "react";
 
 interface MediaItemProps {
   data: Song;
@@ -20,7 +19,7 @@ interface MediaItemProps {
   isCreatedAt?: boolean;
   selected?: string;
   actived?: string;
-  playlistId: string;
+  playlistId?: string;
   className?: string;
   onDoubleClick?: (value?: any) => void;
   onClick?: (value?: any) => void;
@@ -42,9 +41,8 @@ const MediaItem: React.FC<MediaItemProps> = ({
 }) => {
   const { width } = useMainLayout();
   const imageUrl = useLoadImage(data.image_path, buckets.images);
-  const songUrl = useLoadSongUrl(data!);
-  const [_, { duration }] = useSound(songUrl, { format: ["mp3"] });
   const player = usePlayer();
+  const [isHover, setHover] = useState<boolean>(false);
 
   const isSelected = selected === data.id;
   const isActived =
@@ -58,6 +56,8 @@ const MediaItem: React.FC<MediaItemProps> = ({
         }`,
         className
       )}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
       {index && player.isPlaying && isActived ? (
         <div className="relative h-full w-3  ml-2 overflow-hidden flex items-center ">
@@ -75,7 +75,14 @@ const MediaItem: React.FC<MediaItemProps> = ({
             isActived ? "text-[#2ed760]" : "text-neutral-400"
           }  text-sm flex items-center  justify-end w-4 `}
         >
-          {index}
+          {isHover ? (
+            <PlayIcon
+              size={14}
+              color={`${isActived ? "#2ed760" : "#a3a3a3"}`}
+            />
+          ) : (
+            index
+          )}
         </div>
       )}
       <div
@@ -95,7 +102,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-neutral-800">
-              <MusicNote size={50} />
+              <MusicNote size={22} />
             </div>
           )}
         </div>
@@ -128,7 +135,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
           } text-neutral-400 text-sm items-center justify-end select-none`}
         >
           {getDurationSong({
-            milliseconds: duration ? duration : 0,
+            milliseconds: data?.duration_ms ? data?.duration_ms : 0,
           })}
         </div>
       )}

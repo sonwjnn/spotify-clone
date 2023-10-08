@@ -17,9 +17,15 @@ interface PlayerStore {
   isReplay: boolean;
   volume: number;
   currentTime: number;
-  currentSong: Song | undefined;
+  currentTrack: Song | undefined;
   playlistPlayingId?: string;
-  setPlaylistActiveId: (id: string) => void;
+  queue: Song[];
+  currentTrackIndex: number;
+  nextTrackIndex: number;
+  setCurrentTrackIndex: (index: number) => void;
+  setNextTrackIndex: (index: number) => void;
+  setQueue: (songs: Song[]) => void;
+  setPlaylistActiveId: (id: string | undefined) => void;
   setVolume: (volumn: number) => void;
   setPlaying: (isPlaying: boolean) => void;
   setRandom: (isRandom: boolean) => void;
@@ -27,8 +33,8 @@ interface PlayerStore {
   setId: (id: string) => void;
   setIds: (ids: string[]) => void;
   setCurrentTime: (currentTime: number) => void;
-  setCurrentSong: (song: Song) => void;
-
+  setCurrentTrack: (song: Song | undefined) => void;
+  calNextTrackIndex: () => void;
   handlePlay: () => void;
   setHandlePlay: (play: () => void, pause: (id?: string) => void) => void;
   reset: () => void;
@@ -44,9 +50,17 @@ const usePlayer = create<PlayerStore>()(
       isReplay: false,
       volume: 0.5,
       currentTime: 0,
-      currentSong: undefined,
+      currentTrack: undefined,
       playlistPlayingId: undefined,
-      setPlaylistActiveId: (id: string) => set({ playlistPlayingId: id }),
+      queue: [],
+      currentTrackIndex: 0,
+      nextTrackIndex: 0,
+      setCurrentTrackIndex: (index: number) =>
+        set({ currentTrackIndex: index }),
+      setNextTrackIndex: (index: number) => set({ nextTrackIndex: index }),
+      setQueue: (songs: Song[]) => set({ queue: songs }),
+      setPlaylistActiveId: (id: string | undefined) =>
+        set({ playlistPlayingId: id }),
       setId: (id: string) => set({ activeId: id }),
       setIds: (ids: string[]) => set({ ids }),
       reset: () => set({ ids: [], activeId: undefined }),
@@ -55,8 +69,21 @@ const usePlayer = create<PlayerStore>()(
       setRandom: (isRandom: boolean) => set({ isRandom }),
       setReplay: (isReplay: boolean) => set({ isReplay }),
       setCurrentTime: (currentTime: number) => set({ currentTime }),
-      setCurrentSong: (song: Song) => set({ currentSong: song }),
-
+      setCurrentTrack: (song: Song | undefined) => set({ currentTrack: song }),
+      calNextTrackIndex: () => {
+        const { isRandom, currentTrackIndex, queue, setNextTrackIndex } = get();
+        if (isRandom) {
+          let randomIndex = currentTrackIndex;
+          while (randomIndex === currentTrackIndex) {
+            randomIndex = Math.floor(Math.random() * queue?.length);
+          }
+          setNextTrackIndex(randomIndex);
+        } else if (queue.length >= 2) {
+          setNextTrackIndex(currentTrackIndex + 1);
+        } else {
+          setNextTrackIndex(0);
+        }
+      },
       handlePlay: () => {},
       setHandlePlay: (play: PlayFunction, pause: (id?: string) => void) => {
         set({

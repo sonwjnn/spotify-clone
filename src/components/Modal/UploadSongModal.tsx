@@ -70,7 +70,7 @@ const UploadSongModal = () => {
 
       const imageFile = values.image?.[0];
       const songFile = values.song?.[0];
-      if (!user || !imageFile || !songFile) {
+      if (!user || !songFile) {
         toast.error("Missing fields");
         return;
       }
@@ -89,24 +89,29 @@ const UploadSongModal = () => {
       }
 
       //Upload images
-      const { data: imageData, error: imageError } =
-        await supabaseClient.storage
-          .from("images")
-          .upload(`image-${uniqID}`, imageFile, {
-            cacheControl: "3600",
-            upsert: false,
-          });
-      if (imageError) {
-        setIsLoading(false);
-        return toast.error("Failed image upload.");
+      let imageData;
+      if (imageFile) {
+        const { data: imageUploadData, error: imageError } =
+          await supabaseClient.storage
+            .from("images")
+            .upload(`image-${uniqID}`, imageFile, {
+              cacheControl: "3600",
+              upsert: false,
+            });
+        if (imageError) {
+          setIsLoading(false);
+          return toast.error("Failed image upload.");
+        }
+        imageData = imageUploadData;
       }
+
       const { error: supabaseError } = await supabaseClient
         .from("songs")
         .insert({
           user_id: user.id,
           title: values.title,
           author: values.author,
-          image_path: imageData.path,
+          image_path: imageData ? imageData.path : null,
           song_path: songData.path,
           duration_ms: duration,
         });
@@ -169,7 +174,7 @@ const UploadSongModal = () => {
             disabled={isLoading}
             type="file"
             accept="image/*"
-            {...register("image", { required: true })}
+            {...register("image", { required: false })}
           />
         </div>
         <Button

@@ -11,6 +11,7 @@ import usePlayer from "@/stores/usePlayer";
 import { Playlist, Song } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import usePlayingSidebar from "@/stores/usePlayingSidebar";
 
 interface PlaylistSongProps {
   songs: Song[];
@@ -20,6 +21,7 @@ interface PlaylistSongProps {
 const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
   const onPlay = useOnPlay(songs);
   const player = usePlayer();
+  const { setShowed } = usePlayingSidebar();
   const { width } = useMainLayout();
   const [selected, setSelected] = useState<string>("");
   const [isPlaying, setPlaying] = useState(false);
@@ -39,6 +41,7 @@ const PlaylistSong: React.FC<PlaylistSongProps> = ({ songs, playlist }) => {
   const handleClickPlay = () => {
     if (player.playlistPlayingId !== params.id && songs?.length) {
       player.setPlaylistActiveId(params.id.toString());
+      setShowed(true);
       onPlay(songs[0].id);
     } else {
       player.handlePlay();

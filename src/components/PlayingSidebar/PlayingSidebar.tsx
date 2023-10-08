@@ -17,8 +17,8 @@ import ScrollbarProvider from "@/providers/ScrollbarProvider";
 
 const PlayingSidebar: React.FC = () => {
   const playingSidebar = usePlayingSidebar();
-  const { currentSong, activeId, ids: playerIds } = usePlayer();
-  const imagePath = useLoadImage(currentSong?.image_path!, "images");
+  const { currentTrack, activeId, ids: playerIds } = usePlayer();
+  const imagePath = useLoadImage(currentTrack?.image_path!, "images");
 
   // find next song
   const currentIndex = playerIds.findIndex((id) => id === activeId);
@@ -77,9 +77,7 @@ const PlayingSidebar: React.FC = () => {
               {imagePath ? (
                 <div className="relative aspect-square h-full w-full rounded-lg overflow-hidden shadow-base">
                   <Image
-                    className="
-            object-cover
-          "
+                    className="object-cover"
                     src={imagePath}
                     fill
                     alt="Img"
@@ -89,7 +87,7 @@ const PlayingSidebar: React.FC = () => {
               ) : (
                 <div
                   className={
-                    "h-full w-full text-white rounded-lg bg-[#282828] flex items-center justify-center"
+                    " w-full aspect-square h-full text-white rounded-lg bg-[#282828] flex items-center justify-center"
                   }
                 >
                   <MusicNote size={114} />
@@ -100,24 +98,17 @@ const PlayingSidebar: React.FC = () => {
                   "flex flex-row items-center justify-between gap-6 w-full h-[64px]"
                 }
               >
-                <div className={"flex-1 flex flex-col overflow-hidden"}>
-                  <Link href={"/"}>
-                    {/* <MarqueeWrapper */}
-                    {/* 	pauseOnHover={true} */}
-                    {/* 	speed={20} */}
-                    {/* > */}
-                    <h2
-                      className={
-                        "text-2xl text-white m-0 pb-2 font-bold hover:underline hover:decoration-2 truncate"
-                      }
-                    >
-                      {currentSong?.title}
-                    </h2>
-                    {/* </MarqueeWrapper> */}
-                  </Link>
+                <div className={"flex-1 flex flex-col overflow-hidden "}>
+                  <h2
+                    className={
+                      "text-2xl text-white m-0 pb-2 font-bold hover:underline hover:decoration-2 truncate"
+                    }
+                  >
+                    {currentTrack?.title}
+                  </h2>
                   <span className={""}>
                     <p className="text-neutral-400 text-base pb-4 w-full truncate">
-                      {currentSong?.author}
+                      {currentTrack?.author}
                     </p>
                   </span>
                 </div>
@@ -126,7 +117,7 @@ const PlayingSidebar: React.FC = () => {
                     "w-8 text-neutral-400 cursor-pointer hover:text-white"
                   }
                 >
-                  <LikeButton songId={currentSong?.id || ""} size={22} />
+                  <LikeButton songId={currentTrack?.id || ""} size={22} />
                 </div>
               </div>
 

@@ -7,6 +7,8 @@ import PlaylistContent from "./components/PlaylistContent";
 import getSongsByTitle from "@/server-actions/songs/getSongsByTitle";
 import getSongsByIds from "@/server-actions/songs/getSongsByIds";
 import Footer from "@/components/Footer";
+import { useUser } from "@/hooks/useUser";
+import { useRouter } from "next/navigation";
 
 interface PlaylistProps {
   params: {
@@ -17,7 +19,7 @@ interface PlaylistProps {
 
 export const revalidate = 0;
 
-const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
+const Playlist = async ({ params, searchParams }: PlaylistProps) => {
   const playlist = await getPlaylistById(params.id);
 
   if (!playlist) {
@@ -55,4 +57,4 @@ const PlaylistItem = async ({ params, searchParams }: PlaylistProps) => {
   );
 };
 
-export default PlaylistItem;
+export default Playlist;

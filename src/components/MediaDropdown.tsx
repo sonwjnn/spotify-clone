@@ -114,7 +114,10 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
           {/**/}
           {/* <DropdownMenu.Separator className='h-[1px] bg-neutral-700 my-1' /> */}
 
-          <DropdownMenu.Item onSelect={onRemove} className="dropdown-menu-item">
+          <DropdownMenu.Item
+            onSelect={onRemove}
+            className="dropdown-menu-item mx-1"
+          >
             <DeleteIcon color="#991b1b" />
             Remove from this playlist
           </DropdownMenu.Item>

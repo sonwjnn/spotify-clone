@@ -33,8 +33,8 @@ const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
                 className="object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-neutral-800">
-                <MusicNote size={50} />
+              <div className="w-full aspect-square h-full flex items-center justify-center bg-neutral-800">
+                <MusicNote size={22} />
               </div>
             )}
           </div>

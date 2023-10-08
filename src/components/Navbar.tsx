@@ -98,7 +98,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
   }, [type, player.isPlaying, player.playlistPlayingId, params.id]);
 
   const handleClickPlay = () => {
-    if (!player.playlistPlayingId && songs?.length) {
+    if (player.playlistPlayingId !== params.id && songs?.length) {
       player.setPlaylistActiveId(params.id.toString());
       onPlay(songs[0].id);
     } else {

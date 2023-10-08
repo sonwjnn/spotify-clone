@@ -162,11 +162,11 @@ export function ClockIcon() {
 }
 
 export function PlayIcon(props: Partial<IconProps>) {
-  const { size = 18 } = props;
+  const { size = 18, color = "#000000" } = props;
   return (
     <svg
       role="img"
-      fill="#000000"
+      fill={color}
       height={size}
       width={size}
       aria-hidden="true"

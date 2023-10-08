@@ -8,6 +8,8 @@ import { Playlist } from "@/types/types";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
+import ListItem from "./ListItem";
+import useUserStore from "@/stores/useUserStore";
 
 interface LibraryProps {
   playlists: Playlist[];
@@ -16,6 +18,7 @@ interface LibraryProps {
 
 const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
   const { user, subscription } = useUser();
+  const { likedSongs } = useUserStore();
   const authModal = useAuthModal();
   const subcribeModal = useSubscribeModal();
 
@@ -27,6 +30,18 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
       return subcribeModal.onOpen();
     }
   };
+
+  if (!user || !subscription) {
+    return (
+      <div
+        onClick={handleClick}
+        className="flex justify-center items-center text-center w-full px-4 mt-8 text-neutral-400 hover:text-white transition cursor-pointer"
+      >
+        Log in and subscribe to view your playlists.
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col ">
       <div
@@ -67,11 +82,19 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
       ) : (
         <div
           onClick={handleClick}
-          className="flex justify-center items-center text-center w-full px-4 mt-8 text-neutral-400 hover:text-white transition cursor-pointer"
+          className="flex justify-center items-center text-center w-full px-4 my-8 text-neutral-400 hover:text-white transition cursor-pointer"
         >
-          Log in and subscribe to view your playlists.
+          You have no any playlists, create your playlists.
         </div>
       )}
+      <div className="mt-2 px-3 pb-2">
+        <ListItem
+          image="/images/liked.png"
+          name="Liked Songs"
+          href="/liked"
+          count={likedSongs.length}
+        />
+      </div>
     </div>
   );
 };
