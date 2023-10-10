@@ -1,20 +1,20 @@
-"use client";
+'use client'
 
-import { twMerge } from "tailwind-merge";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
-import { HomeActiveIcon, SearchIcon } from "@/public/icons";
-import Button from "../Button";
-import { FaUserAlt } from "react-icons/fa";
-import { useUser } from "@/hooks/useUser";
-import { memo } from "react";
+import { twMerge } from 'tailwind-merge'
+import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
+import { HomeActiveIcon, SearchIcon } from '@/public/icons'
+import Button from '../Button'
+import { FaUserAlt } from 'react-icons/fa'
+import { useUser } from '@/hooks/useUser'
+import { memo } from 'react'
 
 interface HeaderProps {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
-  const { user } = useUser();
+  const { user } = useUser()
 
   return (
     <div
@@ -66,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
       </div>
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default memo(Header);
+export default memo(Header)

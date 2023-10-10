@@ -1,49 +1,49 @@
-"use client";
+'use client'
 
-import { CloseIcon, MusicNote } from "@/public/icons";
-import NextSong from "./NextSong";
-import Box from "../Box";
-import Image from "next/image";
-import LikeButton from "../LikeButton";
+import { CloseIcon, MusicNote } from '@/public/icons'
+import NextSong from './NextSong'
+import Box from '../Box'
+import Image from 'next/image'
+import LikeButton from '../LikeButton'
 
-import useLoadImage from "@/hooks/useLoadImage";
-import usePlayer from "@/stores/usePlayer";
-import usePlayingSidebar from "@/stores/usePlayingSidebar";
-import { useEffect, useRef, useState } from "react";
-import ScrollbarProvider from "@/providers/ScrollbarProvider";
+import useLoadImage from '@/hooks/useLoadImage'
+import usePlayer from '@/stores/usePlayer'
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import { useEffect, useRef, useState } from 'react'
+import ScrollbarProvider from '@/providers/ScrollbarProvider'
 
 const PlayingSidebar: React.FC = () => {
-  const playingSidebar = usePlayingSidebar();
-  const { currentTrack, queue, nextTrackIndex } = usePlayer();
-  const imagePath = useLoadImage(currentTrack?.image_path!, "images");
+  const playingSidebar = usePlayingSidebar()
+  const { currentTrack, queue, nextTrackIndex } = usePlayer()
+  const imagePath = useLoadImage(currentTrack?.image_path!, 'images')
 
   // find next song
-  const nextSong = { ...queue[nextTrackIndex] };
+  const nextSong = { ...queue[nextTrackIndex] }
 
-  const [isScroll, setScroll] = useState<boolean>(false);
+  const [isScroll, setScroll] = useState<boolean>(false)
 
-  const scrollRef = useRef<any>();
+  const scrollRef = useRef<any>()
 
   useEffect(() => {
     if (scrollRef.current) {
-      const scrollElement = scrollRef.current.getScrollElement();
+      const scrollElement = scrollRef.current.getScrollElement()
 
       const handleScroll = () => {
-        const yAxis = scrollElement.scrollTop;
+        const yAxis = scrollElement.scrollTop
         if (yAxis) {
-          setScroll(true);
+          setScroll(true)
         } else {
-          setScroll(false);
+          setScroll(false)
         }
-      };
+      }
 
-      scrollElement.addEventListener("scroll", handleScroll);
+      scrollElement.addEventListener('scroll', handleScroll)
 
       return () => {
-        scrollElement.removeEventListener("scroll", handleScroll);
-      };
+        scrollElement.removeEventListener('scroll', handleScroll)
+      }
     }
-  }, []);
+  }, [])
 
   return (
     <div className="hidden md:block max-w-[400px] min-w-[280px] relative   bg-black rounded-md py-2 pr-2  h-full ">
@@ -52,12 +52,12 @@ const PlayingSidebar: React.FC = () => {
           <ScrollbarProvider scrollRef={scrollRef}>
             <div
               className={`min-h-8 p-4 pb-3  flex flex-row justify-end sticky top-0 bg-neutral-900 z-10 ${
-                isScroll ? "shadow-2xl" : ""
+                isScroll ? 'shadow-2xl' : ''
               }`}
             >
               <div
                 className={
-                  "w-8 h-8 rounded-full transition relative hover:bg-neutral-800"
+                  'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'
                 }
               >
                 <button
@@ -84,7 +84,7 @@ const PlayingSidebar: React.FC = () => {
               ) : (
                 <div
                   className={
-                    " w-full aspect-square h-full text-white rounded-lg bg-[#282828] shadow-base flex items-center justify-center"
+                    ' w-full aspect-square h-full text-white rounded-lg bg-[#282828] shadow-base flex items-center justify-center'
                   }
                 >
                   <MusicNote size={114} />
@@ -92,18 +92,18 @@ const PlayingSidebar: React.FC = () => {
               )}
               <div
                 className={
-                  "flex flex-row items-center justify-between gap-6 w-full h-[64px] mt-2"
+                  'flex flex-row items-center justify-between gap-6 w-full h-[64px] mt-2'
                 }
               >
-                <div className={"flex-1 flex flex-col overflow-hidden "}>
+                <div className={'flex-1 flex flex-col overflow-hidden '}>
                   <h2
                     className={
-                      "text-2xl text-white m-0 pb-2 font-bold hover:underline hover:decoration-2 truncate"
+                      'text-2xl text-white m-0 pb-2 font-bold hover:underline hover:decoration-2 truncate'
                     }
                   >
                     {currentTrack?.title}
                   </h2>
-                  <span className={""}>
+                  <span className={''}>
                     <p className="text-neutral-400 text-base pb-4 w-full truncate">
                       {currentTrack?.author}
                     </p>
@@ -111,12 +111,12 @@ const PlayingSidebar: React.FC = () => {
                 </div>
                 <div
                   className={
-                    "w-8 text-neutral-400 cursor-pointer hover:text-white"
+                    'w-8 text-neutral-400 cursor-pointer hover:text-white'
                   }
                 >
                   <LikeButton
                     className="flex"
-                    songId={currentTrack?.id || ""}
+                    songId={currentTrack?.id || ''}
                     size={24}
                   />
                 </div>
@@ -124,7 +124,7 @@ const PlayingSidebar: React.FC = () => {
 
               <div
                 className={
-                  "flex flex-row gap-3 items-center rounded-lg overflow-hidden "
+                  'flex flex-row gap-3 items-center rounded-lg overflow-hidden '
                 }
               >
                 <NextSong song={nextSong} />
@@ -134,7 +134,7 @@ const PlayingSidebar: React.FC = () => {
         </Box>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PlayingSidebar;
+export default PlayingSidebar

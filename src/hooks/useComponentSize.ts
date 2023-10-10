@@ -1,41 +1,41 @@
 import { RefObject, useEffect, useState } from 'react'
 
 interface ComponentSize {
-	height: number
-	width: number
+  height: number
+  width: number
 }
 
 const useComponentSize = (ref: RefObject<HTMLElement>): ComponentSize => {
-	const [componentSize, setComponentSize] = useState<ComponentSize>({
-		width: -1,
-		height: -1,
-	})
+  const [componentSize, setComponentSize] = useState<ComponentSize>({
+    width: -1,
+    height: -1,
+  })
 
-	useEffect(() => {
-		const handleResize = () => {
-			if (ref.current) {
-				const { clientHeight, clientWidth } = ref.current
-				setComponentSize({ height: clientHeight, width: clientWidth })
-			}
-		}
+  useEffect(() => {
+    const handleResize = () => {
+      if (ref.current) {
+        const { clientHeight, clientWidth } = ref.current
+        setComponentSize({ height: clientHeight, width: clientWidth })
+      }
+    }
 
-		handleResize() // Initial size
+    handleResize() // Initial size
 
-		let observerRefValue: typeof ref.current = null
-		const observer = new ResizeObserver(handleResize)
-		if (ref.current) {
-			observer.observe(ref.current)
-			observerRefValue = ref.current
-		}
+    let observerRefValue: typeof ref.current = null
+    const observer = new ResizeObserver(handleResize)
+    if (ref.current) {
+      observer.observe(ref.current)
+      observerRefValue = ref.current
+    }
 
-		return () => {
-			if (observerRefValue) {
-				observer.unobserve(observerRefValue)
-			}
-		}
-	}, [ref, ref.current?.clientHeight, ref.current?.clientWidth])
+    return () => {
+      if (observerRefValue) {
+        observer.unobserve(observerRefValue)
+      }
+    }
+  }, [ref, ref.current?.clientHeight, ref.current?.clientWidth])
 
-	return componentSize
+  return componentSize
 }
 
 export default useComponentSize

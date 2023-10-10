@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import Footer from "@/components/Footer";
-import HeaderLoading from "@/components/LoadingLayout/HeaderLoading";
-import Skeleton from "react-loading-skeleton";
+import Footer from '@/components/Footer'
+import HeaderLoading from '@/components/LoadingLayout/HeaderLoading'
+import Skeleton from 'react-loading-skeleton'
 
 const Loading = () => {
   return (
@@ -10,19 +10,19 @@ const Loading = () => {
       <HeaderLoading className="from-bg-neutral-900">
         <div className="mb-2 flex flex-col gap-y-6 ">
           <div className="text-white text-3xl font-semibold">
-            <Skeleton height={"100%"} width={"50%"} borderRadius={50} />
+            <Skeleton height={'100%'} width={'50%'} borderRadius={50} />
           </div>
         </div>
       </HeaderLoading>
       <div className="mb-7 px-6">
         <div className="flex flex-col gap-y-4">
-          <Skeleton height={"100%"} width={"30%"} borderRadius={50} />
-          <Skeleton height={"50px"} width={"300px"} borderRadius={50} />
+          <Skeleton height={'100%'} width={'30%'} borderRadius={50} />
+          <Skeleton height={'50px'} width={'300px'} borderRadius={50} />
         </div>
       </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

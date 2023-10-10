@@ -1,12 +1,12 @@
 interface LinkGroupProps {
   groupLink: {
-    title: string;
+    title: string
     links: {
-      title: string;
-      href: string;
-      dataAttributes: { "data-ga-category": string; "data-ga-action": string };
-    }[];
-  };
+      title: string
+      href: string
+      dataAttributes: { 'data-ga-category': string; 'data-ga-action': string }
+    }[]
+  }
 }
 
 const LinkGroup: React.FC<LinkGroupProps> = ({ groupLink }) => {
@@ -26,7 +26,7 @@ const LinkGroup: React.FC<LinkGroupProps> = ({ groupLink }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LinkGroup;
+export default LinkGroup

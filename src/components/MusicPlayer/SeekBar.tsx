@@ -1,15 +1,15 @@
-import { getDurationSong } from "@/utils/durationConvertor";
-import Slider from "../Slider";
-import React from "react";
+import { getDurationSong } from '@/utils/durationConvertor'
+import Slider from '../Slider'
+import React from 'react'
 
 interface SeekBarProps {
-  sound: any;
-  intervalIdRef: any;
-  trackProcess: number;
-  setCurrentTime: (currentTime: number) => void;
-  setTrackProcess: React.Dispatch<React.SetStateAction<number>>;
-  startTimer: () => void;
-  duration: number | null;
+  sound: any
+  intervalIdRef: any
+  trackProcess: number
+  setCurrentTime: (currentTime: number) => void
+  setTrackProcess: React.Dispatch<React.SetStateAction<number>>
+  startTimer: () => void
+  duration: number | null
 }
 
 const SeekBar: React.FC<SeekBarProps> = ({
@@ -22,15 +22,15 @@ const SeekBar: React.FC<SeekBarProps> = ({
   startTimer,
 }) => {
   const handleSliderChange = (value: number) => {
-    clearInterval(intervalIdRef?.current);
-    setTrackProcess(value);
-  };
+    clearInterval(intervalIdRef?.current)
+    setTrackProcess(value)
+  }
 
   const handleMouseUp = (value: number) => {
-    setCurrentTime(value);
-    sound.seek([value]);
-    startTimer();
-  };
+    setCurrentTime(value)
+    sound.seek([value])
+    startTimer()
+  }
 
   return (
     <div className="flex gap-x-1 items-center justify-center">
@@ -55,7 +55,7 @@ const SeekBar: React.FC<SeekBarProps> = ({
         })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SeekBar;
+export default SeekBar

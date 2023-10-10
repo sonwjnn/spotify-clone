@@ -1,11 +1,11 @@
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge'
 interface TooltipProps {
-  children: React.ReactNode;
-  text: string;
-  className?: string;
+  children: React.ReactNode
+  text: string
+  className?: string
 }
 
-const Tooltip: React.FC<TooltipProps> = (props) => {
+const Tooltip: React.FC<TooltipProps> = props => {
   return (
     <span className="group relative">
       <span
@@ -19,9 +19,9 @@ const Tooltip: React.FC<TooltipProps> = (props) => {
 
       {props.children}
     </span>
-  );
-};
+  )
+}
 
-Tooltip.displayName = "Tooltip";
+Tooltip.displayName = 'Tooltip'
 
-export default Tooltip;
+export default Tooltip

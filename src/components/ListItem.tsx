@@ -1,32 +1,32 @@
-"use client";
+'use client'
 
-import { useUser } from "@/hooks/useUser";
-import { MusicNote } from "@/public/icons";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useUser } from '@/hooks/useUser'
+import { MusicNote } from '@/public/icons'
+import Image from 'next/image'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface ListItemProps {
-  image: string;
-  name: string;
-  href: string;
-  count?: number;
+  image: string
+  name: string
+  href: string
+  count?: number
 }
 
 const ListItem: React.FC<ListItemProps> = ({ image, name, href, count }) => {
-  const { user } = useUser();
-  const router = useRouter();
-  const pathName = usePathname();
+  const { user } = useUser()
+  const router = useRouter()
+  const pathName = usePathname()
 
   const onClick = () => {
-    router.push(href);
-  };
+    router.push(href)
+  }
 
   return (
     <>
       {user ? (
         <div
           className={` cursor-pointer rounded-md p-2 transition w-full hover:bg-neutral-800/50 ${
-            pathName.includes("/liked") && "bg-neutral-800/50"
+            pathName.includes('/liked') && 'bg-neutral-800/50'
           }`}
         >
           <div onClick={onClick} className="flex item-center gap-x-3">
@@ -53,7 +53,7 @@ const ListItem: React.FC<ListItemProps> = ({ image, name, href, count }) => {
         </div>
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default ListItem;
+export default ListItem

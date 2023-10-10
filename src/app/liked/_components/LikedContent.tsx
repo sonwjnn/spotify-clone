@@ -1,42 +1,42 @@
-"use client";
+'use client'
 
-import { useUser } from "@/hooks/useUser";
-import useUserStore from "@/stores/useUserStore";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Button from "@/components/Button";
-import { SingleMusicNote } from "@/public/icons";
-import MediaList from "@/components/MediaList";
-import PlayButton from "@/components/PlayButton";
-import useOnPlay from "@/hooks/useOnPlay";
-import usePlayer from "@/stores/usePlayer";
-import usePlayingSidebar from "@/stores/usePlayingSidebar";
+import { useUser } from '@/hooks/useUser'
+import useUserStore from '@/stores/useUserStore'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import Button from '@/components/Button'
+import { SingleMusicNote } from '@/public/icons'
+import MediaList from '@/components/MediaList'
+import PlayButton from '@/components/PlayButton'
+import useOnPlay from '@/hooks/useOnPlay'
+import usePlayer from '@/stores/usePlayer'
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
 
 interface LikedContentProp {
-  bgColor?: string;
+  bgColor?: string
 }
 
 const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
-  const router = useRouter();
-  const { likedSongs: songs } = useUserStore();
-  const { isLoading, user } = useUser();
-  const onPlay = useOnPlay(songs);
-  const player = usePlayer();
-  const { setShowed } = usePlayingSidebar();
-  const [isPlaying, setPlaying] = useState(false);
-  const params = "liked";
+  const router = useRouter()
+  const { likedSongs: songs } = useUserStore()
+  const { isLoading, user } = useUser()
+  const onPlay = useOnPlay(songs)
+  const player = usePlayer()
+  const { setShowed } = usePlayingSidebar()
+  const [isPlaying, setPlaying] = useState(false)
+  const params = 'liked'
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.replace("/");
+      router.replace('/')
     }
-  }, [isLoading, user, router]);
+  }, [isLoading, user, router])
 
   useEffect(() => {
-    if (player.playlistPlayingId === "liked") {
-      setPlaying(player.isPlaying);
+    if (player.playlistPlayingId === 'liked') {
+      setPlaying(player.isPlaying)
     }
-  }, [player.isPlaying, player.playlistPlayingId]);
+  }, [player.isPlaying, player.playlistPlayingId])
 
   if (songs.length === 0) {
     return (
@@ -56,24 +56,24 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
           Save songs by tapping the heart icon.
         </p>
         <Button
-          onClick={() => router.push("/search")}
+          onClick={() => router.push('/search')}
           className="bg-white px-6 py-2 w-[150px]"
         >
           Find songs
         </Button>
       </div>
-    );
+    )
   }
 
   const handleClickPlay = () => {
     if (player.playlistPlayingId !== params && songs?.length) {
-      player.setPlaylistActiveId("liked");
-      onPlay(songs[0].id);
-      setShowed(true);
+      player.setPlaylistActiveId('liked')
+      onPlay(songs[0].id)
+      setShowed(true)
     } else {
-      player.handlePlay();
+      player.handlePlay()
     }
-  };
+  }
 
   return (
     <>
@@ -91,7 +91,7 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
       </div>
       <MediaList songs={songs} />
     </>
-  );
-};
+  )
+}
 
-export default LikedContent;
+export default LikedContent

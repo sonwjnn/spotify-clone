@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import useSound from "use-sound";
-import { Song } from "@/types/types";
-import usePlayer from "@/stores/usePlayer";
-import { useEffect, useRef, useState } from "react";
-import useSelectedPlayer from "@/stores/useSelectedPlayer";
-import SeekBar from "./SeekBar";
-import Controls from "./Controls";
-import PlayButton from "../PlayButton";
-import SongDetails from "./SongDetails";
-import VolumeBar from "./VolumeBar";
+import useSound from 'use-sound'
+import { Song } from '@/types/types'
+import usePlayer from '@/stores/usePlayer'
+import { useEffect, useRef, useState } from 'react'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
+import SeekBar from './SeekBar'
+import Controls from './Controls'
+import PlayButton from '../PlayButton'
+import SongDetails from './SongDetails'
+import VolumeBar from './VolumeBar'
 
 interface PlayerProps {
-  song: Song;
-  songUrl: string;
+  song: Song
+  songUrl: string
 }
 
 const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
@@ -37,146 +37,146 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     setId,
     handlePlay,
     setHandlePlay,
-  } = usePlayer();
+  } = usePlayer()
 
-  const selectedPlayer = useSelectedPlayer();
+  const selectedPlayer = useSelectedPlayer()
 
-  const [trackProcess, setTrackProcess] = useState<number>(0);
+  const [trackProcess, setTrackProcess] = useState<number>(0)
 
-  const intervalIdRef = useRef<any>();
+  const intervalIdRef = useRef<any>()
 
-  const isReplayRef = useRef(false);
-  const isRandomRef = useRef(false);
+  const isReplayRef = useRef(false)
+  const isRandomRef = useRef(false)
 
   const [play, { duration, pause, sound }] = useSound(songUrl, {
     volume: volume,
     loop: false,
     onplay: () => {
-      setPlaying(true);
+      setPlaying(true)
     },
     onend: () => {
-      setPlaying(false);
-      onPlayNext();
+      setPlaying(false)
+      onPlayNext()
     },
     onpause: () => setPlaying(false),
-    format: ["mp3"],
-  });
+    format: ['mp3'],
+  })
 
   const startTimer = () => {
-    clearInterval(intervalIdRef?.current);
+    clearInterval(intervalIdRef?.current)
     intervalIdRef.current = setInterval(() => {
       if (sound) {
-        setTrackProcess((prev) => {
-          const totalSeconds = Math.floor(duration ? duration : 0 / 1000);
-          if (+prev + 1 > totalSeconds) return +prev;
-          return +prev + 1;
-        });
+        setTrackProcess(prev => {
+          const totalSeconds = Math.floor(duration ? duration : 0 / 1000)
+          if (+prev + 1 > totalSeconds) return +prev
+          return +prev + 1
+        })
       }
-    }, 1000);
-  };
+    }, 1000)
+  }
 
   useEffect(() => {
-    setCurrentTime(0);
-    setTrackProcess(0);
-    clearInterval(intervalIdRef?.current);
-    setHandlePlay(play, pause);
+    setCurrentTime(0)
+    setTrackProcess(0)
+    clearInterval(intervalIdRef?.current)
+    setHandlePlay(play, pause)
 
     if (selectedPlayer.isSelected) {
-      sound?.play();
-      startTimer();
+      sound?.play()
+      startTimer()
     }
 
-    return () => sound?.unload();
-  }, [sound]);
+    return () => sound?.unload()
+  }, [sound])
 
   useEffect(() => {
     if (!selectedPlayer.isSelected) {
-      setPlaying(false);
+      setPlaying(false)
     }
-  }, [selectedPlayer.isSelected, setPlaying]);
+  }, [selectedPlayer.isSelected, setPlaying])
 
   useEffect(() => {
     if (isPlaying) {
-      startTimer();
+      startTimer()
     } else {
-      clearInterval(intervalIdRef?.current);
+      clearInterval(intervalIdRef?.current)
     }
-  }, [isPlaying, currentTime]);
+  }, [isPlaying, currentTime])
 
   useEffect(() => {
     if (sound) {
       if (isReplay) {
-        sound.loop(true);
+        sound.loop(true)
       } else {
-        sound.loop(false);
+        sound.loop(false)
       }
     }
-  }, [sound, isReplay]);
+  }, [sound, isReplay])
 
   useEffect(() => {
-    isReplayRef.current = isReplay;
-    isRandomRef.current = isRandom;
-  }, [isRandom, isReplay]);
+    isReplayRef.current = isReplay
+    isRandomRef.current = isRandom
+  }, [isRandom, isReplay])
 
   useEffect(() => {
-    calNextTrackIndex();
-  }, [currentTrack, isRandom, calNextTrackIndex]);
+    calNextTrackIndex()
+  }, [currentTrack, isRandom, calNextTrackIndex])
 
   const onPlayNext = () => {
     if (playerIds.length === 0) {
-      return;
+      return
     }
 
-    const isReplay = isReplayRef.current;
-    const isRandom = isRandomRef.current;
+    const isReplay = isReplayRef.current
+    const isRandom = isRandomRef.current
 
-    const nextSong = playerIds[nextTrackIndex];
+    const nextSong = playerIds[nextTrackIndex]
 
     // handle when play done queue
     if (!nextSong && !isReplay && !isRandom) {
-      setId(playerIds[0]);
-      setCurrentTrack({ ...queue[0] });
-      setCurrentTrackIndex(0);
-      return;
+      setId(playerIds[0])
+      setCurrentTrack({ ...queue[0] })
+      setCurrentTrackIndex(0)
+      return
     }
 
     // handle replay
     if (isReplay) {
-      setCurrentTime(0);
+      setCurrentTime(0)
       if (sound) {
-        sound.seek([0]);
+        sound.seek([0])
       }
-      setTrackProcess(0);
-      clearInterval(intervalIdRef?.current);
-      startTimer();
-      return;
+      setTrackProcess(0)
+      clearInterval(intervalIdRef?.current)
+      startTimer()
+      return
     }
 
     // default change next song
-    setCurrentTrack({ ...queue[nextTrackIndex] });
-    setCurrentTrackIndex(nextTrackIndex);
-    calNextTrackIndex();
-    selectedPlayer.setSelected(true);
-    setId(nextSong);
-  };
+    setCurrentTrack({ ...queue[nextTrackIndex] })
+    setCurrentTrackIndex(nextTrackIndex)
+    calNextTrackIndex()
+    selectedPlayer.setSelected(true)
+    setId(nextSong)
+  }
 
   const onPlayPrevious = () => {
     if (playerIds.length === 0) {
-      return;
+      return
     }
 
-    const currentIndex = playerIds.findIndex((id) => id === activeId);
-    const previousSong = playerIds[currentIndex - 1];
+    const currentIndex = playerIds.findIndex(id => id === activeId)
+    const previousSong = playerIds[currentIndex - 1]
 
     if (!previousSong) {
-      return setId(playerIds[playerIds.length - 1]);
+      return setId(playerIds[playerIds.length - 1])
     }
 
-    setCurrentTrack({ ...queue[currentTrackIndex - 1] });
-    setCurrentTrackIndex(currentTrackIndex - 1);
-    selectedPlayer.setSelected(true);
-    setId(previousSong);
-  };
+    setCurrentTrack({ ...queue[currentTrackIndex - 1] })
+    setCurrentTrackIndex(currentTrackIndex - 1)
+    selectedPlayer.setSelected(true)
+    setId(previousSong)
+  }
 
   return (
     <div className="flex justify-between h-full">
@@ -216,7 +216,7 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
       </div>
       {/* Right */}
     </div>
-  );
-};
+  )
+}
 
-export default Player;
+export default Player

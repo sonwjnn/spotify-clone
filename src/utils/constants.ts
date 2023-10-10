@@ -1,167 +1,167 @@
-import { BsFacebook } from "react-icons/bs";
-import { FaGithub, FaInstagram } from "react-icons/fa";
+import { BsFacebook } from 'react-icons/bs'
+import { FaGithub, FaInstagram } from 'react-icons/fa'
 
 export const buckets = {
-  songs: "songs",
-  images: "images",
-  playlist_images: "playlist-images",
-};
+  songs: 'songs',
+  images: 'images',
+  playlist_images: 'playlist-images',
+}
 
 export const socialNetworkLinks = [
   {
-    title: "Facebook",
-    link: "https://www.facebook.com/profile.php?id=100011436148089",
+    title: 'Facebook',
+    link: 'https://www.facebook.com/profile.php?id=100011436148089',
     icon: BsFacebook,
   },
   {
-    title: "Instagram",
-    link: "https://www.instagram.com/sonn_wjh/",
+    title: 'Instagram',
+    link: 'https://www.instagram.com/sonn_wjh/',
     icon: FaInstagram,
   },
   {
-    title: "Github",
-    link: "https://github.com/sonwjnn",
+    title: 'Github',
+    link: 'https://github.com/sonwjnn',
     icon: FaGithub,
   },
-];
+]
 
 export const bottomLinks = [
   {
-    title: "Legal",
-    href: "https://www.facebook.com/profile.php?id=100011436148089",
+    title: 'Legal',
+    href: 'https://www.facebook.com/profile.php?id=100011436148089',
   },
   {
-    title: "Privacy Center",
-    href: "https://www.facebook.com/profile.php?id=100011436148089",
+    title: 'Privacy Center',
+    href: 'https://www.facebook.com/profile.php?id=100011436148089',
   },
   {
-    title: "Privacy Policy",
-    href: "https://www.facebook.com/profile.php?id=100011436148089",
+    title: 'Privacy Policy',
+    href: 'https://www.facebook.com/profile.php?id=100011436148089',
   },
   {
-    title: "Cookies",
-    href: "https://www.facebook.com/profile.php?id=100011436148089",
+    title: 'Cookies',
+    href: 'https://www.facebook.com/profile.php?id=100011436148089',
   },
   {
-    title: "About Ads",
-    href: "https://www.facebook.com/profile.php?id=100011436148089",
+    title: 'About Ads',
+    href: 'https://www.facebook.com/profile.php?id=100011436148089',
   },
   {
-    title: "Accessibility",
-    href: "https://www.facebook.com/profile.php?id=100011436148089",
+    title: 'Accessibility',
+    href: 'https://www.facebook.com/profile.php?id=100011436148089',
   },
-];
+]
 
 export const topLinkGroups = [
   {
-    title: "Company",
+    title: 'Company',
     links: [
       {
-        title: "About",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'About',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "about",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'about',
         },
       },
       {
-        title: "Jobs",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Jobs',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "jobs",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'jobs',
         },
       },
       {
-        title: "For the Record",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'For the Record',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "press",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'press',
         },
       },
     ],
   },
   {
-    title: "Communities",
+    title: 'Communities',
     links: [
       {
-        title: "For Artists",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'For Artists',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "artists",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'artists',
         },
       },
       {
-        title: "Developers",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Developers',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "developers",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'developers',
         },
       },
       {
-        title: "Advertising",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Advertising',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "advertising",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'advertising',
         },
       },
       {
-        title: "Investors",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Investors',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "investors",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'investors',
         },
       },
       {
-        title: "Vendors",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Vendors',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "vendors",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'vendors',
         },
       },
       {
-        title: "Spotify for Work",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Spotify for Work',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "spotify_for_work",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'spotify_for_work',
         },
       },
     ],
   },
   {
-    title: "Useful links",
+    title: 'Useful links',
     links: [
       {
-        title: "Support",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Support',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "help",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'help',
         },
       },
       {
-        title: "Web Player",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Web Player',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "play",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'play',
         },
       },
       {
-        title: "Free Mobile App",
-        href: "https://www.facebook.com/profile.php?id=100011436148089",
+        title: 'Free Mobile App',
+        href: 'https://www.facebook.com/profile.php?id=100011436148089',
         dataAttributes: {
-          "data-ga-category": "menu",
-          "data-ga-action": "free",
+          'data-ga-category': 'menu',
+          'data-ga-action': 'free',
         },
       },
     ],
   },
-];
+]

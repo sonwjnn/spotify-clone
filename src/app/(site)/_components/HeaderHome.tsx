@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import useHeader from "@/stores/useHeader";
-import { twMerge } from "tailwind-merge";
+import useHeader from '@/stores/useHeader'
+import { twMerge } from 'tailwind-merge'
 
 interface HeaderProps {
-  children: React.ReactNode;
-  className?: string;
-  bgColor?: string;
+  children: React.ReactNode
+  className?: string
+  bgColor?: string
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
-  const { bgColor, hasBgImage } = useHeader();
+  const { bgColor, hasBgImage } = useHeader()
 
   return (
     <div
       className={twMerge(
-        ` h-fit  p-6 pt-16  ${hasBgImage && "header-bg-img-md"}`,
+        ` h-fit  p-6 pt-16  ${hasBgImage && 'header-bg-img-md'}`,
         className
       )}
       style={{
@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

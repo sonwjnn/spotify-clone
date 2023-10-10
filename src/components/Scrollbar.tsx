@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 const Scrollbar = ({
   children,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const scrollTrackRef = useRef<HTMLDivElement>(null);
-  const scrollThumbRef = useRef<HTMLDivElement>(null);
+}: React.ComponentPropsWithoutRef<'div'>) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const scrollTrackRef = useRef<HTMLDivElement>(null)
+  const scrollThumbRef = useRef<HTMLDivElement>(null)
 
-  const observer = useRef<ResizeObserver | null>(null);
-  const [thumbHeight, setThumbHeight] = useState(20);
+  const observer = useRef<ResizeObserver | null>(null)
+  const [thumbHeight, setThumbHeight] = useState(20)
   const [scrollStartPosition, setScrollStartPosition] = useState<number | null>(
     null
-  );
-  const [initialScrollTop, setInitialScrollTop] = useState<number>(0);
-  const [isDragging, setIsDragging] = useState(false);
+  )
+  const [initialScrollTop, setInitialScrollTop] = useState<number>(0)
+  const [isDragging, setIsDragging] = useState(false)
 
   // function handleResize(ref: HTMLDivElement, trackSize: number) {
   //   const { clientHeight, scrollHeight } = ref;
@@ -28,36 +28,36 @@ const Scrollbar = ({
   // }
 
   const handleResize = useCallback((ref: HTMLDivElement, trackSize: number) => {
-    const { clientHeight, scrollHeight } = ref;
+    const { clientHeight, scrollHeight } = ref
 
-    setThumbHeight(Math.max((clientHeight / scrollHeight) * trackSize, 20));
-  }, []);
+    setThumbHeight(Math.max((clientHeight / scrollHeight) * trackSize, 20))
+  }, [])
 
   const handleTrackClick = useCallback(
     (e: any) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const { current: trackCurrent } = scrollTrackRef;
-      const { current: contentCurrent } = contentRef;
+      e.preventDefault()
+      e.stopPropagation()
+      const { current: trackCurrent } = scrollTrackRef
+      const { current: contentCurrent } = contentRef
       if (trackCurrent && contentCurrent) {
-        const { clientY } = e;
-        const target = e.target as HTMLDivElement;
-        const rect = target.getBoundingClientRect();
-        const trackTop = rect.top;
-        const thumbOffset = -(thumbHeight / 2);
+        const { clientY } = e
+        const target = e.target as HTMLDivElement
+        const rect = target.getBoundingClientRect()
+        const trackTop = rect.top
+        const thumbOffset = -(thumbHeight / 2)
         const clickRatio =
-          (clientY - trackTop + thumbOffset) / trackCurrent.clientHeight;
+          (clientY - trackTop + thumbOffset) / trackCurrent.clientHeight
         const scrollAmount = Math.floor(
           clickRatio * contentCurrent.scrollHeight
-        );
+        )
         contentCurrent.scrollTo({
           top: scrollAmount,
-          behavior: "smooth",
-        });
+          behavior: 'smooth',
+        })
       }
     },
     [thumbHeight]
-  );
+  )
 
   const handleThumbPosition = useCallback(() => {
     if (
@@ -65,80 +65,80 @@ const Scrollbar = ({
       !scrollTrackRef.current ||
       !scrollThumbRef.current
     ) {
-      return;
+      return
     }
     const { scrollTop: contentTop, scrollHeight: contentHeight } =
-      contentRef.current;
-    const { clientHeight: trackHeight } = scrollTrackRef.current;
-    let newTop = (+contentTop / +contentHeight) * trackHeight;
-    newTop = Math.min(newTop, trackHeight - thumbHeight);
-    const thumb = scrollThumbRef.current;
-    thumb.style.top = `${newTop}px`;
-  }, []);
+      contentRef.current
+    const { clientHeight: trackHeight } = scrollTrackRef.current
+    let newTop = (+contentTop / +contentHeight) * trackHeight
+    newTop = Math.min(newTop, trackHeight - thumbHeight)
+    const thumb = scrollThumbRef.current
+    thumb.style.top = `${newTop}px`
+  }, [])
 
   const handleThumbMousedown = useCallback((e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setScrollStartPosition(e.clientY);
+    e.preventDefault()
+    e.stopPropagation()
+    setScrollStartPosition(e.clientY)
     if (contentRef.current) {
-      setInitialScrollTop(contentRef.current.scrollTop);
+      setInitialScrollTop(contentRef.current.scrollTop)
     }
-    setIsDragging(true);
-  }, []);
+    setIsDragging(true)
+  }, [])
 
   const handleThumbMouseup = useCallback(
     (e: any) => {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
       if (isDragging) {
-        setIsDragging(false);
+        setIsDragging(false)
       }
     },
     [isDragging]
-  );
+  )
 
   const handleThumbMousemove = useCallback(
     (e: any) => {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
       if (isDragging) {
         if (contentRef.current) {
           const {
             scrollHeight: contentScrollHeight,
             offsetHeight: contentOffsetHeight,
-          } = contentRef.current;
+          } = contentRef.current
 
           const deltaY =
             (e.clientY - scrollStartPosition!) *
-            (contentOffsetHeight / thumbHeight);
+            (contentOffsetHeight / thumbHeight)
           const newScrollTop = Math.min(
             initialScrollTop + deltaY,
             contentScrollHeight - contentOffsetHeight
-          );
+          )
 
-          contentRef.current.scrollTop = newScrollTop;
+          contentRef.current.scrollTop = newScrollTop
         }
       }
     },
     [isDragging, scrollStartPosition, thumbHeight, initialScrollTop]
-  );
+  )
 
   // If the content and the scrollbar track exist, use a ResizeObserver to adjust height of thumb and listen for scroll event to move the thumb
   useEffect(() => {
     if (contentRef.current && scrollTrackRef.current) {
-      const ref = contentRef.current;
-      const { clientHeight: trackSize } = scrollTrackRef.current;
+      const ref = contentRef.current
+      const { clientHeight: trackSize } = scrollTrackRef.current
       observer.current = new ResizeObserver(() => {
-        handleResize(ref, trackSize);
-      });
-      observer.current.observe(ref);
-      ref.addEventListener("scroll", handleThumbPosition);
+        handleResize(ref, trackSize)
+      })
+      observer.current.observe(ref)
+      ref.addEventListener('scroll', handleThumbPosition)
       return () => {
-        observer.current?.unobserve(ref);
-        ref.removeEventListener("scroll", handleThumbPosition);
-      };
+        observer.current?.unobserve(ref)
+        ref.removeEventListener('scroll', handleThumbPosition)
+      }
     }
-  }, [handleThumbPosition, handleResize]);
+  }, [handleThumbPosition, handleResize])
 
   // Listen for mouse events to handle scrolling by dragging the thumb
   // useEffect(() => {
@@ -153,19 +153,19 @@ const Scrollbar = ({
   // }, [handleThumbMousemove, handleThumbMouseup]);
 
   useEffect(() => {
-    const container = containerRef.current;
+    const container = containerRef.current
 
     // Lắng nghe sự kiện trên phần tử chứa Scrollbar
-    container?.addEventListener("mousemove", handleThumbMousemove);
-    container?.addEventListener("mouseup", handleThumbMouseup);
-    container?.addEventListener("mouseleave", handleThumbMouseup);
+    container?.addEventListener('mousemove', handleThumbMousemove)
+    container?.addEventListener('mouseup', handleThumbMouseup)
+    container?.addEventListener('mouseleave', handleThumbMouseup)
     // Xóa lắng nghe khi unmount
     return () => {
-      container?.removeEventListener("mousemove", handleThumbMousemove);
-      container?.removeEventListener("mouseup", handleThumbMouseup);
-      container?.removeEventListener("mouseleave", handleThumbMouseup);
-    };
-  }, [handleThumbMousemove, handleThumbMouseup]);
+      container?.removeEventListener('mousemove', handleThumbMousemove)
+      container?.removeEventListener('mouseup', handleThumbMouseup)
+      container?.removeEventListener('mouseleave', handleThumbMouseup)
+    }
+  }, [handleThumbMousemove, handleThumbMouseup])
 
   return (
     <div
@@ -188,11 +188,11 @@ const Scrollbar = ({
             className=" absolute w-3 rounded-xl inset-y-0"
             ref={scrollTrackRef}
             onClick={handleTrackClick}
-            style={{ cursor: isDragging ? "grabbing" : undefined }}
+            style={{ cursor: isDragging ? 'grabbing' : undefined }}
           ></div>
           <div
             className={` bg-neutral-700 absolute w-3 hover:brightness-125 transition ${
-              isDragging ? "bg-neutral-500" : ""
+              isDragging ? 'bg-neutral-500' : ''
             }`}
             ref={scrollThumbRef}
             onMouseDown={handleThumbMousedown}
@@ -203,7 +203,7 @@ const Scrollbar = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Scrollbar;
+export default Scrollbar

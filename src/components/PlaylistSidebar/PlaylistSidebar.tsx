@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { Playlist } from "@/types/types";
-import PlaylistItemDropdown from "./PlaylistItemDropdown";
-import PlaylistItem from "./PlaylistItem";
+import { Playlist } from '@/types/types'
+import PlaylistItemDropdown from './PlaylistItemDropdown'
+import PlaylistItem from './PlaylistItem'
 
 interface PlaylistSidebarProps {
-  data: Playlist[];
-  likedPlaylist: Playlist[];
+  data: Playlist[]
+  likedPlaylist: Playlist[]
 }
 const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
   data,
@@ -14,7 +14,7 @@ const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-y-2 mt-2 px-3 pb-2">
-      {data.map((item) => (
+      {data.map(item => (
         <PlaylistItemDropdown key={item.id} data={item}>
           <PlaylistItem data={item} />
         </PlaylistItemDropdown>
@@ -24,7 +24,7 @@ const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
         <PlaylistItem key={index} data={item} />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default PlaylistSidebar;
+export default PlaylistSidebar

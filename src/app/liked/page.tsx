@@ -1,9 +1,9 @@
-import Header from "@/components/Header";
-import LikedContent from "./_components/LikedContent";
-import Navbar from "@/components/Navbar";
-import PageWrapper from "@/components/PageWrapper";
-import HeaderContent from "./_components/HeaderContent";
-import Footer from "@/components/Footer";
+import Header from '@/components/Header'
+import LikedContent from './_components/LikedContent'
+import Navbar from '@/components/Navbar'
+import PageWrapper from '@/components/PageWrapper'
+import HeaderContent from './_components/HeaderContent'
+import Footer from '@/components/Footer'
 
 const Liked = async () => {
   return (
@@ -18,6 +18,6 @@ const Liked = async () => {
         <Footer />
       </PageWrapper>
     </div>
-  );
-};
-export default Liked;
+  )
+}
+export default Liked

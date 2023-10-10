@@ -1,41 +1,41 @@
-"use client";
+'use client'
 
-import { LibraryIcon } from "@/public/icons";
+import { LibraryIcon } from '@/public/icons'
 
-import UploadDropdown from "./UploadDropdown";
-import PlaylistSidebar from "./PlaylistSidebar/PlaylistSidebar";
-import { Playlist } from "@/types/types";
-import useAuthModal from "@/hooks/useAuthModal";
-import { useUser } from "@/hooks/useUser";
-import useSubscribeModal from "@/hooks/useSubscribeModal";
-import ListItem from "./ListItem";
-import useUserStore from "@/stores/useUserStore";
+import UploadDropdown from './UploadDropdown'
+import PlaylistSidebar from './PlaylistSidebar/PlaylistSidebar'
+import { Playlist } from '@/types/types'
+import useAuthModal from '@/hooks/useAuthModal'
+import { useUser } from '@/hooks/useUser'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import ListItem from './ListItem'
+import useUserStore from '@/stores/useUserStore'
 
 interface LibraryProps {
-  playlists: Playlist[];
-  isScroll?: boolean;
+  playlists: Playlist[]
+  isScroll?: boolean
 }
 
 const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
-  const { user, subscription } = useUser();
-  const { likedSongs, likedPlaylists } = useUserStore();
-  const authModal = useAuthModal();
-  const subcribeModal = useSubscribeModal();
+  const { user, subscription } = useUser()
+  const { likedSongs, likedPlaylists } = useUserStore()
+  const authModal = useAuthModal()
+  const subcribeModal = useSubscribeModal()
 
   const handleClick = () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpen()
     }
     if (!subscription) {
-      return subcribeModal.onOpen();
+      return subcribeModal.onOpen()
     }
-  };
+  }
 
   return (
     <div className="flex flex-col ">
       <div
         className={`flex flex-col items-center px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-0 ${
-          isScroll ? "shadow-2xl" : ""
+          isScroll ? 'shadow-2xl' : ''
         }`}
       >
         <div className="w-full flex items-center justify-between">
@@ -46,7 +46,7 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
             <p className="text-neutral-400 text-base font-bold">Your Library</p>
           </div>
 
-          <div className={"min-h-8  flex flex-row justify-end"}>
+          <div className={'min-h-8  flex flex-row justify-end'}>
             <UploadDropdown />
           </div>
         </div>
@@ -95,7 +95,7 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Library;
+export default Library

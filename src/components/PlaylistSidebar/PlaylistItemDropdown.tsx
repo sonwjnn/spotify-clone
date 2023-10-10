@@ -1,139 +1,139 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import * as ContextMenu from "@radix-ui/react-context-menu";
-import { Playlist } from "@/types/types";
-import useAuthModal from "@/hooks/useAuthModal";
-import { useUser } from "@/hooks/useUser";
-import useSubscribeModal from "@/hooks/useSubscribeModal";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { buckets } from "@/utils/constants";
-import usePlaylistModal from "@/hooks/usePlaylistModal";
-import { FiEdit } from "react-icons/fi";
-import { AddPlaylistIcon, DeleteIcon } from "@/public/icons";
-import { TbPin } from "react-icons/tb";
+import { useState } from 'react'
+import * as ContextMenu from '@radix-ui/react-context-menu'
+import { Playlist } from '@/types/types'
+import useAuthModal from '@/hooks/useAuthModal'
+import { useUser } from '@/hooks/useUser'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import { buckets } from '@/utils/constants'
+import usePlaylistModal from '@/hooks/usePlaylistModal'
+import { FiEdit } from 'react-icons/fi'
+import { AddPlaylistIcon, DeleteIcon } from '@/public/icons'
+import { TbPin } from 'react-icons/tb'
 
 interface PlaylistItemDropdownProps {
-  children: React.ReactNode;
-  data: Playlist;
+  children: React.ReactNode
+  data: Playlist
 }
 
 const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   children,
   data,
 }) => {
-  const { user, subscription } = useUser();
-  const authModal = useAuthModal();
-  const uploadModal = usePlaylistModal();
+  const { user, subscription } = useUser()
+  const authModal = useAuthModal()
+  const uploadModal = usePlaylistModal()
 
-  const subcribeModal = useSubscribeModal();
+  const subcribeModal = useSubscribeModal()
 
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient()
 
-  const [isDropdown, setDropdown] = useState(false);
-  const [isRequired, setRequired] = useState(false);
-  const router = useRouter();
-  const currentPath = usePathname();
+  const [isDropdown, setDropdown] = useState(false)
+  const [isRequired, setRequired] = useState(false)
+  const router = useRouter()
+  const currentPath = usePathname()
 
   const onDeletePlaylist = async () => {
-    if (isRequired) return;
+    if (isRequired) return
 
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpen()
     }
     if (!subscription) {
-      return subcribeModal.onOpen();
+      return subcribeModal.onOpen()
     }
 
-    setDropdown(false);
+    setDropdown(false)
 
-    setRequired(true);
+    setRequired(true)
 
     if (data.image_path) {
       const { error: oldImageError } = await supabaseClient.storage
         .from(buckets.playlist_images)
-        .remove([data.image_path]);
+        .remove([data.image_path])
 
       if (oldImageError) {
-        setRequired(false);
-        return toast.error(oldImageError.message);
+        setRequired(false)
+        return toast.error(oldImageError.message)
       }
     }
 
     const { error: supabaseError } = await supabaseClient
-      .from("playlists")
+      .from('playlists')
       .delete()
-      .eq("id", data.id);
+      .eq('id', data.id)
 
     if (supabaseError) {
-      setRequired(false);
-      return toast.error(supabaseError.message);
+      setRequired(false)
+      return toast.error(supabaseError.message)
     }
 
-    setRequired(false);
+    setRequired(false)
     if (currentPath.includes(`playlist/${data.id}`)) {
-      router.replace("/");
-      return router.refresh();
+      router.replace('/')
+      return router.refresh()
     }
 
-    return router.refresh();
-  };
+    return router.refresh()
+  }
 
   const onCreatePlaylist = async () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpen()
     }
     if (!subscription) {
-      return subcribeModal.onOpen();
+      return subcribeModal.onOpen()
     }
-    setDropdown(false);
+    setDropdown(false)
 
-    setRequired(true);
+    setRequired(true)
 
     const { data, error: supabaseError } = await supabaseClient
-      .from("playlists")
+      .from('playlists')
       .insert({
         user_id: user.id,
         title: `My new playlist`,
-        description: "",
+        description: '',
         song_ids: [],
-        bg_color: "#525252",
+        bg_color: '#525252',
       })
       .select()
-      .single();
+      .single()
     if (supabaseError) {
-      return toast.error(supabaseError.message);
+      return toast.error(supabaseError.message)
     }
     if (data) {
-      setRequired(false);
-      router.refresh();
-      router.push(`/playlist/${data.id}`);
+      setRequired(false)
+      router.refresh()
+      router.push(`/playlist/${data.id}`)
     }
 
-    return;
-  };
+    return
+  }
 
   const onEditPlaylist = async () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpen()
     }
     if (!subscription) {
-      return subcribeModal.onOpen();
+      return subcribeModal.onOpen()
     }
 
-    setDropdown(false);
-    uploadModal.setPlaylist(data);
-    return uploadModal.onOpen();
-  };
+    setDropdown(false)
+    uploadModal.setPlaylist(data)
+    return uploadModal.onOpen()
+  }
 
   const onChange = (open: boolean) => {
     if (!open) {
-      setDropdown(false);
+      setDropdown(false)
     }
-  };
+  }
 
   return (
     <ContextMenu.Root modal={isDropdown} onOpenChange={onChange}>
@@ -177,7 +177,7 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
         </ContextMenu.Content>
       </ContextMenu.Portal>
     </ContextMenu.Root>
-  );
-};
+  )
+}
 
-export default PlaylistItemDropdown;
+export default PlaylistItemDropdown

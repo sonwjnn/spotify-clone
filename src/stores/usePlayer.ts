@@ -1,43 +1,43 @@
-import { Song } from "@/types/types";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { Song } from '@/types/types'
+import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 export interface PlayOptions {
-  id?: string;
-  forceSoundEnabled?: boolean;
-  playbackRate?: number;
+  id?: string
+  forceSoundEnabled?: boolean
+  playbackRate?: number
 }
-export declare type PlayFunction = (options?: PlayOptions) => void;
+export declare type PlayFunction = (options?: PlayOptions) => void
 
 interface PlayerStore {
-  ids: string[];
-  activeId?: string;
-  isPlaying: boolean;
-  isRandom: boolean;
-  isReplay: boolean;
-  volume: number;
-  currentTime: number;
-  currentTrack: Song | undefined;
-  playlistPlayingId?: string;
-  queue: Song[];
-  currentTrackIndex: number;
-  nextTrackIndex: number;
-  setCurrentTrackIndex: (index: number) => void;
-  setNextTrackIndex: (index: number) => void;
-  setQueue: (songs: Song[]) => void;
-  setPlaylistActiveId: (id: string | undefined) => void;
-  setVolume: (volumn: number) => void;
-  setPlaying: (isPlaying: boolean) => void;
-  setRandom: (isRandom: boolean) => void;
-  setReplay: (isReplay: boolean) => void;
-  setId: (id: string) => void;
-  setIds: (ids: string[]) => void;
-  setCurrentTime: (currentTime: number) => void;
-  setCurrentTrack: (song: Song | undefined) => void;
-  calNextTrackIndex: () => void;
-  handlePlay: () => void;
-  setHandlePlay: (play: () => void, pause: (id?: string) => void) => void;
-  reset: () => void;
+  ids: string[]
+  activeId?: string
+  isPlaying: boolean
+  isRandom: boolean
+  isReplay: boolean
+  volume: number
+  currentTime: number
+  currentTrack: Song | undefined
+  playlistPlayingId?: string
+  queue: Song[]
+  currentTrackIndex: number
+  nextTrackIndex: number
+  setCurrentTrackIndex: (index: number) => void
+  setNextTrackIndex: (index: number) => void
+  setQueue: (songs: Song[]) => void
+  setPlaylistActiveId: (id: string | undefined) => void
+  setVolume: (volumn: number) => void
+  setPlaying: (isPlaying: boolean) => void
+  setRandom: (isRandom: boolean) => void
+  setReplay: (isReplay: boolean) => void
+  setId: (id: string) => void
+  setIds: (ids: string[]) => void
+  setCurrentTime: (currentTime: number) => void
+  setCurrentTrack: (song: Song | undefined) => void
+  calNextTrackIndex: () => void
+  handlePlay: () => void
+  setHandlePlay: (play: () => void, pause: (id?: string) => void) => void
+  reset: () => void
 }
 
 const usePlayer = create<PlayerStore>()(
@@ -77,20 +77,20 @@ const usePlayer = create<PlayerStore>()(
           queue,
           setNextTrackIndex,
           currentTrack,
-        } = get();
+        } = get()
         if (isRandom) {
-          let randomIndex = currentTrackIndex;
+          let randomIndex = currentTrackIndex
           while (randomIndex === currentTrackIndex) {
-            randomIndex = Math.floor(Math.random() * queue?.length);
+            randomIndex = Math.floor(Math.random() * queue?.length)
           }
-          setNextTrackIndex(randomIndex);
+          setNextTrackIndex(randomIndex)
         } else if (
           (currentTrackIndex >= queue?.length - 1 && currentTrack) ||
           queue.length < 2
         ) {
-          setNextTrackIndex(0);
+          setNextTrackIndex(0)
         } else if (queue.length >= 2) {
-          setNextTrackIndex(currentTrackIndex + 1);
+          setNextTrackIndex(currentTrackIndex + 1)
         }
       },
       handlePlay: () => {},
@@ -98,19 +98,19 @@ const usePlayer = create<PlayerStore>()(
         set({
           handlePlay: () => {
             if (!get().isPlaying) {
-              play();
+              play()
             } else {
-              pause();
+              pause()
             }
           },
-        });
+        })
       },
     }),
     {
-      name: "player-storage",
+      name: 'player-storage',
       storage: createJSONStorage(() => sessionStorage),
     }
   )
-);
+)
 
-export default usePlayer;
+export default usePlayer

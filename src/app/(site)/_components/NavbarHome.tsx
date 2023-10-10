@@ -1,86 +1,86 @@
-"use client";
+'use client'
 
-import { usePathname, useRouter } from "next/navigation";
-import { twMerge } from "tailwind-merge";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import { usePathname, useRouter } from 'next/navigation'
+import { twMerge } from 'tailwind-merge'
+import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import {
   HomeActiveIcon,
   HomeIcon,
   SearchActiveIcon,
   SearchIcon,
-} from "@/public/icons";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import Button from "@/components/Button";
-import useAuthModal from "@/hooks/useAuthModal";
-import { FaUserAlt } from "react-icons/fa";
-import { useUser } from "@/hooks/useUser";
-import { toast } from "react-hot-toast";
-import usePlayer from "@/stores/usePlayer";
-import { useMemo } from "react";
-import Link from "next/link";
-import useNavStyles from "@/stores/useNavStyles";
-import useHeader from "@/stores/useHeader";
+} from '@/public/icons'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import Button from '@/components/Button'
+import useAuthModal from '@/hooks/useAuthModal'
+import { FaUserAlt } from 'react-icons/fa'
+import { useUser } from '@/hooks/useUser'
+import { toast } from 'react-hot-toast'
+import usePlayer from '@/stores/usePlayer'
+import { useMemo } from 'react'
+import Link from 'next/link'
+import useNavStyles from '@/stores/useNavStyles'
+import useHeader from '@/stores/useHeader'
 
 interface NavbarProps {
-  className?: string;
-  bgColor?: string;
-  darker?: boolean;
+  className?: string
+  bgColor?: string
+  darker?: boolean
   type?:
-    | "default"
-    | "home"
-    | "section"
-    | "search"
-    | "artist"
-    | "genre"
-    | "playlist";
+    | 'default'
+    | 'home'
+    | 'section'
+    | 'search'
+    | 'artist'
+    | 'genre'
+    | 'playlist'
 }
 
 const Navbar: React.FC<NavbarProps> = ({
   className,
   darker = true,
-  type = "default",
+  type = 'default',
 }) => {
-  const router = useRouter();
-  const authModal = useAuthModal();
-  const { user } = useUser();
-  const { bgColor } = useHeader();
-  const player = usePlayer();
+  const router = useRouter()
+  const authModal = useAuthModal()
+  const { user } = useUser()
+  const { bgColor } = useHeader()
+  const player = usePlayer()
 
-  const { opacity } = useNavStyles();
+  const { opacity } = useNavStyles()
 
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient()
 
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   const routes = useMemo(
     () => [
       {
         icon: [HomeActiveIcon, HomeIcon],
-        label: "Home",
-        active: pathname !== "/search",
-        href: "/",
+        label: 'Home',
+        active: pathname !== '/search',
+        href: '/',
       },
       {
         icon: [SearchActiveIcon, SearchIcon],
-        label: "Search",
-        active: pathname === "/search",
-        href: "/search",
+        label: 'Search',
+        active: pathname === '/search',
+        href: '/search',
       },
     ],
     [pathname]
-  );
+  )
 
   const handleLogout = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    player.reset();
-    router.refresh();
+    const { error } = await supabaseClient.auth.signOut()
+    player.reset()
+    router.refresh()
 
     if (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     } else {
-      toast.success("Logged out!");
+      toast.success('Logged out!')
     }
-  };
+  }
 
   return (
     <div
@@ -92,16 +92,16 @@ const Navbar: React.FC<NavbarProps> = ({
       <div
         className={twMerge(
           `rounded-t-lg absolute top-0 h-full left-0 ${
-            darker && "brightness-65"
+            darker && 'brightness-65'
           }  right-0 z-10 `
         )}
         style={{
-          transition: "background-color 1s ease",
+          transition: 'background-color 1s ease',
           opacity: opacity,
           backgroundColor: bgColor,
           backgroundImage: `${
-            type === "home" &&
-            "linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6))"
+            type === 'home' &&
+            'linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6))'
           }`,
         }}
       ></div>
@@ -124,7 +124,7 @@ const Navbar: React.FC<NavbarProps> = ({
         </div>
         <div className="flex md:hidden gap-x-2 items-center">
           {routes.map((item, index) => {
-            const Icon = item.active ? item.icon[0] : item.icon[1];
+            const Icon = item.active ? item.icon[0] : item.icon[1]
             return (
               <Link
                 key={index}
@@ -135,7 +135,7 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <Icon size={22} color="#000000" />
               </Link>
-            );
+            )
           })}
         </div>
         <div className="flex justify-between items-center gap-x-4">
@@ -145,7 +145,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 Logout
               </Button>
               <Button
-                onClick={() => router.push("/account")}
+                onClick={() => router.push('/account')}
                 className="bg-white"
               >
                 <FaUserAlt />
@@ -174,7 +174,7 @@ const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

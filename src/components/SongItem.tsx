@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import useLoadImage from "@/hooks/useLoadImage";
-import { Song } from "@/types/types";
-import Image from "next/image";
-import PlayButton from "./PlayButton";
-import usePlayer from "@/stores/usePlayer";
-import { MusicNote } from "@/public/icons";
+import useLoadImage from '@/hooks/useLoadImage'
+import { Song } from '@/types/types'
+import Image from 'next/image'
+import PlayButton from './PlayButton'
+import usePlayer from '@/stores/usePlayer'
+import { MusicNote } from '@/public/icons'
 
 interface SongItemProps {
-  data: Song;
-  onClick: (id: string) => void;
+  data: Song
+  onClick: (id: string) => void
 }
 
 const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
-  const { currentTrack, isPlaying, handlePlay } = usePlayer();
+  const { currentTrack, isPlaying, handlePlay } = usePlayer()
 
-  const isPlayingCurrentTrack = currentTrack?.id === data.id && isPlaying;
-  const imagePath = useLoadImage(data.image_path, "images");
+  const isPlayingCurrentTrack = currentTrack?.id === data.id && isPlaying
+  const imagePath = useLoadImage(data.image_path, 'images')
   return (
     <div
       onClick={() => onClick(data.id)}
@@ -51,7 +51,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
         <PlayButton onClick={handlePlay} isPlaying={isPlayingCurrentTrack} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SongItem;
+export default SongItem

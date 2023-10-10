@@ -1,61 +1,61 @@
-"use client";
+'use client'
 
-import { useCallback, useState } from "react";
-import Tooltip from "../Tooltip";
+import { useCallback, useState } from 'react'
+import Tooltip from '../Tooltip'
 import {
   PlayingSidebarIcon,
   QueueIcon,
   SoundIcon,
   SoundLevel,
-} from "@/public/icons";
-import Slider from "../Slider";
-import usePlayingSidebar from "@/stores/usePlayingSidebar";
-import usePlayer from "@/stores/usePlayer";
-import { usePathname, useRouter } from "next/navigation";
+} from '@/public/icons'
+import Slider from '../Slider'
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import usePlayer from '@/stores/usePlayer'
+import { usePathname, useRouter } from 'next/navigation'
 
 const VolumeBar = () => {
-  const { volume, setVolume } = usePlayer();
-  const playingSidebar = usePlayingSidebar();
-  const [previousVolume, setPreviousVolume] = useState<number>(volume);
-  const [volumeLevel, setVolumeLevel] = useState<SoundLevel>("medium");
-  const router = useRouter();
-  const pathname = usePathname();
+  const { volume, setVolume } = usePlayer()
+  const playingSidebar = usePlayingSidebar()
+  const [previousVolume, setPreviousVolume] = useState<number>(volume)
+  const [volumeLevel, setVolumeLevel] = useState<SoundLevel>('medium')
+  const router = useRouter()
+  const pathname = usePathname()
 
   const volumeLevelFilter = useCallback((value: number): SoundLevel => {
     if (+value === 0) {
-      return "mute";
+      return 'mute'
     } else if (+value < 0.33) {
-      return "low";
+      return 'low'
     } else if (+value < 0.66) {
-      return "medium";
+      return 'medium'
     } else {
-      return "high";
+      return 'high'
     }
-  }, []);
+  }, [])
 
   const toggleMute = () => {
     if (volume === 0) {
-      setVolume(previousVolume);
-      setVolumeLevel(volumeLevelFilter(previousVolume));
+      setVolume(previousVolume)
+      setVolumeLevel(volumeLevelFilter(previousVolume))
     } else {
-      setPreviousVolume(volume);
-      setVolume(0);
-      setVolumeLevel("mute");
+      setPreviousVolume(volume)
+      setVolume(0)
+      setVolumeLevel('mute')
     }
-  };
+  }
 
   const handleVolumeChange = (value: number) => {
-    setVolumeLevel(volumeLevelFilter(value));
-    setVolume(value);
-  };
+    setVolumeLevel(volumeLevelFilter(value))
+    setVolume(value)
+  }
 
   const handleClickQueueBtn = () => {
-    if (pathname !== "/queue") {
-      router.push("/queue");
+    if (pathname !== '/queue') {
+      router.push('/queue')
     } else {
-      router.back();
+      router.back()
     }
-  };
+  }
 
   return (
     <div className="flex items-center justify-end gap-x-4 ">
@@ -65,7 +65,7 @@ const VolumeBar = () => {
           onClick={() => playingSidebar.setShowed(!playingSidebar.isShowed)}
         >
           <PlayingSidebarIcon
-            color={playingSidebar.isShowed ? "#22e55c" : undefined}
+            color={playingSidebar.isShowed ? '#22e55c' : undefined}
           />
         </button>
       </Tooltip>
@@ -75,12 +75,12 @@ const VolumeBar = () => {
           className="cursor-pointer flex justify-center"
           onClick={handleClickQueueBtn}
         >
-          <QueueIcon color={pathname === "/queue" ? "#22e55c" : undefined} />
+          <QueueIcon color={pathname === '/queue' ? '#22e55c' : undefined} />
         </button>
       </Tooltip>
 
       <div className="flex items-center gap-x-2 w-full min-w-[125px]">
-        <Tooltip text={volumeLevel === "mute" ? "Ummute" : "Mute"}>
+        <Tooltip text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}>
           <button
             className="cursor-pointer flex justify-center"
             onClick={toggleMute}
@@ -97,7 +97,7 @@ const VolumeBar = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VolumeBar;
+export default VolumeBar

@@ -1,10 +1,10 @@
-import { Song } from "@/types/types";
-import useAuthModal from "./useAuthModal";
-import { useUser } from "./useUser";
-import useSubscribeModal from "./useSubscribeModal";
-import usePlayer from "@/stores/usePlayer";
-import useSelectedPlayer from "@/stores/useSelectedPlayer";
-import { usePathname } from "next/navigation";
+import { Song } from '@/types/types'
+import useAuthModal from './useAuthModal'
+import { useUser } from './useUser'
+import useSubscribeModal from './useSubscribeModal'
+import usePlayer from '@/stores/usePlayer'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
+import { usePathname } from 'next/navigation'
 
 const useOnPlay = (songs: Song[]) => {
   const {
@@ -15,46 +15,46 @@ const useOnPlay = (songs: Song[]) => {
     calNextTrackIndex,
     setPlaylistActiveId,
     setIds,
-  } = usePlayer();
-  2;
-  const pathName = usePathname();
+  } = usePlayer()
+  2
+  const pathName = usePathname()
 
-  const { setSelected } = useSelectedPlayer();
+  const { setSelected } = useSelectedPlayer()
 
-  const authModal = useAuthModal();
+  const authModal = useAuthModal()
 
-  const subcribeModal = useSubscribeModal();
+  const subcribeModal = useSubscribeModal()
 
-  const { user, subscription } = useUser();
+  const { user, subscription } = useUser()
 
   const onPlay = (id: string) => {
-    if (!user) return authModal.onOpen();
+    if (!user) return authModal.onOpen()
 
-    if (!subscription) return subcribeModal.onOpen();
+    if (!subscription) return subcribeModal.onOpen()
 
-    if (!pathName.includes("/playlist")) {
-      setPlaylistActiveId(undefined);
+    if (!pathName.includes('/playlist')) {
+      setPlaylistActiveId(undefined)
     }
 
-    setSelected(true);
+    setSelected(true)
 
     // handle player store
-    setId(id);
+    setId(id)
 
     const currentTrack = songs.find((song, index) => {
       if (song.id === id) {
-        setCurrentTrackIndex(index);
-        return true;
+        setCurrentTrackIndex(index)
+        return true
       }
-    });
+    })
 
-    setCurrentTrack(currentTrack);
-    setQueue(songs);
-    calNextTrackIndex();
-    setIds(songs.map((item) => item.id));
-  };
+    setCurrentTrack(currentTrack)
+    setQueue(songs)
+    calNextTrackIndex()
+    setIds(songs.map(item => item.id))
+  }
 
-  return onPlay;
-};
+  return onPlay
+}
 
-export default useOnPlay;
+export default useOnPlay

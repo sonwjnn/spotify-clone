@@ -1,44 +1,53 @@
-"use client";
+'use client'
 
-import useOnPlay from "@/hooks/useOnPlay";
-import usePlayer from "@/stores/usePlayer";
-import { Playlist, Song } from "@/types/types";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import usePlayingSidebar from "@/stores/usePlayingSidebar";
-import { useUser } from "@/hooks/useUser";
-import PlayButton from "@/components/PlayButton";
-import PlaylistLikeButton from "@/components/PlaylistLikeButton";
-import MediaList from "@/components/MediaList";
+import useOnPlay from '@/hooks/useOnPlay'
+import usePlayer from '@/stores/usePlayer'
+import { Playlist, Song } from '@/types/types'
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import { useUser } from '@/hooks/useUser'
+import PlayButton from '@/components/PlayButton'
+import PlaylistLikeButton from '@/components/PlaylistLikeButton'
+import MediaList from '@/components/MediaList'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
 
 interface SongPlaylistProps {
-  songs: Song[];
-  playlist: Playlist;
+  songs: Song[]
+  playlist: Playlist
 }
 
 const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
-  const { user } = useUser();
-  const onPlay = useOnPlay(songs);
-  const player = usePlayer();
-  const { setShowed } = usePlayingSidebar();
-  const [isPlaying, setPlaying] = useState(false);
-  const params = useParams();
+  const { user } = useUser()
+  const onPlay = useOnPlay(songs)
+  const {
+    playlistPlayingId,
+    isPlaying: isPlayerPlaying,
+    setPlaylistActiveId,
+    handlePlay,
+  } = usePlayer()
+  const { setShowed } = usePlayingSidebar()
+  const { setSelected } = useSelectedPlayer()
+
+  const [isPlaying, setPlaying] = useState(false)
+  const params = useParams()
 
   useEffect(() => {
-    if (player.playlistPlayingId === params.id.toString()) {
-      setPlaying(player.isPlaying);
+    if (playlistPlayingId?.toString() === params.id) {
+      setPlaying(isPlayerPlaying)
     }
-  }, [player.isPlaying, player.playlistPlayingId, params.id]);
+  }, [isPlayerPlaying, playlistPlayingId, params.id])
 
   const handleClickPlay = () => {
-    if (player.playlistPlayingId !== params.id && songs?.length) {
-      player.setPlaylistActiveId(params.id.toString());
-      setShowed(true);
-      onPlay(songs[0].id);
+    if (playlistPlayingId?.toString() !== params.id && songs?.length) {
+      setPlaylistActiveId(params.id as string)
+      setShowed(true)
+      onPlay(songs[0].id)
     } else {
-      player.handlePlay();
+      setSelected(true)
+      handlePlay()
     }
-  };
+  }
 
   return (
     <>
@@ -60,7 +69,7 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
 
       <MediaList songs={songs} playlist={playlist} type="playlist" />
     </>
-  );
-};
+  )
+}
 
-export default SongPlaylist;
+export default SongPlaylist

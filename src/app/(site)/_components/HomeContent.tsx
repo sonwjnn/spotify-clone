@@ -1,27 +1,27 @@
-"use client";
+'use client'
 
-import SongItem from "@/components/SongItem";
-import useOnPlay from "@/hooks/useOnPlay";
-import useMainLayout from "@/stores/useMainLayout";
-import { Song } from "@/types/types";
-import { useEffect } from "react";
+import SongItem from '@/components/SongItem'
+import useOnPlay from '@/hooks/useOnPlay'
+import useMainLayout from '@/stores/useMainLayout'
+import { Song } from '@/types/types'
+import { useEffect } from 'react'
 
 interface PageContentProps {
-  songs: Song[];
+  songs: Song[]
 }
 
 const PageContent: React.FC<PageContentProps> = ({ songs }) => {
   useEffect(() => {
-    useMainLayout.persist.rehydrate();
-  }, []);
+    useMainLayout.persist.rehydrate()
+  }, [])
 
-  const onPlay = useOnPlay(songs);
-  const { width, quantityCol } = useMainLayout();
+  const onPlay = useOnPlay(songs)
+  const { width, quantityCol } = useMainLayout()
 
-  const columnWidth = (width - 2 * 24 - (quantityCol - 1) * 24) / quantityCol;
+  const columnWidth = (width - 2 * 24 - (quantityCol - 1) * 24) / quantityCol
 
   if (songs.length === 0) {
-    return <div className="mt-4 text-neutral-400">No songs avalable.</div>;
+    return <div className="mt-4 text-neutral-400">No songs avalable.</div>
   }
 
   return (
@@ -32,7 +32,7 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
         columnWidth: columnWidth,
       }}
     >
-      {songs.map((item) => (
+      {songs.map(item => (
         <SongItem
           key={item.id}
           onClick={(id: string) => onPlay(id)}
@@ -40,7 +40,7 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default PageContent;
+export default PageContent

@@ -1,51 +1,52 @@
-"use client";
+'use client'
 
-import { useParams, usePathname, useRouter } from "next/navigation";
-import { twMerge } from "tailwind-merge";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import { useParams, usePathname, useRouter } from 'next/navigation'
+import { twMerge } from 'tailwind-merge'
+import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import {
   HomeActiveIcon,
   HomeIcon,
   SearchActiveIcon,
   SearchIcon,
-} from "@/public/icons";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import Button from "./Button";
-import useAuthModal from "@/hooks/useAuthModal";
-import { FaUserAlt } from "react-icons/fa";
-import { useUser } from "@/hooks/useUser";
-import { toast } from "react-hot-toast";
-import usePlayer from "@/stores/usePlayer";
-import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import useNavStyles from "@/stores/useNavStyles";
-import { Playlist, Song } from "@/types/types";
-import useOnPlay from "@/hooks/useOnPlay";
-import PlayButton from "./PlayButton";
+} from '@/public/icons'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import Button from './Button'
+import useAuthModal from '@/hooks/useAuthModal'
+import { FaUserAlt } from 'react-icons/fa'
+import { useUser } from '@/hooks/useUser'
+import { toast } from 'react-hot-toast'
+import usePlayer from '@/stores/usePlayer'
+import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import useNavStyles from '@/stores/useNavStyles'
+import { Playlist, Song } from '@/types/types'
+import useOnPlay from '@/hooks/useOnPlay'
+import PlayButton from './PlayButton'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
 
 interface NavbarProps {
   type?:
-    | "default"
-    | "home"
-    | "section"
-    | "search"
-    | "artist"
-    | "genre"
-    | "playlist";
-  songs?: Song[];
-  playlist?: Playlist;
-  className?: string;
-  darker?: boolean;
-  data?: Playlist;
-  bgColor?: string;
-  hasPlayBtn?: boolean;
-  title?: string;
-  showTitle?: boolean;
+    | 'default'
+    | 'home'
+    | 'section'
+    | 'search'
+    | 'artist'
+    | 'genre'
+    | 'playlist'
+  songs?: Song[]
+  playlist?: Playlist
+  className?: string
+  darker?: boolean
+  data?: Playlist
+  bgColor?: string
+  hasPlayBtn?: boolean
+  title?: string
+  showTitle?: boolean
 }
 
-const Navbar: React.FC<NavbarProps> = (props) => {
+const Navbar: React.FC<NavbarProps> = props => {
   const {
-    type = "default",
+    type = 'default',
     playlist,
     songs,
     className,
@@ -53,70 +54,72 @@ const Navbar: React.FC<NavbarProps> = (props) => {
     darker = true,
     bgColor,
     hasPlayBtn = false,
-  } = props;
+  } = props
 
-  const router = useRouter();
-  const authModal = useAuthModal();
-  const { user } = useUser();
-  const player = usePlayer();
-  const params = useParams();
+  const router = useRouter()
+  const authModal = useAuthModal()
+  const { user } = useUser()
+  const player = usePlayer()
+  const params = useParams()
 
-  const { opacity, playBtnVisible } = useNavStyles();
+  const { opacity, playBtnVisible } = useNavStyles()
+  const { setSelected } = useSelectedPlayer()
 
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient()
 
-  const pathname = usePathname();
+  const pathname = usePathname()
 
-  const onPlay = useOnPlay(songs as Song[]);
-  const [isPlaying, setPlaying] = useState(false);
+  const onPlay = useOnPlay(songs as Song[])
+  const [isPlaying, setPlaying] = useState(false)
 
   const routes = useMemo(
     () => [
       {
         icon: [HomeActiveIcon, HomeIcon],
-        label: "Home",
-        active: pathname !== "/search",
-        href: "/",
+        label: 'Home',
+        active: pathname !== '/search',
+        href: '/',
       },
       {
         icon: [SearchActiveIcon, SearchIcon],
-        label: "Search",
-        active: pathname === "/search",
-        href: "/search",
+        label: 'Search',
+        active: pathname === '/search',
+        href: '/search',
       },
     ],
     [pathname]
-  );
+  )
 
   useEffect(() => {
     if (
-      type === "playlist" &&
-      player.playlistPlayingId === params.id.toString()
+      type === 'playlist' &&
+      player.playlistPlayingId?.toString() === params.id
     ) {
-      setPlaying(player.isPlaying);
+      setPlaying(player.isPlaying)
     }
-  }, [type, player.isPlaying, player.playlistPlayingId, params.id]);
+  }, [type, player.isPlaying, player.playlistPlayingId, params.id])
 
   const handleClickPlay = () => {
-    if (player.playlistPlayingId !== params.id && songs?.length) {
-      player.setPlaylistActiveId(params.id.toString());
-      onPlay(songs[0].id);
+    if (player.playlistPlayingId?.toString() !== params.id && songs?.length) {
+      player.setPlaylistActiveId(params.id as string)
+      onPlay(songs[0].id)
     } else {
-      player.handlePlay();
+      setSelected(true)
+      player.handlePlay()
     }
-  };
+  }
 
   const handleLogout = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    player.reset();
-    router.refresh();
+    const { error } = await supabaseClient.auth.signOut()
+    player.reset()
+    router.refresh()
 
     if (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     } else {
-      toast.success("Logged out!");
+      toast.success('Logged out!')
     }
-  };
+  }
 
   return (
     <div
@@ -128,11 +131,11 @@ const Navbar: React.FC<NavbarProps> = (props) => {
       <div
         className={twMerge(
           `rounded-t-lg absolute top-0 h-full left-0  ${
-            darker && "brightness-50"
+            darker && 'brightness-50'
           }  right-0 z-10`
         )}
         style={{
-          transition: "background-color 1s ease",
+          transition: 'background-color 1s ease',
           opacity: opacity,
           backgroundColor: bgColor || data?.bg_color,
         }}
@@ -158,7 +161,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
           {playBtnVisible && hasPlayBtn ? (
             <div
               className={`ml-1  flex gap-x-2 transition  items-center w-full min-w-0 flex-grow max-w-[400px] ${
-                playBtnVisible ? "opacity-100" : "opacity-0"
+                playBtnVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <PlayButton
@@ -176,7 +179,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
 
         <div className="flex md:hidden gap-x-2 items-center ">
           {routes.map((item, index) => {
-            const Icon = item.active ? item.icon[0] : item.icon[1];
+            const Icon = item.active ? item.icon[0] : item.icon[1]
             return (
               <Link
                 key={index}
@@ -187,7 +190,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
               >
                 <Icon size={22} color="#000000" />
               </Link>
-            );
+            )
           })}
         </div>
 
@@ -198,7 +201,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                 Logout
               </Button>
               <Button
-                onClick={() => router.push("/account")}
+                onClick={() => router.push('/account')}
                 className="bg-white"
               >
                 <FaUserAlt />
@@ -227,7 +230,7 @@ const Navbar: React.FC<NavbarProps> = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

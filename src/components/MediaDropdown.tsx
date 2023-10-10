@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { DeleteIcon } from "@/public/icons";
-import { BsThreeDots } from "react-icons/bs";
+import { DeleteIcon } from '@/public/icons'
+import { BsThreeDots } from 'react-icons/bs'
 
-import { useUser } from "@/hooks/useUser";
-import useAuthModal from "@/hooks/useAuthModal";
-import useUploadModal from "@/hooks/useUploadModal";
-import useSubscribeModal from "@/hooks/useSubscribeModal";
-import { useState } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { twMerge } from "tailwind-merge";
+import { useUser } from '@/hooks/useUser'
+import useAuthModal from '@/hooks/useAuthModal'
+import useUploadModal from '@/hooks/useUploadModal'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import { useState } from 'react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import { twMerge } from 'tailwind-merge'
 
 interface MediaDropdownProps {
-  songId: string;
-  playlistId: string;
-  className?: string;
+  songId: string
+  playlistId: string
+  className?: string
 }
 
 const MediaDropdown: React.FC<MediaDropdownProps> = ({
@@ -26,60 +26,60 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
   playlistId,
   className,
 }) => {
-  const { user, subscription } = useUser();
-  const authModal = useAuthModal();
-  const uploadModal = useUploadModal();
-  const [isDropdown, setDropdown] = useState(false);
-  const [isRequired, setRequired] = useState(false);
+  const { user, subscription } = useUser()
+  const authModal = useAuthModal()
+  const uploadModal = useUploadModal()
+  const [isDropdown, setDropdown] = useState(false)
+  const [isRequired, setRequired] = useState(false)
 
-  const subcribeModal = useSubscribeModal();
+  const subcribeModal = useSubscribeModal()
 
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient()
 
-  const router = useRouter();
+  const router = useRouter()
 
   const onRemove = async () => {
-    if (isRequired) return;
+    if (isRequired) return
 
-    if (!user) return authModal.onOpen();
+    if (!user) return authModal.onOpen()
 
-    if (!subscription) return subcribeModal.onOpen();
+    if (!subscription) return subcribeModal.onOpen()
 
-    setRequired(true);
+    setRequired(true)
 
     const { data, error: playlistError } = await supabaseClient
-      .from("playlists")
-      .select("*")
-      .eq("id", playlistId)
-      .single();
-    if (playlistError) return toast.error(playlistError.message);
+      .from('playlists')
+      .select('*')
+      .eq('id', playlistId)
+      .single()
+    if (playlistError) return toast.error(playlistError.message)
 
-    let song_ids = data.song_ids || [];
+    let song_ids = data.song_ids || []
 
     if (song_ids.length) {
-      song_ids = [...song_ids].filter((id) => id !== songId);
+      song_ids = [...song_ids].filter(id => id !== songId)
     }
 
-    const { error } = await supabaseClient.from("playlists").upsert({
+    const { error } = await supabaseClient.from('playlists').upsert({
       id: playlistId,
       song_ids: song_ids,
       user_id: user.id,
-    });
+    })
 
-    if (error) return toast.error(error.message);
+    if (error) return toast.error(error.message)
 
-    toast.success("Removed!");
+    toast.success('Removed!')
 
-    setRequired(false);
+    setRequired(false)
 
-    router.refresh();
-  };
+    router.refresh()
+  }
 
   const onChange = (open: boolean) => {
     if (!open) {
-      setDropdown(false);
+      setDropdown(false)
     }
-  };
+  }
   return (
     <DropdownMenu.Root
       open={isDropdown}
@@ -128,7 +128,7 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
-  );
-};
+  )
+}
 
-export default MediaDropdown;
+export default MediaDropdown

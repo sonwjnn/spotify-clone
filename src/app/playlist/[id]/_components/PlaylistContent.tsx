@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { Playlist, Song } from "@/types/types";
-import SearchPlaylist from "./SearchPlaylist";
-import SongPlaylist from "./SongPlaylist";
-import { useUser } from "@/hooks/useUser";
-import { useRouter } from "next/navigation";
+import { Playlist, Song } from '@/types/types'
+import SearchPlaylist from './SearchPlaylist'
+import SongPlaylist from './SongPlaylist'
+import { useUser } from '@/hooks/useUser'
+import { useRouter } from 'next/navigation'
 
 interface PlaylistContentProps {
-  playlist: Playlist;
-  songs: Song[];
-  addedSongs: Song[];
+  playlist: Playlist
+  songs: Song[]
+  addedSongs: Song[]
 }
 
 const PlaylistContent: React.FC<PlaylistContentProps> = ({
@@ -17,15 +17,15 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({
   songs,
   addedSongs,
 }) => {
-  const { user } = useUser();
+  const { user } = useUser()
 
-  const router = useRouter();
+  const router = useRouter()
   const unaddedSongs = songs.filter(
     (song: Song) => !playlist?.song_ids?.includes(song.id)
-  );
+  )
 
   if (!user) {
-    router.replace("/");
+    router.replace('/')
   }
 
   return (
@@ -33,7 +33,7 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({
       <SongPlaylist songs={addedSongs} playlist={playlist} />
       <SearchPlaylist songs={unaddedSongs} playlist={playlist} />
     </>
-  );
-};
+  )
+}
 
-export default PlaylistContent;
+export default PlaylistContent

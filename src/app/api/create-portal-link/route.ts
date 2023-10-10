@@ -7,32 +7,34 @@ import { getURL } from '@/libs/helpers'
 import { createOrRetrieveCustomer } from '@/libs/supabaseAdmin'
 
 export async function POST() {
-	try {
-		const supabase = createRouteHandlerClient({
-			cookies,
-		})
+  try {
+    const supabase = createRouteHandlerClient({
+      cookies,
+    })
 
-		const { data: { user } } = await supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
-		if (!user) {
-			throw Error('Could not get user')
-		}
+    if (!user) {
+      throw Error('Could not get user')
+    }
 
-		const customer = await createOrRetrieveCustomer({
-			uuid: user.id || '',
-			email: user.email || '',
-		})
+    const customer = await createOrRetrieveCustomer({
+      uuid: user.id || '',
+      email: user.email || '',
+    })
 
-		if (!customer) throw Error('Could not get customer')
+    if (!customer) throw Error('Could not get customer')
 
-		const { url } = await stripe.billingPortal.sessions.create({
-			customer,
-			return_url: `${getURL()}/account`,
-		})
+    const { url } = await stripe.billingPortal.sessions.create({
+      customer,
+      return_url: `${getURL()}/account`,
+    })
 
-		return NextResponse.json({ url })
-	} catch (error) {
-		console.log(error)
-		new NextResponse('Internal Error', { status: 500 })
-	}
+    return NextResponse.json({ url })
+  } catch (error) {
+    console.log(error)
+    new NextResponse('Internal Error', { status: 500 })
+  }
 }

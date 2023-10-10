@@ -2,22 +2,22 @@ import {
   bottomLinks,
   socialNetworkLinks,
   topLinkGroups,
-} from "@/utils/constants";
-import { FC, memo } from "react";
-import LinkGroup from "./LinkGroup";
+} from '@/utils/constants'
+import { FC, memo } from 'react'
+import LinkGroup from './LinkGroup'
 
 const Footer: FC = () => {
   return (
     <footer className="flex flex-col pt-2 pb-10 px-8 mt-10  ">
       <nav className="flex justify-between mt-8">
         <div className="flex flex-wrap">
-          {topLinkGroups.map((links) => (
+          {topLinkGroups.map(links => (
             <LinkGroup key={links.title} groupLink={links} />
           ))}
         </div>
         <div className="flex gap-4 flex-wrap h-fit justify-end">
-          {socialNetworkLinks.map((item) => {
-            const Icon = item.icon;
+          {socialNetworkLinks.map(item => {
+            const Icon = item.icon
             return (
               <a
                 className="h-10 w-10 bg-neutral-800 hover:brightness-110 rounded-full flex items-center justify-center"
@@ -27,7 +27,7 @@ const Footer: FC = () => {
               >
                 <Icon className="text-white text-lg" />
               </a>
-            );
+            )
           })}
         </div>
       </nav>
@@ -49,7 +49,7 @@ const Footer: FC = () => {
         </div>
       </nav>
     </footer>
-  );
-};
+  )
+}
 
-export default memo(Footer);
+export default memo(Footer)

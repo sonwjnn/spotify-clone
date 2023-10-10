@@ -1,86 +1,86 @@
-"use client";
+'use client'
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { AddPlaylistIcon } from "@/public/icons";
-import { AiOutlinePlus } from "react-icons/ai";
-import { LuListMusic } from "react-icons/lu";
+import { AddPlaylistIcon } from '@/public/icons'
+import { AiOutlinePlus } from 'react-icons/ai'
+import { LuListMusic } from 'react-icons/lu'
 
-import { useUser } from "@/hooks/useUser";
-import useAuthModal from "@/hooks/useAuthModal";
-import useUploadModal from "@/hooks/useUploadModal";
-import useSubscribeModal from "@/hooks/useSubscribeModal";
-import { useState } from "react";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useUser } from '@/hooks/useUser'
+import useAuthModal from '@/hooks/useAuthModal'
+import useUploadModal from '@/hooks/useUploadModal'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import { useState } from 'react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const UploadDropdown = () => {
-  const { user, subscription } = useUser();
-  const authModal = useAuthModal();
-  const uploadModal = useUploadModal();
-  const [isDropdown, setDropdown] = useState(false);
-  const [isRequired, setRequired] = useState(false);
+  const { user, subscription } = useUser()
+  const authModal = useAuthModal()
+  const uploadModal = useUploadModal()
+  const [isDropdown, setDropdown] = useState(false)
+  const [isRequired, setRequired] = useState(false)
 
-  const subcribeModal = useSubscribeModal();
+  const subcribeModal = useSubscribeModal()
 
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = useSupabaseClient()
 
-  const router = useRouter();
+  const router = useRouter()
 
   const onUploadSong = () => {
-    setDropdown(false);
+    setDropdown(false)
 
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpen()
     }
     if (!subscription) {
-      return subcribeModal.onOpen();
+      return subcribeModal.onOpen()
     }
 
-    return uploadModal.onOpen();
-  };
+    return uploadModal.onOpen()
+  }
 
   const onUploadPlaylist = async () => {
-    setDropdown(false);
+    setDropdown(false)
 
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpen()
     }
     if (!subscription) {
-      return subcribeModal.onOpen();
+      return subcribeModal.onOpen()
     }
 
-    setRequired(true);
+    setRequired(true)
 
     const { data, error: supabaseError } = await supabaseClient
-      .from("playlists")
+      .from('playlists')
       .insert({
         user_id: user.id,
         title: `My new playlist`,
-        description: "",
+        description: '',
         song_ids: [],
-        bg_color: "#525252",
+        bg_color: '#525252',
       })
       .select()
-      .single();
+      .single()
     if (supabaseError) {
-      return toast.error(supabaseError.message);
+      return toast.error(supabaseError.message)
     }
     if (data) {
-      setRequired(false);
-      router.refresh();
-      router.push(`/playlist/${data.id}`);
+      setRequired(false)
+      router.refresh()
+      router.push(`/playlist/${data.id}`)
     }
 
-    return;
-  };
+    return
+  }
 
   const onChange = (open: boolean) => {
     if (!open) {
-      setDropdown(false);
+      setDropdown(false)
     }
-  };
+  }
   return (
     <DropdownMenu.Root
       open={isDropdown}
@@ -90,7 +90,7 @@ const UploadDropdown = () => {
       <DropdownMenu.Trigger asChild>
         <div
           className={
-            "w-8 h-8 rounded-full transition relative hover:bg-neutral-800"
+            'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'
           }
         >
           <button
@@ -120,7 +120,7 @@ const UploadDropdown = () => {
           </DropdownMenu.Item>
           <DropdownMenu.Item
             onSelect={onUploadPlaylist}
-            className={`dropdown-menu-item ${isRequired && "select-none"}`}
+            className={`dropdown-menu-item ${isRequired && 'select-none'}`}
           >
             <div className="px-1  group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               <AddPlaylistIcon />
@@ -130,7 +130,7 @@ const UploadDropdown = () => {
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
-  );
-};
+  )
+}
 
-export default UploadDropdown;
+export default UploadDropdown

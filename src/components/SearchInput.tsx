@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import qs from "query-string";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { SearchIcon } from "@/public/icons";
+import qs from 'query-string'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { SearchIcon } from '@/public/icons'
 
-import useDebounce from "@/hooks/useDebounce";
+import useDebounce from '@/hooks/useDebounce'
 
-import Input from "./Input";
-import { twMerge } from "tailwind-merge";
+import Input from './Input'
+import { twMerge } from 'tailwind-merge'
 
 interface SearchInputProps {
-  url: string;
-  placeholder?: string;
-  className?: string;
+  url: string
+  placeholder?: string
+  className?: string
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
@@ -21,33 +21,33 @@ const SearchInput: React.FC<SearchInputProps> = ({
   url,
   placeholder,
 }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [value, setValue] = useState<string>("");
-  const debouncedValue = useDebounce<string>(value, 500);
+  const [value, setValue] = useState<string>('')
+  const debouncedValue = useDebounce<string>(value, 500)
 
   useEffect(() => {
     const query = {
       title: debouncedValue,
-    };
+    }
 
     const stringifiedUrl = qs.stringifyUrl({
       url: url,
       query: query,
-    });
+    })
 
-    router.push(stringifiedUrl, { scroll: false });
-  }, [debouncedValue, router]);
+    router.push(stringifiedUrl, { scroll: false })
+  }, [debouncedValue, router])
 
   return (
     <Input
-      placeholder={placeholder || "Search for your song to want to listen to !"}
+      placeholder={placeholder || 'Search for your song to want to listen to !'}
       value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={e => setValue(e.target.value)}
       className={twMerge(`rounded-full px-4 pl-10 bg-neutral-800`, className)}
       startIcon={<SearchIcon size={18} />}
     />
-  );
-};
+  )
+}
 
-export default SearchInput;
+export default SearchInput

@@ -1,15 +1,15 @@
-import Header from "@/components/Header";
-import QueueContent from "./_components/QueueContent";
-import Navbar from "@/components/Navbar";
-import PageWrapper from "@/components/PageWrapper";
-import Footer from "@/components/Footer";
+import Header from '@/components/Header'
+import QueueContent from './_components/QueueContent'
+import Navbar from '@/components/Navbar'
+import PageWrapper from '@/components/PageWrapper'
+import Footer from '@/components/Footer'
 
-export const revalidate = 0;
+export const revalidate = 0
 
 const Queue = async () => {
   return (
     <div className="relative h-full w-full">
-      <Navbar bgColor={"#171717"} darker={false} />
+      <Navbar bgColor={'#171717'} darker={false} />
       <PageWrapper>
         <Header bgColor="#171717">
           <div className="mb-2 flex flex-col gap-y-6  w-full">
@@ -20,7 +20,7 @@ const Queue = async () => {
         <Footer />
       </PageWrapper>
     </div>
-  );
-};
+  )
+}
 
-export default Queue;
+export default Queue

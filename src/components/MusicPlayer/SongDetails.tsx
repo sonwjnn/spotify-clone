@@ -1,18 +1,18 @@
-"use client";
+'use client'
 
-import { Song } from "@/types/types";
-import LikeButton from "../LikeButton";
-import Image from "next/image";
-import { MusicNote } from "@/public/icons";
-import useLoadImage from "@/hooks/useLoadImage";
-import { buckets } from "@/utils/constants";
+import { Song } from '@/types/types'
+import LikeButton from '../LikeButton'
+import Image from 'next/image'
+import { MusicNote } from '@/public/icons'
+import useLoadImage from '@/hooks/useLoadImage'
+import { buckets } from '@/utils/constants'
 
 interface SongDetailsProps {
-  data: Song;
+  data: Song
 }
 
 const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
-  const imageUrl = useLoadImage(data.image_path, buckets.images);
+  const imageUrl = useLoadImage(data.image_path, buckets.images)
 
   return (
     <div className="items-center gap-x-4 w-full md:pr-6   flex">
@@ -50,7 +50,7 @@ const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
         <LikeButton className="flex" songId={data.id} size={22} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SongDetails;
+export default SongDetails

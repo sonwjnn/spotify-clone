@@ -1,39 +1,39 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { MusicNote } from "@/public/icons";
-import { Playlist } from "@/types/types";
-import { buckets } from "@/utils/constants";
-import useHeader from "@/stores/useHeader";
-import PlayButton from "./PlayButton";
-import useLoadImage from "@/hooks/useLoadImage";
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { MusicNote } from '@/public/icons'
+import { Playlist } from '@/types/types'
+import { buckets } from '@/utils/constants'
+import useHeader from '@/stores/useHeader'
+import PlayButton from './PlayButton'
+import useLoadImage from '@/hooks/useLoadImage'
 
 interface PlaylistRecommendProps {
-  data: Playlist;
-  index: number;
-  isHover: boolean;
-  setHover: React.Dispatch<React.SetStateAction<boolean>>;
+  data: Playlist
+  index: number
+  isHover: boolean
+  setHover: React.Dispatch<React.SetStateAction<boolean>>
 }
 const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
   data,
   isHover,
   setHover,
 }) => {
-  const router = useRouter();
-  const { bgBase, bgColor, setBgColor } = useHeader();
+  const router = useRouter()
+  const { bgBase, bgColor, setBgColor } = useHeader()
 
-  const imageUrl = useLoadImage(data.image_path, buckets.playlist_images);
+  const imageUrl = useLoadImage(data.image_path, buckets.playlist_images)
 
   const handleHover = () => {
-    if (!isHover) setHover(true);
+    if (!isHover) setHover(true)
 
-    setBgColor(data?.bg_color || bgColor);
-  };
+    setBgColor(data?.bg_color || bgColor)
+  }
   const onClick = () => {
     // Add authentication befire push
-    router.push(`playlist/${data.id}`);
-  };
+    router.push(`playlist/${data.id}`)
+  }
 
   return (
     <div
@@ -65,7 +65,7 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
         <PlayButton className="translate-y-0" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PlaylistRecommend;
+export default PlaylistRecommend

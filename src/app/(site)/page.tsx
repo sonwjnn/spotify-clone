@@ -1,17 +1,17 @@
-import getSongs from "@/server-actions/songs/getSongs";
-import HomeContent from "./_components/HomeContent";
-import NavbarHome from "./_components/NavbarHome";
-import PageWrapper from "@/components/PageWrapper";
-import Greeting from "@/components/Greeting";
-import Footer from "@/components/Footer";
-import getPlaylists from "@/server-actions/playlists/getPlaylists";
-import HeaderHome from "./_components/HeaderHome";
+import getSongs from '@/server-actions/songs/getSongs'
+import HomeContent from './_components/HomeContent'
+import NavbarHome from './_components/NavbarHome'
+import PageWrapper from '@/components/PageWrapper'
+import Greeting from '@/components/Greeting'
+import Footer from '@/components/Footer'
+import getPlaylists from '@/server-actions/playlists/getPlaylists'
+import HeaderHome from './_components/HeaderHome'
 
-export const revalidate = 0;
+export const revalidate = 0
 
 const Home = async () => {
-  const songs = await getSongs();
-  const playlists = await getPlaylists();
+  const songs = await getSongs()
+  const playlists = await getPlaylists()
   return (
     <div className="relative h-full w-full">
       <NavbarHome type="home" />
@@ -30,7 +30,7 @@ const Home = async () => {
         </div>
       </PageWrapper>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

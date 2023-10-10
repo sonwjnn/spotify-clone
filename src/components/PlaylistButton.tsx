@@ -1,16 +1,16 @@
-"use client";
-import { useUser } from "@/hooks/useUser";
-import { useSessionContext } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import useAuthModal from "@/hooks/useAuthModal";
-import { toast } from "react-hot-toast";
-import { ClipLoader } from "react-spinners";
+'use client'
+import { useUser } from '@/hooks/useUser'
+import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import useAuthModal from '@/hooks/useAuthModal'
+import { toast } from 'react-hot-toast'
+import { ClipLoader } from 'react-spinners'
 
 interface PlaylistButtonProps {
-  type: "add" | "remove";
-  songId: string;
-  playlistId: string;
+  type: 'add' | 'remove'
+  songId: string
+  playlistId: string
 }
 
 const PlaylistButton: React.FC<PlaylistButtonProps> = ({
@@ -18,71 +18,71 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = ({
   songId,
   playlistId,
 }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const { supabaseClient } = useSessionContext();
+  const { supabaseClient } = useSessionContext()
 
-  const { user } = useUser();
+  const { user } = useUser()
 
-  const authModal = useAuthModal();
+  const authModal = useAuthModal()
 
-  const [isRequired, setRequired] = useState<boolean>(false);
+  const [isRequired, setRequired] = useState<boolean>(false)
 
   const handleLike = async () => {
-    if (!user) return authModal.onOpen();
+    if (!user) return authModal.onOpen()
 
-    if (isRequired) return;
+    if (isRequired) return
 
-    setRequired(true);
+    setRequired(true)
 
-    if (type === "add") {
+    if (type === 'add') {
       const { data, error: playlistError } = await supabaseClient
-        .from("playlists")
-        .select("*")
-        .eq("id", playlistId)
-        .single();
-      if (playlistError) return toast.error(playlistError.message);
+        .from('playlists')
+        .select('*')
+        .eq('id', playlistId)
+        .single()
+      if (playlistError) return toast.error(playlistError.message)
 
-      const song_ids = data.song_ids || [];
+      const song_ids = data.song_ids || []
 
-      const { error } = await supabaseClient.from("playlists").upsert({
+      const { error } = await supabaseClient.from('playlists').upsert({
         id: playlistId,
         song_ids: [...song_ids, songId],
         user_id: user.id,
-      });
+      })
 
-      if (error) return toast.error(error.message);
+      if (error) return toast.error(error.message)
 
-      toast.success("Added!");
+      toast.success('Added!')
     } else {
       const { data, error: playlistError } = await supabaseClient
-        .from("playlists")
-        .select("*")
-        .eq("id", playlistId)
-        .single();
-      if (playlistError) return toast.error(playlistError.message);
+        .from('playlists')
+        .select('*')
+        .eq('id', playlistId)
+        .single()
+      if (playlistError) return toast.error(playlistError.message)
 
-      let song_ids = data.song_ids || [];
+      let song_ids = data.song_ids || []
 
       if (song_ids.length) {
-        song_ids = [...song_ids].filter((id) => id !== songId);
+        song_ids = [...song_ids].filter(id => id !== songId)
       }
 
-      const { error } = await supabaseClient.from("playlists").upsert({
+      const { error } = await supabaseClient.from('playlists').upsert({
         id: playlistId,
         song_ids: song_ids,
         user_id: user.id,
-      });
+      })
 
-      if (error) return toast.error(error.message);
+      if (error) return toast.error(error.message)
 
-      toast.success("Removed!");
+      toast.success('Removed!')
     }
 
-    setRequired(false);
+    setRequired(false)
 
-    router.refresh();
-  };
+    router.refresh()
+  }
 
   return (
     <button
@@ -92,13 +92,13 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = ({
     >
       {isRequired ? (
         <ClipLoader color="white" size={18} />
-      ) : type === "add" ? (
-        "Add"
+      ) : type === 'add' ? (
+        'Add'
       ) : (
-        "Remove"
+        'Remove'
       )}
     </button>
-  );
-};
+  )
+}
 
-export default PlaylistButton;
+export default PlaylistButton

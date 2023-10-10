@@ -1,32 +1,25 @@
-"use client";
+'use client'
 
-import LikeButton from "@/components/LikeButton";
-import MediaItem from "@/components/MediaItem";
-import useOnPlay from "@/hooks/useOnPlay";
-import useMainLayout from "@/stores/useMainLayout";
-import usePlayer from "@/stores/usePlayer";
-import Link from "next/link";
-import { useState } from "react";
+import Button from '@/components/Button'
+import MediaItem from '@/components/MediaItem'
+import MediaList from '@/components/MediaList'
+import usePlayer from '@/stores/usePlayer'
+import Link from 'next/link'
 
 interface QueueContentProps {}
 
 const QueueContent: React.FC<QueueContentProps> = () => {
-  const { queue, currentTrack, currentTrackIndex, isRandom, isPlaying } =
-    usePlayer();
+  const { queue, currentTrack, currentTrackIndex, isRandom } = usePlayer()
 
-  const onPlay = useOnPlay(queue);
-  const { width } = useMainLayout();
-  const [selected, setSelected] = useState<string>("");
-
-  if (queue.length === 0) {
+  if (queue.length === 0 || !currentTrack) {
     return (
       <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
         No songs found.
       </div>
-    );
+    )
   }
 
-  const queueNormalized = queue.filter((item) => item);
+  const queueNormalized = queue.filter(item => item)
 
   return (
     <div className="h-full overflow-hidden pb-8 relative">
@@ -35,44 +28,38 @@ const QueueContent: React.FC<QueueContentProps> = () => {
           <div className="font-bold text-base text-neutral-400 m-0 mb-1 p-6 pt-0">
             Now playing
           </div>
-          {/* <SongItem
-                id={currentTrack?.id}
-                albumData={currentTrack?.album}
-                artists={currentTrack?.artists}
-                duration={currentTrack?.duration_ms}
-                isExplicit={currentTrack?.explicit}
-                order={1}
-                songName={currentTrack?.name}
-                thumb={
-                  currentTrack?.album?.images?.[currentTrack?.album?.images?.length - 1]
-                    ?.url ?? currentTrack?.images?.[currentTrack?.images?.length - 1]?.url
-                }
-                originalData={currentTrack}
-              /> */}
-          {queue?.filter((item) => item)?.length > 1 && (
+          <div className="px-6 pb-2">
+            <MediaItem song={currentTrack} isActived index={1} />
+          </div>
+          {queue?.filter(item => item)?.length > 1 && (
             <div className="">
               <div className="p-6 mt-10 font-bold text-base text-neutral-400">
                 Next
               </div>
-              {/* <SongList
-                  inclHeader={false}
-                  songList={
-                    isRandom
-                      ? queueNormalized.filter((track) => track?.id !== currentTrack?.id)
-                      : queueNormalized.slice(currentTrackIndex + 1)
-                  }
-                  adjustOrder={1}
-                /> */}
+              <MediaList
+                type="queue"
+                inclHeader={false}
+                songs={
+                  isRandom
+                    ? queueNormalized.filter(
+                        track => track?.id !== currentTrack?.id
+                      )
+                    : queueNormalized.slice(currentTrackIndex + 1)
+                }
+              />
             </div>
           )}
         </>
       ) : (
         <div className="h-[50vh] min-h-[300px] flex flex-col items-center justify-center">
-          <h1 className="text-[32px]">No Queue Tracks</h1>
-          <Link href="/">
-            <div className="text-base hover:scale-105 font-bold no-underline bg-white border border-[#878787] rounded-[48px] text-black inline-block leading-6 m-0 mb-9 px-8 py-3 text-center whitespace-nowrap ">
-              Home
-            </div>
+          <h2 className="text-5xl font-bold space-[-2px] mt-1 mb-4 ">
+            No Queue Tracks
+          </h2>
+          <p className="text-base text-neutral-400 mb-10">
+            You have no queue, please add queue to see.
+          </p>
+          <Link href={'/'}>
+            <Button className="bg-white text-black px-8 py-3 mb-9">Home</Button>
           </Link>
           <a
             className="text-base text-white block font-bold no-underline hover:underline"
@@ -84,7 +71,7 @@ const QueueContent: React.FC<QueueContentProps> = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default QueueContent;
+export default QueueContent
