@@ -72,7 +72,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
         )}
       </div>
       <div className="flex flex-col  gap-y-3 md:gap-y-6 mt-4 md:mt-0">
-        <p className="hidden md:block  text-base">Playlist</p>
+        <p className="text-white hidden md:block  text-base">Playlist</p>
         <h1
           onClick={onClick}
           className={`${width <= 1012 && '!text-5xl'} ${
@@ -87,7 +87,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
               {data.description}
             </p>
           )}
-          <div className="text-sm flex gap-x-2">
+          <div className="text-sm flex gap-x-2 text-white">
             <p>{`${data?.users?.full_name || 'No name'} - ${data?.song_ids
               ?.length} songs${data?.song_ids?.length ? ',' : ''}`}</p>
             <p className="text-desc">{`${duration()}`}</p>

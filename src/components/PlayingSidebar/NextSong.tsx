@@ -33,6 +33,7 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
       router.back()
     }
   }
+
   return (
     <div
       className={'rouned-2xl p-4 pb-2 bg-neutral-400/5 flex flex-col w-full '}
@@ -60,7 +61,7 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
             'flex flex-row gap-3 p-2 h-[64px] items-center rounded-lg overflow-hidden  hover:bg-neutral-400/10 transition cursor-pointer'
           }
         >
-          <div className={'w-4'}>
+          <div className={'w-4 text-white'}>
             {isHover ? (
               <PlayIcon color="#ffffff" size={14} />
             ) : (

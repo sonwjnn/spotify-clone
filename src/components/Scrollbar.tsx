@@ -191,7 +191,7 @@ const Scrollbar = ({
             style={{ cursor: isDragging ? 'grabbing' : undefined }}
           ></div>
           <div
-            className={` bg-neutral-700 absolute w-3 hover:brightness-125 transition ${
+            className={` bg-neutral-700 absolute w-3 hover:brightness-125 opacity-25 transition ${
               isDragging ? 'bg-neutral-500' : ''
             }`}
             ref={scrollThumbRef}

@@ -37,14 +37,14 @@ const SearchInput: React.FC<SearchInputProps> = ({
     })
 
     router.push(stringifiedUrl, { scroll: false })
-  }, [debouncedValue, router])
+  }, [debouncedValue, router, url])
 
   return (
     <Input
       placeholder={placeholder || 'Search for your song to want to listen to !'}
       value={value}
       onChange={e => setValue(e.target.value)}
-      className={twMerge(`rounded-full px-4 pl-10 bg-neutral-800`, className)}
+      className={twMerge(` rounded-full px-4 pl-10 bg-neutral-800`, className)}
       startIcon={<SearchIcon size={18} />}
     />
   )

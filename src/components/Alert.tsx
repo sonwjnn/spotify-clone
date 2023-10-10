@@ -44,7 +44,7 @@ const Alert: React.FC<AlertProps> = props => {
         />
       </div>
       <div className="flex flex-col items-center p-10 ">
-        <h2 className="text-5xl font-bold space-[-2px] mt-1 mb-4 ">
+        <h2 className="text-white text-5xl font-bold space-[-2px] mt-1 mb-4 ">
           {type === 'notfound'
             ? 'Page not found'
             : 'Oops! Something went wrong'}

@@ -11,7 +11,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="relative">
         {startIcon && (
-          <div className="absolute inset-y-0 left-1 pl-3 flex items-center pointer-events-none">
+          <div className="text-white absolute inset-y-0 left-1 pl-3 flex items-center pointer-events-none">
             {startIcon}
           </div>
         )}

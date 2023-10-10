@@ -54,12 +54,14 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
             placeholder="blur"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-neutral-800">
+          <div className="absolute text-white inset-0 flex items-center justify-center bg-neutral-800">
             <MusicNote size={25} />
           </div>
         )}
       </div>
-      <p className="font-bold text-base truncate py-5">{data.title}</p>
+      <p className="text-white font-bold text-base truncate py-5">
+        {data.title}
+      </p>
 
       <div className="absolute right-4">
         <PlayButton className="translate-y-0" />

@@ -15,7 +15,6 @@ import MediaDropdown from './MediaDropdown'
 import cn from '@/utils/cn'
 
 const MediaItem: React.FC<MediaItemProps> = ({
-  isExplicit = false,
   type = 'default',
   index,
   song,
@@ -81,7 +80,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
           )}
         </div>
       )}
-      <div className={`flex items-center gap-4 pr-2 min-w-0`}>
+      <div className={`flex items-center gap-4 pr-2 min-w-0 select-none`}>
         {type !== 'album' && (
           <div
             className={`flex-shrink-0 w-10 h-10 aspect-square overflow-hidden relative`}
@@ -96,7 +95,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
               />
             ) : (
               <div
-                className={`h-full w-full items-center flex justify-center bg-neutral-800`}
+                className={`h-full w-full text-white items-center flex justify-center bg-neutral-800`}
               >
                 <SingleMusicNote />
               </div>
@@ -116,7 +115,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
           {type !== 'artist' && (
             <div className={`flex items-center gap-[3px] w-full truncate`}>
               {/* <SubTitle data={artists} /> */}
-              <p className="text-neutral-400 text-sm truncate">{song.author}</p>
+              <p className="text-neutral-400 text-sm truncate select-none">
+                {song.author}
+              </p>
             </div>
           )}
         </div>

@@ -63,7 +63,11 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
       <div>
         {products.map(product => {
           if (!product.prices?.length) {
-            return <div key={product.id}>No prices available</div>
+            return (
+              <div className="text-white" key={product.id}>
+                No prices available
+              </div>
+            )
           }
 
           return product.prices.map(price => (
@@ -71,7 +75,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
               key={price.id}
               onClick={() => handleCheckout(price)}
               disabled={isLoading || price.id === priceIdLoading}
-              className="mb-4"
+              className="mb-4 "
             >
               {`Subscribe for ${formatPrice(price)} a ${price.interval}`}
             </Button>
@@ -82,7 +86,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
   }
 
   if (subscription) {
-    content = <div className="text-center">Already subscribed</div>
+    content = <div className="text-white text-center">Already subscribed</div>
   }
   return (
     <Modal

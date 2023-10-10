@@ -35,19 +35,19 @@ const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
                 placeholder="blur"
               />
             ) : (
-              <div className="w-full aspect-square h-full flex items-center justify-center bg-neutral-800">
+              <div className="text-white w-full aspect-square h-full flex items-center justify-center bg-neutral-800">
                 <MusicNote size={22} />
               </div>
             )}
           </div>
           <div className="flex flex-col gap-y-1 overflow-hidden">
-            <p className=" text-sm truncate">{data.title}</p>
+            <p className="text-white text-sm truncate">{data.title}</p>
             <p className="text-neutral-400 text-xs truncate">{data.author}</p>
           </div>
         </div>
       </div>
       <div>
-        <LikeButton className="flex" songId={data.id} size={22} />
+        <LikeButton className="flex" song={data} songId={data.id} size={22} />
       </div>
     </div>
   )

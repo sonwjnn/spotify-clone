@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import {
   HomeActiveIcon,
   HomeIcon,
@@ -15,7 +15,7 @@ import Library from './Library'
 import { Playlist } from '@/types/types'
 import { twMerge } from 'tailwind-merge'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
-import ScrollbarProvider from '@/providers/ScrollbarProvider'
+import { ScrollArea } from './ui/scroll-area'
 
 interface SidebarProps {
   playlists: Playlist[]
@@ -75,28 +75,14 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
 
   const [isScroll, setScroll] = useState<boolean>(false)
 
-  const scrollRef = useRef<any>()
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      const scrollElement = scrollRef.current.getScrollElement()
-
-      const handleScroll = () => {
-        const yAxis = scrollElement.scrollTop
-        if (yAxis) {
-          setScroll(true)
-        } else {
-          setScroll(false)
-        }
-      }
-
-      scrollElement.addEventListener('scroll', handleScroll)
-
-      return () => {
-        scrollElement.removeEventListener('scroll', handleScroll)
-      }
+  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {
+    const yAxis = e.currentTarget.scrollTop
+    if (yAxis) {
+      setScroll(true)
+    } else {
+      setScroll(false)
     }
-  }, [])
+  }
 
   return (
     <div
@@ -114,13 +100,12 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
           ))}
         </div>
       </Box>
-      <div className="h-full w-full bg-neutral-900 rounded-lg overflow-hidden">
-        <Box className=" h-full ">
-          <ScrollbarProvider scrollRef={scrollRef}>
-            <Library playlists={playlists} isScroll={isScroll} />
-          </ScrollbarProvider>
-        </Box>
-      </div>
+      <ScrollArea
+        className="h-full w-full rounded-lg bg-neutral-900"
+        onScroll={handleScroll}
+      >
+        <Library playlists={playlists} isScroll={isScroll} />
+      </ScrollArea>
     </div>
   )
 }

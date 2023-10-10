@@ -111,7 +111,7 @@ const UploadDropdown = () => {
         >
           <DropdownMenu.Item
             onSelect={onUploadSong}
-            className="dropdown-menu-item"
+            className="dropdown-menu-item text-white"
           >
             <div className="pl-1  group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               <LuListMusic size={20} />
@@ -120,7 +120,9 @@ const UploadDropdown = () => {
           </DropdownMenu.Item>
           <DropdownMenu.Item
             onSelect={onUploadPlaylist}
-            className={`dropdown-menu-item ${isRequired && 'select-none'}`}
+            className={`dropdown-menu-item ${
+              isRequired && 'select-none'
+            } text-white`}
           >
             <div className="px-1  group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               <AddPlaylistIcon />

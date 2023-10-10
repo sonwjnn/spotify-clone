@@ -13,23 +13,21 @@ const Home = async () => {
   const songs = await getSongs()
   const playlists = await getPlaylists()
   return (
-    <div className="relative h-full w-full">
+    <PageWrapper>
       <NavbarHome type="home" />
-      <PageWrapper>
-        <HeaderHome>
-          <div className="mb-2">
-            <Greeting playlists={playlists} />
-          </div>
-        </HeaderHome>
-        <div className="mt-2 px-6">
-          <div className="flex justify-between items-center">
-            <h1 className="text-white text-2xl font-semibold">Newest songs</h1>
-          </div>
-          <HomeContent songs={songs} />
-          <Footer />
+      <HeaderHome>
+        <div className="mb-2">
+          <Greeting playlists={playlists} />
         </div>
-      </PageWrapper>
-    </div>
+      </HeaderHome>
+      <div className="mt-2 px-6">
+        <div className="flex justify-between items-center">
+          <h1 className="text-white text-2xl font-semibold">Newest songs</h1>
+        </div>
+        <HomeContent songs={songs} />
+        <Footer />
+      </div>
+    </PageWrapper>
   )
 }
 

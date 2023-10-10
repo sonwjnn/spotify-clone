@@ -61,7 +61,7 @@ const VolumeBar = () => {
     <div className="flex items-center justify-end gap-x-4 ">
       <Tooltip text="Playing View">
         <button
-          className="cursor-pointer flex justify-center"
+          className="text-white cursor-pointer flex justify-center"
           onClick={() => playingSidebar.setShowed(!playingSidebar.isShowed)}
         >
           <PlayingSidebarIcon
@@ -72,7 +72,7 @@ const VolumeBar = () => {
 
       <Tooltip text="Queue">
         <button
-          className="cursor-pointer flex justify-center"
+          className="text-white cursor-pointer flex justify-center"
           onClick={handleClickQueueBtn}
         >
           <QueueIcon color={pathname === '/queue' ? '#22e55c' : undefined} />
@@ -82,7 +82,7 @@ const VolumeBar = () => {
       <div className="flex items-center gap-x-2 w-full min-w-[125px]">
         <Tooltip text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}>
           <button
-            className="cursor-pointer flex justify-center"
+            className="text-white cursor-pointer flex justify-center"
             onClick={toggleMute}
           >
             <SoundIcon level={volumeLevel} />

@@ -141,7 +141,7 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
       <ContextMenu.Portal>
         <ContextMenu.Content className="min-w-[220px] bg-neutral-800 rounded-md overflow-hidden py-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
           <ContextMenu.Item
-            className="context-menu-item "
+            className="context-menu-item text-white"
             onSelect={onEditPlaylist}
           >
             <FiEdit className="mr-1" size={16} />
@@ -151,7 +151,7 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
           <ContextMenu.Separator className="h-[1px] bg-neutral-700 my-1" />
 
           <ContextMenu.Item
-            className="context-menu-item "
+            className="context-menu-item text-white"
             onSelect={onCreatePlaylist}
           >
             <div className="mr-1">
@@ -159,14 +159,14 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
             </div>
             Create playlist
           </ContextMenu.Item>
-          <ContextMenu.Item className="context-menu-item">
+          <ContextMenu.Item className="context-menu-item text-white">
             <TbPin className="mr-1" size={16} />
             Pin playlist
           </ContextMenu.Item>
 
           <ContextMenu.Separator className="h-[1px] bg-neutral-700 my-1" />
           <ContextMenu.Item
-            className="context-menu-item"
+            className="context-menu-item text-white"
             onSelect={onDeletePlaylist}
           >
             <div className="mr-1">

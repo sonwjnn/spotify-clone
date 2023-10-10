@@ -29,10 +29,10 @@ const Modal: React.FC<ModalProps> = ({
             className
           )}
         >
-          <Dialog.Title className="text-xl text-center font-bold mb-4">
+          <Dialog.Title className="text-white text-xl text-center font-bold mb-4">
             {title}
           </Dialog.Title>
-          <Dialog.Description className="mb-5 text-sm leading-normal text-center">
+          <Dialog.Description className="text-white mb-5 text-sm leading-normal text-center">
             {description}
           </Dialog.Description>
           <div>{children}</div>

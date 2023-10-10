@@ -154,9 +154,9 @@ const UploadSongModal = () => {
           placeholder="Song author..."
         />
         <div>
-          <div className="pb-1">Select a song file</div>
+          <div className="text-white pb-1">Select a song file</div>
           <Input
-            className="bg-neutral-800 "
+            className="bg-neutral-800 text-neutral-400"
             id="song"
             disabled={isLoading}
             type="file"
@@ -167,9 +167,9 @@ const UploadSongModal = () => {
         </div>
 
         <div>
-          <div className="pb-1">Select an image</div>
+          <div className="text-white pb-1">Select an image</div>
           <Input
-            className="bg-neutral-800 "
+            className="bg-neutral-800 text-neutral-400"
             id="image"
             disabled={isLoading}
             type="file"
