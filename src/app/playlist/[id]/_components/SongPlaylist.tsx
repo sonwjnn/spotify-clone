@@ -1,0 +1,66 @@
+"use client";
+
+import useOnPlay from "@/hooks/useOnPlay";
+import usePlayer from "@/stores/usePlayer";
+import { Playlist, Song } from "@/types/types";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import usePlayingSidebar from "@/stores/usePlayingSidebar";
+import { useUser } from "@/hooks/useUser";
+import PlayButton from "@/components/PlayButton";
+import PlaylistLikeButton from "@/components/PlaylistLikeButton";
+import MediaList from "@/components/MediaList";
+
+interface SongPlaylistProps {
+  songs: Song[];
+  playlist: Playlist;
+}
+
+const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
+  const { user } = useUser();
+  const onPlay = useOnPlay(songs);
+  const player = usePlayer();
+  const { setShowed } = usePlayingSidebar();
+  const [isPlaying, setPlaying] = useState(false);
+  const params = useParams();
+
+  useEffect(() => {
+    if (player.playlistPlayingId === params.id.toString()) {
+      setPlaying(player.isPlaying);
+    }
+  }, [player.isPlaying, player.playlistPlayingId, params.id]);
+
+  const handleClickPlay = () => {
+    if (player.playlistPlayingId !== params.id && songs?.length) {
+      player.setPlaylistActiveId(params.id.toString());
+      setShowed(true);
+      onPlay(songs[0].id);
+    } else {
+      player.handlePlay();
+    }
+  };
+
+  return (
+    <>
+      <div className="p-5 px-10 w-full flex gap-x-6 relative">
+        <div
+          style={{ backgroundColor: `${playlist.bg_color}` }}
+          className="absolute h-[232px] top-0 left-0 right-0 header-bg-img-md z-[-1]"
+        ></div>
+        <PlayButton
+          className="opacity-1 translate-y-0 h-14 w-14"
+          onClick={handleClickPlay}
+          isPlaying={isPlaying}
+        />
+        {/* <MediaDropdown /> */}
+        {user?.id !== playlist.user_id ? (
+          <PlaylistLikeButton size={36} playlistId={playlist.id} />
+        ) : null}
+      </div>
+
+      <MediaList songs={songs} playlist={playlist} type="playlist" />
+    </>
+  );
+};
+
+export default SongPlaylist;

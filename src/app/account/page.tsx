@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import AccountContent from "./components/AccountContent";
+import AccountContent from "./_components/AccountContent";
 import Navbar from "@/components/Navbar";
 import PageWrapper from "@/components/PageWrapper";
 import Footer from "@/components/Footer";

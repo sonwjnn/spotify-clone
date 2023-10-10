@@ -7,22 +7,25 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import useAuthModal from "@/hooks/useAuthModal";
 import { toast } from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
+import useUserStore from "@/stores/useUserStore";
 
 interface LikeButtonProps {
   songId: string;
   size?: number;
   className?: string;
   playlistId?: string;
-  selected?: string;
+  isSelected?: boolean;
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({
   songId,
   size = 25,
   className,
-  selected,
+  isSelected,
 }) => {
   const router = useRouter();
+
+  const { addLikedSong, removeLikedSong } = useUserStore();
 
   const { supabaseClient } = useSessionContext();
 
@@ -40,10 +43,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
         .from("liked_songs")
         .select("*")
         .eq("user_id", user?.id)
-        .eq("song_id", songId)
-        .single();
+        .eq("song_id", songId);
 
-      if (!error && data) {
+      if (!error && data.length) {
         setIsLiked(true);
       } else {
         setIsLiked(false);
@@ -60,7 +62,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     setRequired(true);
 
     if (isLiked) {
-      const { data, error } = await supabaseClient
+      const { error } = await supabaseClient
         .from("liked_songs")
         .delete()
         .eq("user_id", user.id)
@@ -68,6 +70,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 
       if (error) return toast.error(error.message);
       setIsLiked(false);
+      removeLikedSong(songId);
     } else {
       const { error } = await supabaseClient.from("liked_songs").insert({
         song_id: songId,
@@ -77,6 +80,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       if (error) return toast.error(error.message);
 
       setIsLiked(true);
+      // addLikedSong(songId)
 
       toast.success("Song liked!");
     }
@@ -91,8 +95,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       onClick={handleLike}
       className={twMerge(
         `justify-center items-center ${
-          isLiked || selected === songId ? "flex" : "hidden"
-        }  group-hover/media:flex transition`,
+          isLiked || isSelected ? "flex" : "hidden"
+        }  group-hover/:flex transition`,
         className
       )}
     >

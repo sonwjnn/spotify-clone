@@ -15,11 +15,11 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   return (
     <div
       className={twMerge(
-        ` h-fit  p-6 pt-16  ${hasBgImage && "header-bg-image"}`,
+        ` h-fit  p-6 pt-16  ${hasBgImage && "header-bg-img-md"}`,
         className
       )}
       style={{
-        transition: `all 1s ease`,
+        transition: `background-color 1s ease`,
         backgroundColor: `${bgColor}`,
       }}
     >

@@ -1,11 +1,11 @@
 import getSongs from "@/server-actions/songs/getSongs";
-import HomeContent from "./components/HomeContent";
-import NavbarHome from "./components/NavbarHome";
+import HomeContent from "./_components/HomeContent";
+import NavbarHome from "./_components/NavbarHome";
 import PageWrapper from "@/components/PageWrapper";
 import Greeting from "@/components/Greeting";
 import Footer from "@/components/Footer";
 import getPlaylists from "@/server-actions/playlists/getPlaylists";
-import HeaderHome from "./components/HeaderHome";
+import HeaderHome from "./_components/HeaderHome";
 
 export const revalidate = 0;
 
@@ -14,7 +14,7 @@ const Home = async () => {
   const playlists = await getPlaylists();
   return (
     <div className="relative h-full w-full">
-      <NavbarHome />
+      <NavbarHome type="home" />
       <PageWrapper>
         <HeaderHome>
           <div className="mb-2">

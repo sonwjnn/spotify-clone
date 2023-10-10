@@ -1,148 +1,147 @@
 "use client";
 
-import useLoadImage from "@/hooks/useLoadImage";
-import { Song } from "@/types/types";
+import { PlayIcon, SingleMusicNote } from "@/public/icons";
+import { MediaItemProps } from "@/types/track";
 import { getDurationSong } from "@/utils/durationConvertor";
-import Image from "next/image";
-import dayjs from "dayjs";
-import { twMerge } from "tailwind-merge";
+import React, { memo, useState } from "react";
 import useMainLayout from "@/stores/useMainLayout";
 import usePlayer from "@/stores/usePlayer";
-import { MusicNote, PlayIcon } from "@/public/icons";
+import Image from "next/image";
+import useLoadImage from "@/hooks/useLoadImage";
 import { buckets } from "@/utils/constants";
-import { useState } from "react";
-
-interface MediaItemProps {
-  data: Song;
-  index?: number;
-  isDuration?: boolean;
-  isCreatedAt?: boolean;
-  selected?: string;
-  actived?: string;
-  playlistId?: string;
-  className?: string;
-  onDoubleClick?: (value?: any) => void;
-  onClick?: (value?: any) => void;
-  children?: React.ReactNode;
-}
+import dayjs from "dayjs";
+import LikeButton from "./LikeButton";
+import MediaDropdown from "./MediaDropdown";
 
 const MediaItem: React.FC<MediaItemProps> = ({
-  data,
-  className,
-  isDuration = false,
-  isCreatedAt = false,
+  isExplicit = false,
+  type = "default",
   index,
-  selected,
-  actived,
-  playlistId,
-  onDoubleClick,
-  onClick,
-  children,
+  song,
+  playlist,
+  selectedId,
 }) => {
   const { width } = useMainLayout();
-  const imageUrl = useLoadImage(data.image_path, buckets.images);
+  const imageUrl = useLoadImage(song.image_path, buckets.images);
   const player = usePlayer();
+
   const [isHover, setHover] = useState<boolean>(false);
 
-  const isSelected = selected === data.id;
+  const isSelected = selectedId === song.id;
   const isActived =
-    actived === data.id && playlistId === player.playlistPlayingId;
+    player.activeId === song.id &&
+    playlist?.id.toString() === player.playlistPlayingId;
 
   return (
     <div
-      className={twMerge(
-        `transition cursor-pointer rounded-md p-1 w-full gap-x-2 hover:bg-neutral-800/50 ${
-          isSelected && "bg-neutral-800/50"
-        }`,
-        className
-      )}
+      className={`
+        grid list-bar group gap-4
+        ${width <= 780 && type !== "album" && "grid-md"}
+        ${type === "album" && "is-search-result"}
+        ${type === "search" && "is-search-result"}
+        ${type === "playlist" && ""}
+        ${isSelected && "bg-neutral-800/50"}
+        transition cursor-pointer rounded-md px-4 h-[56px] w-full hover:bg-neutral-800/50 items-center
+      `}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {index && player.isPlaying && isActived ? (
-        <div className="relative h-full w-3  ml-2 overflow-hidden flex items-center ">
-          <Image
-            src={"/images/animation/equaliser-animated-green.f5eb96f2.gif"}
-            sizes={"100%"}
-            height={20}
-            width={20}
-            alt="equaliser"
-          />
-        </div>
-      ) : (
-        <div
-          className={`${
-            isActived ? "text-[#2ed760]" : "text-neutral-400"
-          }  text-sm flex items-center  justify-end w-4 `}
-        >
-          {isHover ? (
-            <PlayIcon
-              size={14}
-              color={`${isActived ? "#2ed760" : "#a3a3a3"}`}
-            />
+      {type !== "search" && (
+        <div className="text-base text-neutral-400 relative">
+          {index && player.isPlaying && isActived ? (
+            <div className="relative h-full w-3  ml-2 overflow-hidden flex items-center ">
+              <Image
+                src={"/images/animation/equaliser-animated-green.f5eb96f2.gif"}
+                sizes={"100%"}
+                height={20}
+                width={20}
+                alt="equaliser"
+              />
+            </div>
           ) : (
-            index
-          )}
-        </div>
-      )}
-      <div
-        onDoubleClick={onDoubleClick}
-        onClick={onClick}
-        className="flex item-center gap-x-3
-      "
-      >
-        <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
-          {imageUrl ? (
-            <Image
-              fill
-              src={imageUrl}
-              sizes="100%"
-              alt="Media-Item"
-              className="object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-neutral-800">
-              <MusicNote size={22} />
+            <div
+              className={`
+                text-sm flex items-center  justify-end w-4 
+                ${isActived ? "text-[#2ed760]" : "text-neutral-400"}
+              `}
+            >
+              {isHover ? <PlayIcon size={12} color={`#a3a3a3`} /> : index}
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-y-1 overflow-hidden">
+      )}
+      <div className={`flex items-center gap-4 pr-2`}>
+        {type !== "album" && (
+          <div className={`h-10 w-10 aspect-square overflow-hidden relative`}>
+            {imageUrl ? (
+              <Image
+                fill
+                src={imageUrl}
+                sizes="100%"
+                alt="Media-Item"
+                className="object-cover"
+              />
+            ) : (
+              <div
+                className={`h-full w-full items-center flex justify-center bg-neutral-800`}
+              >
+                <SingleMusicNote />
+              </div>
+            )}
+          </div>
+        )}
+        <div
+          className={`flex flex-col justify-between h-full gap-[5px] flex-1 overflow-hidden`}
+        >
           <p
-            className={` hover:underline  truncate ${
-              isActived ? "text-[#2ed760]" : "text-white"
-            }`}
+            className={`
+              ${isActived ? "text-[#2ed760]" : "text-white"}
+              text-base p-0 m-0 line-clamp-1 truncate break-all`}
           >
-            {data.title}
+            {song.title}
           </p>
-          <p className="text-neutral-400 text-sm truncate">{data.author}</p>
+          {type !== "artist" && (
+            <div className={`flex items-center gap-[3px] w-full truncate`}>
+              {isExplicit && (
+                <span className="text-[9px] px-[6px] py-[3px] uppercase text-neutral-400">
+                  E
+                </span>
+              )}
+              {/* <SubTitle data={artists} /> */}
+              <p className="text-neutral-400 text-sm truncate">{song.author}</p>
+            </div>
+          )}
         </div>
       </div>
-
-      {isCreatedAt && (
-        <div
-          className={`${
-            width <= 781 ? "hidden" : "flex"
-          } text-neutral-400 text-sm items-center justify-end select-none`}
-        >
-          {dayjs(data.created_at).format("DD-MM-YYYY")}
-        </div>
+      {type !== "album" && type !== "search" && (
+        <>
+          <p className="text-neutral-400 text-sm truncate">{song.title}</p>
+          {width > 780 && (
+            <div className={"text-sm text-neutral-400"}>
+              {dayjs(song.created_at).format("DD-MM-YYYY")}
+            </div>
+          )}
+        </>
       )}
+      <div className={`group flex gap-x-3 justify-end items-center`}>
+        <LikeButton isSelected={isSelected} songId={song.id} size={20} />
 
-      {isDuration && (
-        <div
-          className={`${
-            width <= 551 ? "hidden" : "flex"
-          } text-neutral-400 text-sm items-center justify-end select-none`}
-        >
+        <div className={"text-sm text-neutral-400"}>
           {getDurationSong({
-            milliseconds: data?.duration_ms ? data?.duration_ms : 0,
+            milliseconds: song?.duration_ms ? song?.duration_ms : 0,
           })}
         </div>
-      )}
 
-      {children}
+        {playlist?.id ? (
+          <MediaDropdown
+            className={`${isHover ? "opacity-100" : "opacity-0"}`}
+            songId={song.id}
+            playlistId={playlist.id}
+          />
+        ) : null}
+      </div>
     </div>
   );
 };
 
-export default MediaItem;
+export default memo(MediaItem);

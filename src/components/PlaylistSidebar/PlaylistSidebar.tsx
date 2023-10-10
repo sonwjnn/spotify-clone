@@ -3,7 +3,6 @@
 import { Playlist } from "@/types/types";
 import PlaylistItemDropdown from "./PlaylistItemDropdown";
 import PlaylistItem from "./PlaylistItem";
-import { useEffect } from "react";
 
 interface PlaylistSidebarProps {
   data: Playlist[];
@@ -13,9 +12,6 @@ const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
   data,
   likedPlaylist,
 }) => {
-  useEffect(() => {
-    console.log(likedPlaylist);
-  }, [likedPlaylist]);
   return (
     <div className="flex flex-col gap-y-2 mt-2 px-3 pb-2">
       {data.map((item) => (

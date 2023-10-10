@@ -47,6 +47,8 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
               sizes="100%"
               alt="Media-Item"
               className="object-cover"
+              blurDataURL={imageUrl}
+              placeholder="blur"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-neutral-800">

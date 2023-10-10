@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface HeaderStore {
   bgBase: string;
@@ -12,16 +13,24 @@ interface HeaderStore {
   setBgBase: (bgColor: string) => void;
 }
 
-const useHeader = create<HeaderStore>()((set) => ({
-  bgBase: "#3f3f46",
-  bgColor: "#3f3f46",
-  hasBgImage: true,
-  width: 0,
-  height: 0,
-  setHeight: (height: number) => set({ height }),
-  setHasBgImage: (hasBgImage: boolean) => set({ hasBgImage }),
-  setBgColor: (bgColor: string) => set({ bgColor }),
-  setBgBase: (bgBase: string) => set({ bgBase }),
-}));
+const useHeader = create<HeaderStore>()(
+  persist(
+    (set) => ({
+      bgBase: "#3f3f46",
+      bgColor: "#3f3f46",
+      hasBgImage: true,
+      width: 0,
+      height: 0,
+      setHeight: (height: number) => set({ height }),
+      setHasBgImage: (hasBgImage: boolean) => set({ hasBgImage }),
+      setBgColor: (bgColor: string) => set({ bgColor }),
+      setBgBase: (bgBase: string) => set({ bgBase }),
+    }),
+    {
+      name: "header-storage",
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+);
 
 export default useHeader;

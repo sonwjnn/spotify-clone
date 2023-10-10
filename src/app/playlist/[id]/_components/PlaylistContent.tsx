@@ -18,6 +18,7 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({
   addedSongs,
 }) => {
   const { user } = useUser();
+
   const router = useRouter();
   const unaddedSongs = songs.filter(
     (song: Song) => !playlist?.song_ids?.includes(song.id)

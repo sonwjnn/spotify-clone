@@ -60,9 +60,11 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
           "
               src={imagePath}
               fill
-              alt="Img"
+              alt="playlist image"
               sizes="100%"
               priority={true}
+              blurDataURL={imagePath}
+              placeholder="blur"
             />
           </div>
         ) : (

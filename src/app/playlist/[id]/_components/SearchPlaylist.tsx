@@ -2,14 +2,12 @@
 
 import { SearchIcon } from "@/public/icons";
 import Input from "@/components/Input";
-import MediaItem from "@/components/MediaItem";
-import PlaylistButton from "@/components/PlaylistButton";
 import useDebounce from "@/hooks/useDebounce";
-import useOnPlay from "@/hooks/useOnPlay";
 import useMainLayout from "@/stores/useMainLayout";
 import { Playlist, Song } from "@/types/types";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
+import MediaList from "@/components/MediaList";
 
 interface SearchPlaylistProps {
   songs: Song[];
@@ -24,7 +22,6 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
   const [value, setValue] = useState<string>("");
   const [songs, setSongs] = useState<Song[]>([]);
   const debouncedValue = useDebounce<string>(value, 500);
-  const onPlay = useOnPlay(songs);
 
   useEffect(() => {
     const fetchDataByTitle = async () => {
@@ -68,38 +65,7 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
         />
       </div>
 
-      <div className="flex flex-col gap-y-6 w-full px-6 pb-2 min-h-[70vh]">
-        {songs.map((song, index) => (
-          <div key={song.id} className="flex items-center gap-x-4 w-full ">
-            <div className="flex-1">
-              <MediaItem
-                onClick={(id: string) => onPlay(id)}
-                className={`grid gap-4 search-layout-grid ${
-                  width <= 550
-                    ? "search-layout-grid-sm"
-                    : width <= 780
-                    ? "search-layout-grid-md"
-                    : width <= 440
-                    ? "search-layout-grid-se"
-                    : null
-                }`}
-                data={song}
-                index={index + 1}
-                isDuration={true}
-                isCreatedAt={true}
-              >
-                <div className={`flex items-center justify-end`}>
-                  <PlaylistButton
-                    type="add"
-                    songId={song.id}
-                    playlistId={playlist.id}
-                  />
-                </div>
-              </MediaItem>
-            </div>
-          </div>
-        ))}
-      </div>
+      <MediaList type="search" songs={songs} />
     </>
   );
 };

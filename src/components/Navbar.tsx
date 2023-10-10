@@ -127,11 +127,12 @@ const Navbar: React.FC<NavbarProps> = (props) => {
     >
       <div
         className={twMerge(
-          `rounded-t-lg absolute top-0 h-full left-0 ${
+          `rounded-t-lg absolute top-0 h-full left-0  ${
             darker && "brightness-50"
-          }  right-0 z-10 `
+          }  right-0 z-10`
         )}
         style={{
+          transition: "background-color 1s ease",
           opacity: opacity,
           backgroundColor: bgColor || data?.bg_color,
         }}

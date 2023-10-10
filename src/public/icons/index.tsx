@@ -344,11 +344,13 @@ export function PlayingSidebarIcon(props: Partial<IconProps>) {
   );
 }
 
-export function QueueIcon() {
+export function QueueIcon(props: Partial<IconProps>) {
+  const { color = "currentColor" } = props;
+
   return (
     <svg
       role="img"
-      fill="currentColor"
+      fill={color}
       height="16"
       width="16"
       aria-hidden="true"

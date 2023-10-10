@@ -77,6 +77,8 @@ const PlayingSidebar: React.FC = () => {
                     fill
                     alt="Img"
                     sizes="100%"
+                    blurDataURL={imagePath}
+                    placeholder="blur"
                   />
                 </div>
               ) : (

@@ -31,6 +31,8 @@ const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
                 sizes="100%"
                 alt="Media-Item"
                 className="object-cover"
+                blurDataURL={imageUrl}
+                placeholder="blur"
               />
             ) : (
               <div className="w-full aspect-square h-full flex items-center justify-center bg-neutral-800">

@@ -13,15 +13,18 @@ import { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 interface MediaDropdownProps {
   songId: string;
   playlistId: string;
+  className?: string;
 }
 
 const MediaDropdown: React.FC<MediaDropdownProps> = ({
   songId,
   playlistId,
+  className,
 }) => {
   const { user, subscription } = useUser();
   const authModal = useAuthModal();
@@ -85,9 +88,10 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
     >
       <DropdownMenu.Trigger asChild>
         <div
-          className={
-            "w-8 h-8 rounded-full transition relative hover:bg-neutral-800"
-          }
+          className={twMerge(
+            `w-8 h-8 rounded-full transition relative hover:bg-neutral-800`,
+            className
+          )}
         >
           <button
             className="absolute flex items-center justify-center  right-[1px] border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition"

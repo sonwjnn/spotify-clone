@@ -31,17 +31,6 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
     }
   };
 
-  if (!user || !subscription) {
-    return (
-      <div
-        onClick={handleClick}
-        className="flex justify-center items-center text-center w-full px-4 mt-8 text-neutral-400 hover:text-white transition cursor-pointer"
-      >
-        Log in and subscribe to view your playlists.
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col ">
       <div
@@ -77,7 +66,15 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
           </button>
         </div>
       </div>
-      {!playlists.length && !likedPlaylists.length ? (
+
+      {!user || !subscription ? (
+        <div
+          onClick={handleClick}
+          className="flex justify-center items-center text-center w-full px-4 my-8 text-neutral-400 hover:text-white transition cursor-pointer"
+        >
+          Log in and subscribe to view your playlists.
+        </div>
+      ) : !playlists.length && !likedPlaylists.length ? (
         <div
           onClick={handleClick}
           className="flex justify-center items-center text-center w-full px-4 my-8 text-neutral-400 hover:text-white transition cursor-pointer"
@@ -85,17 +82,18 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
           You have no any playlists, create your playlists.
         </div>
       ) : (
-        <PlaylistSidebar data={playlists} likedPlaylist={likedPlaylists} />
+        <>
+          <PlaylistSidebar data={playlists} likedPlaylist={likedPlaylists} />
+          <div className="px-3 pb-2">
+            <ListItem
+              image="/images/liked.png"
+              name="Liked Songs"
+              href="/liked"
+              count={likedSongs.length}
+            />
+          </div>
+        </>
       )}
-
-      <div className="mt-2 px-3 pb-2">
-        <ListItem
-          image="/images/liked.png"
-          name="Liked Songs"
-          href="/liked"
-          count={likedSongs.length}
-        />
-      </div>
     </div>
   );
 };

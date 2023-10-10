@@ -1,14 +1,12 @@
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import PageWrapper from "@/components/PageWrapper";
-import HeaderPlaylistContent from "./components/HeaderPlaylistContent";
+import HeaderPlaylistContent from "./_components/HeaderPlaylistContent";
 import getPlaylistById from "@/server-actions/playlists/getPlaylistById";
-import PlaylistContent from "./components/PlaylistContent";
+import PlaylistContent from "./_components/PlaylistContent";
 import getSongsByTitle from "@/server-actions/songs/getSongsByTitle";
 import getSongsByIds from "@/server-actions/songs/getSongsByIds";
 import Footer from "@/components/Footer";
-import { useUser } from "@/hooks/useUser";
-import { useRouter } from "next/navigation";
 
 interface PlaylistProps {
   params: {

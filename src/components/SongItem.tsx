@@ -31,6 +31,8 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
             alt="song img"
             sizes="100%"
             priority={true}
+            blurDataURL={imagePath}
+            placeholder="blur"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-neutral-800">

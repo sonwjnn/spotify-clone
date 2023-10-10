@@ -25,9 +25,21 @@ interface NavbarProps {
   className?: string;
   bgColor?: string;
   darker?: boolean;
+  type?:
+    | "default"
+    | "home"
+    | "section"
+    | "search"
+    | "artist"
+    | "genre"
+    | "playlist";
 }
 
-const Navbar: React.FC<NavbarProps> = ({ className, darker = true }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  className,
+  darker = true,
+  type = "default",
+}) => {
   const router = useRouter();
   const authModal = useAuthModal();
   const { user } = useUser();
@@ -80,12 +92,17 @@ const Navbar: React.FC<NavbarProps> = ({ className, darker = true }) => {
       <div
         className={twMerge(
           `rounded-t-lg absolute top-0 h-full left-0 ${
-            darker && "brightness-50"
+            darker && "brightness-65"
           }  right-0 z-10 `
         )}
         style={{
+          transition: "background-color 1s ease",
           opacity: opacity,
           backgroundColor: bgColor,
+          backgroundImage: `${
+            type === "home" &&
+            "linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6))"
+          }`,
         }}
       ></div>
       <div

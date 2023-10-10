@@ -36,16 +36,16 @@ const Header: React.FC<HeaderProps> = ({
     <div
       className={twMerge(
         ` h-fit flex ${
-          type === "playlist" ? "justify-center" : "justify-start"
+          type === "playlist"
+            ? "justify-center header-bg-img-sm"
+            : "justify-start header-bg-img-md"
         } md:justify-start items-end  p-6 pt-16 ${
           type === "playlist" && width <= 768 ? "550px" : "340px"
-        }`,
+        } `,
         className
       )}
       style={{
-        backgroundImage: `linear-gradient(to bottom, ${
-          bgColor || data?.bg_color
-        }, rgba(255,0,0,0))`,
+        backgroundColor: `${bgColor || data?.bg_color}`,
       }}
       ref={headerRef}
     >

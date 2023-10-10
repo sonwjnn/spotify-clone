@@ -2,13 +2,12 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { MusicNote, PlayIcon } from "@/public/icons";
+import { MusicNote } from "@/public/icons";
 import { Playlist } from "@/types/types";
 import { buckets } from "@/utils/constants";
 import useHeader from "@/stores/useHeader";
 import PlayButton from "./PlayButton";
 import useLoadImage from "@/hooks/useLoadImage";
-import { useEffect } from "react";
 
 interface PlaylistRecommendProps {
   data: Playlist;
@@ -51,6 +50,8 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
             src={imageUrl}
             alt="Image"
             sizes="100%"
+            blurDataURL={imageUrl}
+            placeholder="blur"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-neutral-800">
