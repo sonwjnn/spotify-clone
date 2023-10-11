@@ -7,7 +7,7 @@ import {
   QueueIcon,
   SoundIcon,
   SoundLevel,
-} from '/public/icons'
+} from '../../../public/icons'
 import Slider from '../ui/Slider'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import usePlayer from '@/stores/usePlayer'

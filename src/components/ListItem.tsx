@@ -1,7 +1,7 @@
 'use client'
 
 import { useUser } from '@/hooks/useUser'
-import { MusicNote } from '/public/icons'
+import { MusicNote } from '../../public/icons'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 

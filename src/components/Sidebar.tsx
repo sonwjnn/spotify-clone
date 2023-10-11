@@ -7,7 +7,7 @@ import {
   HomeIcon,
   SearchActiveIcon,
   SearchIcon,
-} from '/public/icons'
+} from '../../public/icons'
 import Box from './ui/Box'
 import { IconType } from 'react-icons'
 import Link from 'next/link'

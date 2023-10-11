@@ -1,6 +1,6 @@
 'use client'
 
-import { PlayIcon, SingleMusicNote } from '/public/icons'
+import { PlayIcon, SingleMusicNote } from '../../public/icons'
 import { MediaItemProps } from '@/types/track'
 import { getDurationSong } from '@/utils/durationConvertor'
 import React, { memo, useState } from 'react'

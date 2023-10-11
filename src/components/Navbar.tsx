@@ -8,7 +8,7 @@ import {
   HomeIcon,
   SearchActiveIcon,
   SearchIcon,
-} from '/public/icons'
+} from '../../public/icons'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Button from './ui/Button'
 import useAuthModal from '@/hooks/useAuthModal'
