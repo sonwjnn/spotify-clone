@@ -17,6 +17,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   useEffect(() => {
     setPlayBtnVisible(false)
     setOpacity(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {

@@ -87,6 +87,7 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     }
 
     return () => sound?.unload()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sound])
 
   useEffect(() => {
@@ -101,6 +102,7 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     } else {
       clearInterval(intervalIdRef?.current)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, currentTime])
 
   useEffect(() => {
