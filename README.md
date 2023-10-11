@@ -33,8 +33,7 @@
     <img align="center" width="100%" src="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/public/images/demo/showcase_2.png" />   
 </p>
 
-</br>
-For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing/)
+For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing)
 
 ## Prerequisites
 
