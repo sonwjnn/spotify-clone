@@ -148,7 +148,7 @@ const UploadPlaylistModal = () => {
           <div className="w-[180px] h-[180px] shadow-xl">
             <label
               htmlFor="playlist_img"
-              className="w-[180px]  h-[180px] rounded-sm flex items-center justify-center"
+              className="w-[180px] text-white  h-[180px] rounded-sm flex items-center justify-center"
             >
               {file !== '' ? (
                 <div className="relative aspect-square h-full w-full rounded-sm overflow-hidden">
@@ -178,7 +178,7 @@ const UploadPlaylistModal = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-y-4 w-full">
+          <div className="flex flex-col gap-y-4 w-full text-white ">
             <Input
               className="bg-neutral-800"
               id="title"
@@ -188,7 +188,7 @@ const UploadPlaylistModal = () => {
             />
             <textarea
               id="description"
-              className="border border-transparent px-3 py-3 text-sm resize-none outline-none w-full h-full bg-neutral-800 rounded-md placeholder:text-neutral-400 disabled:cursor-not-allowed focus:outline-none"
+              className="border border-transparent px-3 py-3 text-white  text-sm resize-none outline-none w-full h-full bg-neutral-800 rounded-md placeholder:text-neutral-400 disabled:cursor-not-allowed focus:outline-none"
               {...register('description', { required: false })}
               placeholder="Write your description"
             />
