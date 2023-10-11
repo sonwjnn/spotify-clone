@@ -21,22 +21,20 @@
   </a>
 </div>
 
-
-
 ### ✨ [Demo](https://sonwin-spotify-clone.vercel.app/)
+
 <p align="center">
-    <img align="center" width="100%" src="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/src/public/images/demo/showcase_1.png" /> 
+    <img align="center" width="100%" src="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/public/images/demo/showcase_1.png" /> 
 </p>
 
 </br>
 
 <p align="center">
-    <img align="center" width="100%" src="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/src/public/images/demo/showcase_2.png" />   
+    <img align="center" width="100%" src="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/public/images/demo/showcase_2.png" />   
 </p>
 
 </br>
 For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing/)
-
 
 ## Prerequisites
 
@@ -44,6 +42,7 @@ For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing/)
 - node >=v18.16.0
 
 ## Cloning the repository
+
 ```sh
 git clone https://github.com/sonwjnn/sonwin-spotify-clone.git
 ```
@@ -55,6 +54,7 @@ yarn install
 ```
 
 ## Setup .env file
+
 ```sh
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
@@ -66,6 +66,7 @@ STRIPE_WEBHOOK_SECRET=
 ```
 
 ## Add SQL Tables
+
 Use `database.sql` file, create songs and liked_songs table ...
 
 ## Usage
@@ -78,7 +79,7 @@ yarn dev
 
 👤 **Hoang Son**
 
-* Github: [@sonwjnn](https://github.com/sonwjnn)
+- Github: [@sonwjnn](https://github.com/sonwjnn)
 
 ## 🤝 Contributing
 

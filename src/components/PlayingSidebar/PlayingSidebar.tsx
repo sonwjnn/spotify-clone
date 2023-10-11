@@ -1,6 +1,6 @@
 'use client'
 
-import { CloseIcon, MusicNote } from '/public/icons'
+import { CloseIcon, MusicNote } from '../../../public/icons'
 import NextSong from './NextSong'
 import Image from 'next/image'
 import LikeButton from '../LikeButton'

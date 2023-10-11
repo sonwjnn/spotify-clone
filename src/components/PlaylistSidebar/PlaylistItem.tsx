@@ -2,7 +2,7 @@
 
 import useLoadImage from '@/hooks/useLoadImage'
 import usePlaylistModal from '@/hooks/usePlaylistModal'
-import { MusicNote, SoundIconSolid } from '/public/icons'
+import { MusicNote, SoundIconSolid } from '../../../public/icons'
 import usePlayer from '@/stores/usePlayer'
 import { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'

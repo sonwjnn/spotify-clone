@@ -5,7 +5,7 @@ import { Song } from '@/types/types'
 import Image from 'next/image'
 import PlayButton from './PlayButton'
 import usePlayer from '@/stores/usePlayer'
-import { MusicNote } from '/public/icons'
+import { MusicNote } from '../../public/icons'
 
 interface SongItemProps {
   data: Song

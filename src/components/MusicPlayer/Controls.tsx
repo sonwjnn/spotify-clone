@@ -5,7 +5,8 @@ import {
   ShuffleIcon,
   SkipBackIcon,
   SkipForwardIcon,
-} from '/public/icons'
+} from '../../../public/icons'
+
 import usePlayer from '@/stores/usePlayer'
 import PlayButton from '../PlayButton'
 

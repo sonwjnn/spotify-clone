@@ -3,7 +3,7 @@
 import { Song } from '@/types/types'
 import LikeButton from '../LikeButton'
 import Image from 'next/image'
-import { MusicNote } from '/public/icons'
+import { MusicNote } from '../../../public/icons'
 import useLoadImage from '@/hooks/useLoadImage'
 import { buckets } from '@/utils/constants'
 

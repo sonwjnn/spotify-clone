@@ -1,6 +1,6 @@
 'use client'
 
-import { MusicNote } from '/public/icons'
+import { MusicNote } from '../../../../../public/icons'
 import useAuthModal from '@/hooks/useAuthModal'
 import useLoadImage from '@/hooks/useLoadImage'
 import usePlaylistModal from '@/hooks/usePlaylistModal'

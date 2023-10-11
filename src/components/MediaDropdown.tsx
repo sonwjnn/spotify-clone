@@ -2,7 +2,7 @@
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { DeleteIcon } from '/public/icons'
+import { DeleteIcon } from '../../public/icons'
 import { BsThreeDots } from 'react-icons/bs'
 
 import { useUser } from '@/hooks/useUser'
