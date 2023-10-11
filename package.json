@@ -14,7 +14,7 @@
     "url": "https://github.com/sonwjnn/sonwin-spotify-clone/issues"
   },
   "engines": {
-    "yarn": ">=1.22.19",
+    "yarn": ">=1.22.17",
     "node": ">=v18.16.0"
   },
   "scripts": {
