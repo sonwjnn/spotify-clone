@@ -15,7 +15,6 @@ import { MusicNote } from '@/public/icons'
 import Image from 'next/image'
 import useLoadImage from '@/hooks/useLoadImage'
 import { buckets } from '@/utils/constants'
-import usePlaylistStore from '@/stores/usePlaylistStore'
 import { usePalette } from 'color-thief-react'
 
 const UploadPlaylistModal = () => {

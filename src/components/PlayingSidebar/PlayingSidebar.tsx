@@ -2,7 +2,6 @@
 
 import { CloseIcon, MusicNote } from '@/public/icons'
 import NextSong from './NextSong'
-import Box from '../ui/Box'
 import Image from 'next/image'
 import LikeButton from '../LikeButton'
 
