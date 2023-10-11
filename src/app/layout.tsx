@@ -16,11 +16,11 @@ import getLikedPlaylists from '@/server-actions/playlists/getLikedPlaylists'
 const circularSp = localFont({
   src: [
     {
-      path: '../public/fonts/CircularSp-Book.woff2',
+      path: '../../public/fonts/CircularSp-Book.woff2',
       weight: '400',
     },
     {
-      path: '../public/fonts/CircularSp-Bold.woff2',
+      path: '../../public/fonts/CircularSp-Bold.woff2',
       weight: '700',
     },
   ],

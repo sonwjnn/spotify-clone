@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { MusicNote } from '@/public/icons'
+import { MusicNote } from '/public/icons'
 import { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 import useHeader from '@/stores/useHeader'

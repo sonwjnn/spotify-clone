@@ -3,7 +3,7 @@
 import qs from 'query-string'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { SearchIcon } from '@/public/icons'
+import { SearchIcon } from '/public/icons'
 
 import useDebounce from '@/hooks/useDebounce'
 

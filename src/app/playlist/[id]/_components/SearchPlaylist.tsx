@@ -1,6 +1,6 @@
 'use client'
 
-import { SearchIcon } from '@/public/icons'
+import { SearchIcon } from '/public/icons'
 import Input from '@/components/ui/Input'
 import useDebounce from '@/hooks/useDebounce'
 import useMainLayout from '@/stores/useMainLayout'

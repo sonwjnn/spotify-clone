@@ -1,6 +1,6 @@
 'use client'
 
-import { MusicNote, PlayIcon, SingleMusicNote } from '@/public/icons'
+import { MusicNote, PlayIcon, SingleMusicNote } from '/public/icons'
 import { FC, useState } from 'react'
 import Image from 'next/image'
 import useLoadImage from '@/hooks/useLoadImage'
