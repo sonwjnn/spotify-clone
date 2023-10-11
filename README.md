@@ -1,34 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">Welcome to sonwin-spotify-clone 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
+  <img src="https://img.shields.io/badge/yarn-%3E%3D1.22.19-blue.svg" />
+  <img src="https://img.shields.io/badge/node-%3E%3Dv18.16.0-blue.svg" />
+  <a href="https://github.com/sonwjnn/sonwin-spotify-clone#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/sonwjnn/sonwin-spotify-clone/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/sonwjnn/sonwin-spotify-clone" />
+  </a>
+</p>
 
-## Getting Started
+> My spotify clone use reactjs + nextjs 13 + typescript.
 
-First, run the development server:
+### 🏠 [Homepage](https://github.com/sonwjnn/sonwin-spotify-clone#readme)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+### ✨ [Demo](https://sonwin-spotify-clone.vercel.app/)
+
+## Prerequisites
+
+- yarn >=1.22.19
+- node >=v18.16.0
+
+## Install
+
+```sh
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Author
 
-## Learn More
+👤 **Hoang Son**
 
-To learn more about Next.js, take a look at the following resources:
+* Github: [@sonwjnn](https://github.com/sonwjnn)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/sonwjnn/sonwin-spotify-clone/issues). You can also take a look at the [contributing guide](https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/CONTRIBUTING.md).
 
-## Deploy on Vercel
+## Show your support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Give a ⭐️ if this project helped you!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 📝 License
+
+Copyright © 2023 [Hoang Son](https://github.com/sonwjnn).<br />
+This project is [MIT](https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/LICENSE) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

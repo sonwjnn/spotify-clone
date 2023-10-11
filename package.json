@@ -2,6 +2,21 @@
   "name": "sonwin-spotify-clone",
   "version": "0.1.0",
   "private": true,
+  "description": "My spotify clone use reactjs + nextjs 13 + typescript.",
+  "author": "Hoang Son",
+  "license": "MIT",
+  "homepage": "https://github.com/sonwjnn/sonwin-spotify-clone#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonwjnn/sonwin-spotify-clone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sonwjnn/sonwin-spotify-clone/issues"
+  },
+  "engines": {
+    "yarn": ">=1.22.19",
+    "node": ">=v18.16.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
