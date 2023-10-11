@@ -14,7 +14,7 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
   const [currentHour, setCurrentHour] = useState(new Date().getHours())
   const [isHover, setHover] = useState(false)
   const { width } = useMainLayout()
-  const { bgBase, setBgBase } = useHeader()
+  const { setBgBase } = useHeader()
 
   useEffect(() => {
     const intervalId = setInterval(() => {

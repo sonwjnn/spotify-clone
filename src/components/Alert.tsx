@@ -12,7 +12,7 @@ interface AlertProps {
 const Alert: React.FC<AlertProps> = props => {
   const { type = 'notfound' } = props
 
-  const { documentTitle, message } = useMemo(() => {
+  const { message } = useMemo(() => {
     switch (type) {
       case 'notfound':
         return {

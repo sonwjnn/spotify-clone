@@ -1,7 +1,7 @@
 'use client'
 
 import Marquee from 'react-fast-marquee'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import useComponentSize from '@/hooks/useComponentSize'
 import { useIsOverflow } from '@/hooks/useIsOverflow'
 
