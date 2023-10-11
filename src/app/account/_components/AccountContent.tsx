@@ -25,7 +25,7 @@ const AccountContent = () => {
     setLoading(true)
 
     try {
-      const { url, error } = await postData({
+      const { url } = await postData({
         url: '/api/create-portal-link',
       })
 
