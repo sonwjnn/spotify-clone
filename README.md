@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to sonwin-spotify-clone 👋</h1>
+<h1 align="center">Full Stack Spotify Clone with Next.js 13.5 App Router: React, Tailwind, Supabase, PostgreSQL, Stripe 🔥</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/yarn-%3E%3D1.22.19-blue.svg" />
@@ -14,7 +14,7 @@
   </a>
 </p>
 
-> My spotify clone use reactjs + nextjs 13 + typescript.
+
 
 ### 🏠 [Homepage](https://github.com/sonwjnn/sonwin-spotify-clone#readme)
 
