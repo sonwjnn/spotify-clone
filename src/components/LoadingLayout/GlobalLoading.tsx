@@ -1,7 +1,7 @@
 'use client'
 
 import { BounceLoader } from 'react-spinners'
-import Box from '../Box'
+import Box from '../ui/Box'
 
 const GlobalLoading: React.FC = () => {
   return (

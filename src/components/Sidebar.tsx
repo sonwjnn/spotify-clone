@@ -8,7 +8,7 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import Box from './Box'
+import Box from './ui/Box'
 import { IconType } from 'react-icons'
 import Link from 'next/link'
 import Library from './Library'

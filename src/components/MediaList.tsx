@@ -23,7 +23,7 @@ const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
       className={cn(
         `
         grid grid-cols-list-5 group gap-4
-        w-full  items-center px-4 h-9 border border-transparent border-b border-b-[hsla(0,0%,100%,0.1)] mb-2
+        w-full z-10  items-center px-4 h-9 border border-transparent border-b border-b-[hsla(0,0%,100%,0.1)] mb-2
         `,
         className,
         {
@@ -92,28 +92,27 @@ const MediaList: React.FC<MediaListProps> = ({
   return (
     <>
       <div
-        className="flex flex-col  w-full px-6 pb-2 min-h-[20vh]"
+        className="flex flex-col z-10  w-full px-6 pb-2 min-h-[20vh]"
         ref={wrapperRef}
       >
         {songs.length ? <ListBar type={type} /> : null}
         {songs.map((song, index) => (
-          <div key={song.id} className="flex items-center gap-x-4 w-full">
-            <div
-              className="flex-1"
-              onClick={() => setSelectedId(song.id)}
-              onDoubleClick={() => {
-                handleOnPlay(song.id)
-              }}
-            >
-              <MediaItem
-                type={type}
-                song={song}
-                playlist={playlist}
-                index={type !== 'queue' ? index + 1 : index + 2}
-                isSelected={selectedId === song.id}
-                isActived={player.activeId === song.id}
-              />
-            </div>
+          <div
+            key={song.id}
+            onClick={() => setSelectedId(song.id)}
+            onDoubleClick={() => {
+              handleOnPlay(song.id)
+            }}
+            className="flex items-center gap-x-4 w-full z-10"
+          >
+            <MediaItem
+              type={type}
+              song={song}
+              playlist={playlist}
+              index={type !== 'queue' ? index + 1 : index + 2}
+              isSelected={selectedId === song.id}
+              isActived={player.activeId === song.id}
+            />
           </div>
         ))}
       </div>

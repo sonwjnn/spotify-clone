@@ -7,7 +7,7 @@ import { SearchIcon } from '@/public/icons'
 
 import useDebounce from '@/hooks/useDebounce'
 
-import Input from './Input'
+import Input from './ui/Input'
 import { twMerge } from 'tailwind-merge'
 
 interface SearchInputProps {

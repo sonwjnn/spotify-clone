@@ -7,17 +7,15 @@ import Footer from '@/components/Footer'
 
 const Liked = async () => {
   return (
-    <div className="relative h-full w-full">
+    <PageWrapper>
       <Navbar bgColor="#543ca2" />
-      <PageWrapper>
-        <Header type="playlist" bgColor="#543ca2">
-          <HeaderContent />
-        </Header>
+      <Header type="playlist" bgColor="#543ca2">
+        <HeaderContent />
+      </Header>
 
-        <LikedContent bgColor="#543ca2" />
-        <Footer />
-      </PageWrapper>
-    </div>
+      <LikedContent bgColor="#543ca2" />
+      <Footer />
+    </PageWrapper>
   )
 }
 export default Liked

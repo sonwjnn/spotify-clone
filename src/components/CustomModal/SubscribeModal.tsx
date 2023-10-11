@@ -1,8 +1,8 @@
 'use client'
 
 import { Price, ProductWithPrice } from '@/types/types'
-import Modal from './Modal'
-import Button from '../Button'
+import Modal from '../ui/Modal'
+import Button from '../ui/Button'
 import { useUser } from '@/hooks/useUser'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'

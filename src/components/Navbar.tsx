@@ -10,7 +10,7 @@ import {
   SearchIcon,
 } from '@/public/icons'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import Button from './Button'
+import Button from './ui/Button'
 import useAuthModal from '@/hooks/useAuthModal'
 import { FaUserAlt } from 'react-icons/fa'
 import { useUser } from '@/hooks/useUser'
@@ -23,6 +23,8 @@ import { Playlist, Song } from '@/types/types'
 import useOnPlay from '@/hooks/useOnPlay'
 import PlayButton from './PlayButton'
 import useSelectedPlayer from '@/stores/useSelectedPlayer'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import useHeader from '@/stores/useHeader'
 
 interface NavbarProps {
   type?:
@@ -34,7 +36,6 @@ interface NavbarProps {
     | 'genre'
     | 'playlist'
   songs?: Song[]
-  playlist?: Playlist
   className?: string
   darker?: boolean
   data?: Playlist
@@ -47,7 +48,6 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = props => {
   const {
     type = 'default',
-    playlist,
     songs,
     className,
     data,
@@ -62,6 +62,7 @@ const Navbar: React.FC<NavbarProps> = props => {
   const player = usePlayer()
   const params = useParams()
 
+  const { bgColor: bgColorHome } = useHeader()
   const { opacity, playBtnVisible } = useNavStyles()
   const { setSelected } = useSelectedPlayer()
 
@@ -124,7 +125,7 @@ const Navbar: React.FC<NavbarProps> = props => {
   return (
     <div
       className={twMerge(
-        `absolute top-0 right-0 left-0 h-16  rounded-t-lg `,
+        `absolute top-0 right-0 left-0 h-16  rounded-t-lg z-50`,
         className
       )}
     >
@@ -137,7 +138,8 @@ const Navbar: React.FC<NavbarProps> = props => {
         style={{
           transition: 'background-color 1s ease',
           opacity: opacity,
-          backgroundColor: bgColor || data?.bg_color,
+          backgroundColor:
+            type === 'home' ? bgColorHome : bgColor || data?.bg_color,
         }}
       ></div>
 
@@ -160,7 +162,7 @@ const Navbar: React.FC<NavbarProps> = props => {
 
           {playBtnVisible && hasPlayBtn ? (
             <div
-              className={`ml-1  flex gap-x-2 transition  items-center w-full min-w-0 flex-grow max-w-[400px] ${
+              className={`ml-1  flex gap-x-2 transition items-center w-full min-w-0 flex-grow max-w-[400px] ${
                 playBtnVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
@@ -170,8 +172,8 @@ const Navbar: React.FC<NavbarProps> = props => {
                 isPlaying={isPlaying}
               />
 
-              <span className="text-2xl truncate font-bold mr-1">
-                {playlist?.title}
+              <span className="text-white text-2xl truncate font-bold mr-1">
+                {data?.title}
               </span>
             </div>
           ) : null}
@@ -200,12 +202,16 @@ const Navbar: React.FC<NavbarProps> = props => {
               <Button onClick={handleLogout} className="bg-white px-6 py-2">
                 Logout
               </Button>
-              <Button
+
+              <Avatar
                 onClick={() => router.push('/account')}
-                className="bg-white"
+                className="bg-white cursor-pointer"
               >
-                <FaUserAlt />
-              </Button>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>
+                  <FaUserAlt />
+                </AvatarFallback>
+              </Avatar>
             </div>
           ) : (
             <>

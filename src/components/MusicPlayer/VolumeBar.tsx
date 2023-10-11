@@ -1,14 +1,14 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import Tooltip from '../Tooltip'
+import Tooltip from '../ui/Tooltip'
 import {
   PlayingSidebarIcon,
   QueueIcon,
   SoundIcon,
   SoundLevel,
 } from '@/public/icons'
-import Slider from '../Slider'
+import Slider from '../ui/Slider'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import usePlayer from '@/stores/usePlayer'
 import { usePathname, useRouter } from 'next/navigation'

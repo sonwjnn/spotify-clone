@@ -1,6 +1,6 @@
 'use client'
 
-import Button from '@/components/Button'
+import Button from '@/components/ui/Button'
 import MediaItem from '@/components/MediaItem'
 import MediaList from '@/components/MediaList'
 import usePlayer from '@/stores/usePlayer'

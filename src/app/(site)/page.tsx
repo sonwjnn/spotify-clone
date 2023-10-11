@@ -1,11 +1,11 @@
 import getSongs from '@/server-actions/songs/getSongs'
 import HomeContent from './_components/HomeContent'
-import NavbarHome from './_components/NavbarHome'
 import PageWrapper from '@/components/PageWrapper'
 import Greeting from '@/components/Greeting'
 import Footer from '@/components/Footer'
 import getPlaylists from '@/server-actions/playlists/getPlaylists'
-import HeaderHome from './_components/HeaderHome'
+import Navbar from '@/components/Navbar'
+import Header from '@/components/Header'
 
 export const revalidate = 0
 
@@ -14,12 +14,12 @@ const Home = async () => {
   const playlists = await getPlaylists()
   return (
     <PageWrapper>
-      <NavbarHome type="home" />
-      <HeaderHome>
-        <div className="mb-2">
+      <Navbar type="home" />
+      <Header type="home">
+        <div className="mb-2 w-full">
           <Greeting playlists={playlists} />
         </div>
-      </HeaderHome>
+      </Header>
       <div className="mt-2 px-6">
         <div className="flex justify-between items-center">
           <h1 className="text-white text-2xl font-semibold">Newest songs</h1>

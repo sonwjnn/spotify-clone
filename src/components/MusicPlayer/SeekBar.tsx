@@ -1,5 +1,5 @@
 import { getDurationSong } from '@/utils/durationConvertor'
-import Slider from '../Slider'
+import Slider from '../ui/Slider'
 import React from 'react'
 
 interface SeekBarProps {

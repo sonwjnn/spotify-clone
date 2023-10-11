@@ -1,7 +1,7 @@
 'use client'
 
 import { SearchIcon } from '@/public/icons'
-import Input from '@/components/Input'
+import Input from '@/components/ui/Input'
 import useDebounce from '@/hooks/useDebounce'
 import useMainLayout from '@/stores/useMainLayout'
 import { Playlist, Song } from '@/types/types'

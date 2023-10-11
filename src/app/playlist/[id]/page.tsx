@@ -32,26 +32,18 @@ const Playlist = async ({ params, searchParams }: PlaylistProps) => {
   const songs = await getSongsByTitle(searchParams?.title)
 
   return (
-    <div className="relative h-full w-full">
-      <Navbar
-        type="playlist"
-        data={playlist}
-        songs={addedSongs}
+    <PageWrapper>
+      <Navbar type="playlist" data={playlist} songs={addedSongs} hasPlayBtn />
+      <Header data={playlist} type="playlist">
+        <HeaderPlaylistContent data={playlist} songs={addedSongs} />
+      </Header>
+      <PlaylistContent
         playlist={playlist}
-        hasPlayBtn
+        songs={songs}
+        addedSongs={addedSongs}
       />
-      <PageWrapper>
-        <Header data={playlist} type="playlist">
-          <HeaderPlaylistContent data={playlist} songs={addedSongs} />
-        </Header>
-        <PlaylistContent
-          playlist={playlist}
-          songs={songs}
-          addedSongs={addedSongs}
-        />
-        <Footer />
-      </PageWrapper>
-    </div>
+      <Footer />
+    </PageWrapper>
   )
 }
 

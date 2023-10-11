@@ -3,7 +3,7 @@
 import Skeleton from 'react-loading-skeleton'
 import useMainLayout from '@/stores/useMainLayout'
 import Footer from '@/components/Footer'
-import Header from './_components/HeaderHome'
+import Header from '@/components/Header'
 import Navbar from '@/components/Navbar'
 import PageWrapper from '@/components/PageWrapper'
 import useHeader from '@/stores/useHeader'
@@ -16,7 +16,7 @@ const Loading = () => {
       <Navbar bgColor={bgColor} />
       <PageWrapper>
         <Header className="from-emerald-800">
-          <div className="mb-2">
+          <div className="mb-2 w-full">
             <h1 className="text-white text-3xl font-semibold w-[200px]">
               <Skeleton height={'100%'} />
             </h1>

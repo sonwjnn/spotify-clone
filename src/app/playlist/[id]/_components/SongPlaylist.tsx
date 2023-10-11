@@ -49,12 +49,16 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
     }
   }
 
+  useEffect(() => {
+    console.log(playlist)
+  }, [playlist])
+
   return (
     <>
       <div className="p-5 px-10 w-full flex gap-x-6 relative">
         <div
           style={{ backgroundColor: `${playlist.bg_color}` }}
-          className="absolute h-[232px] top-0 left-0 right-0 header-bg-img-md z-[-1]"
+          className="absolute h-[232px] top-0 left-0 right-0 header-bg-img-md z-0"
         ></div>
         <PlayButton
           className="opacity-1 translate-y-0 h-14 w-14"

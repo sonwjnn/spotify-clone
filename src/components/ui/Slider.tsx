@@ -1,5 +1,5 @@
 'use client'
-import * as RadixSlider from '@radix-ui/react-slider'
+import * as SliderPrimitive from '@radix-ui/react-slider'
 import { twMerge } from 'tailwind-merge'
 
 interface SliderProps {
@@ -27,7 +27,7 @@ const Slider: React.FC<SliderProps> = ({
   }
 
   return (
-    <RadixSlider.Root
+    <SliderPrimitive.Root
       className={twMerge(
         'group  relative flex items-center select-none cursor-pointer touch-none w-full h-10',
         className
@@ -39,11 +39,11 @@ const Slider: React.FC<SliderProps> = ({
       max={maxValue}
       step={step}
     >
-      <RadixSlider.Track className="bg-neutral-600  relative rounded-full grow h-[3px]">
-        <RadixSlider.Range className="absolute bg-white  group-hover:bg-[#22c55e] rounded-full h-full"></RadixSlider.Range>
-      </RadixSlider.Track>
-      <RadixSlider.Thumb className="absolute right-[-7px]  translate-y-[-50%] w-3 h-3 bg-white scale-0 transition group-hover:scale-100  rounded-[10px] hover:bg-violet3 focus:outline-none " />
-    </RadixSlider.Root>
+      <SliderPrimitive.Track className="bg-neutral-600  relative rounded-full grow h-[3px]">
+        <SliderPrimitive.Range className="absolute bg-white  group-hover:bg-[#22c55e] rounded-full h-full"></SliderPrimitive.Range>
+      </SliderPrimitive.Track>
+      <SliderPrimitive.Thumb className="absolute right-[-7px]  translate-y-[-50%] w-3 h-3 bg-white scale-0 transition group-hover:scale-100  rounded-[10px] hover:bg-violet3 focus:outline-none " />
+    </SliderPrimitive.Root>
   )
 }
 

@@ -22,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({
   bgColor,
   type,
 }) => {
+  const { bgColor: bgColorHeader } = useHeader()
   const { setHeight } = useHeader()
   const { width } = useMainLayout()
   const headerRef = useRef<HTMLDivElement>(null)
@@ -47,7 +48,10 @@ const Header: React.FC<HeaderProps> = ({
         className
       )}
       style={{
-        backgroundColor: `${bgColor || data?.bg_color}`,
+        transition: `background-color 1s ease`,
+        backgroundColor: `${
+          type === 'home' ? bgColorHeader : bgColor || data?.bg_color
+        }`,
       }}
       ref={headerRef}
     >

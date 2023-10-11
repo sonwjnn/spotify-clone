@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import Modal from './Modal'
+import Modal from '../ui/Modal'
 import {
   useSessionContext,
   useSupabaseClient,
