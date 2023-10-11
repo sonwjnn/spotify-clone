@@ -2,7 +2,7 @@
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { AddPlaylistIcon } from '../../public/icons'
+import { AddPlaylistIcon } from '@/public/icons'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { LuListMusic } from 'react-icons/lu'
 

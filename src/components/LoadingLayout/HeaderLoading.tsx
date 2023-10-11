@@ -2,7 +2,7 @@
 
 import { twMerge } from 'tailwind-merge'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
-import { HomeActiveIcon, SearchIcon } from '../../../public/icons'
+import { HomeActiveIcon, SearchIcon } from '@/public/icons'
 import Button from '../ui/Button'
 import { FaUserAlt } from 'react-icons/fa'
 import { useUser } from '@/hooks/useUser'

@@ -5,7 +5,7 @@ import useClickOutside from '@/hooks/useClickOutside'
 import useMainLayout from '@/stores/useMainLayout'
 import { useRef, useState } from 'react'
 import MediaItem from '@/components/MediaItem'
-import { ClockIcon } from '../../public/icons'
+import { ClockIcon } from '@/public/icons'
 
 import { MediaListProps } from '@/types/track'
 import usePlayer from '@/stores/usePlayer'

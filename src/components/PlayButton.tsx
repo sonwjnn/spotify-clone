@@ -1,4 +1,4 @@
-import { PlayIcon, PauseIcon } from '../../public/icons'
+import { PlayIcon, PauseIcon } from '@/public/icons'
 import { twMerge } from 'tailwind-merge'
 
 interface PlayButtonProps {

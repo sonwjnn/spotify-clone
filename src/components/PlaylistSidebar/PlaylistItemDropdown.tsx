@@ -13,7 +13,7 @@ import { usePathname } from 'next/navigation'
 import { buckets } from '@/utils/constants'
 import usePlaylistModal from '@/hooks/usePlaylistModal'
 import { FiEdit } from 'react-icons/fi'
-import { DeleteIcon, AddPlaylistIcon } from '../../../public/icons'
+import { DeleteIcon, AddPlaylistIcon } from '@/public/icons'
 import { TbPin } from 'react-icons/tb'
 
 interface PlaylistItemDropdownProps {

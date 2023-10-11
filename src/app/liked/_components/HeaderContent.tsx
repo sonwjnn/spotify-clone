@@ -27,7 +27,7 @@ const HeaderContent: React.FC<HeaderContentProps> = () => {
         </div>
       </div>
       <div className="flex flex-col gap-y-2 mt-4 md:mt-0">
-        <p className="hidden md:block  text-base">Playlist</p>
+        <p className="text-white hidden md:block  text-base">Playlist</p>
         <h1
           className={`${
             width <= 1012 && '!text-5xl'
@@ -35,7 +35,9 @@ const HeaderContent: React.FC<HeaderContentProps> = () => {
         >
           Liked Songs
         </h1>
-        <p className="hidden md:block text-sm">Your favorite songs</p>
+        <p className="text-white hidden md:block text-sm">
+          Your favorite songs
+        </p>
       </div>
     </div>
   )

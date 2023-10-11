@@ -1,6 +1,6 @@
 'use client'
 
-import { LibraryIcon } from '../../public/icons'
+import { LibraryIcon } from '@/public/icons'
 
 import UploadDropdown from './UploadDropdown'
 import PlaylistSidebar from './PlaylistSidebar/PlaylistSidebar'
