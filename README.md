@@ -24,6 +24,17 @@
 
 
 ### ✨ [Demo](https://sonwin-spotify-clone.vercel.app/)
+<p align="center">
+    <img align="center" width="100%" src="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/src/public/images/demo/showcase_1.png" /> 
+</p>
+
+</br>
+
+<p align="center">
+    <img align="center" width="100%" src="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/src/public/images/demo/showcase_2.png" />   
+</p>
+
+</br>
 For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing/)
 
 
