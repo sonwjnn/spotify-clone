@@ -55,6 +55,3 @@ Give a ⭐️ if this project helped you!
 
 Copyright © 2023 [Hoang Son](https://github.com/sonwjnn).<br />
 This project is [MIT](https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/LICENSE) licensed.
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
