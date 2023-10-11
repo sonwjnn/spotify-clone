@@ -27,7 +27,7 @@ const Loading = () => {
             >
               {Array(6)
                 .fill(0)
-                .map((item, index) => (
+                .map((_, index) => (
                   <button
                     key={index}
                     className="relative h-[80px]  group flex items-center rounded-md overflow-hidden gap-x-4 bg-neutral-100/10  hover:bg-neutral-100/20 transition pr-4"
@@ -62,7 +62,7 @@ const Loading = () => {
           >
             {Array(8)
               .fill(0)
-              .map((item, index) => (
+              .map((_, index) => (
                 <div
                   key={index}
                   className="relative flex flex-col group items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-3"

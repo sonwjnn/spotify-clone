@@ -19,7 +19,7 @@ const Loading = () => {
       <div className="flex flex-col gap-y-2 w-full p-6">
         {Array(6)
           .fill(0)
-          .map((item, index) => (
+          .map((_, index) => (
             <MediaLoading key={index} />
           ))}
       </div>
