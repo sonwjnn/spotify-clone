@@ -57,7 +57,7 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
     setRequired(true)
 
     if (isLiked) {
-      const { data, error } = await supabaseClient
+      const { error } = await supabaseClient
         .from('liked_playlists')
         .delete()
         .eq('user_id', user.id)
