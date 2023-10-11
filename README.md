@@ -1,5 +1,12 @@
-<h1 align="center">Full Stack Spotify Clone with Next.js 13.5 App Router: React, Tailwind, Supabase, PostgreSQL, Stripe 🔥</h1>
-<p>
+<h1 align="center">FullStack Spotify Clone 🔥</h1>
+<div align="center">
+  <strong>:high_brightness: The website to play a music :musical_note:</strong><br>
+  Spotify Clone with Next.js 13.5 App Router: React, Tailwind, Supabase, PostgreSQL, Stripe.<br>
+</div>
+
+<br>
+
+<div align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/yarn-%3E%3D1.22.19-blue.svg" />
   <img src="https://img.shields.io/badge/node-%3E%3Dv18.16.0-blue.svg" />
@@ -12,24 +19,43 @@
   <a href="https://github.com/sonwjnn/sonwin-spotify-clone/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/sonwjnn/sonwin-spotify-clone" />
   </a>
-</p>
+</div>
 
 
-
-### 🏠 [Homepage](https://github.com/sonwjnn/sonwin-spotify-clone#readme)
 
 ### ✨ [Demo](https://sonwin-spotify-clone.vercel.app/)
+For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing/)
+
 
 ## Prerequisites
 
 - yarn >=1.22.19
 - node >=v18.16.0
 
+## Cloning the repository
+```sh
+git clone https://github.com/sonwjnn/sonwin-spotify-clone.git
+```
+
 ## Install
 
 ```sh
 yarn install
 ```
+
+## Setup .env file
+```sh
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+```
+
+## Add SQL Tables
+Use `database.sql` file, create songs and liked_songs table ...
 
 ## Usage
 
