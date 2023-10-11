@@ -2,7 +2,7 @@
 
 import Marquee from 'react-fast-marquee'
 import { useRef } from 'react'
-import useComponentSize from '@/hooks/useComponentSize'
+
 import { useIsOverflow } from '@/hooks/useIsOverflow'
 
 interface MarqueeWrapperProps {
@@ -19,8 +19,6 @@ const MarqueeWrapper: React.FC<MarqueeWrapperProps> = ({
   direction = 'left',
 }) => {
   const marqueeRef = useRef<HTMLDivElement>(null)
-
-  const size = useComponentSize(marqueeRef)
 
   const isOverflow = useIsOverflow(marqueeRef)
 
