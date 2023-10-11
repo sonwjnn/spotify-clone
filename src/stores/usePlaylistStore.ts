@@ -1,6 +1,5 @@
 import { Playlist } from '@/types/types'
 import { getDurationSongs } from '@/utils/durationConvertor'
-import { usePalette } from 'color-thief-react'
 import { create } from 'zustand'
 
 interface PlaylistStoreStore {
