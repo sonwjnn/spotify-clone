@@ -1,10 +1,11 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import SongItem from '@/components/SongItem'
 import useOnPlay from '@/hooks/useOnPlay'
 import useMainLayout from '@/stores/useMainLayout'
-import { Song } from '@/types/types'
-import { useEffect } from 'react'
+import type { Song } from '@/types/types'
 
 interface PageContentProps {
   songs: Song[]
@@ -26,10 +27,10 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
 
   return (
     <div
-      className={` gap-4 mt-4 grid `}
+      className={` mt-4 grid gap-4 `}
       style={{
         gridTemplateColumns: `repeat(${quantityCol}, minmax(0,1fr))`,
-        columnWidth: columnWidth,
+        columnWidth,
       }}
     >
       {songs.map(item => (

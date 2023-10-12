@@ -1,12 +1,15 @@
+import type { NextPage } from 'next'
+
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Navbar from '@/components/Navbar'
 import PageWrapper from '@/components/PageWrapper'
-import HeaderPlaylistContent from './_components/HeaderPlaylistContent'
 import getPlaylistById from '@/server-actions/playlists/getPlaylistById'
-import PlaylistContent from './_components/PlaylistContent'
-import getSongsByTitle from '@/server-actions/songs/getSongsByTitle'
 import getSongsByIds from '@/server-actions/songs/getSongsByIds'
-import Footer from '@/components/Footer'
+import getSongsByTitle from '@/server-actions/songs/getSongsByTitle'
+
+import HeaderPlaylistContent from './_components/HeaderPlaylistContent'
+import PlaylistContent from './_components/PlaylistContent'
 
 interface PlaylistProps {
   params: {
@@ -17,19 +20,22 @@ interface PlaylistProps {
 
 export const revalidate = 0
 
-const Playlist = async ({ params, searchParams }: PlaylistProps) => {
+const Playlist: NextPage<PlaylistProps> = async ({
+  params,
+  searchParams,
+}: PlaylistProps) => {
   const playlist = await getPlaylistById(params.id)
 
   if (!playlist) {
     return (
-      <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
+      <div className="flex w-full flex-col gap-y-2 px-6 text-neutral-400">
         No playlist found.
       </div>
     )
   }
 
   const addedSongs = await getSongsByIds(playlist?.song_ids || [])
-  const songs = await getSongsByTitle(searchParams?.title)
+  const songs = await getSongsByTitle(searchParams?.title as string)
 
   return (
     <PageWrapper>

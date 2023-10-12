@@ -1,19 +1,22 @@
+import type { NextPage } from 'next'
+
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import QueueContent from './_components/QueueContent'
 import Navbar from '@/components/Navbar'
 import PageWrapper from '@/components/PageWrapper'
-import Footer from '@/components/Footer'
+
+import QueueContent from './_components/QueueContent'
 
 export const revalidate = 0
 
-const Queue = async () => {
+const Queue: NextPage = async () => {
   return (
     <div className="relative h-full w-full">
       <Navbar bgColor={'#171717'} darker={false} />
       <PageWrapper>
         <Header bgColor="#171717">
-          <div className="mb-2 flex flex-col gap-y-6  w-full">
-            <h1 className="text-white text-3xl font-semibold pt-10">Queue</h1>
+          <div className="mb-2 flex w-full flex-col  gap-y-6">
+            <h1 className="pt-10 text-3xl font-semibold text-white">Queue</h1>
           </div>
         </Header>
         <QueueContent />

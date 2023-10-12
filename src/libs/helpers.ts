@@ -1,6 +1,6 @@
-import { Price } from '@/types/types'
+import type { Price } from '@/types/types'
 
-export const getURL = () => {
+export const getURL = (): string => {
   let url =
     process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
     process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
@@ -18,7 +18,7 @@ export const postData = async ({
 }: {
   url: string
   data?: { price: Price }
-}) => {
+}): Promise<any> => {
   console.log('posting,', url, data)
 
   const res: Response = await fetch(url, {
@@ -37,8 +37,8 @@ export const postData = async ({
   return res.json()
 }
 
-export const toDateTime = (secs: number) => {
-  var t = new Date('1970-01-01T00:30:00Z') // Unix epoch start.
+export const toDateTime = (secs: number): Date => {
+  const t = new Date('1970-01-01T00:30:00Z') // Unix epoch start.
   t.setSeconds(secs)
   return t
 }

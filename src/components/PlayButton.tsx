@@ -1,5 +1,6 @@
-import { PlayIcon, PauseIcon } from '@/public/icons'
 import { twMerge } from 'tailwind-merge'
+
+import { PauseIcon, PlayIcon } from '@/public/icons'
 
 interface PlayButtonProps {
   onClick?: (value?: any) => void

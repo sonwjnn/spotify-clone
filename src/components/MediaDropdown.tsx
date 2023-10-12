@@ -1,19 +1,18 @@
 'use client'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-
-import { DeleteIcon } from '@/public/icons'
-import { BsThreeDots } from 'react-icons/bs'
-
-import { useUser } from '@/hooks/useUser'
-import useAuthModal from '@/hooks/useAuthModal'
-import useUploadModal from '@/hooks/useUploadModal'
-import useSubscribeModal from '@/hooks/useSubscribeModal'
-import { useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { BsThreeDots } from 'react-icons/bs'
 import { twMerge } from 'tailwind-merge'
+
+import useAuthModal from '@/hooks/useAuthModal'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import useUploadModal from '@/hooks/useUploadModal'
+import { useUser } from '@/hooks/useUser'
+import { DeleteIcon } from '@/public/icons'
 
 interface MediaDropdownProps {
   songId: string
@@ -38,12 +37,18 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
 
   const router = useRouter()
 
-  const onRemove = async () => {
+  const onRemove: () => Promise<void> = async () => {
     if (isRequired) return
 
-    if (!user) return authModal.onOpen()
+    if (!user) {
+      authModal.onOpen()
+      return
+    }
 
-    if (!subscription) return subcribeModal.onOpen()
+    if (!subscription) {
+      subcribeModal.onOpen()
+      return
+    }
 
     setRequired(true)
 
@@ -52,21 +57,27 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
       .select('*')
       .eq('id', playlistId)
       .single()
-    if (playlistError) return toast.error(playlistError.message)
+    if (playlistError) {
+      toast.error(playlistError.message)
+      return
+    }
 
-    let song_ids = data.song_ids || []
+    let songIds = data.song_ids || []
 
-    if (song_ids.length) {
-      song_ids = [...song_ids].filter(id => id !== songId)
+    if (songIds.length) {
+      songIds = [...songIds].filter(id => id !== songId)
     }
 
     const { error } = await supabaseClient.from('playlists').upsert({
       id: playlistId,
-      song_ids: song_ids,
+      songIds,
       user_id: user.id,
     })
 
-    if (error) return toast.error(error.message)
+    if (error) {
+      toast.error(error.message)
+      return
+    }
 
     toast.success('Removed!')
 
@@ -75,7 +86,7 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
     router.refresh()
   }
 
-  const onChange = (open: boolean) => {
+  const onChange = (open: boolean): void => {
     if (!open) {
       setDropdown(false)
     }
@@ -94,7 +105,7 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
           )}
         >
           <button
-            className="absolute flex items-center justify-center  right-[1px] border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition"
+            className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
             aria-label="Customise options"
             onClick={() => setDropdown(!isDropdown)}
           >
@@ -105,22 +116,13 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="min-w-[220px] bg-neutral-800 rounded-md py-1 mr-12 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+          className=" mr-12 min-w-[220px] rounded-md bg-neutral-800 py-1 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
           sideOffset={5}
           hidden={uploadModal.isOpen}
         >
-          {/* <DropdownMenu.Item */}
-          {/* 	onSelect={onUploadPlaylist} */}
-          {/* 	className={`dropdown-menu-item`} */}
-          {/* > */}
-          {/* 	Add to playlist .. */}
-          {/* </DropdownMenu.Item> */}
-          {/**/}
-          {/* <DropdownMenu.Separator className='h-[1px] bg-neutral-700 my-1' /> */}
-
           <DropdownMenu.Item
             onSelect={onRemove}
-            className="text-white dropdown-menu-item mx-1"
+            className="dropdown-menu-item mx-1 text-white"
           >
             <DeleteIcon color="#991b1b" />
             Remove from this playlist

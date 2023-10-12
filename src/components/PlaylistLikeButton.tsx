@@ -1,12 +1,14 @@
 'use client'
-import { useUser } from '@/hooks/useUser'
+
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import useAuthModal from '@/hooks/useAuthModal'
 import { toast } from 'react-hot-toast'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { twMerge } from 'tailwind-merge'
+
+import useAuthModal from '@/hooks/useAuthModal'
+import { useUser } from '@/hooks/useUser'
 
 interface PlaylistLikeButtonProps {
   size?: number
@@ -32,7 +34,7 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
   const [isRequired, setRequired] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       const { data, error } = await supabaseClient
         .from('liked_playlists')
         .select('*')
@@ -50,8 +52,11 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
     fetchData()
   }, [playlistId, supabaseClient, user?.id])
 
-  const handleLike = async () => {
-    if (!user) return authModal.onOpen()
+  const handleLike = async (): Promise<void> => {
+    if (!user) {
+      authModal.onOpen()
+      return
+    }
     if (isRequired) return
 
     setRequired(true)
@@ -63,7 +68,10 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
         .eq('user_id', user.id)
         .eq('playlist_id', playlistId)
 
-      if (error) return toast.error(error.message)
+      if (error) {
+        toast.error(error.message)
+        return
+      }
       setIsLiked(false)
     } else {
       const { error } = await supabaseClient.from('liked_playlists').insert({
@@ -71,7 +79,10 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
         user_id: user.id,
       })
 
-      if (error) return toast.error(error.message)
+      if (error) {
+        toast.error(error.message)
+        return
+      }
 
       setIsLiked(true)
 
@@ -91,8 +102,8 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
       <Icon
         className={` transition ${
           isLiked
-            ? 'hover:brightness-125 text-[#22c55e]'
-            : ' hover:text-white text-neutral-400'
+            ? 'text-[#22c55e] hover:brightness-125'
+            : ' text-neutral-400 hover:text-white'
         }`}
         size={size}
       />

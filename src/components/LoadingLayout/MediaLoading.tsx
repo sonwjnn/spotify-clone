@@ -2,46 +2,46 @@
 
 import Skeleton from 'react-loading-skeleton'
 
-const MediaLoading = () => {
+const MediaLoading: React.FC = () => {
   return (
-    <div className="flex items-center gap-x-4 w-full">
+    <div className="flex w-full items-center gap-x-4">
       <div className="flex-1">
         <div
           className="
-                 flex
-                 item-center
-                 gap-x-3
-                 cursor-pointer
-                 bg-neutral-800/50
-                 w-full
-                 p-2
-                 rounded-md
-              "
+            flex
+            w-full
+            cursor-pointer
+            items-center
+            gap-x-3
+            rounded-md
+          bg-neutral-800/50
+            p-2
+          "
         >
           <div
             className="
                   relative
-                  rounded-md
                   min-h-[48px]
                   min-w-[48px]
                   overflow-hidden
+                  rounded-md
                 "
           >
             <Skeleton width={'100%'} height={'100%'} />
           </div>
           <div
             className="
-                   flex
-                   flex-col
-                   gap-y-1
-                   overflow-hidden
-                   w-full
-                "
+              flex
+              w-full
+              flex-col
+              gap-y-1
+              overflow-hidden
+            "
           >
-            <p className="text-white truncate">
+            <p className="truncate text-white">
               <Skeleton width={'30%'} borderRadius={50} />
             </p>
-            <p className="text-neutral-400 text-sm truncate">
+            <p className="truncate text-sm text-neutral-400">
               <Skeleton width={'20%'} borderRadius={50} />
             </p>
           </div>

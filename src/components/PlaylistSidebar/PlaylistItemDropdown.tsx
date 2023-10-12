@@ -1,20 +1,20 @@
 'use client'
 
-import { useState } from 'react'
 import * as ContextMenu from '@radix-ui/react-context-menu'
-import { Playlist } from '@/types/types'
-import useAuthModal from '@/hooks/useAuthModal'
-import { useUser } from '@/hooks/useUser'
-import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
-import { usePathname } from 'next/navigation'
-import { buckets } from '@/utils/constants'
-import usePlaylistModal from '@/hooks/usePlaylistModal'
 import { FiEdit } from 'react-icons/fi'
-import { DeleteIcon, AddPlaylistIcon } from '@/public/icons'
 import { TbPin } from 'react-icons/tb'
+
+import useAuthModal from '@/hooks/useAuthModal'
+import usePlaylistModal from '@/hooks/usePlaylistModal'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import { useUser } from '@/hooks/useUser'
+import { AddPlaylistIcon, DeleteIcon } from '@/public/icons'
+import type { Playlist } from '@/types/types'
+import { buckets } from '@/utils/constants'
 
 interface PlaylistItemDropdownProps {
   children: React.ReactNode
@@ -38,14 +38,16 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   const router = useRouter()
   const currentPath = usePathname()
 
-  const onDeletePlaylist = async () => {
+  const onDeletePlaylist = async (): Promise<void> => {
     if (isRequired) return
 
     if (!user) {
-      return authModal.onOpen()
+      authModal.onOpen()
+      return
     }
     if (!subscription) {
-      return subcribeModal.onOpen()
+      subcribeModal.onOpen()
+      return
     }
 
     setDropdown(false)
@@ -59,7 +61,8 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
 
       if (oldImageError) {
         setRequired(false)
-        return toast.error(oldImageError.message)
+        toast.error(oldImageError.message)
+        return
       }
     }
 
@@ -70,30 +73,33 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
 
     if (supabaseError) {
       setRequired(false)
-      return toast.error(supabaseError.message)
+      toast.error(supabaseError.message)
+      return
     }
 
     setRequired(false)
     if (currentPath.includes(`playlist/${data.id}`)) {
       router.replace('/')
-      return router.refresh()
+      router.refresh()
+      return
     }
-
-    return router.refresh()
+    router.refresh()
   }
 
-  const onCreatePlaylist = async () => {
+  const onCreatePlaylist = async (): Promise<void> => {
     if (!user) {
-      return authModal.onOpen()
+      authModal.onOpen()
+      return
     }
     if (!subscription) {
-      return subcribeModal.onOpen()
+      subcribeModal.onOpen()
+      return
     }
     setDropdown(false)
 
     setRequired(true)
 
-    const { data, error: supabaseError } = await supabaseClient
+    const { data: newPlaylist, error: supabaseError } = await supabaseClient
       .from('playlists')
       .insert({
         user_id: user.id,
@@ -105,31 +111,32 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
       .select()
       .single()
     if (supabaseError) {
-      return toast.error(supabaseError.message)
+      toast.error(supabaseError.message)
+      return
     }
-    if (data) {
+    if (newPlaylist) {
       setRequired(false)
       router.refresh()
       router.push(`/playlist/${data.id}`)
     }
-
-    return
   }
 
-  const onEditPlaylist = async () => {
+  const onEditPlaylist = async (): Promise<void> => {
     if (!user) {
-      return authModal.onOpen()
+      authModal.onOpen()
+      return
     }
     if (!subscription) {
-      return subcribeModal.onOpen()
+      subcribeModal.onOpen()
+      return
     }
 
     setDropdown(false)
     uploadModal.setPlaylist(data)
-    return uploadModal.onOpen()
+    uploadModal.onOpen()
   }
 
-  const onChange = (open: boolean) => {
+  const onChange = (open: boolean): void => {
     if (!open) {
       setDropdown(false)
     }
@@ -139,7 +146,7 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
     <ContextMenu.Root modal={isDropdown} onOpenChange={onChange}>
       <ContextMenu.Trigger>{children}</ContextMenu.Trigger>
       <ContextMenu.Portal>
-        <ContextMenu.Content className="min-w-[220px] bg-neutral-800 rounded-md overflow-hidden py-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
+        <ContextMenu.Content className="min-w-[220px] overflow-hidden rounded-md bg-neutral-800 py-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
           <ContextMenu.Item
             className="context-menu-item text-white"
             onSelect={onEditPlaylist}
@@ -148,7 +155,7 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
             Edit details
           </ContextMenu.Item>
 
-          <ContextMenu.Separator className="h-[1px] bg-neutral-700 my-1" />
+          <ContextMenu.Separator className="my-1 h-[1px] bg-neutral-700" />
 
           <ContextMenu.Item
             className="context-menu-item text-white"
@@ -164,7 +171,7 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
             Pin playlist
           </ContextMenu.Item>
 
-          <ContextMenu.Separator className="h-[1px] bg-neutral-700 my-1" />
+          <ContextMenu.Separator className="my-1 h-[1px] bg-neutral-700" />
           <ContextMenu.Item
             className="context-menu-item text-white"
             onSelect={onDeletePlaylist}

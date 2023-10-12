@@ -1,9 +1,9 @@
-interface IconProps {
+export interface IconProps {
   size?: number
   color?: string
 }
 
-export function DeleteIcon(props: Partial<IconProps>) {
+export function DeleteIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor', size = 16 } = props
   return (
     <svg
@@ -25,7 +25,7 @@ export function DeleteIcon(props: Partial<IconProps>) {
   )
 }
 
-export function AddPlaylistIcon(props: Partial<IconProps>) {
+export function AddPlaylistIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor', size = 16 } = props
   return (
     <svg
@@ -42,7 +42,7 @@ export function AddPlaylistIcon(props: Partial<IconProps>) {
   )
 }
 
-export function SearchActiveIcon(props: Partial<IconProps>) {
+export function SearchActiveIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor', size = 24 } = props
   return (
     <svg
@@ -60,7 +60,7 @@ export function SearchActiveIcon(props: Partial<IconProps>) {
   )
 }
 
-export function SearchIcon(props: Partial<IconProps>) {
+export function SearchIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor', size = 24 } = props
   return (
     <svg
@@ -77,7 +77,7 @@ export function SearchIcon(props: Partial<IconProps>) {
   )
 }
 
-export function HomeActiveIcon(props: Partial<IconProps>) {
+export function HomeActiveIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor', size = 24 } = props
   return (
     <svg
@@ -94,7 +94,7 @@ export function HomeActiveIcon(props: Partial<IconProps>) {
   )
 }
 
-export function HomeIcon(props: Partial<IconProps>) {
+export function HomeIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor', size = 24 } = props
   return (
     <svg
@@ -111,7 +111,7 @@ export function HomeIcon(props: Partial<IconProps>) {
   )
 }
 
-export function LibraryIcon() {
+export function LibraryIcon(): JSX.Element {
   return (
     <svg
       role="img"
@@ -127,7 +127,7 @@ export function LibraryIcon() {
   )
 }
 
-export function HeartIcon(props: Partial<IconProps>) {
+export function HeartIcon(props: Partial<IconProps>): JSX.Element {
   const { size = 32 } = props
   return (
     <svg
@@ -144,7 +144,7 @@ export function HeartIcon(props: Partial<IconProps>) {
   )
 }
 
-export function ClockIcon() {
+export function ClockIcon(): JSX.Element {
   return (
     <svg
       role="img"
@@ -161,7 +161,7 @@ export function ClockIcon() {
   )
 }
 
-export function PlayIcon(props: Partial<IconProps>) {
+export function PlayIcon(props: Partial<IconProps>): JSX.Element {
   const { size = 18, color = '#000000' } = props
   return (
     <svg
@@ -178,7 +178,7 @@ export function PlayIcon(props: Partial<IconProps>) {
   )
 }
 
-export function PauseIcon(props: Partial<IconProps>) {
+export function PauseIcon(props: Partial<IconProps>): JSX.Element {
   const { size = 16 } = props
   return (
     <svg
@@ -195,7 +195,7 @@ export function PauseIcon(props: Partial<IconProps>) {
   )
 }
 
-export function UserImgDefault() {
+export function UserImgDefault(): JSX.Element {
   return (
     <svg
       role="img"
@@ -211,7 +211,7 @@ export function UserImgDefault() {
   )
 }
 
-export function Verified() {
+export function Verified(): JSX.Element {
   return (
     <svg
       role="img"
@@ -227,7 +227,7 @@ export function Verified() {
   )
 }
 
-export function FaceBookIcon() {
+export function FaceBookIcon(): JSX.Element {
   return (
     <svg
       role="img"
@@ -243,7 +243,7 @@ export function FaceBookIcon() {
   )
 }
 
-export function CloseIcon() {
+export function CloseIcon(): JSX.Element {
   return (
     <svg
       role="img"
@@ -259,7 +259,7 @@ export function CloseIcon() {
   )
 }
 
-export function SkipBackIcon() {
+export function SkipBackIcon(): JSX.Element {
   return (
     <svg
       role="img"
@@ -275,7 +275,7 @@ export function SkipBackIcon() {
   )
 }
 
-export function SkipForwardIcon() {
+export function SkipForwardIcon(): JSX.Element {
   return (
     <svg
       role="img"
@@ -291,7 +291,7 @@ export function SkipForwardIcon() {
   )
 }
 
-export function ShuffleIcon(props: Partial<IconProps>) {
+export function ShuffleIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor' } = props
   return (
     <svg
@@ -309,7 +309,7 @@ export function ShuffleIcon(props: Partial<IconProps>) {
   )
 }
 
-export function RepeatIcon(props: Partial<IconProps>) {
+export function RepeatIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor' } = props
   return (
     <svg
@@ -326,7 +326,7 @@ export function RepeatIcon(props: Partial<IconProps>) {
   )
 }
 
-export function PlayingSidebarIcon(props: Partial<IconProps>) {
+export function PlayingSidebarIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor' } = props
   return (
     <svg
@@ -344,7 +344,7 @@ export function PlayingSidebarIcon(props: Partial<IconProps>) {
   )
 }
 
-export function QueueIcon(props: Partial<IconProps>) {
+export function QueueIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor' } = props
 
   return (
@@ -367,7 +367,9 @@ interface SoundIconLevel {
   level: SoundLevel
 }
 
-export function SoundIcon(params: Required<SoundIconLevel>) {
+export function SoundIcon(
+  params: Required<SoundIconLevel>
+): React.JSX.Element | undefined {
   const { level } = params
 
   switch (level) {
@@ -441,10 +443,12 @@ export function SoundIcon(params: Required<SoundIconLevel>) {
         </svg>
       )
     }
+    default:
+      return undefined
   }
 }
 
-export function SoundIconSolid(props: Partial<IconProps>) {
+export function SoundIconSolid(props: Partial<IconProps>): JSX.Element {
   const { color } = props
   return (
     <svg
@@ -462,7 +466,7 @@ export function SoundIconSolid(props: Partial<IconProps>) {
   )
 }
 
-export function PlusCircle() {
+export function PlusCircle(): JSX.Element {
   return (
     <svg
       role="img"
@@ -479,7 +483,7 @@ export function PlusCircle() {
   )
 }
 
-export function MusicNote(props: Partial<IconProps>) {
+export function MusicNote(props: Partial<IconProps>): JSX.Element {
   const { size = 24 } = props
   return (
     <svg
@@ -497,7 +501,7 @@ export function MusicNote(props: Partial<IconProps>) {
   )
 }
 
-export function SingleMusicNote(props: Partial<IconProps>) {
+export function SingleMusicNote(props: Partial<IconProps>): JSX.Element {
   const { size = 16 } = props
   return (
     <svg

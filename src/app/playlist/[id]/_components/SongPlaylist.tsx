@@ -1,16 +1,17 @@
 'use client'
 
-import useOnPlay from '@/hooks/useOnPlay'
-import usePlayer from '@/stores/usePlayer'
-import { Playlist, Song } from '@/types/types'
-import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
-import { useUser } from '@/hooks/useUser'
+import { useEffect, useState } from 'react'
+
+import MediaList from '@/components/MediaList'
 import PlayButton from '@/components/PlayButton'
 import PlaylistLikeButton from '@/components/PlaylistLikeButton'
-import MediaList from '@/components/MediaList'
+import useOnPlay from '@/hooks/useOnPlay'
+import { useUser } from '@/hooks/useUser'
+import usePlayer from '@/stores/usePlayer'
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import useSelectedPlayer from '@/stores/useSelectedPlayer'
+import type { Playlist, Song } from '@/types/types'
 
 interface SongPlaylistProps {
   songs: Song[]
@@ -38,30 +39,26 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
     }
   }, [isPlayerPlaying, playlistPlayingId, params.id])
 
-  const handleClickPlay = () => {
-    if (playlistPlayingId?.toString() !== params.id && songs?.length) {
+  const handleClickPlay = (): void => {
+    if (playlistPlayingId?.toString() !== params.id && songs?.length !== 0) {
       setPlaylistActiveId(params.id as string)
       setShowed(true)
-      onPlay(songs[0].id)
+      onPlay(songs[0]?.id!)
     } else {
       setSelected(true)
       handlePlay()
     }
   }
 
-  useEffect(() => {
-    console.log(playlist)
-  }, [playlist])
-
   return (
     <>
-      <div className="p-5 px-10 w-full flex gap-x-6 relative">
+      <div className="relative flex w-full gap-x-6 p-5 px-10">
         <div
           style={{ backgroundColor: `${playlist.bg_color}` }}
-          className="absolute h-[232px] top-0 left-0 right-0 header-bg-img-md z-0"
+          className="header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
         ></div>
         <PlayButton
-          className="opacity-1 translate-y-0 h-14 w-14"
+          className="h-14 w-14 translate-y-0 opacity-100"
           onClick={handleClickPlay}
           isPlaying={isPlaying}
         />

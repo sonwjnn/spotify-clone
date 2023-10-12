@@ -1,12 +1,14 @@
-import { Song } from '@/types/types'
-import useAuthModal from './useAuthModal'
-import { useUser } from './useUser'
-import useSubscribeModal from './useSubscribeModal'
-import usePlayer from '@/stores/usePlayer'
-import useSelectedPlayer from '@/stores/useSelectedPlayer'
 import { usePathname } from 'next/navigation'
 
-const useOnPlay = (songs: Song[]) => {
+import usePlayer from '@/stores/usePlayer'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
+import type { Song } from '@/types/types'
+
+import useAuthModal from './useAuthModal'
+import useSubscribeModal from './useSubscribeModal'
+import { useUser } from './useUser'
+
+const useOnPlay = (songs: Song[]): ((id: string) => void) => {
   const {
     setId,
     setCurrentTrackIndex,
@@ -16,7 +18,7 @@ const useOnPlay = (songs: Song[]) => {
     setPlaylistActiveId,
     setIds,
   } = usePlayer()
-  2
+
   const pathName = usePathname()
 
   const { setSelected } = useSelectedPlayer()
@@ -27,10 +29,16 @@ const useOnPlay = (songs: Song[]) => {
 
   const { user, subscription } = useUser()
 
-  const onPlay = (id: string) => {
-    if (!user) return authModal.onOpen()
+  const onPlay = (id: string): void => {
+    if (!user) {
+      authModal.onOpen()
+      return
+    }
 
-    if (!subscription) return subcribeModal.onOpen()
+    if (!subscription) {
+      subcribeModal.onOpen()
+      return
+    }
 
     if (!pathName.includes('/playlist')) {
       setPlaylistActiveId(undefined)
@@ -46,6 +54,7 @@ const useOnPlay = (songs: Song[]) => {
         setCurrentTrackIndex(index)
         return true
       }
+      return false
     })
 
     setCurrentTrack(currentTrack)

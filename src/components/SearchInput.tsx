@@ -1,13 +1,14 @@
 'use client'
 
-import qs from 'query-string'
 import { useRouter } from 'next/navigation'
+import qs from 'query-string'
 import { useEffect, useState } from 'react'
-import { SearchIcon } from '@/public/icons'
+import { twMerge } from 'tailwind-merge'
+
 import useDebounce from '@/hooks/useDebounce'
+import { SearchIcon } from '@/public/icons'
 
 import Input from './ui/Input'
-import { twMerge } from 'tailwind-merge'
 
 interface SearchInputProps {
   url: string
@@ -31,8 +32,8 @@ const SearchInput: React.FC<SearchInputProps> = ({
     }
 
     const stringifiedUrl = qs.stringifyUrl({
-      url: url,
-      query: query,
+      url,
+      query,
     })
 
     router.push(stringifiedUrl, { scroll: false })

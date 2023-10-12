@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-interface mainLayoutStore {
+interface MainLayoutStore {
   quantityCol: number
   width: number
   height: number
@@ -9,7 +9,7 @@ interface mainLayoutStore {
   setWidth: (width: number) => void
 }
 
-const useMainLayout = create<mainLayoutStore>()(
+const useMainLayout = create<MainLayoutStore>()(
   persist(
     set => ({
       quantityCol: 4,

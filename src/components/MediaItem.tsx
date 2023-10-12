@@ -1,18 +1,20 @@
 'use client'
 
-import { PlayIcon, SingleMusicNote } from '@/public/icons'
-import { MediaItemProps } from '@/types/track'
-import { getDurationSong } from '@/utils/durationConvertor'
+import dayjs from 'dayjs'
+import Image from 'next/image'
 import React, { memo, useState } from 'react'
+
+import useLoadImage from '@/hooks/useLoadImage'
+import { PlayIcon, SingleMusicNote } from '@/public/icons'
 import useMainLayout from '@/stores/useMainLayout'
 import usePlayer from '@/stores/usePlayer'
-import Image from 'next/image'
-import useLoadImage from '@/hooks/useLoadImage'
+import type { MediaItemProps } from '@/types/track'
+import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
-import dayjs from 'dayjs'
+import { getDurationSong } from '@/utils/durationConvertor'
+
 import LikeButton from './LikeButton'
 import MediaDropdown from './MediaDropdown'
-import cn from '@/utils/cn'
 
 const MediaItem: React.FC<MediaItemProps> = ({
   type = 'default',
@@ -57,9 +59,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
       onMouseLeave={() => setHover(false)}
     >
       {type !== 'search' && width > 480 && (
-        <div className="text-base text-neutral-400 relative select-none">
+        <div className="relative select-none text-base text-neutral-400">
           {index && player.isPlaying && handleActive() ? (
-            <div className="relative h-full w-3  ml-2 overflow-hidden flex items-center ">
+            <div className="relative ml-2 flex  h-full w-3 items-center overflow-hidden ">
               <Image
                 src={'/images/animation/equaliser-animated-green.f5eb96f2.gif'}
                 sizes={'100%'}
@@ -71,7 +73,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
           ) : (
             <div
               className={`
-                text-sm flex items-center  justify-end w-4 
+                flex w-4 items-center  justify-end text-sm 
                 ${handleActive() ? 'text-[#2ed760]' : 'text-neutral-400'}
               `}
             >
@@ -80,10 +82,10 @@ const MediaItem: React.FC<MediaItemProps> = ({
           )}
         </div>
       )}
-      <div className={`flex items-center gap-4 pr-2 min-w-0 select-none`}>
+      <div className={`flex min-w-0 select-none items-center gap-4 pr-2`}>
         {type !== 'album' && (
           <div
-            className={`flex-shrink-0 w-10 h-10 aspect-square overflow-hidden relative`}
+            className={`relative aspect-square h-10 w-10 shrink-0 overflow-hidden`}
           >
             {imageUrl ? (
               <Image
@@ -95,7 +97,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
               />
             ) : (
               <div
-                className={`h-full w-full text-white items-center flex justify-center bg-neutral-800`}
+                className={`flex h-full w-full items-center justify-center bg-neutral-800 text-white`}
               >
                 <SingleMusicNote />
               </div>
@@ -103,19 +105,19 @@ const MediaItem: React.FC<MediaItemProps> = ({
           </div>
         )}
         <div
-          className={`flex flex-col justify-between h-full gap-[5px] overflow-hidden`}
+          className={`flex h-full flex-col justify-between gap-[5px] overflow-hidden`}
         >
           <p
             className={`
               ${handleActive() ? 'text-[#2ed760]' : 'text-white'}
-              text-base p-0 m-0 truncate select-none`}
+              m-0 select-none truncate p-0 text-base`}
           >
             {song.title}
           </p>
           {type !== 'artist' && (
-            <div className={`flex items-center gap-[3px] w-full truncate`}>
+            <div className={`flex w-full items-center gap-[3px] truncate`}>
               {/* <SubTitle data={artists} /> */}
-              <p className="text-neutral-400 text-sm truncate select-none">
+              <p className="select-none truncate text-sm text-neutral-400">
                 {song.author}
               </p>
             </div>
@@ -125,18 +127,18 @@ const MediaItem: React.FC<MediaItemProps> = ({
       {type !== 'album' && type !== 'search' && (
         <>
           {width > 640 && (
-            <p className="text-neutral-400 text-sm truncate select-none">
+            <p className="select-none truncate text-sm text-neutral-400">
               {song.title}
             </p>
           )}
           {width > 780 && (
-            <div className={'text-sm text-neutral-400 select-none'}>
+            <div className={'select-none text-sm text-neutral-400'}>
               {dayjs(song.created_at).format('DD-MM-YYYY')}
             </div>
           )}
         </>
       )}
-      <div className={`group flex gap-x-3 justify-end items-center`}>
+      <div className={`group flex items-center justify-end gap-x-3`}>
         <LikeButton
           isSelected={isSelected}
           song={song}
@@ -144,7 +146,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
           size={20}
         />
 
-        <div className={'text-sm text-neutral-400 select-none'}>
+        <div className={'select-none text-sm text-neutral-400'}>
           {getDurationSong({
             milliseconds: song?.duration_ms ? song?.duration_ms : 0,
           })}

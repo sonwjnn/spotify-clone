@@ -2,11 +2,11 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
-import { stripe } from '@/libs/stripe'
 import { getURL } from '@/libs/helpers'
+import { stripe } from '@/libs/stripe'
 import { createOrRetrieveCustomer } from '@/libs/supabaseAdmin'
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<NextResponse<unknown>> {
   const { price, quantity = 1, metadata = {} } = await request.json()
 
   try {

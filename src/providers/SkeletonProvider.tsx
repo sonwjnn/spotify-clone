@@ -1,7 +1,9 @@
 'use client'
 
-import { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+
+import { SkeletonTheme } from 'react-loading-skeleton'
+
 interface SkeletonProviderProps {
   children: React.ReactNode
 }

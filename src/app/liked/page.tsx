@@ -1,11 +1,14 @@
+import type { NextPage } from 'next'
+
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import LikedContent from './_components/LikedContent'
 import Navbar from '@/components/Navbar'
 import PageWrapper from '@/components/PageWrapper'
-import HeaderContent from './_components/HeaderContent'
-import Footer from '@/components/Footer'
 
-const Liked = async () => {
+import HeaderContent from './_components/HeaderContent'
+import LikedContent from './_components/LikedContent'
+
+const Liked: NextPage = async () => {
   return (
     <PageWrapper>
       <Navbar bgColor="#543ca2" />

@@ -1,5 +1,6 @@
-import { Playlist } from '@/types/types'
 import { create } from 'zustand'
+
+import type { Playlist } from '@/types/types'
 
 interface PlaylistModalStore {
   isOpen: boolean

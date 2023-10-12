@@ -1,4 +1,5 @@
-import { RefObject, useEffect, useState } from 'react'
+import type { RefObject } from 'react'
+import { useEffect, useState } from 'react'
 
 interface ComponentSize {
   height: number
@@ -12,7 +13,7 @@ const useComponentSize = (ref: RefObject<HTMLElement>): ComponentSize => {
   })
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = (): void => {
       if (ref.current) {
         const { clientHeight, clientWidth } = ref.current
         setComponentSize({ height: clientHeight, width: clientWidth })

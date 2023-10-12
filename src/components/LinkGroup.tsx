@@ -11,12 +11,12 @@ interface LinkGroupProps {
 
 const LinkGroup: React.FC<LinkGroupProps> = ({ groupLink }) => {
   return (
-    <div className="flex flex-col mr-5 mb-8 min-w-[170px]">
+    <div className="mb-8 mr-5 flex min-w-[170px] flex-col">
       <h3 className="text-base font-bold text-white">{groupLink.title}</h3>
       <div className="flex flex-col text-neutral-400">
         {groupLink.links.map((item, index) => (
           <a
-            className="no-underline text-base text-inherit my-2 hover:text-white hover:underline"
+            className="my-2 text-base text-inherit no-underline hover:text-white hover:underline"
             target="_blank"
             key={index}
             href={item.href}

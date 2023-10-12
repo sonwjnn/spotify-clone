@@ -1,15 +1,16 @@
 'use client'
 
-import Footer from '@/components/Footer'
-import HeaderLoading from '@/components/LoadingLayout/HeaderLoading'
 import Skeleton from 'react-loading-skeleton'
 
-const Loading = () => {
+import Footer from '@/components/Footer'
+import HeaderLoading from '@/components/LoadingLayout/HeaderLoading'
+
+const Loading: React.FC = () => {
   return (
-    <div className="bg-neutral-900 rounded-lg w-full h-full overflow-hidden overflow-y-auto">
-      <HeaderLoading className="from-bg-neutral-900">
+    <div className="h-full w-full overflow-hidden overflow-y-auto rounded-lg bg-neutral-900">
+      <HeaderLoading>
         <div className="mb-2 flex flex-col gap-y-6 ">
-          <div className="text-white text-3xl font-semibold">
+          <div className="text-3xl font-semibold text-white">
             <Skeleton height={'100%'} width={'50%'} borderRadius={50} />
           </div>
         </div>

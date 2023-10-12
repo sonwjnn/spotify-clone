@@ -1,20 +1,22 @@
 'use client'
 
-import { Price, ProductWithPrice } from '@/types/types'
-import Modal from '../ui/Modal'
-import Button from '../ui/Button'
-import { useUser } from '@/hooks/useUser'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { getStripe } from '@/libs/stripeClient'
-import { postData } from '@/libs/helpers'
+
 import useSubscribeModal from '@/hooks/useSubscribeModal'
+import { useUser } from '@/hooks/useUser'
+import { postData } from '@/libs/helpers'
+import { getStripe } from '@/libs/stripeClient'
+import type { Price, ProductWithPrice } from '@/types/types'
+
+import Button from '../ui/Button'
+import Modal from '../ui/Modal'
 
 interface SubscribeModalProps {
   products: ProductWithPrice[]
 }
 
-const formatPrice = (price: Price) => {
+const formatPrice = (price: Price): string => {
   const priceString = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: price.currency,
@@ -31,16 +33,19 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
   const [priceIdLoading, setPriceIdLoading] = useState<string>()
   const subscribeModal = useSubscribeModal()
 
-  const onChange = (open: boolean) => {
+  const onChange = (open: boolean): void => {
     if (!open) subscribeModal.onClose()
   }
 
-  const handleCheckout = async (price: Price) => {
+  const handleCheckout: (price: Price) => Promise<void> = async (
+    price: Price
+  ) => {
     setPriceIdLoading(price.id)
 
     if (!user) {
       setPriceIdLoading(undefined)
-      return toast.error('Must be logged in')
+      toast.error('Must be logged in')
+      return
     }
 
     try {
@@ -86,7 +91,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
   }
 
   if (subscription) {
-    content = <div className="text-white text-center">Already subscribed</div>
+    content = <div className="text-center text-white">Already subscribed</div>
   }
   return (
     <Modal

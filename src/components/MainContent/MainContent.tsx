@@ -1,17 +1,18 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Split from 'react-split'
 import { twMerge } from 'tailwind-merge'
-import Sidebar from '../Sidebar'
-import { Playlist, Song } from '@/types/types'
-import PlayingSidebar from '../PlayingSidebar/PlayingSidebar'
 
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import usePlayer from '@/stores/usePlayer'
-import { useEffect, useState } from 'react'
-import GlobalLoading from '../LoadingLayout/GlobalLoading'
-import MainLayout from './MainLayout'
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import useUserStore from '@/stores/useUserStore'
+import type { Playlist, Song } from '@/types/types'
+
+import GlobalLoading from '../LoadingLayout/GlobalLoading'
+import PlayingSidebar from '../PlayingSidebar/PlayingSidebar'
+import Sidebar from '../Sidebar'
+import MainLayout from './MainLayout'
 
 interface MainContentProps {
   children: React.ReactNode
@@ -74,7 +75,7 @@ const MainContent: React.FC<MainContentProps> = ({
           />
 
           <MainLayout>
-            <main className="h-full flex-grow overflow-y-auto py-2 relative">
+            <main className="relative h-full grow overflow-y-auto py-2">
               {children}
             </main>
           </MainLayout>
@@ -82,7 +83,7 @@ const MainContent: React.FC<MainContentProps> = ({
           {isShowed ? (
             <PlayingSidebar />
           ) : (
-            <div className="w-2 absolute right-0 h-full"></div>
+            <div className="absolute right-0 h-full w-2"></div>
           )}
         </Split>
       )}

@@ -2,11 +2,11 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
-import { stripe } from '@/libs/stripe'
 import { getURL } from '@/libs/helpers'
+import { stripe } from '@/libs/stripe'
 import { createOrRetrieveCustomer } from '@/libs/supabaseAdmin'
 
-export async function POST() {
+export async function POST(): Promise<NextResponse<unknown>> {
   try {
     const supabase = createRouteHandlerClient({
       cookies,
@@ -35,6 +35,6 @@ export async function POST() {
     return NextResponse.json({ url })
   } catch (error) {
     console.log(error)
-    new NextResponse('Internal Error', { status: 500 })
+    return new NextResponse('Internal Error', { status: 500 })
   }
 }

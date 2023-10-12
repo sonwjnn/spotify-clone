@@ -1,21 +1,20 @@
 'use client'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-
-import { AddPlaylistIcon } from '@/public/icons'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { LuListMusic } from 'react-icons/lu'
 
-import { useUser } from '@/hooks/useUser'
 import useAuthModal from '@/hooks/useAuthModal'
-import useUploadModal from '@/hooks/useUploadModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
-import { useState } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { toast } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
+import useUploadModal from '@/hooks/useUploadModal'
+import { useUser } from '@/hooks/useUser'
+import { AddPlaylistIcon } from '@/public/icons'
 
-const UploadDropdown = () => {
+const UploadDropdown: React.FC = () => {
   const { user, subscription } = useUser()
   const authModal = useAuthModal()
   const uploadModal = useUploadModal()
@@ -28,7 +27,7 @@ const UploadDropdown = () => {
 
   const router = useRouter()
 
-  const onUploadSong = () => {
+  const onUploadSong = (): void => {
     setDropdown(false)
 
     if (!user) {
@@ -41,14 +40,16 @@ const UploadDropdown = () => {
     return uploadModal.onOpen()
   }
 
-  const onUploadPlaylist = async () => {
+  const onUploadPlaylist = async (): Promise<void> => {
     setDropdown(false)
 
     if (!user) {
-      return authModal.onOpen()
+      authModal.onOpen()
+      return
     }
     if (!subscription) {
-      return subcribeModal.onOpen()
+      subcribeModal.onOpen()
+      return
     }
 
     setRequired(true)
@@ -65,18 +66,17 @@ const UploadDropdown = () => {
       .select()
       .single()
     if (supabaseError) {
-      return toast.error(supabaseError.message)
+      toast.error(supabaseError.message)
+      return
     }
     if (data) {
       setRequired(false)
       router.refresh()
       router.push(`/playlist/${data.id}`)
     }
-
-    return
   }
 
-  const onChange = (open: boolean) => {
+  const onChange = (open: boolean): void => {
     if (!open) {
       setDropdown(false)
     }
@@ -90,11 +90,11 @@ const UploadDropdown = () => {
       <DropdownMenu.Trigger asChild>
         <div
           className={
-            'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'
+            'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
           }
         >
           <button
-            className="absolute flex items-center justify-center  right-[1px] border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition"
+            className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
             aria-label="Customise options"
             onClick={() => setDropdown(!isDropdown)}
           >
@@ -105,7 +105,7 @@ const UploadDropdown = () => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="min-w-[220px] bg-neutral-800 rounded-md p-[5px] ml-[45%]  shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+          className="min-w-[220px] rounded-md bg-neutral-800 p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
           sideOffset={5}
           hidden={uploadModal.isOpen}
         >
@@ -113,7 +113,7 @@ const UploadDropdown = () => {
             onSelect={onUploadSong}
             className="dropdown-menu-item text-white"
           >
-            <div className="pl-1  group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+            <div className="  pl-1 ">
               <LuListMusic size={20} />
             </div>
             Create a new song
@@ -124,7 +124,7 @@ const UploadDropdown = () => {
               isRequired && 'select-none'
             } text-white`}
           >
-            <div className="px-1  group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+            <div className="  px-1 ">
               <AddPlaylistIcon />
             </div>
             Create a new playlist

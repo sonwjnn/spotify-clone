@@ -1,17 +1,19 @@
 import './globals.css'
+
 import localFont from 'next/font/local'
-import SupabaseProvider from '@/providers/SupabaseProvider'
-import UserProvider from '@/providers/UserProvider'
-import ModalProvider from '@/providers/ModalProvider'
-import ToasterProvider from '@/providers/ToasterProvider'
-import SkeletonProvider from '@/providers/SkeletonProvider'
-import getSongsByUserId from '@/server-actions/songs/getSongsByUserId'
-import getActiveProductsWithPrices from '@/server-actions/products/getActiveProductsWithPrices'
+
 import MainContent from '@/components/MainContent/MainContent'
-import getPlaylistsByUserId from '@/server-actions/playlists/getPlaylistsByUserId'
-import getLikedSongs from '@/server-actions/songs/getLikedSongs'
 import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
+import ModalProvider from '@/providers/ModalProvider'
+import SkeletonProvider from '@/providers/SkeletonProvider'
+import SupabaseProvider from '@/providers/SupabaseProvider'
+import ToasterProvider from '@/providers/ToasterProvider'
+import UserProvider from '@/providers/UserProvider'
 import getLikedPlaylists from '@/server-actions/playlists/getLikedPlaylists'
+import getPlaylistsByUserId from '@/server-actions/playlists/getPlaylistsByUserId'
+import getActiveProductsWithPrices from '@/server-actions/products/getActiveProductsWithPrices'
+import getLikedSongs from '@/server-actions/songs/getLikedSongs'
+import getSongsByUserId from '@/server-actions/songs/getSongsByUserId'
 
 const circularSp = localFont({
   src: [
@@ -38,7 +40,7 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) {
+}): Promise<JSX.Element> {
   const products = await getActiveProductsWithPrices()
   const userSongs = await getSongsByUserId()
   const playlists = await getPlaylistsByUserId()

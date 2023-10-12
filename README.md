@@ -38,7 +38,7 @@ For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing)
 ## Prerequisites
 
 - yarn >=1.22.19
-- node >=v18.16.0
+- node >=v18.17.0
 
 ## Cloning the repository
 

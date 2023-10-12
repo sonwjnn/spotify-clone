@@ -1,7 +1,7 @@
 'use client'
 
-import Marquee from 'react-fast-marquee'
 import { useRef } from 'react'
+import Marquee from 'react-fast-marquee'
 
 import { useIsOverflow } from '@/hooks/useIsOverflow'
 
@@ -23,7 +23,7 @@ const MarqueeWrapper: React.FC<MarqueeWrapperProps> = ({
   const isOverflow = useIsOverflow(marqueeRef)
 
   return (
-    <div className="w-full h-8" ref={marqueeRef}>
+    <div className="h-8 w-full" ref={marqueeRef}>
       {isOverflow ? (
         <Marquee
           pauseOnHover={pauseOnHover}

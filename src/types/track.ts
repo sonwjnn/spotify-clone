@@ -1,4 +1,4 @@
-import { Playlist, Song } from './types'
+import type { Playlist, Song } from './types'
 
 export interface SongItemTagProps {
   thumbnailUrl?: string

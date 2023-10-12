@@ -1,20 +1,21 @@
 'use client'
 
-import useMainLayout from '@/stores/useMainLayout'
 import Image from 'next/image'
+
+import useMainLayout from '@/stores/useMainLayout'
 
 interface HeaderContentProps {}
 const HeaderContent: React.FC<HeaderContentProps> = () => {
   const { width } = useMainLayout()
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-x-5">
+    <div className="flex flex-col items-center gap-x-5 md:flex-row">
       <div
         className={`${
           width <= 875 && '!h-[192px] !w-[192px]'
-        } h-[232px] w-[232px] text-white bg-[#282828] rounded-sm flex items-center justify-center shadow-base`}
+        } flex h-[232px] w-[232px] items-center justify-center rounded-sm bg-[#282828] text-white shadow-base`}
       >
-        <div className="relative aspect-square h-full w-full rounded-sm overflow-hidden">
+        <div className="relative aspect-square h-full w-full overflow-hidden rounded-sm">
           <Image
             className="
             object-cover
@@ -26,16 +27,16 @@ const HeaderContent: React.FC<HeaderContentProps> = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-y-2 mt-4 md:mt-0">
-        <p className="text-white hidden md:block  text-base">Playlist</p>
+      <div className="mt-4 flex flex-col gap-y-2 md:mt-0">
+        <p className="hidden text-base text-white  md:block">Playlist</p>
         <h1
           className={`${
             width <= 1012 && '!text-5xl'
-          } text-white text-center md:text-left text-7xl font-bold`}
+          } text-center text-7xl font-bold text-white md:text-left`}
         >
           Liked Songs
         </h1>
-        <p className="text-white hidden md:block text-sm">
+        <p className="hidden text-sm text-white md:block">
           Your favorite songs
         </p>
       </div>

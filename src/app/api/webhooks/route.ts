@@ -1,6 +1,6 @@
-import Stripe from 'stripe'
-import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
+import { NextResponse } from 'next/server'
+import type Stripe from 'stripe'
 
 import { stripe } from '@/libs/stripe'
 import {
@@ -20,7 +20,9 @@ const relevantEvents = new Set([
   'customer.subscription.deleted',
 ])
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request
+): Promise<NextResponse<unknown> | undefined> {
   const body = await request.text()
   const sig = headers().get('Stripe-Signature')
 
@@ -29,7 +31,7 @@ export async function POST(request: Request) {
   let event: Stripe.Event
 
   try {
-    if (!sig || !webhookSecret) return
+    if (!sig || !webhookSecret) return undefined
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
   } catch (err: any) {
     console.log(`❌ Error message: ${err.message}`)
@@ -52,22 +54,26 @@ export async function POST(request: Request) {
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
         case 'customer.subscription.deleted':
-          const subscription = event.data.object as Stripe.Subscription
-          await manageSubscriptionStatusChange(
-            subscription.id,
-            subscription.customer as string,
-            event.type === 'customer.subscription.created'
-          )
+          {
+            const subscription = event.data.object as Stripe.Subscription
+            await manageSubscriptionStatusChange(
+              subscription.id,
+              subscription.customer as string,
+              event.type === 'customer.subscription.created'
+            )
+          }
           break
         case 'checkout.session.completed':
-          const checkoutSession = event.data.object as Stripe.Checkout.Session
-          if (checkoutSession.mode === 'subscription') {
-            const subscriptionId = checkoutSession.subscription
-            await manageSubscriptionStatusChange(
-              subscriptionId as string,
-              checkoutSession.customer as string,
-              true
-            )
+          {
+            const checkoutSession = event.data.object as Stripe.Checkout.Session
+            if (checkoutSession.mode === 'subscription') {
+              const subscriptionId = checkoutSession.subscription
+              await manageSubscriptionStatusChange(
+                subscriptionId as string,
+                checkoutSession.customer as string,
+                true
+              )
+            }
           }
           break
         default:

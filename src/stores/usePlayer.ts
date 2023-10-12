@@ -1,6 +1,7 @@
-import { Song } from '@/types/types'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+
+import type { Song } from '@/types/types'
 
 export interface PlayOptions {
   id?: string
@@ -78,14 +79,17 @@ const usePlayer = create<PlayerStore>()(
           setNextTrackIndex,
           currentTrack,
         } = get()
+
+        const len = queue?.length ? queue?.length : 0
+
         if (isRandom) {
           let randomIndex = currentTrackIndex
           while (randomIndex === currentTrackIndex) {
-            randomIndex = Math.floor(Math.random() * queue?.length)
+            randomIndex = Math.floor(Math.random() * len)
           }
           setNextTrackIndex(randomIndex)
         } else if (
-          (currentTrackIndex >= queue?.length - 1 && currentTrack) ||
+          (currentTrackIndex >= len - 1 && currentTrack) ||
           queue.length < 2
         ) {
           setNextTrackIndex(0)

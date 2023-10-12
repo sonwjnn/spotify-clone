@@ -1,13 +1,14 @@
 'use client'
 
-import { SearchIcon } from '@/public/icons'
-import Input from '@/components/ui/Input'
-import useDebounce from '@/hooks/useDebounce'
-import useMainLayout from '@/stores/useMainLayout'
-import { Playlist, Song } from '@/types/types'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
+
 import MediaList from '@/components/MediaList'
+import Input from '@/components/ui/Input'
+import useDebounce from '@/hooks/useDebounce'
+import { SearchIcon } from '@/public/icons'
+import useMainLayout from '@/stores/useMainLayout'
+import type { Playlist, Song } from '@/types/types'
 
 interface SearchPlaylistProps {
   songs: Song[]
@@ -24,7 +25,7 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
   const debouncedValue = useDebounce<string>(value, 500)
 
   useEffect(() => {
-    const fetchDataByTitle = async () => {
+    const fetchDataByTitle: () => Promise<void> = async () => {
       if (!debouncedValue) {
         setSongs([])
         return
@@ -50,15 +51,15 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
 
   return (
     <>
-      <div className="px-6 mb-4">
-        <div className='relative text-white text-3xl mt-2 font-semibold py-6 before:content-[""]  before:absolute before:h-[1px] before:w-full before:bg-neutral-800 before:top-0  before:left-0 truncate'>
+      <div className="mb-4 px-6">
+        <div className='relative mt-2 truncate py-6 text-3xl font-semibold text-white  before:absolute before:left-0 before:top-0 before:h-[1px] before:w-full  before:bg-neutral-800 before:content-[""]'>
           Lets find content for your playlist !
         </div>
         <Input
           placeholder={'Search for your song to want to listen to !'}
           value={value}
           onChange={e => setValue(e.target.value)}
-          className={`rounded-full px-4 pl-10 bg-neutral-800 w-[40%] ${
+          className={`w-[40%] rounded-full bg-neutral-800 px-4 pl-10 ${
             width <= 780 && 'w-[60%]'
           } ${width <= 550 && 'w-full'}`}
           startIcon={<SearchIcon size={18} />}

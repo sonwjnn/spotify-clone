@@ -1,14 +1,15 @@
 'use client'
 
-import Button from '@/components/ui/Button'
-import useSubscribeModal from '@/hooks/useSubscribeModal'
-import { useUser } from '@/hooks/useUser'
-import { postData } from '@/libs/helpers'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-const AccountContent = () => {
+import Button from '@/components/ui/Button'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import { useUser } from '@/hooks/useUser'
+import { postData } from '@/libs/helpers'
+
+const AccountContent: React.FC = () => {
   const router = useRouter()
 
   const subscribeModal = useSubscribeModal()
@@ -21,7 +22,7 @@ const AccountContent = () => {
     }
   }, [isLoading, user, router])
 
-  const redirectToCustomerPortal = async () => {
+  const redirectToCustomerPortal: () => Promise<void> = async () => {
     setLoading(true)
 
     try {
@@ -32,13 +33,14 @@ const AccountContent = () => {
       window.location.assign(url)
     } catch (error) {
       if (error) {
-        return toast.error((error as Error).message)
+        toast.error((error as Error).message)
+        return
       }
     }
     setLoading(false)
   }
   return (
-    <div className="mb-7 px-6 min-h-[80vh]">
+    <div className="mb-7 min-h-[80vh] px-6">
       {!subscription ? (
         <div className="flex flex-col gap-y-4 ">
           <p className="text-white ">No active plan.</p>

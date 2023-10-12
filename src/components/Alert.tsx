@@ -1,9 +1,11 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import React, { useMemo } from 'react'
-import logo from '/public/images/logos/spotify_logo.svg'
+
+import logo from '@/public/images/logos/spotify_logo.svg'
+
 import Box from './ui/Box'
 import Button from './ui/Button'
-import Link from 'next/link'
-import Image from 'next/image'
 
 interface AlertProps {
   type?: 'notfound' | 'wrong' | 'noSupportDevice'
@@ -29,12 +31,17 @@ const Alert: React.FC<AlertProps> = props => {
           documentTitle: 'Unsupported device!',
           message: 'Desktop supported only!',
         }
+      default:
+        return {
+          documentTitle: '',
+          message: '',
+        }
     }
   }, [type])
 
   return (
-    <Box className="h-full w-full flex flex-col items-center justify-center">
-      <div className={`h-[60px] w-[60px] overflow-hidden relative`}>
+    <Box className="flex h-full w-full flex-col items-center justify-center">
+      <div className={`relative h-[60px] w-[60px] overflow-hidden`}>
         <Image
           src={logo}
           alt="spotify logo"
@@ -44,19 +51,19 @@ const Alert: React.FC<AlertProps> = props => {
         />
       </div>
       <div className="flex flex-col items-center p-10 ">
-        <h2 className="text-white text-5xl font-bold space-[-2px] mt-1 mb-4 ">
+        <h2 className=" mb-4 mt-1 text-5xl font-bold text-white ">
           {type === 'notfound'
             ? 'Page not found'
             : 'Oops! Something went wrong'}
         </h2>
-        <p className="text-base text-neutral-400 mb-10">{message}</p>
+        <p className="mb-10 text-base text-neutral-400">{message}</p>
         {type !== 'noSupportDevice' && (
           <Link href={'/'}>
-            <Button className="bg-white text-black px-8 py-3 mb-9">Home</Button>
+            <Button className="mb-9 bg-white px-8 py-3 text-black">Home</Button>
           </Link>
         )}
         <a
-          className="text-base text-white block font-bold no-underline hover:underline"
+          className="block text-base font-bold text-white no-underline hover:underline"
           href="https://www.facebook.com/profile.php?id=100011436148089"
           target="_blank"
         >

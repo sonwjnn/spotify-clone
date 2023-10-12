@@ -1,10 +1,11 @@
 'use client'
 
-import Button from '@/components/ui/Button'
+import Link from 'next/link'
+
 import MediaItem from '@/components/MediaItem'
 import MediaList from '@/components/MediaList'
+import Button from '@/components/ui/Button'
 import usePlayer from '@/stores/usePlayer'
-import Link from 'next/link'
 
 interface QueueContentProps {}
 
@@ -13,7 +14,7 @@ const QueueContent: React.FC<QueueContentProps> = () => {
 
   if (queue.length === 0 || !currentTrack) {
     return (
-      <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
+      <div className="flex w-full flex-col gap-y-2 px-6 text-neutral-400">
         No songs found.
       </div>
     )
@@ -22,10 +23,10 @@ const QueueContent: React.FC<QueueContentProps> = () => {
   const queueNormalized = queue.filter(item => item)
 
   return (
-    <div className="h-full overflow-hidden pb-8 relative">
+    <div className="relative h-full overflow-hidden pb-8">
       {queueNormalized.length !== 0 ? (
         <>
-          <div className="font-bold text-base text-neutral-400 m-0 mb-1 p-6 pt-0">
+          <div className="m-0 mb-1 p-6 pt-0 text-base font-bold text-neutral-400">
             Now playing
           </div>
           <div className="px-6 pb-2">
@@ -33,7 +34,7 @@ const QueueContent: React.FC<QueueContentProps> = () => {
           </div>
           {queue?.filter(item => item)?.length > 1 && (
             <div className="">
-              <div className="p-6 mt-10 font-bold text-base text-neutral-400">
+              <div className="mt-10 p-6 text-base font-bold text-neutral-400">
                 Next
               </div>
               <MediaList
@@ -51,18 +52,16 @@ const QueueContent: React.FC<QueueContentProps> = () => {
           )}
         </>
       ) : (
-        <div className="h-[50vh] min-h-[300px] flex flex-col items-center justify-center">
-          <h2 className="text-5xl font-bold space-[-2px] mt-1 mb-4 ">
-            No Queue Tracks
-          </h2>
-          <p className="text-base text-neutral-400 mb-10">
+        <div className="flex h-[50vh] min-h-[300px] flex-col items-center justify-center">
+          <h2 className=" mb-4 mt-1 text-5xl font-bold ">No Queue Tracks</h2>
+          <p className="mb-10 text-base text-neutral-400">
             You have no queue, please add queue to see.
           </p>
           <Link href={'/'}>
-            <Button className="bg-white text-black px-8 py-3 mb-9">Home</Button>
+            <Button className="mb-9 bg-white px-8 py-3 text-black">Home</Button>
           </Link>
           <a
-            className="text-base text-white block font-bold no-underline hover:underline"
+            className="block text-base font-bold text-white no-underline hover:underline"
             href="https://www.facebook.com/profile.php?id=100011436148089"
             target="_blank"
           >

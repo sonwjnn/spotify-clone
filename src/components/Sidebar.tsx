@@ -1,20 +1,22 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { memo, useMemo, useState } from 'react'
+import type { IconType } from 'react-icons'
+import { twMerge } from 'tailwind-merge'
+
 import {
   HomeActiveIcon,
   HomeIcon,
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import Box from './ui/Box'
-import { IconType } from 'react-icons'
-import Link from 'next/link'
-import Library from './Library'
-import { Playlist } from '@/types/types'
-import { twMerge } from 'tailwind-merge'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import type { Playlist } from '@/types/types'
+
+import Library from './Library'
+import Box from './ui/Box'
 import { ScrollArea } from './ui/scroll-area'
 
 interface SidebarProps {
@@ -45,7 +47,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       )}
     >
       <Icon size={26} />
-      <p className="truncate w-full">{label}</p>
+      <p className="w-full truncate">{label}</p>
     </Link>
   )
 }

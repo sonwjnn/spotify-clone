@@ -1,10 +1,11 @@
-import { Playlist } from '@/types/types'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 
+import type { Playlist } from '@/types/types'
+
 const getPlaylistById = async (id: string): Promise<Playlist | null> => {
   const supabase = createServerComponentClient({
-    cookies: cookies,
+    cookies,
   })
 
   if (!id) {

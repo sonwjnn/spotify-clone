@@ -1,7 +1,8 @@
-import { Song } from '@/types/types'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
-const useLoadSongUrl = (song: Song) => {
+import type { Song } from '@/types/types'
+
+const useLoadSongUrl = (song: Song): string => {
   const supabaseClient = useSupabaseClient()
 
   if (!song) return ''

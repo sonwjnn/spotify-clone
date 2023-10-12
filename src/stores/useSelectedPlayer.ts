@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
-interface selectedPlayerStore {
+interface SelectedPlayerStore {
   isSelected: boolean
   setSelected: (isSelected: boolean) => void
 }
 
-const useSelectedPlayer = create<selectedPlayerStore>()(set => ({
+const useSelectedPlayer = create<SelectedPlayerStore>()(set => ({
   isSelected: false,
   setSelected: (isSelected: boolean) => set({ isSelected }),
 }))

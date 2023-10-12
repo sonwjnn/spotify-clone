@@ -1,11 +1,12 @@
 'use client'
 
-import AuthModal from '@/components/CustomModal/AuthModal'
-import UploadSongModal from '@/components/CustomModal/UploadSongModal'
 import { useEffect, useState } from 'react'
+
+import AuthModal from '@/components/CustomModal/AuthModal'
 import SubscribeModal from '@/components/CustomModal/SubscribeModal'
-import { ProductWithPrice } from '@/types/types'
 import UploadPlaylistModal from '@/components/CustomModal/UploadPlaylistModal'
+import UploadSongModal from '@/components/CustomModal/UploadSongModal'
+import type { ProductWithPrice } from '@/types/types'
 
 interface ModalProviderProps {
   products: ProductWithPrice[]

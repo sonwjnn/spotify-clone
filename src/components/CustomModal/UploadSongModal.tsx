@@ -1,18 +1,21 @@
 'use client'
 
-import uniqid from 'uniqid'
-import { useState, useEffect } from 'react'
-import Modal from '../ui/Modal'
-import useUploadModal from '@/hooks/useUploadModal'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import Input from '../ui/Input'
-import Button from '../ui/Button'
-import { toast } from 'react-hot-toast'
-import { useUser } from '@/hooks/useUser'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import type { FieldValues, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
+import uniqid from 'uniqid'
 
-const UploadSongModal = () => {
+import useUploadModal from '@/hooks/useUploadModal'
+import { useUser } from '@/hooks/useUser'
+
+import Button from '../ui/Button'
+import Input from '../ui/Input'
+import Modal from '../ui/Modal'
+
+const UploadSongModal: React.FC = () => {
   const uploadModal = useUploadModal()
   const { user } = useUser()
   const supabaseClient = useSupabaseClient()
@@ -22,7 +25,7 @@ const UploadSongModal = () => {
   const [fileMp3, setFileMp3] = useState<string>('')
   const [duration, setDuration] = useState<number | null>(null)
 
-  useEffect(() => {
+  useEffect((): (() => void) | undefined => {
     if (fileMp3) {
       const sound = new Audio(fileMp3)
       sound.addEventListener('loadedmetadata', () => {
@@ -35,13 +38,14 @@ const UploadSongModal = () => {
         })
       }
     }
+    return undefined
   }, [fileMp3])
 
   useEffect(() => {
     console.log(duration)
   }, [duration])
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: any): void => {
     if (event.target.files[0]) {
       const file = URL.createObjectURL(event.target.files[0])
       setFileMp3(file)
@@ -57,7 +61,7 @@ const UploadSongModal = () => {
     },
   })
 
-  const onChange = (open: boolean) => {
+  const onChange = (open: boolean): void => {
     if (!open) {
       reset()
       uploadModal.onClose()
@@ -76,7 +80,7 @@ const UploadSongModal = () => {
       }
       const uniqID = uniqid()
 
-      //Upload song
+      // Upload song
       const { data: songData, error: songError } = await supabaseClient.storage
         .from('songs')
         .upload(`song-${uniqID}`, songFile, {
@@ -85,10 +89,11 @@ const UploadSongModal = () => {
         })
       if (songError) {
         setIsLoading(false)
-        return toast.error('Failed song upload.')
+        toast.error('Failed song upload.')
+        return
       }
 
-      //Upload images
+      // Upload images
       let imageData
       if (imageFile) {
         const { data: imageUploadData, error: imageError } =
@@ -100,7 +105,8 @@ const UploadSongModal = () => {
             })
         if (imageError) {
           setIsLoading(false)
-          return toast.error('Failed image upload.')
+          toast.error('Failed image upload.')
+          return
         }
         imageData = imageUploadData
       }
@@ -117,7 +123,8 @@ const UploadSongModal = () => {
         })
       if (supabaseError) {
         setIsLoading(false)
-        return toast.error(supabaseError.message)
+        toast.error(supabaseError.message)
+        return
       }
 
       router.refresh()
@@ -154,7 +161,7 @@ const UploadSongModal = () => {
           placeholder="Song author..."
         />
         <div>
-          <div className="text-white pb-1">Select a song file</div>
+          <div className="pb-1 text-white">Select a song file</div>
           <Input
             className="bg-neutral-800 text-neutral-400"
             id="song"
@@ -167,7 +174,7 @@ const UploadSongModal = () => {
         </div>
 
         <div>
-          <div className="text-white pb-1">Select an image</div>
+          <div className="pb-1 text-white">Select an image</div>
           <Input
             className="bg-neutral-800 text-neutral-400"
             id="image"
@@ -179,7 +186,7 @@ const UploadSongModal = () => {
         </div>
         <Button
           type="submit"
-          className="w-[50%] mx-auto mt-2"
+          className="mx-auto mt-2 w-[50%]"
           disabled={isLoading}
         >
           Create

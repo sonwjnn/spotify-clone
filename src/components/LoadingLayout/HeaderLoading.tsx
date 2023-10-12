@@ -1,12 +1,14 @@
 'use client'
 
-import { twMerge } from 'tailwind-merge'
-import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
-import { HomeActiveIcon, SearchIcon } from '@/public/icons'
-import Button from '../ui/Button'
-import { FaUserAlt } from 'react-icons/fa'
-import { useUser } from '@/hooks/useUser'
 import { memo } from 'react'
+import { FaUserAlt } from 'react-icons/fa'
+import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
+import { twMerge } from 'tailwind-merge'
+
+import { useUser } from '@/hooks/useUser'
+import { HomeActiveIcon, SearchIcon } from '@/public/icons'
+
+import Button from '../ui/Button'
 
 interface HeaderProps {
   children: React.ReactNode
@@ -23,26 +25,26 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         className
       )}
     >
-      <div className="w-full mb-4 flex items-center justify-between">
-        <div className="hidden md:flex gap-x-2 items-center">
-          <button className="rounded-full bg-neutral-800 items-center justify-center hover:opacity-75 transition">
+      <div className="mb-4 flex w-full items-center justify-between">
+        <div className="hidden items-center gap-x-2 md:flex">
+          <button className="items-center justify-center rounded-full bg-neutral-800 transition hover:opacity-75">
             <RxCaretLeft className="text-white" size={35} />
           </button>
-          <button className="rounded-full bg-neutral-800 items-center justify-center hover:opacity-75 transition">
+          <button className="items-center justify-center rounded-full bg-neutral-800 transition hover:opacity-75">
             <RxCaretRight className="text-white" size={35} />
           </button>
         </div>
-        <div className="flex md:hidden gap-x-2 items-center">
-          <button className="flex rounded-full w-10 h-10 bg-white p-2 items-center justify-center hover:opacity-75 transition">
+        <div className="flex items-center gap-x-2 md:hidden">
+          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
             <HomeActiveIcon size={20} color="#000000" />
           </button>
-          <button className="flex rounded-full w-10 h-10 bg-white p-2 items-center justify-center hover:opacity-75 transition">
+          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
             <SearchIcon size={20} color="#000000" />
           </button>
         </div>
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex items-center justify-between gap-x-4">
           {user ? (
-            <div className="flex gap-x-4 items-center">
+            <div className="flex items-center gap-x-4">
               <Button className="bg-white px-6 py-2">Logout</Button>
               <Button className="bg-white">
                 <FaUserAlt />
@@ -51,12 +53,12 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           ) : (
             <>
               <div>
-                <Button className="bg-transparent text-neutral-300 font-medium">
+                <Button className="bg-transparent font-medium text-neutral-300">
                   Sign up
                 </Button>
               </div>
               <div>
-                <Button className="bg-transparent text-neutral-300 font-medium">
+                <Button className="bg-transparent font-medium text-neutral-300">
                   Log in
                 </Button>
               </div>

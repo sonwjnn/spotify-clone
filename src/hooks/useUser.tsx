@@ -1,11 +1,14 @@
 'use client'
-import { Subscription, UserDetails } from '@/types/types'
+
+import type { User } from '@supabase/auth-helpers-react'
 import {
-  User,
   useSessionContext,
   useUser as useSupaUser,
 } from '@supabase/auth-helpers-react'
+import type { PostgrestBuilder } from '@supabase/postgrest-js'
 import { createContext, useContext, useEffect, useState } from 'react'
+
+import type { Subscription, UserDetails } from '@/types/types'
 
 type UserContextType = {
   accessToken: string | null
@@ -21,7 +24,7 @@ export interface Props {
   [propName: string]: any
 }
 
-export const MyUserContextProvider = (props: Props) => {
+export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
   const {
     session,
     isLoading: isLoadingUser,
@@ -34,9 +37,13 @@ export const MyUserContextProvider = (props: Props) => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
 
-  const getUserDetails = () => supabase.from('users').select('*').single()
+  const getUserDetails = (): PostgrestBuilder<{
+    [x: string]: any
+  }> => supabase.from('users').select('*').single()
 
-  const getSubscription = () =>
+  const getSubscription = (): PostgrestBuilder<{
+    [x: string]: any
+  }> =>
     supabase
       .from('subscriptions')
       .select('*, prices(*, products(*))')
@@ -80,7 +87,7 @@ export const MyUserContextProvider = (props: Props) => {
   return <UserContext.Provider value={value} {...props} />
 }
 
-export const useUser = () => {
+export const useUser = (): UserContextType => {
   const context = useContext(UserContext)
   if (context === undefined) {
     throw new Error('useUSer must be used within a MyUserContextProvider')

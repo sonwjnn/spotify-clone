@@ -1,11 +1,13 @@
 'use client'
 
-import { Song } from '@/types/types'
-import LikeButton from '../LikeButton'
 import Image from 'next/image'
-import { MusicNote } from '@/public/icons'
+
 import useLoadImage from '@/hooks/useLoadImage'
+import { MusicNote } from '@/public/icons'
+import type { Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
+
+import LikeButton from '../LikeButton'
 
 interface SongDetailsProps {
   data: Song
@@ -15,15 +17,15 @@ const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
   const imageUrl = useLoadImage(data.image_path, buckets.images)
 
   return (
-    <div className="items-center gap-x-4 w-full md:pr-6   flex">
+    <div className="flex w-full items-center gap-x-4   md:pr-6">
       <div
-        className={`transition rounded-md  gap-x-2 min-w-[200px] md:min-w-0`}
+        className={`min-w-[200px] gap-x-2  rounded-md transition md:min-w-0`}
       >
         <div
           className="flex items-center gap-x-3
       "
         >
-          <div className="relative rounded-md min-h-[56px] min-w-[56px] overflow-hidden">
+          <div className="relative min-h-[56px] min-w-[56px] overflow-hidden rounded-md">
             {imageUrl ? (
               <Image
                 fill
@@ -35,14 +37,14 @@ const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
                 placeholder="blur"
               />
             ) : (
-              <div className="text-white w-full aspect-square h-full flex items-center justify-center bg-neutral-800">
+              <div className="flex aspect-square h-full w-full items-center justify-center bg-neutral-800 text-white">
                 <MusicNote size={22} />
               </div>
             )}
           </div>
           <div className="flex flex-col gap-y-1 overflow-hidden">
-            <p className="text-white text-sm truncate">{data.title}</p>
-            <p className="text-neutral-400 text-xs truncate">{data.author}</p>
+            <p className="truncate text-sm text-white">{data.title}</p>
+            <p className="truncate text-xs text-neutral-400">{data.author}</p>
           </div>
         </div>
       </div>

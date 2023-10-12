@@ -1,15 +1,15 @@
 'use client'
 
-import { LibraryIcon } from '@/public/icons'
-
-import UploadDropdown from './UploadDropdown'
-import PlaylistSidebar from './PlaylistSidebar/PlaylistSidebar'
-import { Playlist } from '@/types/types'
 import useAuthModal from '@/hooks/useAuthModal'
-import { useUser } from '@/hooks/useUser'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
-import ListItem from './ListItem'
+import { useUser } from '@/hooks/useUser'
+import { LibraryIcon } from '@/public/icons'
 import useUserStore from '@/stores/useUserStore'
+import type { Playlist } from '@/types/types'
+
+import ListItem from './ListItem'
+import PlaylistSidebar from './PlaylistSidebar/PlaylistSidebar'
+import UploadDropdown from './UploadDropdown'
 
 interface LibraryProps {
   playlists: Playlist[]
@@ -22,62 +22,63 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
   const authModal = useAuthModal()
   const subcribeModal = useSubscribeModal()
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     if (!user) {
-      return authModal.onOpen()
+      authModal.onOpen()
+      return
     }
     if (!subscription) {
-      return subcribeModal.onOpen()
+      subcribeModal.onOpen()
     }
   }
 
   return (
     <div className="flex flex-col ">
       <div
-        className={`flex flex-col items-center px-5 pt-4 sticky top-0 bg-neutral-900 z-10 pb-0 ${
+        className={`sticky top-0 z-10 flex flex-col items-center bg-neutral-900 px-5 pb-0 pt-4 ${
           isScroll ? 'shadow-2xl' : ''
         }`}
       >
-        <div className="w-full flex items-center justify-between">
+        <div className="flex w-full items-center justify-between">
           <div className="inline-flex items-center gap-x-2 ">
             <button className="text-neutral-400">
               <LibraryIcon />
             </button>
-            <p className="text-neutral-400 text-base font-bold">Your Library</p>
+            <p className="text-base font-bold text-neutral-400">Your Library</p>
           </div>
 
-          <div className={'min-h-8  flex flex-row justify-end'}>
+          <div className={'flex flex-row justify-end'}>
             <UploadDropdown />
           </div>
         </div>
 
-        <div className="h-12 w-full flex items-center gap-x-2 mt-2">
+        <div className="mt-2 flex h-12 w-full items-center gap-x-2">
           <button
-            disabled={playlists.length ? false : true}
-            className="rounded-full bg-neutral-800 text-white text-sm border border-transparent py-1 px-3  disabled:opacity-50 transition hover:brightness-110"
+            disabled={!playlists.length}
+            className="rounded-full border border-transparent bg-neutral-800 px-3 py-1 text-sm text-white  transition hover:brightness-110 disabled:opacity-50"
           >
             Playlists
           </button>
           <button
             disabled
-            className=" rounded-full bg-neutral-800 text-white text-sm border border-transparent py-1 px-3 disabled:select-none  disabled:opacity-50 transition hover:brightness-110"
+            className=" rounded-full border border-transparent bg-neutral-800 px-3 py-1 text-sm text-white transition  hover:brightness-110 disabled:select-none disabled:opacity-50"
           >
             Albums
           </button>
         </div>
       </div>
-
+      {/* eslint-disable-next-line no-nested-ternary */}
       {!user || !subscription ? (
         <div
           onClick={handleClick}
-          className="flex justify-center items-center text-center w-full px-4 my-8 text-neutral-400 hover:text-white transition cursor-pointer"
+          className="my-8 flex w-full cursor-pointer items-center justify-center px-4 text-center text-neutral-400 transition hover:text-white"
         >
           Log in and subscribe to view your playlists.
         </div>
       ) : !playlists.length && !likedPlaylists.length ? (
         <div
           onClick={handleClick}
-          className="flex justify-center items-center text-center w-full px-4 my-8 text-neutral-400 hover:text-white transition cursor-pointer"
+          className="my-8 flex w-full cursor-pointer items-center justify-center px-4 text-center text-neutral-400 transition hover:text-white"
         >
           You have no any playlists, create your playlists.
         </div>

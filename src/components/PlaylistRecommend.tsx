@@ -2,12 +2,14 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { MusicNote } from '@/public/icons'
-import { Playlist } from '@/types/types'
-import { buckets } from '@/utils/constants'
-import useHeader from '@/stores/useHeader'
-import PlayButton from './PlayButton'
+
 import useLoadImage from '@/hooks/useLoadImage'
+import { MusicNote } from '@/public/icons'
+import useHeader from '@/stores/useHeader'
+import type { Playlist } from '@/types/types'
+import { buckets } from '@/utils/constants'
+
+import PlayButton from './PlayButton'
 
 interface PlaylistRecommendProps {
   data: Playlist
@@ -25,19 +27,19 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
 
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images)
 
-  const handleHover = () => {
+  const handleHover = (): void => {
     if (!isHover) setHover(true)
 
     setBgColor(data?.bg_color || bgColor)
   }
-  const onClick = () => {
+  const onClick = (): void => {
     // Add authentication befire push
     router.push(`playlist/${data.id}`)
   }
 
   return (
     <div
-      className="relative group flex items-center rounded-md overflow-hidden gap-x-4 cursor-pointer bg-neutral-100/10 hover:bg-neutral-100/20 transition "
+      className="group relative flex cursor-pointer items-center gap-x-4 overflow-hidden rounded-md bg-neutral-100/10 transition hover:bg-neutral-100/20 "
       onMouseEnter={handleHover}
       onMouseLeave={() => setBgColor(bgBase)}
       onClick={onClick}
@@ -54,12 +56,12 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
             placeholder="blur"
           />
         ) : (
-          <div className="absolute text-white inset-0 flex items-center justify-center bg-neutral-800">
+          <div className="absolute inset-0 flex items-center justify-center bg-neutral-800 text-white">
             <MusicNote size={25} />
           </div>
         )}
       </div>
-      <p className="text-white font-bold text-base truncate py-5">
+      <p className="truncate py-5 text-base font-bold text-white">
         {data.title}
       </p>
 

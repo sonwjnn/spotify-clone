@@ -1,14 +1,14 @@
 'use client'
 
-import useOnPlay from '@/hooks/useOnPlay'
-import useClickOutside from '@/hooks/useClickOutside'
-import useMainLayout from '@/stores/useMainLayout'
 import { useRef, useState } from 'react'
-import MediaItem from '@/components/MediaItem'
-import { ClockIcon } from '@/public/icons'
 
-import { MediaListProps } from '@/types/track'
+import MediaItem from '@/components/MediaItem'
+import useClickOutside from '@/hooks/useClickOutside'
+import useOnPlay from '@/hooks/useOnPlay'
+import { ClockIcon } from '@/public/icons'
+import useMainLayout from '@/stores/useMainLayout'
 import usePlayer from '@/stores/usePlayer'
+import type { MediaListProps } from '@/types/track'
 import cn from '@/utils/cn'
 
 interface ListBarProps {
@@ -36,11 +36,11 @@ const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
       )}
     >
       {type !== 'search' && width > 480 && (
-        <div className="text-base text-neutral-400 text-right relative">#</div>
+        <div className="relative text-right text-base text-neutral-400">#</div>
       )}
       <div className={`flex items-center gap-4 pr-2`}>
         <div
-          className={`flex flex-col justify-between h-full gap-[5px] flex-1 overflow-hidden`}
+          className={`flex h-full flex-1 flex-col justify-between gap-[5px] overflow-hidden`}
         >
           <p className="text-sm text-neutral-400">Title</p>
         </div>
@@ -48,7 +48,7 @@ const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
       {type !== 'album' && type !== 'search' && (
         <>
           {width > 640 && (
-            <p className="text-neutral-400 text-sm truncate">Album</p>
+            <p className="truncate text-sm text-neutral-400">Album</p>
           )}
           {width > 780 && (
             <div className={'text-sm text-neutral-400'}>Date added</div>
@@ -56,10 +56,10 @@ const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
         </>
       )}
       <div
-        className={`flex text-neutral-400 gap-x-3 ${
+        className={`flex gap-x-3 text-neutral-400 ${
           type === 'playlist'
-            ? 'justify-center translate-x-2'
-            : 'justify-end translate-x-[-5px]'
+            ? 'translate-x-2 justify-center'
+            : 'translate-x-[-5px] justify-end'
         } items-center `}
       >
         <ClockIcon />
@@ -82,7 +82,7 @@ const MediaList: React.FC<MediaListProps> = ({
     setSelectedId('')
   })
 
-  const handleOnPlay = (songId: string) => {
+  const handleOnPlay = (songId: string): void => {
     onPlay(songId)
     if (type === 'playlist') {
       player.setPlaylistActiveId(playlist?.id)
@@ -92,7 +92,7 @@ const MediaList: React.FC<MediaListProps> = ({
   return (
     <>
       <div
-        className="flex flex-col z-10  w-full px-6 pb-2 min-h-[20vh]"
+        className="z-10 flex min-h-[20vh]  w-full flex-col px-6 pb-2"
         ref={wrapperRef}
       >
         {songs.length ? <ListBar type={type} /> : null}
@@ -103,7 +103,7 @@ const MediaList: React.FC<MediaListProps> = ({
             onDoubleClick={() => {
               handleOnPlay(song.id)
             }}
-            className="flex items-center gap-x-4 w-full z-10"
+            className="z-10 flex w-full items-center gap-x-4"
           >
             <MediaItem
               type={type}

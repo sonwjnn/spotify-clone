@@ -1,13 +1,15 @@
 'use client'
 
-import useSound from 'use-sound'
-import { Song } from '@/types/types'
-import usePlayer from '@/stores/usePlayer'
 import { useEffect, useRef, useState } from 'react'
+import useSound from 'use-sound'
+
+import usePlayer from '@/stores/usePlayer'
 import useSelectedPlayer from '@/stores/useSelectedPlayer'
-import SeekBar from './SeekBar'
-import Controls from './Controls'
+import type { Song } from '@/types/types'
+
 import PlayButton from '../PlayButton'
+import Controls from './Controls'
+import SeekBar from './SeekBar'
 import SongDetails from './SongDetails'
 import VolumeBar from './VolumeBar'
 
@@ -49,25 +51,26 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
   const isRandomRef = useRef(false)
 
   const [play, { duration, pause, sound }] = useSound(songUrl, {
-    volume: volume,
+    volume,
     loop: false,
     onplay: () => {
       setPlaying(true)
     },
     onend: () => {
       setPlaying(false)
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       onPlayNext()
     },
     onpause: () => setPlaying(false),
     format: ['mp3'],
   })
 
-  const startTimer = () => {
+  const startTimer = (): void => {
     clearInterval(intervalIdRef?.current)
     intervalIdRef.current = setInterval(() => {
       if (sound) {
         setTrackProcess(prev => {
-          const totalSeconds = Math.floor(duration ? duration : 0 / 1000)
+          const totalSeconds = Math.floor(duration || 0 / 1000)
           if (+prev + 1 > totalSeconds) return +prev
           return +prev + 1
         })
@@ -124,26 +127,26 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     calNextTrackIndex()
   }, [currentTrack, isRandom, calNextTrackIndex])
 
-  const onPlayNext = () => {
+  const onPlayNext = (): void => {
     if (playerIds.length === 0) {
       return
     }
 
-    const isReplay = isReplayRef.current
-    const isRandom = isRandomRef.current
+    const isReplayCurr = isReplayRef.current
+    const isRandomCurr = isRandomRef.current
 
     const nextSong = playerIds[nextTrackIndex]
 
     // handle when play done queue
-    if (!nextSong && !isReplay && !isRandom) {
-      setId(playerIds[0])
-      setCurrentTrack({ ...queue[0] })
+    if (!nextSong && !isReplayCurr && !isRandomCurr) {
+      setId(playerIds[0] as string)
+      setCurrentTrack({ ...queue[0] } as Song)
       setCurrentTrackIndex(0)
       return
     }
 
     // handle replay
-    if (isReplay) {
+    if (isReplayCurr) {
       setCurrentTime(0)
       if (sound) {
         sound.seek([0])
@@ -155,14 +158,14 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     }
 
     // default change next song
-    setCurrentTrack({ ...queue[nextTrackIndex] })
+    setCurrentTrack({ ...queue[nextTrackIndex] } as Song)
     setCurrentTrackIndex(nextTrackIndex)
     calNextTrackIndex()
     selectedPlayer.setSelected(true)
-    setId(nextSong)
+    setId(nextSong as string)
   }
 
-  const onPlayPrevious = () => {
+  const onPlayPrevious = (): void => {
     if (playerIds.length === 0) {
       return
     }
@@ -171,25 +174,26 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     const previousSong = playerIds[currentIndex - 1]
 
     if (!previousSong) {
-      return setId(playerIds[playerIds.length - 1])
+      setId(playerIds[playerIds.length - 1] as string)
+      return
     }
 
-    setCurrentTrack({ ...queue[currentTrackIndex - 1] })
+    setCurrentTrack({ ...queue[currentTrackIndex - 1] } as Song)
     setCurrentTrackIndex(currentTrackIndex - 1)
     selectedPlayer.setSelected(true)
     setId(previousSong)
   }
 
   return (
-    <div className="flex justify-between h-full">
+    <div className="flex h-full justify-between">
       {/* Left */}
-      <div className="flex w-[50%] md:w-[30%] justify-start ">
+      <div className="flex w-[50%] justify-start md:w-[30%] ">
         <SongDetails data={song} />
       </div>
       {/* Left */}
 
       {/* Center */}
-      <div className="hidden h-full md:flex md:flex-col   gap-y-1  w-[40%] max-w-[722px]">
+      <div className="hidden h-full w-[40%] max-w-[722px]   gap-y-1  md:flex md:flex-col">
         <Controls onPlayNext={onPlayNext} onPlayPrevious={onPlayPrevious} />
 
         <SeekBar
@@ -205,15 +209,15 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
       {/* Center */}
 
       {/* Right */}
-      <div className="flex md:hidden   justify-end items-center">
+      <div className="flex items-center   justify-end md:hidden">
         <PlayButton
-          className="opacity-1 translate-y-0 h-14 w-14 bg-white"
+          className="h-14 w-14 translate-y-0 bg-white opacity-100"
           onClick={handlePlay}
           isPlaying={isPlaying}
         />
       </div>
 
-      <div className="hidden md:flex w-[30%] justify-end  pr-2 ">
+      <div className="hidden w-[30%] justify-end pr-2  md:flex ">
         <VolumeBar />
       </div>
       {/* Right */}

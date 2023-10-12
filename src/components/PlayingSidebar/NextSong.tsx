@@ -1,13 +1,15 @@
 'use client'
 
-import { MusicNote, PlayIcon, SingleMusicNote } from '@/public/icons'
-import { FC, useState } from 'react'
 import Image from 'next/image'
-import useLoadImage from '@/hooks/useLoadImage'
-import { Song } from '@/types/types'
-import Skeleton from 'react-loading-skeleton'
-import usePlayer from '@/stores/usePlayer'
 import { usePathname, useRouter } from 'next/navigation'
+import type { FC } from 'react'
+import { useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
+
+import useLoadImage from '@/hooks/useLoadImage'
+import { MusicNote, PlayIcon, SingleMusicNote } from '@/public/icons'
+import usePlayer from '@/stores/usePlayer'
+import type { Song } from '@/types/types'
 
 interface NextSongProps {
   song: Song | undefined
@@ -20,13 +22,13 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
 
   const [isHover, setHover] = useState<boolean>(false)
 
-  const handleOnNextSong = () => {
+  const handleOnNextSong = (): void => {
     if (song) {
       player.setId(song?.id)
     }
   }
 
-  const handleClickQueueBtn = () => {
+  const handleClickQueueBtn = (): void => {
     if (pathname !== '/queue') {
       router.push('/queue')
     } else {
@@ -36,17 +38,17 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
 
   return (
     <div
-      className={'rouned-2xl p-4 pb-2 bg-neutral-400/5 flex flex-col w-full '}
+      className={'flex w-full flex-col rounded-2xl bg-neutral-400/5 p-4 pb-2 '}
     >
       <div className={'flex flex-row justify-between '}>
-        <span className={'text-base font-bold text-white truncate'}>
+        <span className={'truncate text-base font-bold text-white'}>
           Next in queue
         </span>
 
-        <div className="hover:text-white underline scale-[1.04] ">
+        <div className="scale-[1.04] underline hover:text-white ">
           <button
             onClick={handleClickQueueBtn}
-            className="outline-none hover:underline border-none focus:outline-none bg-transparent font-bold text-sm text-neutral-400 origin-center transition cursor-pointer"
+            className="origin-center cursor-pointer border-none bg-transparent text-sm font-bold text-neutral-400 outline-none transition hover:underline focus:outline-none"
           >
             Open queue
           </button>
@@ -58,7 +60,7 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           className={
-            'flex flex-row gap-3 p-2 h-[64px] items-center rounded-lg overflow-hidden  hover:bg-neutral-400/10 transition cursor-pointer'
+            'flex h-[64px] cursor-pointer flex-row items-center gap-3 overflow-hidden rounded-lg  p-2 transition hover:bg-neutral-400/10'
           }
         >
           <div className={'w-4 text-white'}>
@@ -70,7 +72,7 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
           </div>
           <div className={' h-12 w-12'}>
             {imagePath ? (
-              <div className="relative aspect-square h-full w-full rounded-md overflow-hidden">
+              <div className="relative aspect-square h-full w-full overflow-hidden rounded-md">
                 <Image
                   className="
             object-cover
@@ -86,7 +88,7 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
             ) : (
               <div
                 className={
-                  'h-full w-full text-white rounded-lg bg-[#282828] flex items-center justify-center'
+                  'flex h-full w-full items-center justify-center rounded-lg bg-[#282828] text-white'
                 }
               >
                 <MusicNote size={20} />
@@ -95,13 +97,13 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
           </div>
           <div
             className={
-              'flex flex-col overflow-hidden flex-1 select-none min-w-0'
+              'flex min-w-0 flex-1 select-none flex-col overflow-hidden'
             }
           >
             {song?.title ? (
               <span
                 className={
-                  'text-base text-white font-bold cursor-pointer hover:underline truncate '
+                  'cursor-pointer truncate text-base font-bold text-white hover:underline '
                 }
               >
                 {song?.title}
@@ -110,7 +112,7 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
               <Skeleton height={'100%'} borderRadius={50} />
             )}
             {song?.author ? (
-              <span className={'text-sm text-neutral-400 truncate select-none'}>
+              <span className={'select-none truncate text-sm text-neutral-400'}>
                 {song?.author}
               </span>
             ) : (

@@ -1,16 +1,17 @@
 'use client'
 
-import { MusicNote } from '@/public/icons'
+import Image from 'next/image'
+import { useCallback } from 'react'
+
 import useAuthModal from '@/hooks/useAuthModal'
 import useLoadImage from '@/hooks/useLoadImage'
 import usePlaylistModal from '@/hooks/usePlaylistModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useUser } from '@/hooks/useUser'
+import { MusicNote } from '@/public/icons'
 import useMainLayout from '@/stores/useMainLayout'
-import { Playlist, Song } from '@/types/types'
+import type { Playlist, Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
-import Image from 'next/image'
-import { useCallback } from 'react'
 import { getDurationSongs } from '@/utils/durationConvertor'
 
 interface HeaderContentProps {
@@ -27,7 +28,7 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
 
   const imagePath = useLoadImage(data?.image_path!, buckets.playlist_images)
 
-  const onClick = () => {
+  const onClick = (): void => {
     if (!user) {
       return authModal.onOpen()
     }
@@ -46,14 +47,14 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
   }, [songs])
 
   return (
-    <div className="flex flex-col  md:flex-row items-center  md:items-end gap-x-5">
+    <div className="flex flex-col  items-center gap-x-5  md:flex-row md:items-end">
       <div
         className={`${
           width <= 875 && '!h-[192px] !w-[192px]'
-        } h-[232px] w-[232px] text-white bg-[#282828] rounded-sm flex items-center justify-center shadow-base `}
+        } flex h-[232px] w-[232px] items-center justify-center rounded-sm bg-[#282828] text-white shadow-base `}
       >
         {imagePath ? (
-          <div className="relative aspect-square h-full w-full rounded-sm overflow-hidden">
+          <div className="relative aspect-square h-full w-full overflow-hidden rounded-sm">
             <Image
               className="
             object-cover
@@ -71,23 +72,23 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
           <MusicNote size={50} />
         )}
       </div>
-      <div className="flex flex-col  gap-y-3 md:gap-y-6 mt-4 md:mt-0">
-        <p className="text-white hidden md:block  text-base">Playlist</p>
+      <div className="mt-4 flex  flex-col gap-y-3 md:mt-0 md:gap-y-6">
+        <p className="hidden text-base text-white  md:block">Playlist</p>
         <h1
           onClick={onClick}
           className={`${width <= 1012 && '!text-5xl'} ${
             width <= 901 && '!text-3xl'
-          } text-white flex text-center md:text-left text-7xl font-bold cursor-pointer`}
+          } flex cursor-pointer text-center text-7xl font-bold text-white md:text-left`}
         >
           {data?.title || 'Playlist Title'}
         </h1>
-        <div className="flex flex-col items-center md:items-start gap-y-2 ">
+        <div className="flex flex-col items-center gap-y-2 md:items-start ">
           {data?.description && (
-            <p className="hidden md:block text-sm text-desc">
+            <p className="hidden text-sm text-desc md:block">
               {data.description}
             </p>
           )}
-          <div className="text-sm flex gap-x-2 text-white">
+          <div className="flex gap-x-2 text-sm text-white">
             <p>{`${data?.users?.full_name || 'No name'} - ${data?.song_ids
               ?.length} songs${data?.song_ids?.length ? ',' : ''}`}</p>
             <p className="text-desc">{`${duration()}`}</p>

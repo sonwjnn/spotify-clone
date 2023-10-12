@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-interface playingSidebarProps {
+interface PlayingSidebarProps {
   isShowed: boolean
   setShowed: (isShowed: boolean) => void
 }
 
-const usePlayingSidebar = create<playingSidebarProps>()(
+const usePlayingSidebar = create<PlayingSidebarProps>()(
   persist(
     set => ({
       isShowed: false,

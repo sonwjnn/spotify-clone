@@ -1,30 +1,33 @@
 'use client'
 
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import Link from 'next/link'
 import { useParams, usePathname, useRouter } from 'next/navigation'
-import { twMerge } from 'tailwind-merge'
+import { useEffect, useMemo, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { FaUserAlt } from 'react-icons/fa'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
+import { twMerge } from 'tailwind-merge'
+
+import useAuthModal from '@/hooks/useAuthModal'
+import useOnPlay from '@/hooks/useOnPlay'
+import { useUser } from '@/hooks/useUser'
+import type { IconProps } from '@/public/icons'
 import {
   HomeActiveIcon,
   HomeIcon,
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import Button from './ui/Button'
-import useAuthModal from '@/hooks/useAuthModal'
-import { FaUserAlt } from 'react-icons/fa'
-import { useUser } from '@/hooks/useUser'
-import { toast } from 'react-hot-toast'
-import usePlayer from '@/stores/usePlayer'
-import { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
-import useNavStyles from '@/stores/useNavStyles'
-import { Playlist, Song } from '@/types/types'
-import useOnPlay from '@/hooks/useOnPlay'
-import PlayButton from './PlayButton'
-import useSelectedPlayer from '@/stores/useSelectedPlayer'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import useHeader from '@/stores/useHeader'
+import useNavStyles from '@/stores/useNavStyles'
+import usePlayer from '@/stores/usePlayer'
+import useSelectedPlayer from '@/stores/useSelectedPlayer'
+import type { Playlist, Song } from '@/types/types'
+
+import PlayButton from './PlayButton'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import Button from './ui/Button'
 
 interface NavbarProps {
   type?:
@@ -100,17 +103,17 @@ const Navbar: React.FC<NavbarProps> = props => {
     }
   }, [type, player.isPlaying, player.playlistPlayingId, params.id])
 
-  const handleClickPlay = () => {
+  const handleClickPlay = (): void => {
     if (player.playlistPlayingId?.toString() !== params.id && songs?.length) {
       player.setPlaylistActiveId(params.id as string)
-      onPlay(songs[0].id)
+      if (songs[0]) onPlay(songs[0].id)
     } else {
       setSelected(true)
       player.handlePlay()
     }
   }
 
-  const handleLogout = async () => {
+  const handleLogout = async (): Promise<void> => {
     const { error } = await supabaseClient.auth.signOut()
     player.reset()
     router.refresh()
@@ -137,24 +140,24 @@ const Navbar: React.FC<NavbarProps> = props => {
         )}
         style={{
           transition: 'background-color 1s ease',
-          opacity: opacity,
+          opacity,
           backgroundColor:
             type === 'home' ? bgColorHome : bgColor || data?.bg_color,
         }}
       ></div>
 
       <div
-        className={` h-full w-full mb-4 flex items-center justify-between  absolute top-0  left-0 right-0  px-6 z-10`}
+        className={` absolute inset-x-0 top-0 z-10 mb-4 flex  h-full w-full  items-center justify-between  px-6`}
       >
-        <div className="hidden md:flex gap-x-2 min-w-0  items-center ">
+        <div className="hidden min-w-0 items-center gap-x-2  md:flex ">
           <button
-            className="rounded-full bg-black items-center justify-center transition active:scale-95"
+            className="items-center justify-center rounded-full bg-black transition active:scale-95"
             onClick={() => router.back()}
           >
             <RxCaretLeft className="text-white" size={35} />
           </button>
           <button
-            className="rounded-full bg-black items-center justify-center transition active:scale-95"
+            className="items-center justify-center rounded-full bg-black transition active:scale-95"
             onClick={() => router.forward()}
           >
             <RxCaretRight className="text-white" size={35} />
@@ -162,26 +165,28 @@ const Navbar: React.FC<NavbarProps> = props => {
 
           {playBtnVisible && hasPlayBtn ? (
             <div
-              className={`ml-1  flex gap-x-2 transition items-center w-full min-w-0 flex-grow max-w-[400px] ${
+              className={`ml-1  flex w-full min-w-0 max-w-[400px] grow items-center gap-x-2 transition ${
                 playBtnVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <PlayButton
-                className="opacity-100 translate-y-0  h-12 w-12 hover:scale-105"
+                className="h-12 w-12  translate-y-0 opacity-100 hover:scale-105"
                 onClick={handleClickPlay}
                 isPlaying={isPlaying}
               />
 
-              <span className="text-white text-2xl truncate font-bold mr-1">
+              <span className="mr-1 truncate text-2xl font-bold text-white">
                 {data?.title}
               </span>
             </div>
           ) : null}
         </div>
 
-        <div className="flex md:hidden gap-x-2 items-center ">
+        <div className="flex items-center gap-x-2 md:hidden ">
           {routes.map((item, index) => {
-            const Icon = item.active ? item.icon[0] : item.icon[1]
+            const Icon:
+              | ((props: Partial<IconProps>) => JSX.Element)
+              | undefined = item.active ? item.icon[0] : item.icon[1]
             return (
               <Link
                 key={index}
@@ -190,22 +195,22 @@ const Navbar: React.FC<NavbarProps> = props => {
                   `flex rounded-full w-10 h-10 bg-white p-2 items-center justify-center hover:opacity-75 transition`
                 )}
               >
-                <Icon size={22} color="#000000" />
+                {Icon ? <Icon size={22} color="#000000" /> : null}
               </Link>
             )
           })}
         </div>
 
-        <div className="flex justify-between items-center   gap-x-4">
+        <div className="flex items-center justify-between   gap-x-4">
           {user ? (
-            <div className="flex gap-x-4 items-center">
+            <div className="flex items-center gap-x-4">
               <Button onClick={handleLogout} className="bg-white px-6 py-2">
                 Logout
               </Button>
 
               <Avatar
                 onClick={() => router.push('/account')}
-                className="bg-white cursor-pointer"
+                className="cursor-pointer bg-white"
               >
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>
@@ -217,7 +222,7 @@ const Navbar: React.FC<NavbarProps> = props => {
             <>
               <div>
                 <Button
-                  className="bg-transparent text-neutral-300 font-medium"
+                  className="bg-transparent font-medium text-neutral-300"
                   onClick={authModal.onOpen}
                 >
                   Sign up
@@ -225,7 +230,7 @@ const Navbar: React.FC<NavbarProps> = props => {
               </div>
               <div>
                 <Button
-                  className="bg-transparent text-neutral-300 font-medium"
+                  className="bg-transparent font-medium text-neutral-300"
                   onClick={authModal.onOpen}
                 >
                   Log in

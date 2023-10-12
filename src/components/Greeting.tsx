@@ -1,10 +1,13 @@
 'use client'
 
-import { Playlist } from '@/types/types'
 import { memo, useEffect, useMemo, useState } from 'react'
-import PlaylistRecommend from './PlaylistRecommend'
-import useMainLayout from '@/stores/useMainLayout'
+
 import useHeader from '@/stores/useHeader'
+import useMainLayout from '@/stores/useMainLayout'
+import type { Playlist } from '@/types/types'
+import cn from '@/utils/cn'
+
+import PlaylistRecommend from './PlaylistRecommend'
 
 interface GreetingProps {
   playlists: Playlist[]
@@ -35,20 +38,21 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
   }, [isHover, setBgBase, playlists])
 
   const greeting = useMemo(() => {
-    if (5 <= currentHour && currentHour <= 11) return 'Good morning'
-    if (12 <= currentHour && currentHour <= 17) return 'Good afternoon'
+    if (currentHour >= 5 && currentHour <= 11) return 'Good morning'
+    if (currentHour >= 12 && currentHour <= 17) return 'Good afternoon'
     return 'Good evening'
   }, [currentHour])
 
   return (
     <div>
-      <h1 className="text-white text-3xl font-semibold">
+      <h1 className="text-3xl font-semibold text-white">
         <p>{greeting}</p>
       </h1>
       <div
-        className={`grid ${
-          width <= 519 ? '!grid-cols-1' : width <= 878 ? '!grid-cols-2' : ''
-        }  grid-cols-3 gap-3 mt-4`}
+        className={cn(`grid mt-4 grid-cols-3 gap-3`, {
+          '!grid-cols-1': width <= 519,
+          '!grid-cols-2': width <= 878,
+        })}
       >
         {playlists
           ?.slice(0, 6)

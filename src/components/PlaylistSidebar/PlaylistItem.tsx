@@ -1,14 +1,15 @@
 'use client'
 
+import Image from 'next/image'
+import { useParams, useRouter } from 'next/navigation'
+import { twMerge } from 'tailwind-merge'
+
 import useLoadImage from '@/hooks/useLoadImage'
 import usePlaylistModal from '@/hooks/usePlaylistModal'
 import { MusicNote, SoundIconSolid } from '@/public/icons'
 import usePlayer from '@/stores/usePlayer'
-import { Playlist } from '@/types/types'
+import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
-import Image from 'next/image'
-import { useParams, useRouter } from 'next/navigation'
-import { twMerge } from 'tailwind-merge'
 
 interface PlaylistItemProps {
   data: Playlist
@@ -23,7 +24,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
   const uploadModal = usePlaylistModal()
   const { id } = useParams()
 
-  const onClick = () => {
+  const onClick = (): void => {
     uploadModal.setPlaylist(data)
     router.push(`/playlist/${data.id}`)
   }
@@ -39,8 +40,8 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
       )}
       onClick={onClick}
     >
-      <div className="flex item-center gap-x-3 min-w-0">
-        <div className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden">
+      <div className="flex min-w-0 items-center gap-x-3">
+        <div className="relative min-h-[48px] min-w-[48px] overflow-hidden rounded-md">
           {imageUrl ? (
             <Image
               fill
@@ -52,7 +53,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
               placeholder="blur"
             />
           ) : (
-            <div className="w-full text-white h-full flex items-center justify-center bg-neutral-800">
+            <div className="flex h-full w-full items-center justify-center bg-neutral-800 text-white">
               <MusicNote size={20} />
             </div>
           )}
@@ -65,7 +66,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
           >
             {data.title}
           </p>
-          <p className="text-neutral-400 text-sm truncate">
+          <p className="truncate text-sm text-neutral-400">
             {`Playlist - ${data?.users?.full_name}`}
           </p>
         </div>

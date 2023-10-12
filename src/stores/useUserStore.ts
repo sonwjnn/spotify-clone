@@ -1,7 +1,8 @@
-import { Song, Playlist } from '@/types/types'
 import { create } from 'zustand'
 
-interface userStore {
+import type { Playlist, Song } from '@/types/types'
+
+interface UserStore {
   likedSongs: Song[]
   setLikedSongs: (songs: Song[]) => void
   likedPlaylists: Playlist[]
@@ -10,7 +11,7 @@ interface userStore {
   addLikedSong: (song: Song) => void
 }
 
-const useUserStore = create<userStore>()((set, get) => ({
+const useUserStore = create<UserStore>()((set, get) => ({
   likedSongs: [],
   likedPlaylists: [],
   setLikedSongs: (songs: Song[]) => set({ likedSongs: songs }),
@@ -18,7 +19,7 @@ const useUserStore = create<userStore>()((set, get) => ({
     set({ likedPlaylists: playlists }),
   removeLikedSong: (id: string) => {
     const { likedSongs } = get()
-    const filteredLikedSongs = likedSongs.filter(song => song.id != id)
+    const filteredLikedSongs = likedSongs.filter(song => song.id !== id)
     set({ likedSongs: filteredLikedSongs })
   },
   addLikedSong: (song: Song) =>

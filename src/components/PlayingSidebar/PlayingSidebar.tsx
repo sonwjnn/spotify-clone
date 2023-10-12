@@ -1,15 +1,17 @@
 'use client'
 
-import { CloseIcon, MusicNote } from '@/public/icons'
-import NextSong from './NextSong'
 import Image from 'next/image'
-import LikeButton from '../LikeButton'
+import { useState } from 'react'
 
 import useLoadImage from '@/hooks/useLoadImage'
+import { CloseIcon, MusicNote } from '@/public/icons'
 import usePlayer from '@/stores/usePlayer'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
-import { useState } from 'react'
+import type { Song } from '@/types/types'
+
+import LikeButton from '../LikeButton'
 import { ScrollArea } from '../ui/scroll-area'
+import NextSong from './NextSong'
 
 const PlayingSidebar: React.FC = () => {
   const playingSidebar = usePlayingSidebar()
@@ -17,7 +19,7 @@ const PlayingSidebar: React.FC = () => {
   const imagePath = useLoadImage(currentTrack?.image_path!, 'images')
 
   // find next song
-  const nextSong = { ...queue[nextTrackIndex] }
+  const nextSong = { ...queue[nextTrackIndex] } as Song
 
   const [isScroll, setScroll] = useState<boolean>(false)
 
@@ -35,23 +37,23 @@ const PlayingSidebar: React.FC = () => {
   }
 
   return (
-    <div className="hidden md:block max-w-[400px] min-w-[280px] bg-black py-2 pr-2 h-full ">
+    <div className="hidden h-full min-w-[280px] max-w-[400px] bg-black py-2 pr-2 md:block ">
       <ScrollArea
-        className="h-full w-full rounded-lg bg-neutral-900 relative"
+        className="relative h-full w-full rounded-lg bg-neutral-900"
         onScroll={handleScroll}
       >
         <div
-          className={`min-h-8 p-4 pb-3  flex flex-row justify-end sticky top-0 bg-neutral-900 z-10 ${
+          className={` sticky top-0  z-10 flex flex-row justify-end bg-neutral-900 p-4 pb-3 ${
             isScroll ? 'shadow-2xl' : ''
           }`}
         >
           <div
             className={
-              'w-8 h-8 rounded-full transition relative hover:bg-neutral-800'
+              'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
             }
           >
             <button
-              className="absolute flex items-center justify-center top-[1px] right-0 border-none outline-none focus:outline-none cursor-pointer w-full h-full bg-transparent text-neutral-400 hover:text-white transition"
+              className="absolute right-0 top-[1px] flex h-full w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
               onClick={() => playingSidebar.setShowed(false)}
             >
               <CloseIcon />
@@ -60,7 +62,7 @@ const PlayingSidebar: React.FC = () => {
         </div>
         <div className="flex flex-col gap-4 p-4 pt-0">
           {imagePath ? (
-            <div className="relative aspect-square h-full w-full rounded-lg overflow-hidden shadow-base">
+            <div className="relative aspect-square h-full w-full overflow-hidden rounded-lg shadow-base">
               <Image
                 className="object-cover"
                 src={imagePath}
@@ -74,7 +76,7 @@ const PlayingSidebar: React.FC = () => {
           ) : (
             <div
               className={
-                ' w-full aspect-square h-full text-white rounded-lg bg-[#282828] shadow-base flex items-center justify-center'
+                ' flex aspect-square h-full w-full items-center justify-center rounded-lg bg-[#282828] text-white shadow-base'
               }
             >
               <MusicNote size={114} />
@@ -82,25 +84,25 @@ const PlayingSidebar: React.FC = () => {
           )}
           <div
             className={
-              'flex flex-row items-center justify-between gap-6 w-full h-[64px] mt-2'
+              'mt-2 flex h-[64px] w-full flex-row items-center justify-between gap-6'
             }
           >
-            <div className={'flex-1 flex flex-col overflow-hidden '}>
+            <div className={'flex flex-1 flex-col overflow-hidden '}>
               <h2
                 className={
-                  'text-2xl text-white m-0 pb-2 font-bold hover:underline hover:decoration-2 truncate'
+                  'm-0 truncate pb-2 text-2xl font-bold text-white hover:underline hover:decoration-2'
                 }
               >
                 {currentTrack?.title}
               </h2>
               <span className={''}>
-                <p className="text-neutral-400 text-base pb-4 w-full truncate">
+                <p className="w-full truncate pb-4 text-base text-neutral-400">
                   {currentTrack?.author}
                 </p>
               </span>
             </div>
             <div
-              className={'w-8 text-neutral-400 cursor-pointer hover:text-white'}
+              className={'w-8 cursor-pointer text-neutral-400 hover:text-white'}
             >
               <LikeButton
                 className="flex"
@@ -113,7 +115,7 @@ const PlayingSidebar: React.FC = () => {
 
           <div
             className={
-              'flex flex-row gap-3 items-center rounded-lg overflow-hidden '
+              'flex flex-row items-center gap-3 overflow-hidden rounded-lg '
             }
           >
             <NextSong song={nextSong} />

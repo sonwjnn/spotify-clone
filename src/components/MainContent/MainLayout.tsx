@@ -1,7 +1,8 @@
 'use client'
 
-import useComponentSize from '@/hooks/useComponentSize'
 import { useEffect, useRef } from 'react'
+
+import useComponentSize from '@/hooks/useComponentSize'
 import useMainLayout from '@/stores/useMainLayout'
 
 interface MainLayoutProps {
@@ -32,7 +33,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   }, [size.width, setWidth, setQuantityCol])
 
   return (
-    <div className="flex-grow" ref={mainRef}>
+    <div className="grow" ref={mainRef}>
       {children}
     </div>
   )

@@ -1,19 +1,17 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import Tooltip from '../ui/Tooltip'
-import {
-  PlayingSidebarIcon,
-  QueueIcon,
-  SoundIcon,
-  SoundLevel,
-} from '@/public/icons'
-import Slider from '../ui/Slider'
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
-import usePlayer from '@/stores/usePlayer'
 import { usePathname, useRouter } from 'next/navigation'
+import { useCallback, useState } from 'react'
 
-const VolumeBar = () => {
+import type { SoundLevel } from '@/public/icons'
+import { PlayingSidebarIcon, QueueIcon, SoundIcon } from '@/public/icons'
+import usePlayer from '@/stores/usePlayer'
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
+
+import Slider from '../ui/Slider'
+import Tooltip from '../ui/Tooltip'
+
+const VolumeBar: React.FC = () => {
   const { volume, setVolume } = usePlayer()
   const playingSidebar = usePlayingSidebar()
   const [previousVolume, setPreviousVolume] = useState<number>(volume)
@@ -24,16 +22,17 @@ const VolumeBar = () => {
   const volumeLevelFilter = useCallback((value: number): SoundLevel => {
     if (+value === 0) {
       return 'mute'
-    } else if (+value < 0.33) {
-      return 'low'
-    } else if (+value < 0.66) {
-      return 'medium'
-    } else {
-      return 'high'
     }
+    if (+value < 0.33) {
+      return 'low'
+    }
+    if (+value < 0.66) {
+      return 'medium'
+    }
+    return 'high'
   }, [])
 
-  const toggleMute = () => {
+  const toggleMute = (): void => {
     if (volume === 0) {
       setVolume(previousVolume)
       setVolumeLevel(volumeLevelFilter(previousVolume))
@@ -44,12 +43,12 @@ const VolumeBar = () => {
     }
   }
 
-  const handleVolumeChange = (value: number) => {
+  const handleVolumeChange = (value: number): void => {
     setVolumeLevel(volumeLevelFilter(value))
     setVolume(value)
   }
 
-  const handleClickQueueBtn = () => {
+  const handleClickQueueBtn = (): void => {
     if (pathname !== '/queue') {
       router.push('/queue')
     } else {
@@ -61,7 +60,7 @@ const VolumeBar = () => {
     <div className="flex items-center justify-end gap-x-4 ">
       <Tooltip text="Playing View">
         <button
-          className="text-white cursor-pointer flex justify-center"
+          className="flex cursor-pointer justify-center text-white"
           onClick={() => playingSidebar.setShowed(!playingSidebar.isShowed)}
         >
           <PlayingSidebarIcon
@@ -72,17 +71,17 @@ const VolumeBar = () => {
 
       <Tooltip text="Queue">
         <button
-          className="text-white cursor-pointer flex justify-center"
+          className="flex cursor-pointer justify-center text-white"
           onClick={handleClickQueueBtn}
         >
           <QueueIcon color={pathname === '/queue' ? '#22e55c' : undefined} />
         </button>
       </Tooltip>
 
-      <div className="flex items-center gap-x-2 w-full min-w-[125px]">
+      <div className="flex w-full min-w-[125px] items-center gap-x-2">
         <Tooltip text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}>
           <button
-            className="text-white cursor-pointer flex justify-center"
+            className="flex cursor-pointer justify-center text-white"
             onClick={toggleMute}
           >
             <SoundIcon level={volumeLevel} />

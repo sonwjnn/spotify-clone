@@ -1,7 +1,10 @@
 'use client'
-import useNavStyles from '@/stores/useNavStyles'
+
 import { useEffect } from 'react'
+
 import useHeader from '@/stores/useHeader'
+import useNavStyles from '@/stores/useNavStyles'
+
 import { ScrollArea } from './ui/scroll-area'
 
 interface PageWrapperProps {
@@ -36,7 +39,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
 
   return (
     <ScrollArea
-      className="h-full w-full rounded-lg bg-neutral-900 relative"
+      className="relative h-full w-full rounded-lg bg-neutral-900"
       onScroll={handleScroll}
     >
       {children}

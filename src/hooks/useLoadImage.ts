@@ -1,6 +1,6 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
-const useLoadImage = (imagePath: string, bucket: string) => {
+const useLoadImage = (imagePath: string, bucket: string): string | null => {
   const supabaseClient = useSupabaseClient()
   if (!imagePath || !bucket) return null
 

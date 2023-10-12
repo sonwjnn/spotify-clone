@@ -1,16 +1,17 @@
 'use client'
 
-import { useUser } from '@/hooks/useUser'
-import useUserStore from '@/stores/useUserStore'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Button from '@/components/ui/Button'
-import { SingleMusicNote } from '@/public/icons'
+
 import MediaList from '@/components/MediaList'
 import PlayButton from '@/components/PlayButton'
+import Button from '@/components/ui/Button'
 import useOnPlay from '@/hooks/useOnPlay'
+import { useUser } from '@/hooks/useUser'
+import { SingleMusicNote } from '@/public/icons'
 import usePlayer from '@/stores/usePlayer'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import useUserStore from '@/stores/useUserStore'
 
 interface LikedContentProp {
   bgColor?: string
@@ -38,10 +39,10 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
     }
   }, [player.isPlaying, player.playlistPlayingId])
 
-  if (songs.length === 0) {
+  if (!songs.length) {
     return (
       <div
-        className=" h-[40vh] pt-8 px-5 flex flex-col header-bg-img-md items-center justify-center gap-y-4 w-full text-white"
+        className=" header-bg-img-md flex h-[40vh] w-full flex-col items-center justify-center gap-y-4 px-5 pt-8 text-white"
         style={{
           background: bgColor,
         }}
@@ -57,7 +58,7 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
         </p>
         <Button
           onClick={() => router.push('/search')}
-          className="bg-white px-6 py-2 w-[150px]"
+          className="w-[150px] bg-white px-6 py-2"
         >
           Find songs
         </Button>
@@ -65,11 +66,13 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
     )
   }
 
-  const handleClickPlay = () => {
+  const handleClickPlay = (): void => {
     if (player.playlistPlayingId !== params && songs?.length) {
       player.setPlaylistActiveId('liked')
-      onPlay(songs[0].id)
-      setShowed(true)
+      if (songs[0]) {
+        onPlay(songs[0].id)
+        setShowed(true)
+      }
     } else {
       player.handlePlay()
     }
@@ -77,13 +80,13 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
 
   return (
     <>
-      <div className="p-5 px-10 w-full flex gap-x-6 relative">
+      <div className="relative flex w-full gap-x-6 p-5 px-10">
         <div
           style={{ backgroundColor: `${bgColor}` }}
-          className="absolute h-[232px] top-0 left-0 right-0 header-bg-img-md z-[-1]"
+          className="header-bg-img-md absolute inset-x-0 top-0 z-[-1] h-[232px]"
         ></div>
         <PlayButton
-          className="opacity-1 translate-y-0 h-14 w-14"
+          className="h-14 w-14 translate-y-0 opacity-100"
           onClick={handleClickPlay}
           isPlaying={isPlaying}
         />

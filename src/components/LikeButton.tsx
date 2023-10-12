@@ -1,14 +1,15 @@
 'use client'
 
-import { useUser } from '@/hooks/useUser'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import useAuthModal from '@/hooks/useAuthModal'
 import { toast } from 'react-hot-toast'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { twMerge } from 'tailwind-merge'
+
+import useAuthModal from '@/hooks/useAuthModal'
+import { useUser } from '@/hooks/useUser'
 import useUserStore from '@/stores/useUserStore'
-import { Song } from '@/types/types'
+import type { Song } from '@/types/types'
 
 interface LikeButtonProps {
   song: Song
@@ -39,7 +40,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   const [isRequired, setRequired] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       const { data, error } = await supabaseClient
         .from('liked_songs')
         .select('*')
@@ -56,8 +57,11 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     fetchData()
   }, [songId, supabaseClient, user?.id])
 
-  const handleLike = async () => {
-    if (!user) return authModal.onOpen()
+  const handleLike: () => Promise<void> = async () => {
+    if (!user) {
+      authModal.onOpen()
+      return
+    }
     if (isRequired) return
 
     setRequired(true)
@@ -69,7 +73,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({
         .eq('user_id', user.id)
         .eq('song_id', songId)
 
-      if (error) return toast.error(error.message)
+      if (error) {
+        toast.error(error.message)
+        return
+      }
       setIsLiked(false)
       removeLikedSong(songId)
     } else {
@@ -78,7 +85,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({
         user_id: user.id,
       })
 
-      if (error) return toast.error(error.message)
+      if (error) {
+        toast.error(error.message)
+        return
+      }
 
       setIsLiked(true)
       addLikedSong(song)
@@ -102,8 +112,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       <Icon
         className={` transition ${
           isLiked
-            ? 'hover:brightness-125 text-[#22c55e]'
-            : ' hover:text-white text-neutral-400'
+            ? 'text-[#22c55e] hover:brightness-125'
+            : ' text-neutral-400 hover:text-white'
         }`}
         size={size}
       />

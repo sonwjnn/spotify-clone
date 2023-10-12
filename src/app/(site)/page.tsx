@@ -1,15 +1,18 @@
-import getSongs from '@/server-actions/songs/getSongs'
-import HomeContent from './_components/HomeContent'
-import PageWrapper from '@/components/PageWrapper'
-import Greeting from '@/components/Greeting'
+import type { NextPage } from 'next'
+
 import Footer from '@/components/Footer'
-import getPlaylists from '@/server-actions/playlists/getPlaylists'
-import Navbar from '@/components/Navbar'
+import Greeting from '@/components/Greeting'
 import Header from '@/components/Header'
+import Navbar from '@/components/Navbar'
+import PageWrapper from '@/components/PageWrapper'
+import getPlaylists from '@/server-actions/playlists/getPlaylists'
+import getSongs from '@/server-actions/songs/getSongs'
+
+import HomeContent from './_components/HomeContent'
 
 export const revalidate = 0
 
-const Home = async () => {
+const Home: NextPage = async () => {
   const songs = await getSongs()
   const playlists = await getPlaylists()
   return (
@@ -21,8 +24,8 @@ const Home = async () => {
         </div>
       </Header>
       <div className="mt-2 px-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-white text-2xl font-semibold">Newest songs</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-semibold text-white">Newest songs</h1>
         </div>
         <HomeContent songs={songs} />
         <Footer />

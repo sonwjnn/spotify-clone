@@ -1,23 +1,26 @@
 'use client'
 
-import uniqid from 'uniqid'
-import { useEffect, useState } from 'react'
-import Modal from '../ui/Modal'
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import Input from '../ui/Input'
-import Button from '../ui/Button'
-import { toast } from 'react-hot-toast'
-import { useUser } from '@/hooks/useUser'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { useParams, useRouter } from 'next/navigation'
-import usePlaylistModal from '@/hooks/usePlaylistModal'
-import { MusicNote } from '@/public/icons'
-import Image from 'next/image'
-import useLoadImage from '@/hooks/useLoadImage'
-import { buckets } from '@/utils/constants'
 import { usePalette } from 'color-thief-react'
+import Image from 'next/image'
+import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import type { FieldValues, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
+import uniqid from 'uniqid'
 
-const UploadPlaylistModal = () => {
+import useLoadImage from '@/hooks/useLoadImage'
+import usePlaylistModal from '@/hooks/usePlaylistModal'
+import { useUser } from '@/hooks/useUser'
+import { MusicNote } from '@/public/icons'
+import { buckets } from '@/utils/constants'
+
+import Button from '../ui/Button'
+import Input from '../ui/Input'
+import Modal from '../ui/Modal'
+
+const UploadPlaylistModal: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const uploadModal = usePlaylistModal()
 
@@ -42,8 +45,7 @@ const UploadPlaylistModal = () => {
 
   useEffect(() => {
     if (dataColor) {
-      const bgColor = dataColor?.[2] ?? '#e0e0e0'
-      setBgColor(bgColor)
+      setBgColor(dataColor?.[2] ?? '#e0e0e0')
     }
   }, [dataColor])
 
@@ -55,14 +57,14 @@ const UploadPlaylistModal = () => {
     },
   })
 
-  const onChange = (open: boolean) => {
+  const onChange = (open: boolean): void => {
     if (!open) {
       reset()
       uploadModal.onClose()
     }
   }
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: any): void => {
     if (event.target.files[0]) {
       const imageUrl = URL.createObjectURL(event.target.files[0])
       setFile(imageUrl)
@@ -82,7 +84,7 @@ const UploadPlaylistModal = () => {
 
       const uniqID = uniqid()
 
-      //Upload images
+      // Upload images
       const { data: imageData, error: imageError } =
         await supabaseClient.storage
           .from(buckets.playlist_images)
@@ -92,10 +94,11 @@ const UploadPlaylistModal = () => {
           })
       if (imageError) {
         setIsLoading(false)
-        return toast.error(imageError.message)
+        toast.error(imageError.message)
+        return
       }
 
-      //Remove old images
+      // Remove old images
       if (uploadModal.playlist?.image_path) {
         const { error: oldImageError } = await supabaseClient.storage
           .from(buckets.playlist_images)
@@ -103,7 +106,8 @@ const UploadPlaylistModal = () => {
 
         if (oldImageError) {
           setIsLoading(false)
-          return toast.error(oldImageError.message)
+          toast.error(oldImageError.message)
+          return
         }
       }
 
@@ -119,7 +123,8 @@ const UploadPlaylistModal = () => {
 
       if (supabaseError) {
         setIsLoading(false)
-        return toast.error(supabaseError.message)
+        toast.error(supabaseError.message)
+        return
       }
 
       router.refresh()
@@ -144,13 +149,13 @@ const UploadPlaylistModal = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
         <div className="flex flex-row gap-4 ">
-          <div className="w-[180px] h-[180px] shadow-xl">
+          <div className="h-[180px] w-[180px] shadow-xl">
             <label
               htmlFor="playlist_img"
-              className="w-[180px] text-white  h-[180px] rounded-sm flex items-center justify-center"
+              className="flex h-[180px]  w-[180px] items-center justify-center rounded-sm text-white"
             >
               {file !== '' ? (
-                <div className="relative aspect-square h-full w-full rounded-sm overflow-hidden">
+                <div className="relative aspect-square h-full w-full overflow-hidden rounded-sm">
                   <Image
                     className="
             object-cover
@@ -166,7 +171,7 @@ const UploadPlaylistModal = () => {
               )}
             </label>
             <Input
-              className="bg-neutral-800 h-0 p-0"
+              className="h-0 bg-neutral-800 p-0"
               id="playlist_img"
               disabled={isLoading}
               type="file"
@@ -177,7 +182,7 @@ const UploadPlaylistModal = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-y-4 w-full text-white ">
+          <div className="flex w-full flex-col gap-y-4 text-white ">
             <Input
               className="bg-neutral-800"
               id="title"
@@ -187,7 +192,7 @@ const UploadPlaylistModal = () => {
             />
             <textarea
               id="description"
-              className="border border-transparent px-3 py-3 text-white  text-sm resize-none outline-none w-full h-full bg-neutral-800 rounded-md placeholder:text-neutral-400 disabled:cursor-not-allowed focus:outline-none"
+              className="h-full w-full resize-none rounded-md border  border-transparent bg-neutral-800 p-3 text-sm text-white outline-none placeholder:text-neutral-400 focus:outline-none disabled:cursor-not-allowed"
               {...register('description', { required: false })}
               placeholder="Write your description"
             />
@@ -195,7 +200,7 @@ const UploadPlaylistModal = () => {
         </div>
         <Button
           type="submit"
-          className="w-[50%] mx-auto mt-2"
+          className="mx-auto mt-2 w-[50%]"
           disabled={isLoading}
         >
           Save

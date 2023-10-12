@@ -1,6 +1,7 @@
-import { Playlist } from '@/types/types'
-import { getDurationSongs } from '@/utils/durationConvertor'
 import { create } from 'zustand'
+
+import type { Playlist } from '@/types/types'
+import { getDurationSongs } from '@/utils/durationConvertor'
 
 interface PlaylistStoreStore {
   playlist: Playlist | null

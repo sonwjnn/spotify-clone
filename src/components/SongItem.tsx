@@ -1,11 +1,13 @@
 'use client'
 
-import useLoadImage from '@/hooks/useLoadImage'
-import { Song } from '@/types/types'
 import Image from 'next/image'
-import PlayButton from './PlayButton'
-import usePlayer from '@/stores/usePlayer'
+
+import useLoadImage from '@/hooks/useLoadImage'
 import { MusicNote } from '@/public/icons'
+import usePlayer from '@/stores/usePlayer'
+import type { Song } from '@/types/types'
+
+import PlayButton from './PlayButton'
 
 interface SongItemProps {
   data: Song
@@ -20,9 +22,9 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
   return (
     <div
       onClick={() => onClick(data.id)}
-      className="relative flex flex-col group items-center justify-center rounded-md overflow-hidden gap-x-4 bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition p-4 mb-3"
+      className="group relative mb-3 flex cursor-pointer flex-col items-center justify-center gap-x-4 overflow-hidden rounded-md bg-neutral-400/5 p-4 transition hover:bg-neutral-400/10"
     >
-      <div className="relative aspect-square h-full w-full rounded-md overflow-hidden shadow-base">
+      <div className="relative aspect-square h-full w-full overflow-hidden rounded-md shadow-base">
         {imagePath ? (
           <Image
             className="object-cover"
@@ -35,15 +37,15 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
             placeholder="blur"
           />
         ) : (
-          <div className="w-full text-white h-full flex items-center justify-center bg-neutral-800">
+          <div className="flex h-full w-full items-center justify-center bg-neutral-800 text-white">
             <MusicNote size={50} />
           </div>
         )}
       </div>
 
-      <div className="flex flex-col items-start w-full pt-4 gap-y-1">
-        <p className="text-white truncate font-semibold w-full">{data.title}</p>
-        <p className="text-neutral-400 text-sm pb-4 w-full truncate">
+      <div className="flex w-full flex-col items-start gap-y-1 pt-4">
+        <p className="w-full truncate font-semibold text-white">{data.title}</p>
+        <p className="w-full truncate pb-4 text-sm text-neutral-400">
           By {data.author}
         </p>
       </div>
