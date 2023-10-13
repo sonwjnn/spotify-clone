@@ -9,19 +9,22 @@ import { twMerge } from 'tailwind-merge'
 import {
   HomeActiveIcon,
   HomeIcon,
+  type IconProps,
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
+import useLibraryStore from '@/stores/useLibraryStore'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import type { Playlist } from '@/types/types'
 
 import Library from './Library'
+import { ResizeBox } from './ResizeBox'
 import Box from './ui/Box'
 import { ScrollArea } from './ui/scroll-area'
 
 interface SidebarProps {
   playlists: Playlist[]
-  className: string
+  className?: string
 }
 
 interface SidebarItemProps {
@@ -37,17 +40,21 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   active,
   href,
 }) => {
-  const Icon = active ? icons[0] : icons[1]
+  const { isCollapsed } = useLibraryStore()
+  const Icon: ((props: Partial<IconProps>) => JSX.Element) | undefined = active
+    ? icons[0]
+    : icons[1]
   return (
     <Link
       href={href}
       className={twMerge(
-        `flex flex-row h-auto items-center w-full gap-x-4 text-base font-bold cursor-pointer hover:text-white transition text-neutral-400 py-1`,
+        `flex flex-row h-auto items-center w-full gap-x-4 text-base font-bold cursor-pointer hover:text-white transition text-neutral-400 py-1 pl-1`,
         active && 'text-white'
       )}
     >
-      <Icon size={26} />
-      <p className="w-full truncate">{label}</p>
+      {Icon ? <Icon size={26} /> : null}
+
+      {!isCollapsed && <p className="w-full truncate">{label}</p>}
     </Link>
   )
 }
@@ -87,28 +94,31 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
   }
 
   return (
-    <div
-      className={twMerge(
-        `hidden ${
-          isShowed ? 'lg:flex' : 'md:flex'
-        }  flex-col bg-black gap-y-2 h-full  py-2 pl-2`,
-        className
-      )}
+    <ResizeBox
+      className={`hidden ${isShowed ? 'lg:block' : 'md:block'}`}
+      type="sidebar"
     >
-      <Box>
-        <div className="flex flex-col gap-y-4 px-5 py-4">
-          {routes.map(item => (
-            <SidebarItem key={item.label} {...item} />
-          ))}
-        </div>
-      </Box>
-      <ScrollArea
-        className="h-full w-full rounded-lg bg-neutral-900"
-        onScroll={handleScroll}
+      <div
+        className={twMerge(
+          `flex flex-col bg-black gap-y-2 h-full  p-2`,
+          className
+        )}
       >
-        <Library playlists={playlists} isScroll={isScroll} />
-      </ScrollArea>
-    </div>
+        <Box>
+          <div className="flex flex-col gap-y-4 px-5 py-4">
+            {routes.map(item => (
+              <SidebarItem key={item.label} {...item} />
+            ))}
+          </div>
+        </Box>
+        <ScrollArea
+          className="h-full w-full rounded-lg bg-neutral-900"
+          onScroll={handleScroll}
+        >
+          <Library playlists={playlists} isScroll={isScroll} />
+        </ScrollArea>
+      </div>
+    </ResizeBox>
   )
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+// import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -8,6 +8,13 @@ import { toast } from 'react-hot-toast'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { LuListMusic } from 'react-icons/lu'
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import useAuthModal from '@/hooks/useAuthModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
 import useUploadModal from '@/hooks/useUploadModal'
@@ -82,12 +89,12 @@ const UploadDropdown: React.FC = () => {
     }
   }
   return (
-    <DropdownMenu.Root
+    <DropdownMenu
       open={isDropdown}
       defaultOpen={isDropdown}
       onOpenChange={onChange}
     >
-      <DropdownMenu.Trigger asChild>
+      <DropdownMenuTrigger asChild>
         <div
           className={
             'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
@@ -101,15 +108,15 @@ const UploadDropdown: React.FC = () => {
             <AiOutlinePlus size={20} />
           </button>
         </div>
-      </DropdownMenu.Trigger>
+      </DropdownMenuTrigger>
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="min-w-[220px] rounded-md bg-neutral-800 p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
+      <DropdownMenuPortal>
+        <DropdownMenuContent
+          className="min-w-[220px] rounded-md border-none  bg-neutral-800 p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
           sideOffset={5}
           hidden={uploadModal.isOpen}
         >
-          <DropdownMenu.Item
+          <DropdownMenuItem
             onSelect={onUploadSong}
             className="dropdown-menu-item text-white"
           >
@@ -117,8 +124,8 @@ const UploadDropdown: React.FC = () => {
               <LuListMusic size={20} />
             </div>
             Create a new song
-          </DropdownMenu.Item>
-          <DropdownMenu.Item
+          </DropdownMenuItem>
+          <DropdownMenuItem
             onSelect={onUploadPlaylist}
             className={`dropdown-menu-item ${
               isRequired && 'select-none'
@@ -128,10 +135,10 @@ const UploadDropdown: React.FC = () => {
               <AddPlaylistIcon />
             </div>
             Create a new playlist
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
+    </DropdownMenu>
   )
 }
 

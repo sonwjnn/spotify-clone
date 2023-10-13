@@ -8,6 +8,10 @@ module.exports = withBundleAnalyzer({
     appDir: true,
   },
 
+  compiler: {
+    styledComponents: true,
+  },
+
   images: {
     domains: ['idjwhcstcxdvtjmjjbii.supabase.co'],
   },

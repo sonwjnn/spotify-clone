@@ -7,11 +7,11 @@ import useOnPlay from '@/hooks/useOnPlay'
 import useMainLayout from '@/stores/useMainLayout'
 import type { Song } from '@/types/types'
 
-interface PageContentProps {
+interface MainContentProps {
   songs: Song[]
 }
 
-const PageContent: React.FC<PageContentProps> = ({ songs }) => {
+const MainContent: React.FC<MainContentProps> = ({ songs }) => {
   useEffect(() => {
     useMainLayout.persist.rehydrate()
   }, [])
@@ -44,4 +44,4 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
   )
 }
 
-export default PageContent
+export default MainContent

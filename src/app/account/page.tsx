@@ -7,7 +7,7 @@ import PageWrapper from '@/components/PageWrapper'
 
 import AccountContent from './_components/AccountContent'
 
-const Account: NextPage = () => {
+const AccountPage: NextPage = () => {
   return (
     <div className="relative h-full w-full">
       <Navbar bgColor="#171717" darker={false} />
@@ -26,4 +26,4 @@ const Account: NextPage = () => {
   )
 }
 
-export default Account
+export default AccountPage

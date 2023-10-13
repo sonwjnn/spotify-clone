@@ -11,7 +11,7 @@ import getSongsByTitle from '@/server-actions/songs/getSongsByTitle'
 import HeaderPlaylistContent from './_components/HeaderPlaylistContent'
 import PlaylistContent from './_components/PlaylistContent'
 
-interface PlaylistProps {
+interface PlaylistPageProps {
   params: {
     id: string
   }
@@ -20,10 +20,10 @@ interface PlaylistProps {
 
 export const revalidate = 0
 
-const Playlist: NextPage<PlaylistProps> = async ({
+const PlaylistPage: NextPage<PlaylistPageProps> = async ({
   params,
   searchParams,
-}: PlaylistProps) => {
+}: PlaylistPageProps) => {
   const playlist = await getPlaylistById(params.id)
 
   if (!playlist) {
@@ -53,4 +53,4 @@ const Playlist: NextPage<PlaylistProps> = async ({
   )
 }
 
-export default Playlist
+export default PlaylistPage

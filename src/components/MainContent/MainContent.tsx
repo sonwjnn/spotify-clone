@@ -1,13 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Split from 'react-split'
-import { twMerge } from 'tailwind-merge'
 
 import usePlayer from '@/stores/usePlayer'
 import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import useUserStore from '@/stores/useUserStore'
 import type { Playlist, Song } from '@/types/types'
+import cn from '@/utils/cn'
 
 import GlobalLoading from '../LoadingLayout/GlobalLoading'
 import PlayingSidebar from '../PlayingSidebar/PlayingSidebar'
@@ -57,35 +56,25 @@ const MainContent: React.FC<MainContentProps> = ({
       {isLoading ? (
         <GlobalLoading />
       ) : (
-        <Split
-          cursor="col-resize"
-          minSize={isShowed ? [300, 400, 0] : [280, 600]}
-          maxSize={isShowed ? [500, 99999, 400] : [500, 99999]}
-          sizes={isShowed ? [20, 50, 30] : [20, 80]}
-          gutterSize={8}
-          snapOffset={20}
-          className={twMerge(
-            `flex flex-row w-full h-full `,
-            player.activeId && 'h-[calc(100%-80px)]'
-          )}
+        <div
+          className={cn(`flex flex-row h-full`, {
+            'h-[calc(100%-80px)]': player.activeId,
+          })}
         >
-          <Sidebar
-            className="min-w-[280px] max-w-[500px]"
-            playlists={playlists}
-          />
+          <Sidebar playlists={playlists} />
 
           <MainLayout>
-            <main className="relative h-full grow overflow-y-auto py-2">
+            <main
+              className={cn(`relative h-full grow overflow-y-auto py-2`, {
+                'pr-2': !isShowed,
+              })}
+            >
               {children}
             </main>
           </MainLayout>
 
-          {isShowed ? (
-            <PlayingSidebar />
-          ) : (
-            <div className="absolute right-0 h-full w-2"></div>
-          )}
-        </Split>
+          {isShowed ? <PlayingSidebar /> : null}
+        </div>
       )}
     </>
   )

@@ -27,7 +27,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   className,
   isSelected,
 }) => {
-  const { addLikedSong, removeLikedSong } = useUserStore()
+  const { likedSongs, addLikedSong, removeLikedSong } = useUserStore()
 
   const { supabaseClient } = useSessionContext()
 
@@ -40,22 +40,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   const [isRequired, setRequired] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      const { data, error } = await supabaseClient
-        .from('liked_songs')
-        .select('*')
-        .eq('user_id', user?.id)
-        .eq('song_id', songId)
-
-      if (!error && data.length) {
-        setIsLiked(true)
-      } else {
-        setIsLiked(false)
-      }
-    }
-
-    fetchData()
-  }, [songId, supabaseClient, user?.id])
+    const isSongLiked = likedSongs.some(item => item.id === songId)
+    setIsLiked(isSongLiked)
+  }, [likedSongs])
 
   const handleLike: () => Promise<void> = async () => {
     if (!user) {

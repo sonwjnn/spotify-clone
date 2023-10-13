@@ -158,11 +158,11 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     }
 
     // default change next song
+    setId(nextSong as string)
     setCurrentTrack({ ...queue[nextTrackIndex] } as Song)
     setCurrentTrackIndex(nextTrackIndex)
     calNextTrackIndex()
     selectedPlayer.setSelected(true)
-    setId(nextSong as string)
   }
 
   const onPlayPrevious = (): void => {

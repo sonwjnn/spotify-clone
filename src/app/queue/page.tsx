@@ -9,7 +9,7 @@ import QueueContent from './_components/QueueContent'
 
 export const revalidate = 0
 
-const Queue: NextPage = async () => {
+const QueuePage: NextPage = async () => {
   return (
     <div className="relative h-full w-full">
       <Navbar bgColor={'#171717'} darker={false} />
@@ -26,4 +26,4 @@ const Queue: NextPage = async () => {
   )
 }
 
-export default Queue
+export default QueuePage

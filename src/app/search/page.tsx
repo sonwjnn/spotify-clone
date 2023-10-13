@@ -9,7 +9,7 @@ import getSongsByTitle from '@/server-actions/songs/getSongsByTitle'
 
 import SearchContent from './_components/SearchContent'
 
-interface SearchProps {
+interface SearchPageProps {
   searchParams: {
     title: string
   }
@@ -17,7 +17,9 @@ interface SearchProps {
 
 export const revalidate = 0
 
-const Search: NextPage<SearchProps> = async ({ searchParams }: SearchProps) => {
+const SearchPage: NextPage<SearchPageProps> = async ({
+  searchParams,
+}: SearchPageProps) => {
   const songs = await getSongsByTitle(searchParams.title)
 
   return (
@@ -35,4 +37,4 @@ const Search: NextPage<SearchProps> = async ({ searchParams }: SearchProps) => {
   )
 }
 
-export default Search
+export default SearchPage

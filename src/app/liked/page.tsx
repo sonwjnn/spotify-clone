@@ -8,7 +8,7 @@ import PageWrapper from '@/components/PageWrapper'
 import HeaderContent from './_components/HeaderContent'
 import LikedContent from './_components/LikedContent'
 
-const Liked: NextPage = async () => {
+const LikedPage: NextPage = async () => {
   return (
     <PageWrapper>
       <Navbar bgColor="#543ca2" />
@@ -21,4 +21,4 @@ const Liked: NextPage = async () => {
     </PageWrapper>
   )
 }
-export default Liked
+export default LikedPage

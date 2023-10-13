@@ -1,6 +1,5 @@
 'use client'
 
-import useGetSongById from '@/hooks/useGetSongById'
 import useLoadSongUrl from '@/hooks/useLoadSongUrl'
 import { useUser } from '@/hooks/useUser'
 import usePlayer from '@/stores/usePlayer'
@@ -10,7 +9,7 @@ import Player from './Player'
 const MusicPlayer: React.FC = () => {
   const player = usePlayer()
 
-  const { song } = useGetSongById(player.activeId)
+  const { currentTrack: song } = usePlayer()
 
   const { user } = useUser()
 

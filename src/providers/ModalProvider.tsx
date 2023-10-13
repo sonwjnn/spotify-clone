@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 
-import AuthModal from '@/components/CustomModal/AuthModal'
-import SubscribeModal from '@/components/CustomModal/SubscribeModal'
-import UploadPlaylistModal from '@/components/CustomModal/UploadPlaylistModal'
-import UploadSongModal from '@/components/CustomModal/UploadSongModal'
+import AuthModal from '@/components/Modals/AuthModal'
+import SubscribeModal from '@/components/Modals/SubscribeModal'
+import UploadPlaylistModal from '@/components/Modals/UploadPlaylistModal'
+import UploadSongModal from '@/components/Modals/UploadSongModal'
 import type { ProductWithPrice } from '@/types/types'
 
 interface ModalProviderProps {
