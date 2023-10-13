@@ -3,6 +3,7 @@
 import useAuthModal from '@/hooks/useAuthModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useUser } from '@/hooks/useUser'
+import { LibraryIcon } from '@/public/icons'
 import useLibraryStore from '@/stores/useLibraryStore'
 import useUserStore from '@/stores/useUserStore'
 import type { Playlist } from '@/types/types'
@@ -20,7 +21,7 @@ interface LibraryProps {
 const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
   const { user, subscription } = useUser()
   const { likedSongs, likedPlaylists } = useUserStore()
-  const { isCollapsed } = useLibraryStore()
+  const { isCollapsed, handleCollapsed } = useLibraryStore()
   const authModal = useAuthModal()
   const subcribeModal = useSubscribeModal()
 
@@ -41,20 +42,29 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
           isScroll ? 'shadow-2xl' : ''
         }`}
       >
+        <div className="flex w-full items-center justify-between ">
+          <div className="flex gap-x-2 ">
+            <div
+              className="h-8 cursor-pointer pl-1 text-neutral-400 transition hover:text-white"
+              onClick={handleCollapsed}
+            >
+              <LibraryIcon />
+            </div>
+            {!isCollapsed && (
+              <p className="truncate pl-2 text-base font-bold text-neutral-400">
+                Your Library
+              </p>
+            )}
+          </div>
+
+          {!isCollapsed && (
+            <div className={'flex flex-row justify-end'}>
+              <UploadDropdown />
+            </div>
+          )}
+        </div>
         {!isCollapsed ? (
           <>
-            <div className="flex w-full items-center justify-between">
-              <div className="inline-flex items-center gap-x-2 ">
-                <p className="truncate pl-10 text-base font-bold text-neutral-400">
-                  Your Library
-                </p>
-              </div>
-
-              <div className={'flex flex-row justify-end'}>
-                <UploadDropdown />
-              </div>
-            </div>
-
             <div className="mt-2 flex h-12 w-full items-center gap-x-2">
               <button
                 disabled={!playlists.length}
@@ -70,9 +80,7 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
               </button>
             </div>
           </>
-        ) : (
-          <div className="h-10"></div>
-        )}
+        ) : null}
       </div>
 
       {/* eslint-disable-next-line no-nested-ternary */}

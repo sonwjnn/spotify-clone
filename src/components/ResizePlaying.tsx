@@ -4,10 +4,9 @@ import { usePathname } from 'next/navigation'
 import { type ElementRef, type FC, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
-import useLibraryStore from '@/stores/useLibraryStore'
 import cn from '@/utils/cn'
 
-interface ResizeBoxProps {
+interface ResizePlayingProps {
   children: React.ReactNode
   minWidth?: number
   maxWidth?: number
@@ -15,7 +14,7 @@ interface ResizeBoxProps {
   className?: string
 }
 
-export const ResizeBox: FC<ResizeBoxProps> = ({
+export const ResizePlaying: FC<ResizePlayingProps> = ({
   children,
   minWidth = 300,
   maxWidth = 500,
@@ -29,8 +28,6 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
   const sidebarRef = useRef<ElementRef<'aside'>>(null)
   const navbarRef = useRef<ElementRef<'div'>>(null)
   const [isResetting, setIsResetting] = useState(false)
-
-  const { setHandleCollapsed, setIsCollapsed } = useLibraryStore()
 
   const handleMouseMove = (event: MouseEvent): void => {
     if (!isResizingRef.current) return
@@ -73,7 +70,6 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
 
   const resetWidth = (): void => {
     if (sidebarRef.current && navbarRef.current) {
-      setIsCollapsed(false)
       setIsResetting(true)
 
       sidebarRef.current.style.width = isMobile ? '100%' : `${minWidth}px`
@@ -91,7 +87,6 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
 
   const collapse = (): void => {
     if (sidebarRef.current && navbarRef.current) {
-      setIsCollapsed(true)
       setIsResetting(true)
 
       sidebarRef.current.style.width = '92px'
@@ -115,12 +110,6 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
     }
   }, [pathname, isMobile])
 
-  useEffect(() => {
-    if (type === 'sidebar') {
-      setHandleCollapsed(resetWidth, collapse)
-    }
-  }, [])
-
   return (
     <>
       <aside
@@ -132,23 +121,13 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
           isMobile && 'w-0'
         )}
       >
-        {type === 'playing' && (
-          <div
-            onMouseDown={handleMouseDown}
-            onClick={resetWidth}
-            className="absolute left-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
-          />
-        )}
+        <div
+          onMouseDown={handleMouseDown}
+          onClick={resetWidth}
+          className="absolute left-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
+        />
 
         {children}
-
-        {type === 'sidebar' && (
-          <div
-            onMouseDown={handleMouseDown}
-            onClick={resetWidth}
-            className="absolute right-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
-          />
-        )}
       </aside>
       <div
         ref={navbarRef}

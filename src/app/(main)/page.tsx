@@ -3,6 +3,8 @@ import type { NextPage } from 'next'
 import Footer from '@/components/Footer'
 import Greeting from '@/components/Greeting'
 import Header from '@/components/Header'
+import Navbar from '@/components/Navbar'
+import PageWrapper from '@/components/PageWrapper'
 import getPlaylists from '@/server-actions/playlists/getPlaylists'
 import getSongs from '@/server-actions/songs/getSongs'
 
@@ -14,7 +16,8 @@ const MainPage: NextPage = async () => {
   const songs = await getSongs()
   const playlists = await getPlaylists()
   return (
-    <div className="h-full w-full">
+    <PageWrapper>
+      <Navbar type="home" />
       <Header type="home">
         <div className="mb-2 w-full">
           <Greeting playlists={playlists} />
@@ -27,7 +30,7 @@ const MainPage: NextPage = async () => {
         <MainContent songs={songs} />
         <Footer />
       </div>
-    </div>
+    </PageWrapper>
   )
 }
 

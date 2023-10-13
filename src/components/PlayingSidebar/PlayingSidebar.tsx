@@ -10,7 +10,7 @@ import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import type { Song } from '@/types/types'
 
 import LikeButton from '../LikeButton'
-import { ResizeBox } from '../ResizeBox'
+import { ResizePlaying } from '../ResizePlaying'
 import { ScrollArea } from '../ui/scroll-area'
 import NextSong from './NextSong'
 
@@ -38,7 +38,7 @@ const PlayingSidebar: React.FC = () => {
   }
 
   return (
-    <ResizeBox
+    <ResizePlaying
       className="hidden md:block"
       type="playing"
       minWidth={300}
@@ -132,7 +132,7 @@ const PlayingSidebar: React.FC = () => {
           </div>
         </ScrollArea>
       </div>
-    </ResizeBox>
+    </ResizePlaying>
   )
 }
 

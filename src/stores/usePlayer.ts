@@ -56,6 +56,7 @@ const usePlayer = create<PlayerStore>()(
       queue: [],
       currentTrackIndex: 0,
       nextTrackIndex: 0,
+      handlePlay: () => {},
       setCurrentTrackIndex: (index: number) =>
         set({ currentTrackIndex: index }),
       setNextTrackIndex: (index: number) => set({ nextTrackIndex: index }),
@@ -97,7 +98,6 @@ const usePlayer = create<PlayerStore>()(
           setNextTrackIndex(currentTrackIndex + 1)
         }
       },
-      handlePlay: () => {},
       setHandlePlay: (play: PlayFunction, pause: (id?: string) => void) => {
         set({
           handlePlay: () => {
