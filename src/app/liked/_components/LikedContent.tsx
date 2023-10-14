@@ -23,7 +23,7 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
   const { isLoading, user } = useUser()
   const onPlay = useOnPlay(songs)
   const player = usePlayer()
-  const { setShowed } = usePlayingSidebar()
+  const { isShowed, handleCollapsed } = usePlayingSidebar()
   const [isPlaying, setPlaying] = useState(false)
   const params = 'liked'
 
@@ -71,7 +71,7 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
       player.setPlaylistActiveId('liked')
       if (songs[0]) {
         onPlay(songs[0].id)
-        setShowed(true)
+        if (!isShowed) handleCollapsed()
       }
     } else {
       player.handlePlay()

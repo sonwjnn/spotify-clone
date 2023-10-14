@@ -27,7 +27,7 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
     setPlaylistActiveId,
     handlePlay,
   } = usePlayer()
-  const { setShowed } = usePlayingSidebar()
+  const { isShowed, handleCollapsed } = usePlayingSidebar()
   const { setSelected } = useSelectedPlayer()
 
   const [isPlaying, setPlaying] = useState(false)
@@ -42,7 +42,7 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
   const handleClickPlay = (): void => {
     if (playlistPlayingId?.toString() !== params.id && songs?.length !== 0) {
       setPlaylistActiveId(params.id as string)
-      setShowed(true)
+      if (!isShowed) handleCollapsed()
       onPlay(songs[0]?.id!)
     } else {
       setSelected(true)
