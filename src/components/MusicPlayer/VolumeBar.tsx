@@ -49,13 +49,12 @@ const VolumeBar: React.FC = () => {
   }
 
   const handleClickQueueBtn = (): void => {
-    if (pathname !== '/queue') {
+    if (pathname !== '/queue/') {
       router.push('/queue')
     } else {
       router.back()
     }
   }
-
   return (
     <div className="flex items-center justify-end gap-x-4 ">
       <Tooltip text="Playing View">
@@ -74,7 +73,7 @@ const VolumeBar: React.FC = () => {
           className="flex cursor-pointer justify-center text-white"
           onClick={handleClickQueueBtn}
         >
-          <QueueIcon color={pathname === '/queue' ? '#22e55c' : undefined} />
+          <QueueIcon color={pathname === '/queue/' ? '#22e55c' : undefined} />
         </button>
       </Tooltip>
 

@@ -64,7 +64,9 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
         />
         {/* <MediaDropdown /> */}
         {user?.id !== playlist.user_id ? (
-          <PlaylistLikeButton size={36} playlistId={playlist.id} />
+          <div className="z-10 flex h-14 w-14 items-center justify-center">
+            <PlaylistLikeButton playlist={playlist} size={36} />
+          </div>
         ) : null}
       </div>
 

@@ -1,6 +1,5 @@
 'use client'
 
-import * as ContextMenu from '@radix-ui/react-context-menu'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -8,22 +7,32 @@ import { toast } from 'react-hot-toast'
 import { FiEdit } from 'react-icons/fi'
 import { TbPin } from 'react-icons/tb'
 
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuPortal,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu'
 import useAuthModal from '@/hooks/useAuthModal'
 import usePlaylistModal from '@/hooks/usePlaylistModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useUser } from '@/hooks/useUser'
 import { AddPlaylistIcon, DeleteIcon } from '@/public/icons'
+import useUserStore from '@/stores/useUserStore'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
 interface PlaylistItemDropdownProps {
   children: React.ReactNode
   data: Playlist
+  type?: 'myPlaylist' | 'otherPlaylist'
 }
 
 const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   children,
   data,
+  type = 'myPlaylist',
 }) => {
   const { user, subscription } = useUser()
   const authModal = useAuthModal()
@@ -32,6 +41,7 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   const subcribeModal = useSubscribeModal()
 
   const supabaseClient = useSupabaseClient()
+  const { removeLikedPlaylist } = useUserStore()
 
   const [isDropdown, setDropdown] = useState(false)
   const [isRequired, setRequired] = useState(false)
@@ -136,6 +146,20 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
     uploadModal.onOpen()
   }
 
+  const onRemoveFromLibrary = async (): Promise<void> => {
+    const { error } = await supabaseClient
+      .from('liked_playlists')
+      .delete()
+      .eq('user_id', user?.id)
+      .eq('playlist_id', data.id)
+
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+
+    removeLikedPlaylist(data.id)
+  }
   const onChange = (open: boolean): void => {
     if (!open) {
       setDropdown(false)
@@ -143,47 +167,63 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   }
 
   return (
-    <ContextMenu.Root modal={isDropdown} onOpenChange={onChange}>
-      <ContextMenu.Trigger>{children}</ContextMenu.Trigger>
-      <ContextMenu.Portal>
-        <ContextMenu.Content className="min-w-[220px] overflow-hidden rounded-md bg-neutral-800 py-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
-          <ContextMenu.Item
-            className="context-menu-item text-white"
-            onSelect={onEditPlaylist}
-          >
-            <FiEdit className="mr-1" size={16} />
-            Edit details
-          </ContextMenu.Item>
+    <ContextMenu modal={isDropdown} onOpenChange={onChange}>
+      <ContextMenuTrigger>{children}</ContextMenuTrigger>
+      <ContextMenuPortal>
+        <ContextMenuContent className="min-w-[220px] overflow-hidden rounded-md border-none bg-neutral-800 py-[5px] ">
+          {type === 'myPlaylist' ? (
+            <>
+              <ContextMenuItem
+                className="context-menu-item text-white"
+                onSelect={onEditPlaylist}
+              >
+                <FiEdit className="mr-1" size={16} />
+                Edit details
+              </ContextMenuItem>
 
-          <ContextMenu.Separator className="my-1 h-[1px] bg-neutral-700" />
+              {/* <ContextMenuSeparator className="my-1 h-[1px] bg-neutral-700" /> */}
 
-          <ContextMenu.Item
-            className="context-menu-item text-white"
-            onSelect={onCreatePlaylist}
-          >
-            <div className="mr-1">
-              <AddPlaylistIcon size={14} />
-            </div>
-            Create playlist
-          </ContextMenu.Item>
-          <ContextMenu.Item className="context-menu-item text-white">
-            <TbPin className="mr-1" size={16} />
-            Pin playlist
-          </ContextMenu.Item>
+              <ContextMenuItem
+                className="context-menu-item text-white"
+                onSelect={onCreatePlaylist}
+              >
+                <div className="mr-1">
+                  <AddPlaylistIcon size={14} />
+                </div>
+                Create playlist
+              </ContextMenuItem>
+              <ContextMenuItem className="context-menu-item text-white">
+                <TbPin className="mr-1" size={16} />
+                Pin playlist
+              </ContextMenuItem>
 
-          <ContextMenu.Separator className="my-1 h-[1px] bg-neutral-700" />
-          <ContextMenu.Item
-            className="context-menu-item text-white"
-            onSelect={onDeletePlaylist}
-          >
-            <div className="mr-1">
-              <DeleteIcon color="#991b1b" />
-            </div>
-            Delete
-          </ContextMenu.Item>
-        </ContextMenu.Content>
-      </ContextMenu.Portal>
-    </ContextMenu.Root>
+              {/* <ContextMenuSeparator className="my-1 h-[1px] bg-neutral-700" /> */}
+              <ContextMenuItem
+                className="context-menu-item text-white"
+                onSelect={onDeletePlaylist}
+              >
+                <div className="mr-1">
+                  <DeleteIcon color="#991b1b" />
+                </div>
+                Delete
+              </ContextMenuItem>
+            </>
+          ) : null}
+
+          {type === 'otherPlaylist' ? (
+            <ContextMenuItem
+              className="context-menu-item text-white"
+              onSelect={onRemoveFromLibrary}
+            >
+              <div className="mr-1">
+                <DeleteIcon color="#991b1b" />
+              </div>
+              Remove from your library
+            </ContextMenuItem>
+          ) : null}
+        </ContextMenuContent>
+      </ContextMenuPortal>
+    </ContextMenu>
   )
 }
 

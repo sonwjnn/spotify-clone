@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <div
       className={cn(
-        ` h-fit flex justify-start md:justify-start items-end  p-6 pt-16 ${
+        ` h-fit flex justify-center md:justify-start items-end  p-6 pt-16 ${
           type === 'playlist' && width <= 768 ? '550px' : '340px'
         } `,
         className,

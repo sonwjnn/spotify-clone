@@ -4,47 +4,19 @@ import Skeleton from 'react-loading-skeleton'
 
 const MediaLoading: React.FC = () => {
   return (
-    <div className="flex w-full items-center gap-x-4">
-      <div className="flex-1">
-        <div
-          className="
-            flex
-            w-full
-            cursor-pointer
-            items-center
-            gap-x-3
-            rounded-md
-          bg-neutral-800/50
-            p-2
-          "
-        >
-          <div
-            className="
-                  relative
-                  min-h-[48px]
-                  min-w-[48px]
-                  overflow-hidden
-                  rounded-md
-                "
-          >
-            <Skeleton width={'100%'} height={'100%'} />
-          </div>
-          <div
-            className="
-              flex
-              w-full
-              flex-col
-              gap-y-1
-              overflow-hidden
-            "
-          >
-            <p className="truncate text-white">
-              <Skeleton width={'30%'} borderRadius={50} />
-            </p>
-            <p className="truncate text-sm text-neutral-400">
-              <Skeleton width={'20%'} borderRadius={50} />
-            </p>
-          </div>
+    <div
+      className={`group grid h-[56px] w-full cursor-pointer grid-cols-list-5 items-center gap-4 rounded-md px-4     transition hover:bg-neutral-800 hover:opacity-100`}
+    >
+      <div className="relative select-none text-base text-neutral-400">
+        <div className="relative ml-2 flex  h-full w-3 items-center overflow-hidden "></div>
+      </div>
+      <div className={`flex min-w-0 select-none items-center gap-4 pr-2`}>
+        <div className={`mb-2 aspect-square h-10 w-10`}>
+          <Skeleton height={'100%'} />
+        </div>
+        <div className={`flex h-full flex-col`}>
+          <Skeleton borderRadius={50} height={'15px'} width={'200px'} />
+          <Skeleton borderRadius={50} height={'10px'} width={'60px'} />
         </div>
       </div>
     </div>

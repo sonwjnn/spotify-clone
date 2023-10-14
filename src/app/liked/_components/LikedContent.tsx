@@ -83,7 +83,7 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
       <div className="relative flex w-full gap-x-6 p-5 px-10">
         <div
           style={{ backgroundColor: `${bgColor}` }}
-          className="header-bg-img-md absolute inset-x-0 top-0 z-[-1] h-[232px]"
+          className="header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
         ></div>
         <PlayButton
           className="h-14 w-14 translate-y-0 opacity-100"

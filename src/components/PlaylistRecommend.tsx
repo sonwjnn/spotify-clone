@@ -3,7 +3,10 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
+import useAuthModal from '@/hooks/useAuthModal'
 import useLoadImage from '@/hooks/useLoadImage'
+import useSubscribeModal from '@/hooks/useSubscribeModal'
+import { useUser } from '@/hooks/useUser'
 import { MusicNote } from '@/public/icons'
 import useHeader from '@/stores/useHeader'
 import type { Playlist } from '@/types/types'
@@ -23,6 +26,9 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
   setHover,
 }) => {
   const router = useRouter()
+  const authModal = useAuthModal()
+  const subscribeModal = useSubscribeModal()
+  const { user, subscription } = useUser()
   const { bgBase, bgColor, setBgColor } = useHeader()
 
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images)
@@ -33,6 +39,15 @@ const PlaylistRecommend: React.FC<PlaylistRecommendProps> = ({
     setBgColor(data?.bg_color || bgColor)
   }
   const onClick = (): void => {
+    if (!user) {
+      authModal.onOpen()
+      return
+    }
+
+    if (!subscription) {
+      subscribeModal.onOpen()
+      return
+    }
     // Add authentication befire push
     router.push(`playlist/${data.id}`)
   }

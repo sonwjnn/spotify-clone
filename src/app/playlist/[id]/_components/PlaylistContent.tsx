@@ -1,9 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-
-import { useUser } from '@/hooks/useUser'
 import type { Playlist, Song } from '@/types/types'
 
 import SearchPlaylist from './SearchPlaylist'
@@ -20,18 +16,9 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({
   songs,
   addedSongs,
 }) => {
-  const { user, isLoading } = useUser()
-
-  const router = useRouter()
   const unaddedSongs = songs.filter(
     (song: Song) => !playlist?.song_ids?.includes(song.id)
   )
-
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.replace('/')
-    }
-  }, [isLoading, user, router])
 
   return (
     <>

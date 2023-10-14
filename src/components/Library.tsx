@@ -105,14 +105,18 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
       {!user || !subscription ? (
         <div
           onClick={handleClick}
-          className="my-8 flex w-full cursor-pointer items-center justify-center px-4 text-center text-neutral-400 transition hover:text-white"
+          className={`${
+            isCollapsed && 'hidden'
+          } my-8 line-clamp-2 flex w-full cursor-pointer items-center justify-center px-4 text-center text-neutral-400 transition hover:text-white`}
         >
           Log in and subscribe to view your playlists.
         </div>
       ) : !playlists.length && !likedPlaylists.length ? (
         <div
           onClick={handleClick}
-          className="my-8 flex w-full cursor-pointer items-center justify-center px-4 text-center text-neutral-400 transition hover:text-white"
+          className={`${
+            isCollapsed && 'hidden'
+          } my-8 line-clamp-2 flex w-full cursor-pointer items-center justify-center px-4 text-center text-neutral-400 transition hover:text-white`}
         >
           You have no any playlists, create your playlists.
         </div>

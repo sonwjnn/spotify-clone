@@ -1,6 +1,5 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import { type ElementRef, type FC, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
@@ -22,7 +21,6 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
   type,
   className,
 }) => {
-  const pathname = usePathname()
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   const isResizingRef = useRef(false)
@@ -35,6 +33,7 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
     setIsCollapsed,
     setHandleResetWidth,
     setIsMaxWidth,
+    isCollapsed,
   } = useLibraryStore()
 
   const handleMouseMove = (event: MouseEvent): void => {
@@ -134,18 +133,18 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
   }
 
   useEffect(() => {
-    if (isMobile) {
+    if (isCollapsed) {
       collapse()
     } else {
       resetWidth()
     }
-  }, [isMobile])
+  }, [])
 
-  useEffect(() => {
-    if (isMobile) {
-      collapse()
-    }
-  }, [pathname, isMobile])
+  // useEffect(() => {
+  //   if (isMobile) {
+  //     collapse()
+  //   }
+  // }, [pathname, isMobile])
 
   useEffect(() => {
     setHandleCollapsed(resetWidth, collapse)
@@ -157,7 +156,7 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
       <aside
         ref={sidebarRef}
         className={cn(
-          `group/sidebar h-full bg-secondary overflow-y-auto relative flex w-[${minWidth}px] flex-col z-[99999]`,
+          `group/sidebar h-full bg-secondary overflow-y-auto relative flex w-[${minWidth}px] flex-col `,
           className,
           isResetting && 'transition-all ease-in-out duration-300',
           isMobile && 'w-0'

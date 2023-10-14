@@ -23,6 +23,7 @@ const useLibraryStore = create<LibraryStoreProps>()(
       setIsCollapsed: (isCollapsed: boolean) => set({ isCollapsed }),
       setIsMaxWidth: (isMaxWidth: boolean) => set({ isMaxWidth }),
       handleCollapsed: () => {},
+      handleResetWidth: () => {},
       setHandleCollapsed: (resetWidth: () => void, collapse: () => void) => {
         set({
           handleCollapsed: () => {
@@ -34,7 +35,6 @@ const useLibraryStore = create<LibraryStoreProps>()(
           },
         })
       },
-      handleResetWidth: () => {},
       setHandleResetWidth: (
         resetMaxWidth: () => void,
         resetMinWidth: () => void

@@ -1,6 +1,5 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import { type ElementRef, type FC, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
@@ -22,7 +21,6 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
   type,
   className,
 }) => {
-  const pathname = usePathname()
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   const isResizingRef = useRef(false)
@@ -101,24 +99,6 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
   }
 
   useEffect(() => {
-    if (isMobile) {
-      collapse()
-    } else {
-      resetWidth()
-    }
-  }, [isMobile])
-
-  useEffect(() => {
-    console.log(isResetting)
-  }, [isResetting])
-
-  useEffect(() => {
-    if (isMobile) {
-      collapse()
-    }
-  }, [pathname, isMobile])
-
-  useEffect(() => {
     setHandleCollapsed(resetWidth, collapse)
   }, [])
 
@@ -127,7 +107,7 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
       <aside
         ref={sidebarRef}
         className={cn(
-          `group/playing h-full bg-secondary overflow-y-auto relative flex flex-col z-[99999]`,
+          `group/playing h-full bg-secondary overflow-y-auto relative flex flex-col `,
           className,
           'transition-all ease-in-out duration-300',
           isMobile && 'w-0'

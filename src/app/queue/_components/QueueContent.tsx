@@ -12,19 +12,11 @@ interface QueueContentProps {}
 const QueueContent: React.FC<QueueContentProps> = () => {
   const { queue, currentTrack, currentTrackIndex, isRandom } = usePlayer()
 
-  if (queue.length === 0 || !currentTrack) {
-    return (
-      <div className="flex w-full flex-col gap-y-2 px-6 text-neutral-400">
-        No songs found.
-      </div>
-    )
-  }
-
   const queueNormalized = queue.filter(item => item)
 
   return (
     <div className="relative h-full overflow-hidden pb-8">
-      {queueNormalized.length !== 0 ? (
+      {queueNormalized.length !== 0 && currentTrack ? (
         <>
           <div className="m-0 mb-1 p-6 pt-0 text-base font-bold text-neutral-400">
             Now playing

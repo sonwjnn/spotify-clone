@@ -53,7 +53,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
               placeholder="blur"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-neutral-800 text-white">
+            <div className="flex min-h-[48px] w-full items-center justify-center bg-neutral-800 text-white">
               <MusicNote size={20} />
             </div>
           )}

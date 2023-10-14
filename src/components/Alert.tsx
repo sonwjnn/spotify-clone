@@ -8,11 +8,12 @@ import Box from './ui/Box'
 import Button from './ui/Button'
 
 interface AlertProps {
-  type?: 'notfound' | 'wrong' | 'noSupportDevice'
+  type?: 'notfound' | 'wrong' | 'noAuth'
+  text?: string
 }
 
 const Alert: React.FC<AlertProps> = props => {
-  const { type = 'notfound' } = props
+  const { type = 'notfound', text = '' } = props
 
   const { message } = useMemo(() => {
     switch (type) {
@@ -26,15 +27,15 @@ const Alert: React.FC<AlertProps> = props => {
           documentTitle: 'Oops!',
           message: `Sorry, we couldn't complete your request.\n Please try refreshing this page or contact us.`,
         }
-      case 'noSupportDevice':
+      case 'noAuth':
         return {
-          documentTitle: 'Unsupported device!',
-          message: 'Desktop supported only!',
+          documentTitle: 'Unauthenticated!',
+          message: 'Unauthenticated, please subcribe or login!',
         }
       default:
         return {
           documentTitle: '',
-          message: '',
+          message: text,
         }
     }
   }, [type])
@@ -51,13 +52,13 @@ const Alert: React.FC<AlertProps> = props => {
         />
       </div>
       <div className="flex flex-col items-center p-10 ">
-        <h2 className=" mb-4 mt-1 text-5xl font-bold text-white ">
+        <h2 className=" mb-4 mt-1 text-center text-5xl font-bold text-white">
           {type === 'notfound'
             ? 'Page not found'
             : 'Oops! Something went wrong'}
         </h2>
         <p className="mb-10 text-base text-neutral-400">{message}</p>
-        {type !== 'noSupportDevice' && (
+        {type !== 'noAuth' && (
           <Link href={'/'}>
             <Button className="mb-9 bg-white px-8 py-3 text-black">Home</Button>
           </Link>

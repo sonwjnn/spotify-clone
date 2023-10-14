@@ -9,6 +9,8 @@ interface UserStore {
   setLikedPlaylists: (playlists: Playlist[]) => void
   removeLikedSong: (id: string) => void
   addLikedSong: (song: Song) => void
+  removeLikedPlaylist: (id: string) => void
+  addLikedPlaylist: (playlist: Playlist) => void
 }
 
 const useUserStore = create<UserStore>()((set, get) => ({
@@ -24,6 +26,15 @@ const useUserStore = create<UserStore>()((set, get) => ({
   },
   addLikedSong: (song: Song) =>
     set({ likedSongs: [...get().likedSongs, song] }),
+  removeLikedPlaylist: (id: string) => {
+    const { likedPlaylists } = get()
+    const filteredLikedPlaylists = likedPlaylists.filter(
+      playlist => playlist.id !== id
+    )
+    set({ likedPlaylists: filteredLikedPlaylists })
+  },
+  addLikedPlaylist: (playlist: Playlist) =>
+    set({ likedPlaylists: [...get().likedPlaylists, playlist] }),
 }))
 
 export default useUserStore

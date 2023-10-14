@@ -1,7 +1,6 @@
 'use client'
 
 import { useSessionContext } from '@supabase/auth-helpers-react'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
@@ -9,21 +8,24 @@ import { twMerge } from 'tailwind-merge'
 
 import useAuthModal from '@/hooks/useAuthModal'
 import { useUser } from '@/hooks/useUser'
+import useUserStore from '@/stores/useUserStore'
+import type { Playlist } from '@/types/types'
 
 interface PlaylistLikeButtonProps {
+  playlist: Playlist
   size?: number
   className?: string
-  playlistId?: string
 }
 
 const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
-  playlistId,
+  playlist,
   size = 25,
   className,
 }) => {
-  const router = useRouter()
-
   const { supabaseClient } = useSessionContext()
+
+  const { likedPlaylists, removeLikedPlaylist, addLikedPlaylist } =
+    useUserStore()
 
   const { user } = useUser()
 
@@ -39,7 +41,7 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
         .from('liked_playlists')
         .select('*')
         .eq('user_id', user?.id)
-        .eq('playlist_id', playlistId)
+        .eq('playlist_id', playlist.id)
         .single()
 
       if (!error && data) {
@@ -50,7 +52,12 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
     }
 
     fetchData()
-  }, [playlistId, supabaseClient, user?.id])
+  }, [playlist, supabaseClient, user?.id])
+
+  useEffect(() => {
+    const isPlaylistLiked = likedPlaylists.some(item => item.id === playlist.id)
+    setIsLiked(isPlaylistLiked)
+  }, [likedPlaylists])
 
   const handleLike = async (): Promise<void> => {
     if (!user) {
@@ -66,16 +73,17 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
         .from('liked_playlists')
         .delete()
         .eq('user_id', user.id)
-        .eq('playlist_id', playlistId)
+        .eq('playlist_id', playlist.id)
 
       if (error) {
         toast.error(error.message)
         return
       }
       setIsLiked(false)
+      removeLikedPlaylist(playlist.id)
     } else {
       const { error } = await supabaseClient.from('liked_playlists').insert({
-        playlist_id: playlistId,
+        playlist_id: playlist.id,
         user_id: user.id,
       })
 
@@ -85,12 +93,10 @@ const PlaylistLikeButton: React.FC<PlaylistLikeButtonProps> = ({
       }
 
       setIsLiked(true)
-
+      addLikedPlaylist(playlist)
       toast.success('Playlist liked!')
     }
     setRequired(false)
-
-    router.refresh()
   }
   const Icon = isLiked ? AiFillHeart : AiOutlineHeart
 

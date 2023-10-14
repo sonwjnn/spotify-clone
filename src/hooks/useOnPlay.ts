@@ -5,7 +5,6 @@ import useSelectedPlayer from '@/stores/useSelectedPlayer'
 import type { Song } from '@/types/types'
 
 import useAuthModal from './useAuthModal'
-import useSubscribeModal from './useSubscribeModal'
 import { useUser } from './useUser'
 
 const useOnPlay = (songs: Song[]): ((id: string) => void) => {
@@ -25,9 +24,9 @@ const useOnPlay = (songs: Song[]): ((id: string) => void) => {
 
   const authModal = useAuthModal()
 
-  const subcribeModal = useSubscribeModal()
+  // const subcribeModal = useSubscribeModal()
 
-  const { user, subscription } = useUser()
+  const { user } = useUser()
 
   const onPlay = (id: string): void => {
     if (!user) {
@@ -35,10 +34,10 @@ const useOnPlay = (songs: Song[]): ((id: string) => void) => {
       return
     }
 
-    if (!subscription) {
-      subcribeModal.onOpen()
-      return
-    }
+    // if (!subscription) {
+    //   subcribeModal.onOpen()
+    //   return
+    // }
 
     if (!pathName.includes('/playlist')) {
       setPlaylistActiveId(undefined)

@@ -124,6 +124,7 @@ body,
 
   .disable-table > div {
     display: block;
+    height: 100%;
   }
 }
 
