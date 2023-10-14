@@ -17,9 +17,9 @@ interface ListColapseItemProps {
 const ListColapseItem: React.FC<ListColapseItemProps> = ({ playlist }) => {
   const imageUrl = useLoadImage(playlist.image_path, buckets.playlist_images)
   return (
-    <div>
+    <div className="flex items-center justify-center  rounded-lg  p-2 transition hover:bg-neutral-800 ">
       {imageUrl ? (
-        <div className="relative aspect-square h-14 w-14 overflow-hidden rounded-lg shadow-base">
+        <div className="relative aspect-square h-[52px] w-[52px] overflow-hidden rounded-lg shadow-base">
           <Image
             fill
             src={imageUrl}
@@ -46,24 +46,23 @@ const ListColapse: React.FC<ListColapseProps> = ({ playlists }) => {
         <Link
           href={`/playlist/${playlist.id}`}
           key={playlist.id}
-          className="cursor-pointer rounded-lg  p-2 transition hover:bg-neutral-800 "
+          className="px-1"
         >
           <ListColapseItem playlist={playlist} />
         </Link>
       ))}
 
-      <Link
-        href={`/liked`}
-        className="cursor-pointer rounded-lg  p-2 transition hover:bg-neutral-800 "
-      >
-        <div className="relative aspect-square h-14 w-14 overflow-hidden rounded-lg shadow-base">
-          <Image
-            fill
-            src={'/images/liked.png'}
-            sizes="100%"
-            alt="like img"
-            className="object-cover"
-          />
+      <Link href={`/liked`} className="  px-1 ">
+        <div className="flex items-center justify-center rounded-lg p-2 shadow-base transition hover:bg-neutral-800 ">
+          <div className="relative aspect-square h-[52px] w-[52px] overflow-hidden rounded-lg shadow-base">
+            <Image
+              fill
+              src={'/images/liked.png'}
+              sizes="100%"
+              alt="like img"
+              className="object-cover"
+            />
+          </div>
         </div>
       </Link>
     </div>

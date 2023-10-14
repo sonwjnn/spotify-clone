@@ -39,7 +39,7 @@ const PlayingSidebar: React.FC = () => {
 
   return (
     <ResizePlaying
-      className="hidden md:block"
+      className={'hidden md:block'}
       type="playing"
       minWidth={300}
       maxWidth={400}
@@ -61,7 +61,7 @@ const PlayingSidebar: React.FC = () => {
             >
               <button
                 className="absolute right-0 top-[1px] flex h-full w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
-                onClick={() => playingSidebar.setShowed(false)}
+                onClick={playingSidebar.handleCollapsed}
               >
                 <CloseIcon />
               </button>

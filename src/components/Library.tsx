@@ -1,12 +1,15 @@
 'use client'
 
+import { HiArrowLeft, HiArrowRight } from 'react-icons/hi'
+
 import useAuthModal from '@/hooks/useAuthModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useUser } from '@/hooks/useUser'
-import { LibraryIcon } from '@/public/icons'
+import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
 import useLibraryStore from '@/stores/useLibraryStore'
 import useUserStore from '@/stores/useUserStore'
 import type { Playlist } from '@/types/types'
+import cn from '@/utils/cn'
 
 import ListColapse from './ListColapse'
 import ListItem from './ListItem'
@@ -21,7 +24,8 @@ interface LibraryProps {
 const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
   const { user, subscription } = useUser()
   const { likedSongs, likedPlaylists } = useUserStore()
-  const { isCollapsed, handleCollapsed } = useLibraryStore()
+  const { isCollapsed, handleCollapsed, handleResetWidth, isMaxWidth } =
+    useLibraryStore()
   const authModal = useAuthModal()
   const subcribeModal = useSubscribeModal()
 
@@ -38,30 +42,44 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
   return (
     <div className="flex flex-col ">
       <div
-        className={`sticky top-0 z-10 flex flex-col items-center bg-neutral-900 px-5 pb-0 pt-4 ${
-          isScroll ? 'shadow-2xl' : ''
-        }`}
+        className={cn(
+          `sticky top-0 z-10 flex flex-col items-center bg-neutral-900 px-5 pb-0 pt-4`,
+          {
+            'shadow-2xl': isScroll,
+            'pb-3': isCollapsed,
+          }
+        )}
       >
-        <div className="flex w-full items-center justify-between ">
+        <div className={`flex h-8 w-full items-center justify-between `}>
           <div className="flex gap-x-2 ">
             <div
-              className="h-8 cursor-pointer pl-1 text-neutral-400 transition hover:text-white"
+              className=" cursor-pointer pl-1 text-neutral-400 transition hover:text-white"
               onClick={handleCollapsed}
             >
-              <LibraryIcon />
+              {isCollapsed ? <LibraryActiveIcon /> : <LibraryIcon />}
             </div>
             {!isCollapsed && (
-              <p className="truncate pl-2 text-base font-bold text-neutral-400">
+              <p className=" truncate pl-2 text-base font-bold text-neutral-400">
                 Your Library
               </p>
             )}
           </div>
 
-          {!isCollapsed && (
-            <div className={'flex flex-row justify-end'}>
+          {!isCollapsed ? (
+            <div className={'flex flex-row justify-end gap-x-2'}>
               <UploadDropdown />
+              <div
+                onClick={handleResetWidth}
+                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+              >
+                {isMaxWidth ? (
+                  <HiArrowLeft size={20} />
+                ) : (
+                  <HiArrowRight size={20} />
+                )}
+              </div>
             </div>
-          )}
+          ) : null}
         </div>
         {!isCollapsed ? (
           <>

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { type ElementRef, type FC, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
+import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import cn from '@/utils/cn'
 
 interface ResizePlayingProps {
@@ -28,6 +29,7 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
   const sidebarRef = useRef<ElementRef<'aside'>>(null)
   const navbarRef = useRef<ElementRef<'div'>>(null)
   const [isResetting, setIsResetting] = useState(false)
+  const { setShowed, setHandleCollapsed } = usePlayingSidebar()
 
   const handleMouseMove = (event: MouseEvent): void => {
     if (!isResizingRef.current) return
@@ -71,6 +73,7 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
   const resetWidth = (): void => {
     if (sidebarRef.current && navbarRef.current) {
       setIsResetting(true)
+      setShowed(true)
 
       sidebarRef.current.style.width = isMobile ? '100%' : `${minWidth}px`
       navbarRef.current.style.setProperty(
@@ -78,7 +81,7 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
         isMobile ? '0' : `calc(100% - ${minWidth}px)`
       )
       navbarRef.current.style.setProperty(
-        'left',
+        'right',
         isMobile ? '100%' : `${minWidth}px`
       )
       setTimeout(() => setIsResetting(false), 300)
@@ -88,10 +91,11 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
   const collapse = (): void => {
     if (sidebarRef.current && navbarRef.current) {
       setIsResetting(true)
+      setShowed(false)
 
-      sidebarRef.current.style.width = '92px'
+      sidebarRef.current.style.width = '0px'
       navbarRef.current.style.setProperty('width', '100%')
-      navbarRef.current.style.setProperty('left', '0')
+      navbarRef.current.style.setProperty('right', '0')
       setTimeout(() => setIsResetting(false), 300)
     }
   }
@@ -105,19 +109,27 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
   }, [isMobile])
 
   useEffect(() => {
+    console.log(isResetting)
+  }, [isResetting])
+
+  useEffect(() => {
     if (isMobile) {
       collapse()
     }
   }, [pathname, isMobile])
+
+  useEffect(() => {
+    setHandleCollapsed(resetWidth, collapse)
+  }, [])
 
   return (
     <>
       <aside
         ref={sidebarRef}
         className={cn(
-          `group/sidebar h-full bg-secondary overflow-y-auto relative flex min-w-[${minWidth}px] flex-col z-[99999]`,
+          `group/playing h-full bg-secondary overflow-y-auto relative flex flex-col z-[99999]`,
           className,
-          isResetting && 'transition-all ease-in-out duration-300',
+          'transition-all ease-in-out duration-300',
           isMobile && 'w-0'
         )}
       >

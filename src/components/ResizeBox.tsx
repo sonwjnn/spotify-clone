@@ -30,7 +30,12 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
   const navbarRef = useRef<ElementRef<'div'>>(null)
   const [isResetting, setIsResetting] = useState(false)
 
-  const { setHandleCollapsed, setIsCollapsed } = useLibraryStore()
+  const {
+    setHandleCollapsed,
+    setIsCollapsed,
+    setHandleResetWidth,
+    setIsMaxWidth,
+  } = useLibraryStore()
 
   const handleMouseMove = (event: MouseEvent): void => {
     if (!isResizingRef.current) return
@@ -41,7 +46,15 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
         (event.clientX - sidebarRef.current.getBoundingClientRect().left)
     }
 
-    if (newWidth < minWidth) newWidth = minWidth
+    if (newWidth < minWidth) {
+      if (newWidth < minWidth / 2) {
+        newWidth = 92
+        setIsCollapsed(true)
+      } else {
+        newWidth = minWidth
+        setIsCollapsed(false)
+      }
+    }
     if (newWidth > maxWidth) newWidth = maxWidth
 
     if (sidebarRef.current && navbarRef.current) {
@@ -86,6 +99,26 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
         isMobile ? '100%' : `${minWidth}px`
       )
       setTimeout(() => setIsResetting(false), 300)
+      setIsMaxWidth(false)
+    }
+  }
+
+  const resetToMaxWidth = (): void => {
+    if (sidebarRef.current && navbarRef.current) {
+      setIsCollapsed(false)
+      setIsResetting(true)
+
+      sidebarRef.current.style.width = isMobile ? '100%' : `${maxWidth}px`
+      navbarRef.current.style.setProperty(
+        'width',
+        isMobile ? '0' : `calc(100% - ${maxWidth}px)`
+      )
+      navbarRef.current.style.setProperty(
+        'left',
+        isMobile ? '100%' : `${maxWidth}px`
+      )
+      setTimeout(() => setIsResetting(false), 300)
+      setIsMaxWidth(true)
     }
   }
 
@@ -93,7 +126,6 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
     if (sidebarRef.current && navbarRef.current) {
       setIsCollapsed(true)
       setIsResetting(true)
-
       sidebarRef.current.style.width = '92px'
       navbarRef.current.style.setProperty('width', '100%')
       navbarRef.current.style.setProperty('left', '0')
@@ -116,9 +148,8 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
   }, [pathname, isMobile])
 
   useEffect(() => {
-    if (type === 'sidebar') {
-      setHandleCollapsed(resetWidth, collapse)
-    }
+    setHandleCollapsed(resetWidth, collapse)
+    setHandleResetWidth(resetToMaxWidth, resetWidth)
   }, [])
 
   return (
@@ -126,29 +157,19 @@ export const ResizeBox: FC<ResizeBoxProps> = ({
       <aside
         ref={sidebarRef}
         className={cn(
-          `group/sidebar h-full bg-secondary overflow-y-auto relative flex min-w-[${minWidth}px] flex-col z-[99999]`,
+          `group/sidebar h-full bg-secondary overflow-y-auto relative flex w-[${minWidth}px] flex-col z-[99999]`,
           className,
           isResetting && 'transition-all ease-in-out duration-300',
           isMobile && 'w-0'
         )}
       >
-        {type === 'playing' && (
-          <div
-            onMouseDown={handleMouseDown}
-            onClick={resetWidth}
-            className="absolute left-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
-          />
-        )}
-
         {children}
 
-        {type === 'sidebar' && (
-          <div
-            onMouseDown={handleMouseDown}
-            onClick={resetWidth}
-            className="absolute right-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
-          />
-        )}
+        <div
+          onMouseDown={handleMouseDown}
+          // onClick={resetWidth}
+          className="absolute right-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
+        />
       </aside>
       <div
         ref={navbarRef}

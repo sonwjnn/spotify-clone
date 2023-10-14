@@ -52,7 +52,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         active && 'text-white'
       )}
     >
-      {Icon ? <Icon size={26} /> : null}
+      <div className="h-6 w-6">{Icon ? <Icon /> : null}</div>
 
       {!isCollapsed && <p className="w-full truncate">{label}</p>}
     </Link>
@@ -61,7 +61,6 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 
 const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
   const pathname = usePathname()
-
   const routes = useMemo(
     () => [
       {
@@ -73,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
       {
         icons: [SearchActiveIcon, SearchIcon] as IconType[],
         label: 'Search',
-        active: pathname === '/search',
+        active: pathname.includes('/search'),
         href: '/search',
       },
     ],

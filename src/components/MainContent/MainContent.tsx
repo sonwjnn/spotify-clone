@@ -73,7 +73,7 @@ const MainContent: React.FC<MainContentProps> = ({
             </main>
           </MainLayout>
 
-          {isShowed ? <PlayingSidebar /> : null}
+          <PlayingSidebar />
         </div>
       )}
     </>

@@ -61,7 +61,7 @@ const VolumeBar: React.FC = () => {
       <Tooltip text="Playing View">
         <button
           className="flex cursor-pointer justify-center text-white"
-          onClick={() => playingSidebar.setShowed(!playingSidebar.isShowed)}
+          onClick={playingSidebar.handleCollapsed}
         >
           <PlayingSidebarIcon
             color={playingSidebar.isShowed ? '#22e55c' : undefined}
