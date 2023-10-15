@@ -3,14 +3,15 @@
 import { useEffect, useState } from 'react'
 
 import usePlayer from '@/stores/usePlayer'
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
 import useUserStore from '@/stores/useUserStore'
 import type { Playlist, Song } from '@/types/types'
 import cn from '@/utils/cn'
 
 import GlobalLoading from '../LoadingLayout/GlobalLoading'
-import PlayingSidebar from '../PlayingSidebar/PlayingSidebar'
+import PlayingResize from '../PlayingResize'
+import PlayingView from '../PlayingView/PlayingView'
 import Sidebar from '../Sidebar'
+import SidebarResize from '../SidebarResize'
 import MainLayout from './MainLayout'
 
 interface MainContentProps {
@@ -30,8 +31,6 @@ const MainContent: React.FC<MainContentProps> = ({
   const [isLoading, setLoading] = useState(true)
   const player = usePlayer()
   const { setLikedSongs, setLikedPlaylists } = useUserStore()
-
-  const { isShowed } = usePlayingSidebar()
 
   useEffect(() => {
     setTimeout(() => {
@@ -57,23 +56,28 @@ const MainContent: React.FC<MainContentProps> = ({
         <GlobalLoading />
       ) : (
         <div
-          className={cn(`flex flex-row h-full`, {
+          className={cn(`flex  flex-row h-full`, {
             'h-[calc(100%-80px)]': player.activeId,
           })}
         >
-          <Sidebar playlists={playlists} />
+          {/* <Sidebar playlists={playlists} /> */}
+          <SidebarResize minWidth={300} maxWidth={500}>
+            <Sidebar playlists={playlists} />
+          </SidebarResize>
 
           <MainLayout>
-            <main
-              className={cn(`relative h-full grow overflow-y-auto py-2`, {
-                'pr-2': !isShowed,
-              })}
-            >
+            <main className={`relative h-full grow overflow-y-auto py-2`}>
               {children}
             </main>
           </MainLayout>
 
-          <PlayingSidebar />
+          <PlayingResize
+            className={'hidden md:block'}
+            minWidth={300}
+            maxWidth={400}
+          >
+            <PlayingView />
+          </PlayingResize>
         </div>
       )}
     </>

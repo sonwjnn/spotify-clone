@@ -13,12 +13,10 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import useLibraryStore from '@/stores/useLibraryStore'
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import useSidebar from '@/stores/useSideBar'
 import type { Playlist } from '@/types/types'
 
 import Library from './Library'
-import { ResizeBox } from './ResizeBox'
 import Box from './ui/Box'
 import { ScrollArea } from './ui/scroll-area'
 
@@ -40,7 +38,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   active,
   href,
 }) => {
-  const { isCollapsed } = useLibraryStore()
+  const { isCollapsed } = useSidebar()
   const Icon: ((props: Partial<IconProps>) => JSX.Element) | undefined = active
     ? icons[0]
     : icons[1]
@@ -79,8 +77,6 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
     [pathname]
   )
 
-  const { isShowed } = usePlayingSidebar()
-
   const [isScroll, setScroll] = useState<boolean>(false)
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {
@@ -93,31 +89,26 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
   }
 
   return (
-    <ResizeBox
-      className={`hidden ${isShowed ? 'lg:block' : 'md:block'}`}
-      type="sidebar"
+    <div
+      className={twMerge(
+        `flex flex-col bg-black gap-y-2 h-full  p-2`,
+        className
+      )}
     >
-      <div
-        className={twMerge(
-          `flex flex-col bg-black gap-y-2 h-full  p-2`,
-          className
-        )}
+      <Box>
+        <div className="flex flex-col gap-y-4 px-5 py-4">
+          {routes.map(item => (
+            <SidebarItem key={item.label} {...item} />
+          ))}
+        </div>
+      </Box>
+      <ScrollArea
+        className="h-full w-full rounded-lg bg-neutral-900"
+        onScroll={handleScroll}
       >
-        <Box>
-          <div className="flex flex-col gap-y-4 px-5 py-4">
-            {routes.map(item => (
-              <SidebarItem key={item.label} {...item} />
-            ))}
-          </div>
-        </Box>
-        <ScrollArea
-          className="h-full w-full rounded-lg bg-neutral-900"
-          onScroll={handleScroll}
-        >
-          <Library playlists={playlists} isScroll={isScroll} />
-        </ScrollArea>
-      </div>
-    </ResizeBox>
+        <Library playlists={playlists} isScroll={isScroll} />
+      </ScrollArea>
+    </div>
   )
 }
 

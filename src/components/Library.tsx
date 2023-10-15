@@ -6,7 +6,7 @@ import useAuthModal from '@/hooks/useAuthModal'
 import useSubscribeModal from '@/hooks/useSubscribeModal'
 import { useUser } from '@/hooks/useUser'
 import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
-import useLibraryStore from '@/stores/useLibraryStore'
+import useSidebar from '@/stores/useSideBar'
 import useUserStore from '@/stores/useUserStore'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
@@ -24,8 +24,8 @@ interface LibraryProps {
 const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
   const { user, subscription } = useUser()
   const { likedSongs, likedPlaylists } = useUserStore()
-  const { isCollapsed, handleCollapsed, handleResetWidth, isMaxWidth } =
-    useLibraryStore()
+  const { isCollapsed, isMaxWidth, collapsed, resetMinWidth, resetMaxWidth } =
+    useSidebar()
   const authModal = useAuthModal()
   const subcribeModal = useSubscribeModal()
 
@@ -36,6 +36,22 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
     }
     if (!subscription) {
       subcribeModal.onOpen()
+    }
+  }
+
+  const handleScale = (): void => {
+    if (isCollapsed) {
+      resetMinWidth()
+    } else {
+      collapsed()
+    }
+  }
+
+  const handleShowMore = (): void => {
+    if (isMaxWidth) {
+      resetMinWidth()
+    } else {
+      resetMaxWidth()
     }
   }
 
@@ -54,7 +70,7 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
           <div className="flex gap-x-2 ">
             <div
               className=" cursor-pointer pl-1 text-neutral-400 transition hover:text-white"
-              onClick={handleCollapsed}
+              onClick={handleScale}
             >
               {isCollapsed ? <LibraryActiveIcon /> : <LibraryIcon />}
             </div>
@@ -69,7 +85,7 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
             <div className={'flex flex-row justify-end gap-x-2'}>
               <UploadDropdown />
               <div
-                onClick={handleResetWidth}
+                onClick={handleShowMore}
                 className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
               >
                 {isMaxWidth ? (

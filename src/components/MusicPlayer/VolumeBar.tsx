@@ -4,16 +4,16 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
 import type { SoundLevel } from '@/public/icons'
-import { PlayingSidebarIcon, QueueIcon, SoundIcon } from '@/public/icons'
+import { PlayingViewIcon, QueueIcon, SoundIcon } from '@/public/icons'
 import usePlayer from '@/stores/usePlayer'
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import usePlayingView from '@/stores/usePlayingView'
 
 import Slider from '../ui/Slider'
 import Tooltip from '../ui/Tooltip'
 
 const VolumeBar: React.FC = () => {
   const { volume, setVolume } = usePlayer()
-  const playingSidebar = usePlayingSidebar()
+  const { isShowed, collapsed, resetMaxWidth } = usePlayingView()
   const [previousVolume, setPreviousVolume] = useState<number>(volume)
   const [volumeLevel, setVolumeLevel] = useState<SoundLevel>('medium')
   const router = useRouter()
@@ -55,16 +55,22 @@ const VolumeBar: React.FC = () => {
       router.back()
     }
   }
+
+  const handleTogglePlayingView = (): void => {
+    if (isShowed) {
+      collapsed()
+    } else {
+      resetMaxWidth()
+    }
+  }
   return (
     <div className="flex items-center justify-end gap-x-4 ">
       <Tooltip text="Playing View">
         <button
           className="flex cursor-pointer justify-center text-white"
-          onClick={playingSidebar.handleCollapsed}
+          onClick={handleTogglePlayingView}
         >
-          <PlayingSidebarIcon
-            color={playingSidebar.isShowed ? '#22e55c' : undefined}
-          />
+          <PlayingViewIcon color={isShowed ? '#22e55c' : undefined} />
         </button>
       </Tooltip>
 

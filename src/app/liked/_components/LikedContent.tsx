@@ -10,7 +10,7 @@ import useOnPlay from '@/hooks/useOnPlay'
 import { useUser } from '@/hooks/useUser'
 import { SingleMusicNote } from '@/public/icons'
 import usePlayer from '@/stores/usePlayer'
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import usePlayingView from '@/stores/usePlayingView'
 import useUserStore from '@/stores/useUserStore'
 
 interface LikedContentProp {
@@ -23,7 +23,7 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
   const { isLoading, user } = useUser()
   const onPlay = useOnPlay(songs)
   const player = usePlayer()
-  const { isShowed, handleCollapsed } = usePlayingSidebar()
+  const { resetMaxWidth } = usePlayingView()
   const [isPlaying, setPlaying] = useState(false)
   const params = 'liked'
 
@@ -71,7 +71,7 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
       player.setPlaylistActiveId('liked')
       if (songs[0]) {
         onPlay(songs[0].id)
-        if (!isShowed) handleCollapsed()
+        resetMaxWidth()
       }
     } else {
       player.handlePlay()

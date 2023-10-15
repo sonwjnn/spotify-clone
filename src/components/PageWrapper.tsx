@@ -8,7 +8,6 @@ import useNavStyles from '@/stores/useNavStyles'
 import { ScrollArea } from './ui/scroll-area'
 
 interface PageWrapperProps {
-  type?: string
   hasPlayBtn?: boolean
   children: React.ReactNode
 }

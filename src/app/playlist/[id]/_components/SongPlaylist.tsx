@@ -9,7 +9,7 @@ import PlaylistLikeButton from '@/components/PlaylistLikeButton'
 import useOnPlay from '@/hooks/useOnPlay'
 import { useUser } from '@/hooks/useUser'
 import usePlayer from '@/stores/usePlayer'
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import usePlayingView from '@/stores/usePlayingView'
 import useSelectedPlayer from '@/stores/useSelectedPlayer'
 import type { Playlist, Song } from '@/types/types'
 
@@ -27,7 +27,7 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
     setPlaylistActiveId,
     handlePlay,
   } = usePlayer()
-  const { isShowed, handleCollapsed } = usePlayingSidebar()
+  const { resetMaxWidth } = usePlayingView()
   const { setSelected } = useSelectedPlayer()
 
   const [isPlaying, setPlaying] = useState(false)
@@ -42,7 +42,7 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
   const handleClickPlay = (): void => {
     if (playlistPlayingId?.toString() !== params.id && songs?.length !== 0) {
       setPlaylistActiveId(params.id as string)
-      if (!isShowed) handleCollapsed()
+      resetMaxWidth()
       onPlay(songs[0]?.id!)
     } else {
       setSelected(true)

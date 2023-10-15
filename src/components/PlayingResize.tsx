@@ -3,51 +3,49 @@
 import { type ElementRef, type FC, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
-import usePlayingSidebar from '@/stores/usePlayingSidebar'
+import usePlayingView from '@/stores/usePlayingView'
 import cn from '@/utils/cn'
 
-interface ResizePlayingProps {
+interface PlayingResizeProps {
   children: React.ReactNode
   minWidth?: number
   maxWidth?: number
-  type?: 'sidebar' | 'playing'
   className?: string
 }
 
-export const ResizePlaying: FC<ResizePlayingProps> = ({
+const PlayingResize: FC<PlayingResizeProps> = ({
   children,
   minWidth = 300,
   maxWidth = 500,
-  type,
   className,
 }) => {
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   const isResizingRef = useRef(false)
-  const sidebarRef = useRef<ElementRef<'aside'>>(null)
-  const navbarRef = useRef<ElementRef<'div'>>(null)
+  const playingViewRef = useRef<ElementRef<'aside'>>(null)
   const [isResetting, setIsResetting] = useState(false)
-  const { setShowed, setHandleCollapsed } = usePlayingSidebar()
+  const {
+    isShowed,
+    setShowed,
+    setResetMaxWidth,
+    setCollapsed,
+    setResetMinWidth,
+  } = usePlayingView()
 
   const handleMouseMove = (event: MouseEvent): void => {
     if (!isResizingRef.current) return
     let newWidth = event.clientX
-    if (type === 'playing' && sidebarRef.current) {
+    if (playingViewRef.current) {
       newWidth =
-        sidebarRef.current.offsetWidth -
-        (event.clientX - sidebarRef.current.getBoundingClientRect().left)
+        playingViewRef.current.offsetWidth -
+        (event.clientX - playingViewRef.current.getBoundingClientRect().left)
     }
 
     if (newWidth < minWidth) newWidth = minWidth
     if (newWidth > maxWidth) newWidth = maxWidth
 
-    if (sidebarRef.current && navbarRef.current) {
-      sidebarRef.current.style.width = `${newWidth}px`
-      navbarRef.current.style.setProperty('right', `${newWidth}px`)
-      navbarRef.current.style.setProperty(
-        'min-width',
-        `calc(100% - ${newWidth}px)`
-      )
+    if (playingViewRef.current) {
+      playingViewRef.current.style.width = `${newWidth}px`
     }
   }
 
@@ -68,67 +66,78 @@ export const ResizePlaying: FC<ResizePlayingProps> = ({
     document.addEventListener('mouseup', handleMouseUp)
   }
 
-  const resetWidth = (): void => {
-    if (sidebarRef.current && navbarRef.current) {
+  const resetMinWidth = (): void => {
+    if (playingViewRef.current) {
       setIsResetting(true)
       setShowed(true)
 
-      sidebarRef.current.style.width = isMobile ? '100%' : `${minWidth}px`
-      navbarRef.current.style.setProperty(
-        'width',
-        isMobile ? '0' : `calc(100% - ${minWidth}px)`
-      )
-      navbarRef.current.style.setProperty(
-        'right',
-        isMobile ? '100%' : `${minWidth}px`
-      )
+      playingViewRef.current.style.width = isMobile ? '100%' : `${minWidth}px`
+      setTimeout(() => setIsResetting(false), 300)
+    }
+  }
+
+  const resetMaxWidth = (): void => {
+    if (playingViewRef.current) {
+      setShowed(true)
+      setIsResetting(true)
+
+      playingViewRef.current.style.width = `${maxWidth}px`
+
       setTimeout(() => setIsResetting(false), 300)
     }
   }
 
   const collapse = (): void => {
-    if (sidebarRef.current && navbarRef.current) {
+    if (playingViewRef.current) {
       setIsResetting(true)
       setShowed(false)
 
-      sidebarRef.current.style.width = '0px'
-      navbarRef.current.style.setProperty('width', '100%')
-      navbarRef.current.style.setProperty('right', '0')
+      playingViewRef.current.style.width = '0px'
       setTimeout(() => setIsResetting(false), 300)
     }
   }
 
   useEffect(() => {
-    setHandleCollapsed(resetWidth, collapse)
+    if (isShowed) {
+      resetMaxWidth()
+    } else {
+      collapse()
+    }
+  }, [isShowed])
+
+  useEffect(() => {
+    if (isMobile) {
+      setShowed(false)
+    }
+  }, [isMobile])
+
+  useEffect(() => {
+    setResetMaxWidth(resetMaxWidth)
+    setResetMinWidth(resetMinWidth)
+    setCollapsed(collapse)
   }, [])
 
   return (
     <>
       <aside
-        ref={sidebarRef}
+        ref={playingViewRef}
         className={cn(
           `group/playing h-full bg-secondary overflow-y-auto relative flex flex-col `,
           className,
-          'transition-all ease-in-out duration-300',
-          isMobile && 'w-0'
+          isResetting && 'transition-all ease-in-out duration-300'
         )}
       >
         <div
           onMouseDown={handleMouseDown}
-          onClick={resetWidth}
+          // onClick={resetWidth}
           className="absolute left-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
         />
 
         {children}
       </aside>
-      <div
-        ref={navbarRef}
-        className={cn(
-          'absolute top-0 z-[99999] left-60 w-[calc(100%-300px)]',
-          isResetting && 'transition-all ease-in-out duration-300',
-          isMobile && 'left-0 w-full'
-        )}
-      ></div>
+      {!isShowed ? <div className="h-full w-2 bg-black "></div> : null}
     </>
   )
 }
+
+export default PlayingResize

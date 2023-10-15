@@ -33,7 +33,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   }, [size.width, setWidth, setQuantityCol])
 
   return (
-    <div className="flex-1" ref={mainRef}>
+    <div className="flex-1 " ref={mainRef}>
       {children}
     </div>
   )

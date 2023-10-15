@@ -342,7 +342,7 @@ export function RepeatIcon(props: Partial<IconProps>): JSX.Element {
   )
 }
 
-export function PlayingSidebarIcon(props: Partial<IconProps>): JSX.Element {
+export function PlayingViewIcon(props: Partial<IconProps>): JSX.Element {
   const { color = 'currentColor' } = props
   return (
     <svg

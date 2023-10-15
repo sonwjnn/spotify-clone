@@ -52,7 +52,7 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
   return (
     <>
       <div className="mb-4 px-6">
-        <div className='relative mt-2 truncate py-6 text-3xl font-semibold text-white  before:absolute before:left-0 before:top-0 before:h-[1px] before:w-full  before:bg-neutral-800 before:content-[""]'>
+        <div className='relative mt-2 line-clamp-2 w-full  py-6 text-3xl font-semibold text-white  before:absolute before:left-0 before:top-0 before:h-[1px] before:w-full  before:bg-neutral-800 before:content-[""]'>
           Lets find content for your playlist !
         </div>
         <Input
