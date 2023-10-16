@@ -19,6 +19,7 @@ import type { Playlist } from '@/types/types'
 import Library from './Library'
 import Box from './ui/Box'
 import { ScrollArea } from './ui/scroll-area'
+import Tooltip from './ui/tooltip'
 
 interface SidebarProps {
   playlists: Playlist[]
@@ -59,6 +60,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 
 const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
   const pathname = usePathname()
+  const { isCollapsed } = useSidebar()
   const routes = useMemo(
     () => [
       {
@@ -98,7 +100,15 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
       <Box>
         <div className="flex flex-col gap-y-4 px-5 py-4">
           {routes.map(item => (
-            <SidebarItem key={item.label} {...item} />
+            <>
+              {isCollapsed ? (
+                <Tooltip key={item.label} text={item.label} side="right">
+                  <SidebarItem {...item} />
+                </Tooltip>
+              ) : (
+                <SidebarItem key={item.label} {...item} />
+              )}
+            </>
           ))}
         </div>
       </Box>

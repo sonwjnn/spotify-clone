@@ -14,6 +14,7 @@ import cn from '@/utils/cn'
 import ListColapse from './ListColapse'
 import ListItem from './ListItem'
 import PlaylistSidebar from './PlaylistSidebar/PlaylistSidebar'
+import Tooltip from './ui/tooltip'
 import UploadDropdown from './UploadDropdown'
 
 interface LibraryProps {
@@ -67,33 +68,44 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
         )}
       >
         <div className={`flex h-8 w-full items-center justify-between `}>
-          <div className="flex gap-x-2 ">
+          <Tooltip
+            text={`${
+              isCollapsed ? 'Expend your library' : 'Collapse your library'
+            }`}
+            side={isCollapsed ? 'right' : 'top'}
+          >
             <div
-              className=" cursor-pointer pl-1 text-neutral-400 transition hover:text-white"
+              className="group flex cursor-pointer gap-x-2 "
               onClick={handleScale}
             >
-              {isCollapsed ? <LibraryActiveIcon /> : <LibraryIcon />}
+              <div className="  pl-1 text-neutral-400 transition group-hover:text-white ">
+                {isCollapsed ? <LibraryActiveIcon /> : <LibraryIcon />}
+              </div>
+              {!isCollapsed && (
+                <p className=" select-none truncate pl-1 text-base font-bold text-neutral-400 transition group-hover:text-white">
+                  Your Library
+                </p>
+              )}
             </div>
-            {!isCollapsed && (
-              <p className=" truncate pl-2 text-base font-bold text-neutral-400">
-                Your Library
-              </p>
-            )}
-          </div>
+          </Tooltip>
 
           {!isCollapsed ? (
             <div className={'flex flex-row justify-end gap-x-2'}>
+              {/* <Tooltip text="Create song or playlist"> */}
               <UploadDropdown />
-              <div
-                onClick={handleShowMore}
-                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
-              >
-                {isMaxWidth ? (
-                  <HiArrowLeft size={20} />
-                ) : (
-                  <HiArrowRight size={20} />
-                )}
-              </div>
+              {/* </Tooltip> */}
+              <Tooltip text={`${isMaxWidth ? 'Show less' : 'Show more'}`}>
+                <div
+                  onClick={handleShowMore}
+                  className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+                >
+                  {isMaxWidth ? (
+                    <HiArrowLeft size={20} />
+                  ) : (
+                    <HiArrowRight size={20} />
+                  )}
+                </div>
+              </Tooltip>
             </div>
           ) : null}
         </div>

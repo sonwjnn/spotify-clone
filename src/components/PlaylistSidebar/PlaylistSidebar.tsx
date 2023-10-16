@@ -14,7 +14,7 @@ const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
   likedPlaylist,
 }) => {
   return (
-    <div className="mt-2 flex flex-col gap-y-2 px-3 pb-2">
+    <div className="mt-2 flex flex-col px-3 pb-2">
       {data.map(item => (
         <PlaylistItemDropdown key={item.id} data={item} type="myPlaylist">
           <PlaylistItem data={item} />

@@ -21,6 +21,8 @@ import useUploadModal from '@/hooks/useUploadModal'
 import { useUser } from '@/hooks/useUser'
 import { AddPlaylistIcon } from '@/public/icons'
 
+import Tooltip from './ui/tooltip'
+
 const UploadDropdown: React.FC = () => {
   const { user, subscription } = useUser()
   const authModal = useAuthModal()
@@ -95,18 +97,22 @@ const UploadDropdown: React.FC = () => {
       onOpenChange={onChange}
     >
       <DropdownMenuTrigger asChild>
-        <div
-          className={
-            'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
-          }
-        >
-          <button
-            className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
-            aria-label="Customise options"
-            onClick={() => setDropdown(!isDropdown)}
-          >
-            <AiOutlinePlus size={20} />
-          </button>
+        <div className="flex items-center justify-center">
+          <Tooltip text="Create song or playlist">
+            <div
+              className={
+                'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
+              }
+            >
+              <button
+                className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
+                aria-label="Customise options"
+                onClick={() => setDropdown(!isDropdown)}
+              >
+                <AiOutlinePlus size={20} />
+              </button>
+            </div>
+          </Tooltip>
         </div>
       </DropdownMenuTrigger>
 

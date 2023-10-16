@@ -9,7 +9,7 @@ import usePlayer from '@/stores/usePlayer'
 import usePlayingView from '@/stores/usePlayingView'
 
 import Slider from '../ui/Slider'
-import Tooltip from '../ui/Tooltip'
+import Tooltip from '../ui/tooltip'
 
 const VolumeBar: React.FC = () => {
   const { volume, setVolume } = usePlayer()

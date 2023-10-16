@@ -11,7 +11,6 @@ interface SizebarResizeProps {
   children: React.ReactNode
   minWidth?: number
   maxWidth?: number
-  type?: 'sidebar' | 'playing'
   className?: string
 }
 
@@ -93,9 +92,7 @@ const SizebarResize: React.FC<SizebarResizeProps> = ({
     if (sidebarRef.current) {
       setIsCollapsed(false)
       setIsResetting(true)
-
       sidebarRef.current.style.width = `${maxWidth}px`
-
       setTimeout(() => setIsResetting(false), 300)
       setIsMaxWidth(true)
     }

@@ -9,7 +9,7 @@ import {
 import usePlayer from '@/stores/usePlayer'
 
 import PlayButton from '../PlayButton'
-import Tooltip from '../ui/Tooltip'
+import Tooltip from '../ui/tooltip'
 
 interface ControlsProps {
   onPlayPrevious: () => void
