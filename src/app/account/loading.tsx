@@ -2,8 +2,8 @@
 
 import Skeleton from 'react-loading-skeleton'
 
-import Footer from '@/components/Footer'
-import HeaderLoading from '@/components/LoadingLayout/HeaderLoading'
+import Footer from '@/components/footer'
+import HeaderLoading from '@/components/loading-layout/header-loading'
 
 const Loading: React.FC = () => {
   return (

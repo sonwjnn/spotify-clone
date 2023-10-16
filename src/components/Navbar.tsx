@@ -9,9 +9,9 @@ import { FaUserAlt } from 'react-icons/fa'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
-import useAuthModal from '@/hooks/useAuthModal'
-import useOnPlay from '@/hooks/useOnPlay'
-import { useUser } from '@/hooks/useUser'
+import useAuthModal from '@/hooks/use-auth-modal'
+import useOnPlay from '@/hooks/use-on-play'
+import { useUser } from '@/hooks/use-user'
 import type { IconProps } from '@/public/icons'
 import {
   HomeActiveIcon,
@@ -19,15 +19,15 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import useHeader from '@/stores/useHeader'
-import useNavStyles from '@/stores/useNavStyles'
-import usePlayer from '@/stores/usePlayer'
-import useSelectedPlayer from '@/stores/useSelectedPlayer'
+import useHeader from '@/stores/use-header'
+import useNavStyles from '@/stores/use-nav-styles'
+import usePlayer from '@/stores/use-player'
+import useSelectedPlayer from '@/stores/use-selected-player'
 import type { Playlist, Song } from '@/types/types'
 
-import PlayButton from './PlayButton'
+import PlayButton from './play-button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import Button from './ui/Button'
+import Button from './ui/button'
 
 interface NavbarProps {
   type?:

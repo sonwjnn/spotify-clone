@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from 'react'
 
-import useComponentSize from '@/hooks/useComponentSize'
-import useHeader from '@/stores/useHeader'
-import useMainLayout from '@/stores/useMainLayout'
+import useComponentSize from '@/hooks/use-component-size'
+import useHeader from '@/stores/use-header'
+import useMainLayout from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 

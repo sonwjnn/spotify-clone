@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-import Alert from '@/components/Alert'
-import PageWrapper from '@/components/PageWrapper'
-import { useUser } from '@/hooks/useUser'
+import Alert from '@/components/alert'
+import PageWrapper from '@/components/page-wrapper'
+import { useUser } from '@/hooks/use-user'
 
 interface PlaylistLayoutProps {
   children: React.ReactNode

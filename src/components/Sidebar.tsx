@@ -13,13 +13,13 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import useSidebar from '@/stores/useSideBar'
+import useSidebar from '@/stores/use-sidebar'
 import type { Playlist } from '@/types/types'
 
-import Library from './Library'
-import Box from './ui/Box'
+import Library from './library'
+import Box from './ui/box'
 import { ScrollArea } from './ui/scroll-area'
-import Tooltip from './ui/tooltip'
+import { Tooltip } from './ui/tooltip'
 
 interface SidebarProps {
   playlists: Playlist[]

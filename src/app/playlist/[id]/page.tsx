@@ -1,15 +1,15 @@
 import type { NextPage } from 'next'
 
-import Alert from '@/components/Alert'
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import Navbar from '@/components/Navbar'
-import getPlaylistById from '@/server-actions/playlists/getPlaylistById'
-import getSongsByIds from '@/server-actions/songs/getSongsByIds'
-import getSongsByTitle from '@/server-actions/songs/getSongsByTitle'
+import Alert from '@/components/alert'
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import Navbar from '@/components/navbar'
+import getPlaylistById from '@/server-actions/playlists/get-playlist-by-id'
+import getSongsByIds from '@/server-actions/songs/get-songs-by-ids'
+import getSongsByTitle from '@/server-actions/songs/get-songs-by-title'
 
-import HeaderPlaylistContent from './_components/HeaderPlaylistContent'
-import PlaylistContent from './_components/PlaylistContent'
+import HeaderPlaylistContent from './_components/header-playlist-content'
+import PlaylistContent from './_components/playlist-content'
 
 interface PlaylistPageProps {
   params: {

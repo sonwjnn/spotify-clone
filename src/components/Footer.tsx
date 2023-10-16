@@ -7,7 +7,7 @@ import {
   topLinkGroups,
 } from '@/utils/constants'
 
-import LinkGroup from './LinkGroup'
+import LinkGroup from './link-group'
 
 const Footer: FC = () => {
   return (

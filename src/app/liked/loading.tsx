@@ -3,14 +3,14 @@
 import { AiOutlineHeart } from 'react-icons/ai'
 import Skeleton from 'react-loading-skeleton'
 
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import ListBarLoading from '@/components/LoadingLayout/ListBarLoading'
-import MediaLoading from '@/components/LoadingLayout/MediaLoading'
-import Navbar from '@/components/Navbar'
-import PageWrapper from '@/components/PageWrapper'
-import PlayButton from '@/components/PlayButton'
-import useMainLayout from '@/stores/useMainLayout'
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import ListBarLoading from '@/components/loading-layout/list-bar-loading'
+import MediaLoading from '@/components/loading-layout/media-loading'
+import Navbar from '@/components/navbar'
+import PageWrapper from '@/components/page-wrapper'
+import PlayButton from '@/components/play-button'
+import useMainLayout from '@/stores/use-main-layout'
 
 const Loading: React.FC = () => {
   const { width } = useMainLayout()

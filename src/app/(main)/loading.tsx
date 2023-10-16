@@ -2,12 +2,12 @@
 
 import Skeleton from 'react-loading-skeleton'
 
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import Navbar from '@/components/Navbar'
-import PageWrapper from '@/components/PageWrapper'
-import useHeader from '@/stores/useHeader'
-import useMainLayout from '@/stores/useMainLayout'
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import Navbar from '@/components/navbar'
+import PageWrapper from '@/components/page-wrapper'
+import useHeader from '@/stores/use-header'
+import useMainLayout from '@/stores/use-main-layout'
 
 const Loading: React.FC = () => {
   const { width, quantityCol } = useMainLayout()

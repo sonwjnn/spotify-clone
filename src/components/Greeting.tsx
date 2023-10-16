@@ -2,12 +2,12 @@
 
 import { memo, useEffect, useMemo, useState } from 'react'
 
-import useHeader from '@/stores/useHeader'
-import useMainLayout from '@/stores/useMainLayout'
+import useHeader from '@/stores/use-header'
+import useMainLayout from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 
-import PlaylistRecommend from './PlaylistRecommend'
+import RecommendPlaylist from './recommend-playlist'
 
 interface GreetingProps {
   playlists: Playlist[]
@@ -57,7 +57,7 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
         {playlists
           ?.slice(0, 6)
           .map((item: Playlist, index) => (
-            <PlaylistRecommend
+            <RecommendPlaylist
               key={index}
               data={item}
               index={index}

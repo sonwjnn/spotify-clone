@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 import { getURL } from '@/libs/helpers'
 import { stripe } from '@/libs/stripe'
-import { createOrRetrieveCustomer } from '@/libs/supabaseAdmin'
+import { createOrRetrieveCustomer } from '@/libs/supabase-admin'
 
 export async function POST(): Promise<NextResponse<unknown>> {
   try {

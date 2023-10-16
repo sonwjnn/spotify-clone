@@ -4,8 +4,8 @@ import React, { useMemo } from 'react'
 
 import logo from '@/public/images/logos/spotify_logo.svg'
 
-import Box from './ui/Box'
-import Button from './ui/Button'
+import Box from './ui/box'
+import Button from './ui/button'
 
 interface AlertProps {
   type?: 'notfound' | 'wrong' | 'noAuth'

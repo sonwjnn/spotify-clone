@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import Navbar from '@/components/Navbar'
-import PageWrapper from '@/components/PageWrapper'
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import Navbar from '@/components/navbar'
+import PageWrapper from '@/components/page-wrapper'
 
-import HeaderContent from './_components/HeaderContent'
-import LikedContent from './_components/LikedContent'
+import HeaderContent from './_components/header-content'
+import LikedContent from './_components/liked-content'
 
 const LikedPage: NextPage = async () => {
   return (

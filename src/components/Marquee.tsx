@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Marquee from 'react-fast-marquee'
 
-import { useIsOverflow } from '@/hooks/useIsOverflow'
+import { useIsOverflow } from '@/hooks/use-is-overflow'
 
 interface MarqueeWrapperProps {
   children: React.ReactNode

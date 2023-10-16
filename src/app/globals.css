@@ -94,7 +94,7 @@ body,
     -ms-overflow-style: none;
   }
   .context-menu-item {
-    @apply text-sm leading-none gap-x-1  rounded-[3px] flex items-center h-8 px-2  relative  select-none outline-none  data-[disabled]:pointer-events-none  hover:bg-neutral-700 transition cursor-pointer mx-1;
+    @apply text-sm leading-none gap-x-1  rounded-[3px] flex items-center h-8 px-2  relative  select-none outline-none  data-[disabled]:pointer-events-none  hover:bg-neutral-700 transition cursor-pointer;
   }
   .dropdown-menu-item {
     @apply text-sm leading-none gap-x-1  rounded-[3px] flex items-center h-8 px-[5px]  relative  select-none outline-none  data-[disabled]:pointer-events-none  hover:bg-neutral-700 transition cursor-pointer;

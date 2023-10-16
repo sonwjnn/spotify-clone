@@ -2,20 +2,20 @@
 
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi'
 
-import useAuthModal from '@/hooks/useAuthModal'
-import useSubscribeModal from '@/hooks/useSubscribeModal'
-import { useUser } from '@/hooks/useUser'
+import useAuthModal from '@/hooks/use-auth-modal'
+import useSubscribeModal from '@/hooks/use-subcribe-modal'
+import { useUser } from '@/hooks/use-user'
 import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
-import useSidebar from '@/stores/useSideBar'
-import useUserStore from '@/stores/useUserStore'
+import useSidebar from '@/stores/use-sidebar'
+import useUserStore from '@/stores/use-user-store'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 
-import ListColapse from './ListColapse'
-import ListItem from './ListItem'
-import PlaylistSidebar from './PlaylistSidebar/PlaylistSidebar'
-import Tooltip from './ui/tooltip'
-import UploadDropdown from './UploadDropdown'
+import CollapseList from './collapse-list'
+import ListItem from './list-item'
+import PlaylistSidebar from './playlist-sidebar/playlist-sidebar'
+import { Tooltip } from './ui/tooltip'
+import UploadDropdown from './upload-dropdown'
 
 interface LibraryProps {
   playlists: Playlist[]
@@ -151,7 +151,7 @@ const Library: React.FC<LibraryProps> = ({ playlists, isScroll = false }) => {
       ) : (
         <>
           {isCollapsed ? (
-            <ListColapse playlists={[...playlists, ...likedPlaylists]} />
+            <CollapseList playlists={[...playlists, ...likedPlaylists]} />
           ) : (
             <>
               <PlaylistSidebar

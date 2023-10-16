@@ -1,11 +1,11 @@
 'use client'
 
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import ListBarLoading from '@/components/LoadingLayout/ListBarLoading'
-import MediaLoading from '@/components/LoadingLayout/MediaLoading'
-import Navbar from '@/components/Navbar'
-import PageWrapper from '@/components/PageWrapper'
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import ListBarLoading from '@/components/loading-layout/list-bar-loading'
+import MediaLoading from '@/components/loading-layout/media-loading'
+import Navbar from '@/components/navbar'
+import PageWrapper from '@/components/page-wrapper'
 
 const loading: React.FC = () => {
   return (
