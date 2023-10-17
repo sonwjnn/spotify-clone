@@ -7,11 +7,11 @@ interface NavStylesStore {
   setOpacity: (opacity: number) => void
 }
 
-const useNavStyles = create<NavStylesStore>()(set => ({
+const useStyleNavbar = create<NavStylesStore>()(set => ({
   playBtnVisible: false,
   setPlayBtnVisible: (playBtnVisible: boolean) => set({ playBtnVisible }),
   opacity: 0,
   setOpacity: (opacity: number) => set({ opacity }),
 }))
 
-export default useNavStyles
+export default useStyleNavbar

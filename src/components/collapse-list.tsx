@@ -17,9 +17,9 @@ interface CollapseListItemProps {
 const CollapseListItem: React.FC<CollapseListItemProps> = ({ playlist }) => {
   const imageUrl = useLoadImage(playlist.image_path, buckets.playlist_images)
   return (
-    <div className="flex items-center justify-center  rounded-lg  p-2 transition hover:bg-neutral-800 ">
+    <div className="flex items-center justify-center  rounded-lg  py-2  transition hover:bg-neutral-800 ">
       {imageUrl ? (
-        <div className="relative aspect-square h-[52px] w-[52px] overflow-hidden rounded-lg shadow-base">
+        <div className="relative aspect-square h-12 w-12 overflow-hidden rounded-sm shadow-base">
           <Image
             fill
             src={imageUrl}
@@ -53,8 +53,8 @@ const CollapseList: React.FC<CollapseListProps> = ({ playlists }) => {
       ))}
 
       <Link href={`/liked`} className="  px-1 ">
-        <div className="flex items-center justify-center rounded-lg p-2 shadow-base transition hover:bg-neutral-800 ">
-          <div className="relative aspect-square h-[52px] w-[52px] overflow-hidden rounded-lg shadow-base">
+        <div className="flex items-center justify-center rounded-lg py-2 shadow-base transition hover:bg-neutral-800 ">
+          <div className="relative aspect-square h-12 w-12 overflow-hidden rounded-sm shadow-base">
             <Image
               fill
               src={'/images/liked.png'}

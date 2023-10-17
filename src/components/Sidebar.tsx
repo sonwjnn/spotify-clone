@@ -100,15 +100,15 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
       <Box>
         <div className="flex flex-col gap-y-4 px-5 py-4">
           {routes.map(item => (
-            <>
+            <div className="h-full w-full" key={item.label}>
               {isCollapsed ? (
-                <Tooltip key={item.label} text={item.label} side="right">
+                <Tooltip text={item.label} side="right">
                   <SidebarItem {...item} />
                 </Tooltip>
               ) : (
-                <SidebarItem key={item.label} {...item} />
+                <SidebarItem {...item} />
               )}
-            </>
+            </div>
           ))}
         </div>
       </Box>

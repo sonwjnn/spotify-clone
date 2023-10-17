@@ -67,7 +67,6 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^13.5.4",
-    "@supabase/postgrest-js": "^1.8.5",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",

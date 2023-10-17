@@ -102,7 +102,7 @@ const ResizeSizebarBox: React.FC<ResizeSizebarBoxProps> = ({
     if (sidebarRef.current) {
       setIsCollapsed(true)
       setIsResetting(true)
-      sidebarRef.current.style.width = '92px'
+      sidebarRef.current.style.width = '86px'
       setTimeout(() => setIsResetting(false), 300)
     }
   }

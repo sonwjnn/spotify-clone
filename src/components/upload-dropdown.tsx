@@ -104,13 +104,13 @@ const UploadDropdown: React.FC = () => {
                 'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
               }
             >
-              <button
+              <div
                 className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
                 aria-label="Customise options"
                 onClick={() => setDropdown(!isDropdown)}
               >
                 <AiOutlinePlus size={20} />
-              </button>
+              </div>
             </div>
           </Tooltip>
         </div>

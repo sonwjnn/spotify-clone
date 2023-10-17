@@ -66,31 +66,31 @@ const VolumeBar: React.FC = () => {
   return (
     <div className="flex items-center justify-end gap-x-4 ">
       <Tooltip text="Now Playing View">
-        <button
+        <div
           className="flex cursor-pointer justify-center text-white"
           onClick={handleTogglePlayingView}
         >
           <PlayingViewIcon color={isShowed ? '#22e55c' : undefined} />
-        </button>
+        </div>
       </Tooltip>
 
       <Tooltip text="Queue">
-        <button
+        <div
           className="flex cursor-pointer justify-center text-white"
           onClick={handleClickQueueBtn}
         >
           <QueueIcon color={pathname === '/queue/' ? '#22e55c' : undefined} />
-        </button>
+        </div>
       </Tooltip>
 
       <div className="flex w-full min-w-[125px] items-center gap-x-2">
         <Tooltip text={volumeLevel === 'mute' ? 'Ummute' : 'Mute'}>
-          <button
+          <div
             className="flex cursor-pointer justify-center text-white"
             onClick={toggleMute}
           >
             <SoundIcon level={volumeLevel} />
-          </button>
+          </div>
         </Tooltip>
 
         <Slider

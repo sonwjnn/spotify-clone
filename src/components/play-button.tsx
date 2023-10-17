@@ -18,7 +18,7 @@ const PlayButton: React.FC<PlayButtonProps> = ({
   const Icon = isPlaying ? PauseIcon : PlayIcon
 
   return (
-    <button
+    <div
       onClick={onClick}
       className={twMerge(
         `
@@ -39,12 +39,13 @@ const PlayButton: React.FC<PlayButtonProps> = ({
         transition
         active:scale-100
         shadow-[0_8px_8px_rgba(0,0,0,.3)]
+        cursor-pointer
     `,
         className
       )}
     >
       <Icon size={iconSize} />
-    </button>
+    </div>
   )
 }
 

@@ -20,9 +20,9 @@ import {
   SearchIcon,
 } from '@/public/icons'
 import useHeader from '@/stores/use-header'
-import useNavStyles from '@/stores/use-nav-styles'
 import usePlayer from '@/stores/use-player'
 import useSelectedPlayer from '@/stores/use-selected-player'
+import useStyleNavbar from '@/stores/use-style-navbar'
 import type { Playlist, Song } from '@/types/types'
 
 import PlayButton from './play-button'
@@ -66,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = props => {
   const params = useParams()
 
   const { bgColor: bgColorHome } = useHeader()
-  const { opacity, playBtnVisible } = useNavStyles()
+  const { opacity, playBtnVisible } = useStyleNavbar()
   const { setSelected } = useSelectedPlayer()
 
   const supabaseClient = useSupabaseClient()
@@ -230,7 +230,7 @@ const Navbar: React.FC<NavbarProps> = props => {
               </div>
               <div>
                 <Button
-                  className="bg-transparent font-medium text-neutral-300"
+                  className="bg-white px-6 py-2"
                   onClick={authModal.onOpen}
                 >
                   Log in

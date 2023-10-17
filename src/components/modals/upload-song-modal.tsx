@@ -41,10 +41,6 @@ const UploadSongModal: React.FC = () => {
     return undefined
   }, [fileMp3])
 
-  useEffect(() => {
-    console.log(duration)
-  }, [duration])
-
   const handleChange = (event: any): void => {
     if (event.target.files[0]) {
       const file = URL.createObjectURL(event.target.files[0])

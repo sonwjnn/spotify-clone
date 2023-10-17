@@ -5,7 +5,6 @@ import {
   useSessionContext,
   useUser as useSupaUser,
 } from '@supabase/auth-helpers-react'
-import type { PostgrestBuilder } from '@supabase/postgrest-js'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 import type { Subscription, UserDetails } from '@/types/types'
@@ -37,28 +36,30 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
 
-  const getUserDetails = (): PostgrestBuilder<{
-    [x: string]: any
-  }> => supabase.from('users').select('*').single()
+  const getUserDetails = (): any => {
+    const data = supabase.from('users').select('*').single()
+    return data
+  }
 
-  const getSubscription = (): PostgrestBuilder<{
-    [x: string]: any
-  }> =>
-    supabase
+  const getSubscription = (): any => {
+    const data = supabase
       .from('subscriptions')
       .select('*, prices(*, products(*))')
       .in('status', ['trialing', 'active'])
       .single()
 
+    return data
+  }
+
   useEffect(() => {
-    if (!user && !isLoadingData && !userDetails && !subscription) {
+    if (!isLoadingData && !userDetails && !subscription) {
       setIsLoadingData(true)
       Promise.allSettled([getUserDetails(), getSubscription()]).then(
         results => {
           const userDetailsPromise = results[0]
           const subscriptionPromise = results[1]
+          console.log(results)
           if (userDetailsPromise.status === 'fulfilled') {
-            console.log(userDetailsPromise.value.data as UserDetails)
             setUserDetails(userDetailsPromise.value.data as UserDetails)
           }
 
@@ -84,6 +85,7 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
     subscription,
   }
 
+  console.log(value)
   return <UserContext.Provider value={value} {...props} />
 }
 

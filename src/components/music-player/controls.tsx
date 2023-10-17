@@ -30,18 +30,18 @@ const Controls: React.FC<ControlsProps> = ({ onPlayPrevious, onPlayNext }) => {
   return (
     <div className="flex items-center justify-center gap-x-6 pb-1">
       <Tooltip text={`${isRandom ? 'Disable' : 'Enable'} suffle`}>
-        <button
+        <div
           onClick={() => setRandom(!isRandom)}
           className={
             'cursor-pointer  text-neutral-400  transition hover:text-white'
           }
         >
           <ShuffleIcon color={isRandom ? '#22e55c' : undefined} />
-        </button>
+        </div>
       </Tooltip>
 
       <Tooltip text="Previous">
-        <button
+        <div
           onClick={() => {
             setPlaying(false)
             onPlayPrevious()
@@ -49,7 +49,7 @@ const Controls: React.FC<ControlsProps> = ({ onPlayPrevious, onPlayNext }) => {
           className="cursor-pointer text-neutral-400 transition hover:text-white"
         >
           <SkipBackIcon />
-        </button>
+        </div>
       </Tooltip>
 
       <Tooltip text={`${isPlaying ? 'Pause' : 'Play'}`}>
@@ -62,7 +62,7 @@ const Controls: React.FC<ControlsProps> = ({ onPlayPrevious, onPlayNext }) => {
       </Tooltip>
 
       <Tooltip text="Next">
-        <button
+        <div
           onClick={() => {
             setPlaying(false)
             onPlayNext()
@@ -70,16 +70,16 @@ const Controls: React.FC<ControlsProps> = ({ onPlayPrevious, onPlayNext }) => {
           className="cursor-pointer text-neutral-400 transition hover:text-white"
         >
           <SkipForwardIcon />
-        </button>
+        </div>
       </Tooltip>
 
       <Tooltip text={`${isReplay ? 'Disable' : 'Enable'} replay`}>
-        <button
+        <div
           onClick={() => setReplay(!isReplay)}
           className={`cursor-pointer text-neutral-400 transition hover:text-white`}
         >
           <RepeatIcon color={isReplay ? '#22e55c' : undefined} />
-        </button>
+        </div>
       </Tooltip>
     </div>
   )

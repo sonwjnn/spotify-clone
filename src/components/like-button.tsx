@@ -92,7 +92,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     <Tooltip
       text={`${isLiked ? 'Remove from Your Library' : 'Save to Your Library'}`}
     >
-      <button
+      <div
         onClick={handleLike}
         className={twMerge(
           `justify-center items-center ${
@@ -109,7 +109,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
           }`}
           size={size}
         />
-      </button>
+      </div>
     </Tooltip>
   )
 }

@@ -3,9 +3,9 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+import LikePlaylistButton from '@/components/like-playlist-button'
 import MediaList from '@/components/media-list'
 import PlayButton from '@/components/play-button'
-import LikePlaylistButton from '@/components/like-playlist-button'
 import useOnPlay from '@/hooks/use-on-play'
 import { useUser } from '@/hooks/use-user'
 import usePlayer from '@/stores/use-player'

@@ -13,6 +13,15 @@ import useAuthModal from '@/hooks/use-auth-modal'
 
 import Modal from '../ui/modal'
 
+// const views: { id: ViewType; title: string }[] = [
+//   { id: 'sign_in', title: 'Sign In' },
+//   { id: 'sign_up', title: 'Sign Up' },
+//   { id: 'magic_link', title: 'Magic Link' },
+//   { id: 'forgotten_password', title: 'Forgotten Password' },
+//   { id: 'update_password', title: 'Update Password' },
+//   { id: 'verify_otp', title: 'Verify Otp' },
+// ]
+
 const AuthModal = (): JSX.Element => {
   const router = useRouter()
   const supabaseClient = useSupabaseClient()
@@ -35,7 +44,7 @@ const AuthModal = (): JSX.Element => {
 
   return (
     <Modal
-      title="Welcome back"
+      title="Login sownpify"
       description="Login to your account"
       isOpen={isOpen}
       onChange={onChange}
@@ -43,20 +52,29 @@ const AuthModal = (): JSX.Element => {
       <Auth
         theme="dark"
         magicLink
-        providers={['github']}
+        providers={['google', 'github']}
         supabaseClient={supabaseClient}
         appearance={{
           theme: ThemeSupa,
-
+          style: {
+            button: {
+              borderRadius: '20px',
+              borderColor: 'rgba(0,0,0,0)',
+            },
+            input: {
+              borderRadius: '20px',
+            },
+          },
           variables: {
             default: {
               colors: {
-                brand: '#404040',
-                brandAccent: '#22c55e',
+                brandAccent: '#25d967',
+                brand: '#22c55e',
               },
             },
           },
         }}
+        socialLayout={'vertical'}
       />
     </Modal>
   )
