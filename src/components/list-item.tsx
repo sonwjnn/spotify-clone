@@ -13,7 +13,12 @@ interface ListItemProps {
   count?: number
 }
 
-const ListItem: React.FC<ListItemProps> = ({ image, name, href, count }) => {
+export const ListItem: React.FC<ListItemProps> = ({
+  image,
+  name,
+  href,
+  count,
+}) => {
   const { user } = useUser()
   const router = useRouter()
   const pathName = usePathname()
@@ -56,5 +61,3 @@ const ListItem: React.FC<ListItemProps> = ({ image, name, href, count }) => {
     </>
   )
 }
-
-export default ListItem

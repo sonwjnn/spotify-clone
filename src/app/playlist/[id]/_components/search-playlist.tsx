@@ -3,11 +3,11 @@
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
 
-import MediaList from '@/components/media-list'
-import Input from '@/components/ui/input'
-import useDebounce from '@/hooks/use-debounce'
+import { MediaList } from '@/components/media-list'
+import { Input } from '@/components/ui/input'
+import { useDebounce } from '@/hooks/use-debounce'
 import { SearchIcon } from '@/public/icons'
-import useMainLayout from '@/stores/use-main-layout'
+import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist, Song } from '@/types/types'
 
 interface SearchPlaylistProps {
@@ -15,7 +15,7 @@ interface SearchPlaylistProps {
   playlist: Playlist
 }
 
-const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
+export const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
   const { width } = useMainLayout()
 
   const { supabaseClient } = useSessionContext()
@@ -70,5 +70,3 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
     </>
   )
 }
-
-export default SearchPlaylist

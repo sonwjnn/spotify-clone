@@ -6,9 +6,9 @@ import {
   SkipBackIcon,
   SkipForwardIcon,
 } from '@/public/icons'
-import usePlayer from '@/stores/use-player'
+import { usePlayer } from '@/stores/use-player'
 
-import PlayButton from '../play-button'
+import { PlayButton } from '../play-button'
 import { Tooltip } from '../ui/tooltip'
 
 interface ControlsProps {
@@ -16,7 +16,10 @@ interface ControlsProps {
   onPlayNext: () => void
 }
 
-const Controls: React.FC<ControlsProps> = ({ onPlayPrevious, onPlayNext }) => {
+export const Controls: React.FC<ControlsProps> = ({
+  onPlayPrevious,
+  onPlayNext,
+}) => {
   const {
     isRandom,
     setRandom,
@@ -84,5 +87,3 @@ const Controls: React.FC<ControlsProps> = ({ onPlayPrevious, onPlayNext }) => {
     </div>
   )
 }
-
-export default Controls

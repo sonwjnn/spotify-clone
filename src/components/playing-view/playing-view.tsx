@@ -3,17 +3,17 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-import useLoadImage from '@/hooks/use-load-image'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { CloseIcon, MusicNote } from '@/public/icons'
-import usePlayer from '@/stores/use-player'
-import usePlayingView from '@/stores/use-playing-view'
+import { usePlayer } from '@/stores/use-player'
+import { usePlayingView } from '@/stores/use-playing-view'
 import type { Song } from '@/types/types'
 
-import LikeButton from '../like-button'
+import { LikeButton } from '../like-button'
 import { ScrollArea } from '../ui/scroll-area'
-import NextSong from './next-song'
+import { NextSong } from './next-song'
 
-const PlayingView: React.FC = () => {
+export const PlayingView: React.FC = () => {
   const { collapsed } = usePlayingView()
   const { currentTrack, queue, nextTrackIndex } = usePlayer()
   const imagePath = useLoadImage(currentTrack?.image_path!, 'images')
@@ -125,5 +125,3 @@ const PlayingView: React.FC = () => {
     </div>
   )
 }
-
-export default PlayingView

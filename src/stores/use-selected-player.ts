@@ -5,9 +5,7 @@ interface SelectedPlayerStore {
   setSelected: (isSelected: boolean) => void
 }
 
-const useSelectedPlayer = create<SelectedPlayerStore>()(set => ({
+export const useSelectedPlayer = create<SelectedPlayerStore>()(set => ({
   isSelected: false,
   setSelected: (isSelected: boolean) => set({ isSelected }),
 }))
-
-export default useSelectedPlayer

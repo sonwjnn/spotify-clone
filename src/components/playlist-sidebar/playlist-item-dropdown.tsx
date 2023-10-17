@@ -14,12 +14,12 @@ import {
   ContextMenuPortal,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
-import useAuthModal from '@/hooks/use-auth-modal'
-import usePlaylistModal from '@/hooks/use-playlist-modal'
-import useSubscribeModal from '@/hooks/use-subcribe-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
+import { usePlaylistModal } from '@/hooks/use-playlist-modal'
+import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { AddPlaylistIcon, DeleteIcon } from '@/public/icons'
-import useUserStore from '@/stores/use-user-store'
+import { useUserStore } from '@/stores/use-user-store'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
@@ -29,7 +29,7 @@ interface PlaylistItemDropdownProps {
   type?: 'myPlaylist' | 'otherPlaylist'
 }
 
-const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
+export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   children,
   data,
   type = 'myPlaylist',
@@ -226,5 +226,3 @@ const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
     </ContextMenu>
   )
 }
-
-export default PlaylistItemDropdown

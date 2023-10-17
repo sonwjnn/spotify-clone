@@ -5,13 +5,13 @@ import { useCallback, useState } from 'react'
 
 import type { SoundLevel } from '@/public/icons'
 import { PlayingViewIcon, QueueIcon, SoundIcon } from '@/public/icons'
-import usePlayer from '@/stores/use-player'
-import usePlayingView from '@/stores/use-playing-view'
+import { usePlayer } from '@/stores/use-player'
+import { usePlayingView } from '@/stores/use-playing-view'
 
-import Slider from '../ui/slider'
+import { Slider } from '../ui/slider'
 import { Tooltip } from '../ui/tooltip'
 
-const VolumeBar: React.FC = () => {
+export const VolumeBar: React.FC = () => {
   const { volume, setVolume } = usePlayer()
   const { isShowed, collapsed, resetMaxWidth } = usePlayingView()
   const [previousVolume, setPreviousVolume] = useState<number>(volume)
@@ -103,5 +103,3 @@ const VolumeBar: React.FC = () => {
     </div>
   )
 }
-
-export default VolumeBar

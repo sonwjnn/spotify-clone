@@ -9,7 +9,7 @@ interface LinkGroupProps {
   }
 }
 
-const LinkGroup: React.FC<LinkGroupProps> = ({ groupLink }) => {
+export const LinkGroup: React.FC<LinkGroupProps> = ({ groupLink }) => {
   return (
     <div className="mb-8 mr-5 flex min-w-[170px] flex-col">
       <h3 className="text-base font-bold text-white">{groupLink.title}</h3>
@@ -28,5 +28,3 @@ const LinkGroup: React.FC<LinkGroupProps> = ({ groupLink }) => {
     </div>
   )
 }
-
-export default LinkGroup

@@ -10,17 +10,17 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
 
-import useLoadImage from '@/hooks/use-load-image'
-import usePlaylistModal from '@/hooks/use-playlist-modal'
+import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlaylistModal } from '@/hooks/use-playlist-modal'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
 import { buckets } from '@/utils/constants'
 
-import Button from '../ui/button'
-import Input from '../ui/input'
-import Modal from '../ui/modal'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import { Modal } from '../ui/modal'
 
-const UploadPlaylistModal: React.FC = () => {
+export const UploadPlaylistModal: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const uploadModal = usePlaylistModal()
 
@@ -209,5 +209,3 @@ const UploadPlaylistModal: React.FC = () => {
     </Modal>
   )
 }
-
-export default UploadPlaylistModal

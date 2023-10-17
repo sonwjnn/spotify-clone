@@ -3,14 +3,14 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import LikePlaylistButton from '@/components/like-playlist-button'
-import MediaList from '@/components/media-list'
-import PlayButton from '@/components/play-button'
-import useOnPlay from '@/hooks/use-on-play'
+import { LikePlaylistButton } from '@/components/like-playlist-button'
+import { MediaList } from '@/components/media-list'
+import { PlayButton } from '@/components/play-button'
+import { useOnPlay } from '@/hooks/use-on-play'
 import { useUser } from '@/hooks/use-user'
-import usePlayer from '@/stores/use-player'
-import usePlayingView from '@/stores/use-playing-view'
-import useSelectedPlayer from '@/stores/use-selected-player'
+import { usePlayer } from '@/stores/use-player'
+import { usePlayingView } from '@/stores/use-playing-view'
+import { useSelectedPlayer } from '@/stores/use-selected-player'
 import type { Playlist, Song } from '@/types/types'
 
 interface SongPlaylistProps {
@@ -18,7 +18,10 @@ interface SongPlaylistProps {
   playlist: Playlist
 }
 
-const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
+export const SongPlaylist: React.FC<SongPlaylistProps> = ({
+  songs,
+  playlist,
+}) => {
   const { user } = useUser()
   const onPlay = useOnPlay(songs)
   const {
@@ -74,5 +77,3 @@ const SongPlaylist: React.FC<SongPlaylistProps> = ({ songs, playlist }) => {
     </>
   )
 }
-
-export default SongPlaylist

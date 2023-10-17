@@ -4,10 +4,10 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
-import useLoadImage from '@/hooks/use-load-image'
-import usePlaylistModal from '@/hooks/use-playlist-modal'
+import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlaylistModal } from '@/hooks/use-playlist-modal'
 import { MusicNote, SoundIconSolid } from '@/public/icons'
-import usePlayer from '@/stores/use-player'
+import { usePlayer } from '@/stores/use-player'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
@@ -17,7 +17,10 @@ interface PlaylistItemProps {
   className?: string
 }
 
-const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
+export const PlaylistItem: React.FC<PlaylistItemProps> = ({
+  data,
+  className,
+}) => {
   const { playlistPlayingId, isPlaying } = usePlayer()
   const router = useRouter()
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images)
@@ -79,5 +82,3 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ data, className }) => {
     </div>
   )
 }
-
-export default PlaylistItem

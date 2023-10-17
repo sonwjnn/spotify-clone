@@ -13,7 +13,7 @@ interface HeaderStore {
   setBgBase: (bgColor: string) => void
 }
 
-const useHeader = create<HeaderStore>()(
+export const useHeader = create<HeaderStore>()(
   persist(
     set => ({
       bgBase: '#3f3f46',
@@ -32,5 +32,3 @@ const useHeader = create<HeaderStore>()(
     }
   )
 )
-
-export default useHeader

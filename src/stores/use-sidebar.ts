@@ -17,7 +17,7 @@ interface SidebarProps {
   setResetMaxWidth: (resetMaxWidth: () => void) => void
 }
 
-const useSidebarStore = create<SidebarProps>()(
+export const useSidebar = create<SidebarProps>()(
   persist(
     set => ({
       width: 0,
@@ -58,5 +58,3 @@ const useSidebarStore = create<SidebarProps>()(
     }
   )
 )
-
-export default useSidebarStore

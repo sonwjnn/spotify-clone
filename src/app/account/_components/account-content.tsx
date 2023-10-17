@@ -4,12 +4,12 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-import Button from '@/components/ui/button'
-import useSubscribeModal from '@/hooks/use-subcribe-modal'
+import { Button } from '@/components/ui/button'
+import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/libs/helpers'
 
-const AccountContent: React.FC = () => {
+export const AccountContent: React.FC = () => {
   const router = useRouter()
 
   const subscribeModal = useSubscribeModal()
@@ -67,5 +67,3 @@ const AccountContent: React.FC = () => {
     </div>
   )
 }
-
-export default AccountContent

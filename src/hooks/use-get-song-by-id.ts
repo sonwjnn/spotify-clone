@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast'
 
 import type { Song } from '@/types/types'
 
-const useGetSongById = (
+export const useGetSongById = (
   id?: string
 ): {
   isLoading: boolean
@@ -47,5 +47,3 @@ const useGetSongById = (
     [isLoading, song]
   )
 }
-
-export default useGetSongById

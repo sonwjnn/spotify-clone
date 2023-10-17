@@ -3,7 +3,9 @@ import { cookies } from 'next/headers'
 
 import type { ProductWithPrice } from '@/types/types'
 
-const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]> => {
+export const getActiveProductsWithPrices = async (): Promise<
+  ProductWithPrice[]
+> => {
   const supabase = createServerComponentClient({
     cookies,
   })
@@ -22,5 +24,3 @@ const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]> => {
 
   return (data as any) || []
 }
-
-export default getActiveProductsWithPrices

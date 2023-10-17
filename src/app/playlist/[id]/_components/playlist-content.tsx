@@ -2,8 +2,8 @@
 
 import type { Playlist, Song } from '@/types/types'
 
-import SearchPlaylist from './search-playlist'
-import SongPlaylist from './song-playlist'
+import { SearchPlaylist } from './search-playlist'
+import { SongPlaylist } from './song-playlist'
 
 interface PlaylistContentProps {
   playlist: Playlist
@@ -11,7 +11,7 @@ interface PlaylistContentProps {
   addedSongs: Song[]
 }
 
-const PlaylistContent: React.FC<PlaylistContentProps> = ({
+export const PlaylistContent: React.FC<PlaylistContentProps> = ({
   playlist,
   songs,
   addedSongs,
@@ -27,5 +27,3 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({
     </>
   )
 }
-
-export default PlaylistContent

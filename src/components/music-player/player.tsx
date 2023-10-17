@@ -3,22 +3,22 @@
 import { useEffect, useRef, useState } from 'react'
 import useSound from 'use-sound'
 
-import usePlayer from '@/stores/use-player'
-import useSelectedPlayer from '@/stores/use-selected-player'
+import { usePlayer } from '@/stores/use-player'
+import { useSelectedPlayer } from '@/stores/use-selected-player'
 import type { Song } from '@/types/types'
 
-import PlayButton from '../play-button'
-import Controls from './controls'
-import SeekBar from './seek-bar'
-import SongDetails from './song-detail'
-import VolumeBar from './volume-bar'
+import { PlayButton } from '../play-button'
+import { Controls } from './controls'
+import { SeekBar } from './seek-bar'
+import { SongDetails } from './song-detail'
+import { VolumeBar } from './volume-bar'
 
 interface PlayerProps {
   song: Song
   songUrl: string
 }
 
-const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
+export const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
   const {
     ids: playerIds,
     activeId,
@@ -224,5 +224,3 @@ const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     </div>
   )
 }
-
-export default Player

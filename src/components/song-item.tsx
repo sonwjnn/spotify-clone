@@ -2,19 +2,19 @@
 
 import Image from 'next/image'
 
-import useLoadImage from '@/hooks/use-load-image'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { MusicNote } from '@/public/icons'
-import usePlayer from '@/stores/use-player'
+import { usePlayer } from '@/stores/use-player'
 import type { Song } from '@/types/types'
 
-import PlayButton from './play-button'
+import { PlayButton } from './play-button'
 
 interface SongItemProps {
   data: Song
   onClick: (id: string) => void
 }
 
-const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
+export const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
   const { currentTrack, isPlaying, handlePlay } = usePlayer()
 
   const isPlayingCurrentTrack = currentTrack?.id === data.id && isPlaying
@@ -55,5 +55,3 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
     </div>
   )
 }
-
-export default SongItem

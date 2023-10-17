@@ -2,7 +2,7 @@
 
 import Skeleton from 'react-loading-skeleton'
 
-const MediaLoading: React.FC = () => {
+export const MediaLoading: React.FC = () => {
   return (
     <div
       className={`group grid h-[56px] w-full cursor-pointer grid-cols-list-5 items-center gap-4 rounded-md px-4     transition hover:bg-neutral-800 hover:opacity-100`}
@@ -22,5 +22,3 @@ const MediaLoading: React.FC = () => {
     </div>
   )
 }
-
-export default MediaLoading

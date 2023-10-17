@@ -2,7 +2,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import type { Song } from '@/types/types'
 
-const useLoadSongUrl = (song: Song): string => {
+export const useLoadSongUrl = (song: Song): string => {
   const supabaseClient = useSupabaseClient()
 
   if (!song) return ''
@@ -13,5 +13,3 @@ const useLoadSongUrl = (song: Song): string => {
 
   return songData.publicUrl
 }
-
-export default useLoadSongUrl

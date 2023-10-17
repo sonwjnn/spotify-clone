@@ -2,18 +2,19 @@
 
 import { memo, useEffect, useMemo, useState } from 'react'
 
-import useHeader from '@/stores/use-header'
-import useMainLayout from '@/stores/use-main-layout'
+import { useHeader } from '@/stores/use-header'
+import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 
-import RecommendPlaylist from './recommend-playlist'
+import { RecommendPlaylist } from './recommend-playlist'
 
 interface GreetingProps {
   playlists: Playlist[]
 }
 
-const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
+// eslint-disable-next-line react/display-name
+export const Greeting: React.FC<GreetingProps> = memo(({ playlists }) => {
   const [currentHour, setCurrentHour] = useState(new Date().getHours())
   const [isHover, setHover] = useState(false)
   const { width } = useMainLayout()
@@ -68,6 +69,4 @@ const Greeting: React.FC<GreetingProps> = ({ playlists }) => {
       </div>
     </div>
   )
-}
-
-export default memo(Greeting)
+})

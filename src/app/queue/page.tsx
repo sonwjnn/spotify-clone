@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 
-import Footer from '@/components/footer'
-import Header from '@/components/header'
-import Navbar from '@/components/navbar'
-import PageWrapper from '@/components/page-wrapper'
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
+import { Navbar } from '@/components/navbar'
+import { PageWrapper } from '@/components/page-wrapper'
 
-import QueueContent from './_components/queue-content'
+import { QueueContent } from './_components/queue-content'
 
 export const revalidate = 0
 

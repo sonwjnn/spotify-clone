@@ -5,10 +5,10 @@ import qs from 'query-string'
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import useDebounce from '@/hooks/use-debounce'
+import { useDebounce } from '@/hooks/use-debounce'
 import { SearchIcon } from '@/public/icons'
 
-import Input from './ui/input'
+import { Input } from './ui/input'
 
 interface SearchInputProps {
   url: string
@@ -16,7 +16,7 @@ interface SearchInputProps {
   className?: string
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({
+export const SearchInput: React.FC<SearchInputProps> = ({
   className,
   url,
   placeholder,
@@ -49,5 +49,3 @@ const SearchInput: React.FC<SearchInputProps> = ({
     />
   )
 }
-
-export default SearchInput

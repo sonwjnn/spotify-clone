@@ -6,7 +6,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   endIcon?: React.ReactNode
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, disabled, type, startIcon, endIcon, ...props }, ref) => {
     return (
       <div className="relative">
@@ -36,4 +36,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 )
 
 Input.displayName = 'Input'
-export default Input

@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 
 import type { Playlist } from '@/types/types'
 
-const getPlaylistById = async (id: string): Promise<Playlist | null> => {
+export const getPlaylistById = async (id: string): Promise<Playlist | null> => {
   const supabase = createServerComponentClient({
     cookies,
   })
@@ -25,5 +25,3 @@ const getPlaylistById = async (id: string): Promise<Playlist | null> => {
 
   return (data as any) || null
 }
-
-export default getPlaylistById

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import useLoadImage from '@/hooks/use-load-image'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
@@ -39,7 +39,7 @@ const CollapseListItem: React.FC<CollapseListItemProps> = ({ playlist }) => {
   )
 }
 
-const CollapseList: React.FC<CollapseListProps> = ({ playlists }) => {
+export const CollapseList: React.FC<CollapseListProps> = ({ playlists }) => {
   return (
     <div className="flex h-full w-full flex-col ">
       {playlists.map(playlist => (
@@ -68,5 +68,3 @@ const CollapseList: React.FC<CollapseListProps> = ({ playlists }) => {
     </div>
   )
 }
-
-export default CollapseList

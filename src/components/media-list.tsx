@@ -2,12 +2,12 @@
 
 import { useRef, useState } from 'react'
 
-import MediaItem from '@/components/media-item'
-import useClickOutside from '@/hooks/use-click-outside'
-import useOnPlay from '@/hooks/use-on-play'
+import { MediaItem } from '@/components/media-item'
+import { useClickOutside } from '@/hooks/use-click-outside'
+import { useOnPlay } from '@/hooks/use-on-play'
 import { ClockIcon } from '@/public/icons'
-import useMainLayout from '@/stores/use-main-layout'
-import usePlayer from '@/stores/use-player'
+import { useMainLayout } from '@/stores/use-main-layout'
+import { usePlayer } from '@/stores/use-player'
 import type { MediaListProps } from '@/types/track'
 import cn from '@/utils/cn'
 
@@ -68,7 +68,7 @@ const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
   )
 }
 
-const MediaList: React.FC<MediaListProps> = ({
+export const MediaList: React.FC<MediaListProps> = ({
   songs,
   playlist,
   type = 'default',
@@ -119,5 +119,3 @@ const MediaList: React.FC<MediaListProps> = ({
     </>
   )
 }
-
-export default MediaList

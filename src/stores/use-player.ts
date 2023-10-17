@@ -41,7 +41,7 @@ interface PlayerStore {
   reset: () => void
 }
 
-const usePlayer = create<PlayerStore>()(
+export const usePlayer = create<PlayerStore>()(
   persist(
     (set, get) => ({
       ids: [],
@@ -116,5 +116,3 @@ const usePlayer = create<PlayerStore>()(
     }
   )
 )
-
-export default usePlayer

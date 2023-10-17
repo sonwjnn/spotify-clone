@@ -6,7 +6,7 @@ interface BoxProps {
   onScroll?: (e: React.UIEvent<HTMLDivElement, UIEvent>) => void
 }
 
-const Box: React.FC<BoxProps> = ({ children, className, onScroll }) => {
+export const Box: React.FC<BoxProps> = ({ children, className, onScroll }) => {
   return (
     <div
       onScroll={onScroll}
@@ -16,5 +16,3 @@ const Box: React.FC<BoxProps> = ({ children, className, onScroll }) => {
     </div>
   )
 }
-
-export default Box

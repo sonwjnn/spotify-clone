@@ -1,13 +1,13 @@
 import { usePathname } from 'next/navigation'
 
-import usePlayer from '@/stores/use-player'
-import useSelectedPlayer from '@/stores/use-selected-player'
+import { usePlayer } from '@/stores/use-player'
+import { useSelectedPlayer } from '@/stores/use-selected-player'
 import type { Song } from '@/types/types'
 
-import useAuthModal from './use-auth-modal'
+import { useAuthModal } from './use-auth-modal'
 import { useUser } from './use-user'
 
-const useOnPlay = (songs: Song[]): ((id: string) => void) => {
+export const useOnPlay = (songs: Song[]): ((id: string) => void) => {
   const {
     setId,
     setCurrentTrackIndex,
@@ -64,5 +64,3 @@ const useOnPlay = (songs: Song[]): ((id: string) => void) => {
 
   return onPlay
 }
-
-export default useOnPlay

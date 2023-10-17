@@ -2,7 +2,7 @@ import React from 'react'
 
 import { getDurationSong } from '@/utils/duration-convertor'
 
-import Slider from '../ui/slider'
+import { Slider } from '../ui/slider'
 
 interface SeekBarProps {
   sound: any
@@ -14,7 +14,7 @@ interface SeekBarProps {
   duration: number | null
 }
 
-const SeekBar: React.FC<SeekBarProps> = ({
+export const SeekBar: React.FC<SeekBarProps> = ({
   sound,
   intervalIdRef,
   trackProcess,
@@ -59,5 +59,3 @@ const SeekBar: React.FC<SeekBarProps> = ({
     </div>
   )
 }
-
-export default SeekBar

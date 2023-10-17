@@ -12,7 +12,7 @@ interface SliderProps {
   className?: string
 }
 
-const Slider: React.FC<SliderProps> = ({
+export const Slider: React.FC<SliderProps> = ({
   className,
   value = 0,
   maxValue = 100,
@@ -47,5 +47,3 @@ const Slider: React.FC<SliderProps> = ({
     </SliderPrimitive.Root>
   )
 }
-
-export default Slider

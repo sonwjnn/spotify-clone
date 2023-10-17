@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 
-import MediaItem from '@/components/media-item'
-import MediaList from '@/components/media-list'
-import Button from '@/components/ui/button'
-import usePlayer from '@/stores/use-player'
+import { MediaItem } from '@/components/media-item'
+import { MediaList } from '@/components/media-list'
+import { Button } from '@/components/ui/button'
+import { usePlayer } from '@/stores/use-player'
 
 interface QueueContentProps {}
 
-const QueueContent: React.FC<QueueContentProps> = () => {
+export const QueueContent: React.FC<QueueContentProps> = () => {
   const { queue, currentTrack, currentTrackIndex, isRandom } = usePlayer()
 
   const queueNormalized = queue.filter(item => item)
@@ -64,5 +64,3 @@ const QueueContent: React.FC<QueueContentProps> = () => {
     </div>
   )
 }
-
-export default QueueContent

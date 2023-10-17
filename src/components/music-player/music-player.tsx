@@ -1,12 +1,12 @@
 'use client'
 
-import useLoadSongUrl from '@/hooks/use-load-song-url'
+import { useLoadSongUrl } from '@/hooks/use-load-song-url'
 import { useUser } from '@/hooks/use-user'
-import usePlayer from '@/stores/use-player'
+import { usePlayer } from '@/stores/use-player'
 
-import Player from './player'
+import { Player } from './player'
 
-const MusicPlayer: React.FC = () => {
+export const MusicPlayer: React.FC = () => {
   const player = usePlayer()
 
   const { currentTrack: song } = usePlayer()
@@ -25,5 +25,3 @@ const MusicPlayer: React.FC = () => {
     </div>
   )
 }
-
-export default MusicPlayer

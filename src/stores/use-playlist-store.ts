@@ -10,7 +10,7 @@ interface PlaylistStoreStore {
   setDuration: (durations: number[], type?: 'short' | 'long') => void
 }
 
-const usePlaylistStore = create<PlaylistStoreStore>(set => ({
+export const usePlaylistStore = create<PlaylistStoreStore>(set => ({
   playlist: null,
   setPlaylist: (playlist: Playlist) => set({ playlist }),
   duration: '',
@@ -19,5 +19,3 @@ const usePlaylistStore = create<PlaylistStoreStore>(set => ({
     set({ duration })
   },
 }))
-
-export default usePlaylistStore

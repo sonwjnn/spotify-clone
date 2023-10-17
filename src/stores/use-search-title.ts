@@ -5,9 +5,7 @@ interface SearchTitleProps {
   setTitle: (title: string) => void
 }
 
-const useSearchTitle = create<SearchTitleProps>()(set => ({
+export const useSearchTitle = create<SearchTitleProps>()(set => ({
   title: '',
   setTitle: (title: string) => set({ title }),
 }))
-
-export default useSearchTitle

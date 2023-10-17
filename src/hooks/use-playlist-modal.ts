@@ -10,12 +10,10 @@ interface PlaylistModalStore {
   onClose: () => void
 }
 
-const usePlaylistModal = create<PlaylistModalStore>(set => ({
+export const usePlaylistModal = create<PlaylistModalStore>(set => ({
   isOpen: false,
   playlist: null,
   setPlaylist: (playlist: Playlist) => set({ playlist }),
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }))
-
-export default usePlaylistModal

@@ -6,15 +6,15 @@ import type { FC } from 'react'
 import { useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-import useLoadImage from '@/hooks/use-load-image'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { MusicNote, PlayIcon, SingleMusicNote } from '@/public/icons'
-import usePlayer from '@/stores/use-player'
+import { usePlayer } from '@/stores/use-player'
 import type { Song } from '@/types/types'
 
 interface NextSongProps {
   song: Song | undefined
 }
-const NextSong: FC<NextSongProps> = ({ song }) => {
+export const NextSong: FC<NextSongProps> = ({ song }) => {
   const player = usePlayer()
   const imagePath = useLoadImage(song?.image_path!, 'images')
   const router = useRouter()
@@ -124,5 +124,3 @@ const NextSong: FC<NextSongProps> = ({ song }) => {
     </div>
   )
 }
-
-export default NextSong

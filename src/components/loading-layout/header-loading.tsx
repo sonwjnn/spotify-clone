@@ -1,6 +1,5 @@
 'use client'
 
-import { memo } from 'react'
 import { FaUserAlt } from 'react-icons/fa'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
@@ -8,14 +7,17 @@ import { twMerge } from 'tailwind-merge'
 import { useUser } from '@/hooks/use-user'
 import { HomeActiveIcon, SearchIcon } from '@/public/icons'
 
-import Button from '../ui/button'
+import { Button } from '../ui/button'
 
 interface HeaderProps {
   children: React.ReactNode
   className?: string
 }
 
-const Header: React.FC<HeaderProps> = ({ children, className }) => {
+export const HeaderLoading: React.FC<HeaderProps> = ({
+  children,
+  className,
+}) => {
   const { user } = useUser()
 
   return (
@@ -70,5 +72,3 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
     </div>
   )
 }
-
-export default memo(Header)

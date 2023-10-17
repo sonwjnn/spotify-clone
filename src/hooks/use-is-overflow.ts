@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
 
-import useComponentSize from './use-component-size'
+import { useComponentSize } from './use-component-size'
 
 export const useIsOverflow = (
   ref: any,

@@ -2,18 +2,18 @@
 
 import Image from 'next/image'
 
-import useLoadImage from '@/hooks/use-load-image'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { MusicNote } from '@/public/icons'
 import type { Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-import LikeButton from '../like-button'
+import { LikeButton } from '../like-button'
 
 interface SongDetailsProps {
   data: Song
 }
 
-const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
+export const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
   const imageUrl = useLoadImage(data.image_path, buckets.images)
 
   return (
@@ -52,5 +52,3 @@ const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
     </div>
   )
 }
-
-export default SongDetails

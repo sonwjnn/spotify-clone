@@ -2,21 +2,21 @@
 
 import dayjs from 'dayjs'
 import Image from 'next/image'
-import React, { memo, useState } from 'react'
+import React, { useState } from 'react'
 
-import useLoadImage from '@/hooks/use-load-image'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { PlayIcon, SingleMusicNote } from '@/public/icons'
-import useMainLayout from '@/stores/use-main-layout'
-import usePlayer from '@/stores/use-player'
+import { useMainLayout } from '@/stores/use-main-layout'
+import { usePlayer } from '@/stores/use-player'
 import type { MediaItemProps } from '@/types/track'
 import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 
-import LikeButton from './like-button'
-import MediaDropdown from './media-dropdown'
+import { LikeButton } from './like-button'
+import { MediaDropdown } from './media-dropdown'
 
-const MediaItem: React.FC<MediaItemProps> = ({
+export const MediaItem: React.FC<MediaItemProps> = ({
   type = 'default',
   index,
   song,
@@ -163,5 +163,3 @@ const MediaItem: React.FC<MediaItemProps> = ({
     </div>
   )
 }
-
-export default memo(MediaItem)

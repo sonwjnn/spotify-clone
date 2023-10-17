@@ -12,7 +12,7 @@ interface PlayingViewProps {
   setResetMaxWidth: (resetMaxWidth: () => void) => void
 }
 
-const usePlayingView = create<PlayingViewProps>()(
+export const usePlayingView = create<PlayingViewProps>()(
   persist(
     set => ({
       isShowed: false,
@@ -48,5 +48,3 @@ const usePlayingView = create<PlayingViewProps>()(
     }
   )
 )
-
-export default usePlayingView

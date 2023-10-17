@@ -8,14 +8,14 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
 
-import useUploadModal from '@/hooks/use-upload-modal'
+import { useUploadModal } from '@/hooks/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 
-import Button from '../ui/button'
-import Input from '../ui/input'
-import Modal from '../ui/modal'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import { Modal } from '../ui/modal'
 
-const UploadSongModal: React.FC = () => {
+export const UploadSongModal: React.FC = () => {
   const uploadModal = useUploadModal()
   const { user } = useUser()
   const supabaseClient = useSupabaseClient()
@@ -191,5 +191,3 @@ const UploadSongModal: React.FC = () => {
     </Modal>
   )
 }
-
-export default UploadSongModal

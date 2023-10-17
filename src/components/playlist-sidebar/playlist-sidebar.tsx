@@ -2,8 +2,8 @@
 
 import type { Playlist } from '@/types/types'
 
-import PlaylistItem from './playlist-item'
-import PlaylistItemDropdown from './playlist-item-dropdown'
+import { PlaylistItem } from './playlist-item'
+import { PlaylistItemDropdown } from './playlist-item-dropdown'
 
 interface PlaylistSidebarProps {
   data: Playlist[]

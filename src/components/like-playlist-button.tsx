@@ -6,9 +6,9 @@ import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { twMerge } from 'tailwind-merge'
 
-import useAuthModal from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
 import { useUser } from '@/hooks/use-user'
-import useUserStore from '@/stores/use-user-store'
+import { useUserStore } from '@/stores/use-user-store'
 import type { Playlist } from '@/types/types'
 
 import { Tooltip } from './ui/tooltip'
@@ -19,7 +19,7 @@ interface LikePlaylistButtonProps {
   className?: string
 }
 
-const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
+export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
   playlist,
   size = 25,
   className,
@@ -122,5 +122,3 @@ const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
     </Tooltip>
   )
 }
-
-export default LikePlaylistButton

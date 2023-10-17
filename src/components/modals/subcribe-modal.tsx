@@ -3,14 +3,14 @@
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-import useSubscribeModal from '@/hooks/use-subcribe-modal'
+import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/libs/helpers'
 import { getStripe } from '@/libs/stripe-client'
 import type { Price, ProductWithPrice } from '@/types/types'
 
-import Button from '../ui/button'
-import Modal from '../ui/modal'
+import { Button } from '../ui/button'
+import { Modal } from '../ui/modal'
 
 interface SubscribeModalProps {
   products: ProductWithPrice[]
@@ -26,7 +26,7 @@ const formatPrice = (price: Price): string => {
   return priceString
 }
 
-const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
+export const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
   let content = <div className="text-center">No products available</div>
 
   const { user, isLoading, subscription } = useUser()
@@ -104,5 +104,3 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
     </Modal>
   )
 }
-
-export default SubscribeModal

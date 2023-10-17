@@ -9,9 +9,9 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-import useAuthModal from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
 
-import Modal from '../ui/modal'
+import { Modal } from '../ui/modal'
 
 // const views: { id: ViewType; title: string }[] = [
 //   { id: 'sign_in', title: 'Sign In' },
@@ -22,7 +22,7 @@ import Modal from '../ui/modal'
 //   { id: 'verify_otp', title: 'Verify Otp' },
 // ]
 
-const AuthModal = (): JSX.Element => {
+export const AuthModal = (): JSX.Element => {
   const router = useRouter()
   const supabaseClient = useSupabaseClient()
   const { session } = useSessionContext()
@@ -79,5 +79,3 @@ const AuthModal = (): JSX.Element => {
     </Modal>
   )
 }
-
-export default AuthModal

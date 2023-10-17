@@ -6,7 +6,9 @@ interface ComponentSize {
   width: number
 }
 
-const useComponentSize = (ref: RefObject<HTMLElement>): ComponentSize => {
+export const useComponentSize = (
+  ref: RefObject<HTMLElement>
+): ComponentSize => {
   const [componentSize, setComponentSize] = useState<ComponentSize>({
     width: -1,
     height: -1,
@@ -38,5 +40,3 @@ const useComponentSize = (ref: RefObject<HTMLElement>): ComponentSize => {
 
   return componentSize
 }
-
-export default useComponentSize

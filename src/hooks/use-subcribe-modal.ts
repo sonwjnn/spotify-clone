@@ -6,10 +6,8 @@ interface SubscribeModalStore {
   onClose: () => void
 }
 
-const useSubscribeModal = create<SubscribeModalStore>(set => ({
+export const useSubscribeModal = create<SubscribeModalStore>(set => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }))
-
-export default useSubscribeModal

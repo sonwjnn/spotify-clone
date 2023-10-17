@@ -9,8 +9,8 @@ import { FaUserAlt } from 'react-icons/fa'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
-import useAuthModal from '@/hooks/use-auth-modal'
-import useOnPlay from '@/hooks/use-on-play'
+import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useOnPlay } from '@/hooks/use-on-play'
 import { useUser } from '@/hooks/use-user'
 import type { IconProps } from '@/public/icons'
 import {
@@ -19,15 +19,15 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import useHeader from '@/stores/use-header'
-import usePlayer from '@/stores/use-player'
-import useSelectedPlayer from '@/stores/use-selected-player'
-import useStyleNavbar from '@/stores/use-style-navbar'
+import { useHeader } from '@/stores/use-header'
+import { usePlayer } from '@/stores/use-player'
+import { useSelectedPlayer } from '@/stores/use-selected-player'
+import { useStyleNavbar } from '@/stores/use-style-navbar'
 import type { Playlist, Song } from '@/types/types'
 
-import PlayButton from './play-button'
+import { PlayButton } from './play-button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import Button from './ui/button'
+import { Button } from './ui/button'
 
 interface NavbarProps {
   type?:
@@ -48,7 +48,7 @@ interface NavbarProps {
   showTitle?: boolean
 }
 
-const Navbar: React.FC<NavbarProps> = props => {
+export const Navbar: React.FC<NavbarProps> = props => {
   const {
     type = 'default',
     songs,
@@ -243,5 +243,3 @@ const Navbar: React.FC<NavbarProps> = props => {
     </div>
   )
 }
-
-export default Navbar

@@ -3,17 +3,17 @@
 import { useEffect, useState } from 'react'
 
 import { useUser } from '@/hooks/use-user'
-import usePlayer from '@/stores/use-player'
-import useUserStore from '@/stores/use-user-store'
+import { usePlayer } from '@/stores/use-player'
+import { useUserStore } from '@/stores/use-user-store'
 import type { Playlist, Song } from '@/types/types'
 import cn from '@/utils/cn'
 
-import GlobalLoading from '../loading-layout/global-loading'
-import PlayingView from '../playing-view/playing-view'
-import ResizePlayingBox from '../resize-playing-box'
-import SidebarResize from '../resize-sidebar-box'
-import Sidebar from '../sidebar'
-import MainLayout from './main-layout'
+import { GlobalLoading } from '../loading-layout/global-loading'
+import { PlayingView } from '../playing-view/playing-view'
+import { ResizePlayingBox } from '../resize-playing-box'
+import { ResizeSizebarBox } from '../resize-sidebar-box'
+import { Sidebar } from '../sidebar'
+import { MainLayout } from './main-layout'
 
 interface MainContentProps {
   children: React.ReactNode
@@ -23,7 +23,7 @@ interface MainContentProps {
   likedPlaylists: Playlist[]
 }
 
-const MainContent: React.FC<MainContentProps> = ({
+export const MainContent: React.FC<MainContentProps> = ({
   children,
   playlists,
   likedSongs,
@@ -65,9 +65,9 @@ const MainContent: React.FC<MainContentProps> = ({
           })}
         >
           {/* <Sidebar playlists={playlists} /> */}
-          <SidebarResize minWidth={300} maxWidth={500}>
+          <ResizeSizebarBox minWidth={300} maxWidth={500}>
             <Sidebar playlists={playlists} />
-          </SidebarResize>
+          </ResizeSizebarBox>
 
           <MainLayout>
             <main className={`relative h-full grow overflow-y-auto py-2`}>
@@ -87,5 +87,3 @@ const MainContent: React.FC<MainContentProps> = ({
     </>
   )
 }
-
-export default MainContent

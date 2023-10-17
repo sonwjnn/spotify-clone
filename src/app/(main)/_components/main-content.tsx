@@ -2,16 +2,16 @@
 
 import { useEffect } from 'react'
 
-import SongItem from '@/components/song-item'
-import useOnPlay from '@/hooks/use-on-play'
-import useMainLayout from '@/stores/use-main-layout'
+import { SongItem } from '@/components/song-item'
+import { useOnPlay } from '@/hooks/use-on-play'
+import { useMainLayout } from '@/stores/use-main-layout'
 import type { Song } from '@/types/types'
 
 interface MainContentProps {
   songs: Song[]
 }
 
-const MainContent: React.FC<MainContentProps> = ({ songs }) => {
+export const MainContent: React.FC<MainContentProps> = ({ songs }) => {
   useEffect(() => {
     useMainLayout.persist.rehydrate()
   }, [])
@@ -43,5 +43,3 @@ const MainContent: React.FC<MainContentProps> = ({ songs }) => {
     </div>
   )
 }
-
-export default MainContent

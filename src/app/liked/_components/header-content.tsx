@@ -2,10 +2,10 @@
 
 import Image from 'next/image'
 
-import useMainLayout from '@/stores/use-main-layout'
+import { useMainLayout } from '@/stores/use-main-layout'
 
 interface HeaderContentProps {}
-const HeaderContent: React.FC<HeaderContentProps> = () => {
+export const HeaderContent: React.FC<HeaderContentProps> = () => {
   const { width } = useMainLayout()
 
   return (
@@ -43,5 +43,3 @@ const HeaderContent: React.FC<HeaderContentProps> = () => {
     </div>
   )
 }
-
-export default HeaderContent

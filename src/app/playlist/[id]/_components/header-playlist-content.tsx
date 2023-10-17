@@ -3,22 +3,25 @@
 import Image from 'next/image'
 import { useCallback } from 'react'
 
-import useAuthModal from '@/hooks/use-auth-modal'
-import useLoadImage from '@/hooks/use-load-image'
-import usePlaylistModal from '@/hooks/use-playlist-modal'
-import useSubscribeModal from '@/hooks/use-subcribe-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlaylistModal } from '@/hooks/use-playlist-modal'
+import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import useMainLayout from '@/stores/use-main-layout'
+import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist, Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
 import { getDurationSongs } from '@/utils/duration-convertor'
 
-interface HeaderContentProps {
+interface HeaderPlaylistContentProps {
   data: Playlist | null
   songs: Song[]
 }
-const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
+export const HeaderPlaylistContent: React.FC<HeaderPlaylistContentProps> = ({
+  data,
+  songs,
+}) => {
   const { width } = useMainLayout()
   const { user, subscription } = useUser()
   const authModal = useAuthModal()
@@ -98,5 +101,3 @@ const HeaderContent: React.FC<HeaderContentProps> = ({ data, songs }) => {
     </div>
   )
 }
-
-export default HeaderContent

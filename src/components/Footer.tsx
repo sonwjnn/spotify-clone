@@ -1,5 +1,6 @@
-import type { FC } from 'react'
-import { memo } from 'react'
+'use client'
+
+import { type FC, memo } from 'react'
 
 import {
   bottomLinks,
@@ -7,9 +8,10 @@ import {
   topLinkGroups,
 } from '@/utils/constants'
 
-import LinkGroup from './link-group'
+import { LinkGroup } from './link-group'
 
-const Footer: FC = () => {
+// eslint-disable-next-line react/display-name
+const Footer: FC = memo(() => {
   return (
     <footer className="mt-10 flex flex-col px-8 pb-10 pt-2  ">
       <nav className="mt-8 flex justify-between">
@@ -53,6 +55,6 @@ const Footer: FC = () => {
       </nav>
     </footer>
   )
-}
+})
 
-export default memo(Footer)
+export { Footer }

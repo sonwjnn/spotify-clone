@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { memo, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge'
 
@@ -13,11 +13,11 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import useSidebar from '@/stores/use-sidebar'
+import { useSidebar } from '@/stores/use-sidebar'
 import type { Playlist } from '@/types/types'
 
-import Library from './library'
-import Box from './ui/box'
+import { Library } from './library'
+import { Box } from './ui/box'
 import { ScrollArea } from './ui/scroll-area'
 import { Tooltip } from './ui/tooltip'
 
@@ -58,7 +58,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   )
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
   const pathname = usePathname()
   const { isCollapsed } = useSidebar()
   const routes = useMemo(
@@ -121,5 +121,3 @@ const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
     </div>
   )
 }
-
-export default memo(Sidebar)

@@ -2,14 +2,14 @@
 
 import { useEffect, useRef } from 'react'
 
-import useComponentSize from '@/hooks/use-component-size'
-import useMainLayout from '@/stores/use-main-layout'
+import { useComponentSize } from '@/hooks/use-component-size'
+import { useMainLayout } from '@/stores/use-main-layout'
 
 interface MainLayoutProps {
   children: React.ReactNode
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   useEffect(() => {
     useMainLayout.persist.rehydrate()
   }, [])
@@ -38,5 +38,3 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     </div>
   )
 }
-
-export default MainLayout

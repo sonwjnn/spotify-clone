@@ -12,7 +12,7 @@ interface MarqueeWrapperProps {
   direction?: 'left' | 'right' | 'up' | 'down'
 }
 
-const MarqueeWrapper: React.FC<MarqueeWrapperProps> = ({
+export const MarqueeWrapper: React.FC<MarqueeWrapperProps> = ({
   children,
   pauseOnHover = false,
   speed = 20,
@@ -38,5 +38,3 @@ const MarqueeWrapper: React.FC<MarqueeWrapperProps> = ({
     </div>
   )
 }
-
-export default MarqueeWrapper

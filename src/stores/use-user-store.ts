@@ -13,7 +13,7 @@ interface UserStore {
   addLikedPlaylist: (playlist: Playlist) => void
 }
 
-const useUserStore = create<UserStore>()((set, get) => ({
+export const useUserStore = create<UserStore>()((set, get) => ({
   likedSongs: [],
   likedPlaylists: [],
   setLikedSongs: (songs: Song[]) => set({ likedSongs: songs }),
@@ -36,5 +36,3 @@ const useUserStore = create<UserStore>()((set, get) => ({
   addLikedPlaylist: (playlist: Playlist) =>
     set({ likedPlaylists: [...get().likedPlaylists, playlist] }),
 }))
-
-export default useUserStore

@@ -3,21 +3,21 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import MediaList from '@/components/media-list'
-import PlayButton from '@/components/play-button'
-import Button from '@/components/ui/button'
-import useOnPlay from '@/hooks/use-on-play'
+import { MediaList } from '@/components/media-list'
+import { PlayButton } from '@/components/play-button'
+import { Button } from '@/components/ui/button'
+import { useOnPlay } from '@/hooks/use-on-play'
 import { useUser } from '@/hooks/use-user'
 import { SingleMusicNote } from '@/public/icons'
-import usePlayer from '@/stores/use-player'
-import usePlayingView from '@/stores/use-playing-view'
-import useUserStore from '@/stores/use-user-store'
+import { usePlayer } from '@/stores/use-player'
+import { usePlayingView } from '@/stores/use-playing-view'
+import { useUserStore } from '@/stores/use-user-store'
 
 interface LikedContentProp {
   bgColor?: string
 }
 
-const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
+export const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
   const router = useRouter()
   const { likedSongs: songs } = useUserStore()
   const { isLoading, user } = useUser()
@@ -96,5 +96,3 @@ const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
     </>
   )
 }
-
-export default LikedContent

@@ -14,9 +14,9 @@ import {
   DropdownMenuPortal,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import useAuthModal from '@/hooks/use-auth-modal'
-import useSubscribeModal from '@/hooks/use-subcribe-modal'
-import useUploadModal from '@/hooks/use-upload-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
+import { useUploadModal } from '@/hooks/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 import { DeleteIcon } from '@/public/icons'
 
@@ -26,7 +26,7 @@ interface MediaDropdownProps {
   className?: string
 }
 
-const MediaDropdown: React.FC<MediaDropdownProps> = ({
+export const MediaDropdown: React.FC<MediaDropdownProps> = ({
   songId,
   playlistId,
   className,
@@ -139,5 +139,3 @@ const MediaDropdown: React.FC<MediaDropdownProps> = ({
     </DropdownMenu>
   )
 }
-
-export default MediaDropdown

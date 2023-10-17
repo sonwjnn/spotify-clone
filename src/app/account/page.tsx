@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 
-import Footer from '@/components/footer'
-import Header from '@/components/header'
-import Navbar from '@/components/navbar'
-import PageWrapper from '@/components/page-wrapper'
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
+import { Navbar } from '@/components/navbar'
+import { PageWrapper } from '@/components/page-wrapper'
 
-import AccountContent from './_components/account-content'
+import { AccountContent } from './_components/account-content'
 
 const AccountPage: NextPage = () => {
   return (

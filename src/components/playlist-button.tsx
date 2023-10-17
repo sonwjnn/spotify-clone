@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { ClipLoader } from 'react-spinners'
 
-import useAuthModal from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
 import { useUser } from '@/hooks/use-user'
 
 interface PlaylistButtonProps {
@@ -15,7 +15,7 @@ interface PlaylistButtonProps {
   playlistId: string
 }
 
-const PlaylistButton: React.FC<PlaylistButtonProps> = ({
+export const PlaylistButton: React.FC<PlaylistButtonProps> = ({
   type,
   songId,
   playlistId,
@@ -117,5 +117,3 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = ({
     </button>
   )
 }
-
-export default PlaylistButton

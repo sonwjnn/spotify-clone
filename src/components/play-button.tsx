@@ -1,3 +1,6 @@
+'use client'
+
+import { memo } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { PauseIcon, PlayIcon } from '@/public/icons'
@@ -9,19 +12,16 @@ interface PlayButtonProps {
   iconSize?: number
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({
-  className,
-  isPlaying = false,
-  iconSize = 20,
-  onClick,
-}) => {
-  const Icon = isPlaying ? PauseIcon : PlayIcon
+// eslint-disable-next-line react/display-name
+export const PlayButton: React.FC<PlayButtonProps> = memo(
+  ({ className, isPlaying = false, iconSize = 20, onClick }) => {
+    const Icon = isPlaying ? PauseIcon : PlayIcon
 
-  return (
-    <div
-      onClick={onClick}
-      className={twMerge(
-        `
+    return (
+      <div
+        onClick={onClick}
+        className={twMerge(
+          `
         opacity-${isPlaying ? '1' : '0'}
         rounded-full
         flex
@@ -41,12 +41,11 @@ const PlayButton: React.FC<PlayButtonProps> = ({
         shadow-[0_8px_8px_rgba(0,0,0,.3)]
         cursor-pointer
     `,
-        className
-      )}
-    >
-      <Icon size={iconSize} />
-    </div>
-  )
-}
-
-export default PlayButton
+          className
+        )}
+      >
+        <Icon size={iconSize} />
+      </div>
+    )
+  }
+)

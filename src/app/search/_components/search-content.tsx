@@ -1,13 +1,13 @@
 'use client'
 
-import MediaList from '@/components/media-list'
+import { MediaList } from '@/components/media-list'
 import type { Song } from '@/types/types'
 
 interface SearchContentProps {
   songs: Song[]
 }
 
-const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
+export const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
   if (songs.length === 0) {
     return (
       <div className="flex w-full flex-col gap-y-2 px-6 text-neutral-400">
@@ -18,5 +18,3 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
 
   return <MediaList type="search" songs={songs} />
 }
-
-export default SearchContent

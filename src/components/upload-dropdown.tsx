@@ -15,15 +15,15 @@ import {
   DropdownMenuPortal,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import useAuthModal from '@/hooks/use-auth-modal'
-import useSubscribeModal from '@/hooks/use-subcribe-modal'
-import useUploadModal from '@/hooks/use-upload-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
+import { useUploadModal } from '@/hooks/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 import { AddPlaylistIcon } from '@/public/icons'
 
 import { Tooltip } from './ui/tooltip'
 
-const UploadDropdown: React.FC = () => {
+export const UploadDropdown: React.FC = () => {
   const { user, subscription } = useUser()
   const authModal = useAuthModal()
   const uploadModal = useUploadModal()
@@ -147,5 +147,3 @@ const UploadDropdown: React.FC = () => {
     </DropdownMenu>
   )
 }
-
-export default UploadDropdown

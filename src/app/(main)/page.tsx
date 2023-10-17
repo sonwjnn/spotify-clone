@@ -1,14 +1,14 @@
 import type { NextPage } from 'next'
 
-import Footer from '@/components/footer'
-import Greeting from '@/components/greeting'
-import Header from '@/components/header'
-import Navbar from '@/components/navbar'
-import PageWrapper from '@/components/page-wrapper'
-import getPlaylists from '@/server-actions/playlists/get-playlists'
-import getSongs from '@/server-actions/songs/get-songs'
+import { Footer } from '@/components/footer'
+import { Greeting } from '@/components/greeting'
+import { Header } from '@/components/header'
+import { Navbar } from '@/components/navbar'
+import { PageWrapper } from '@/components/page-wrapper'
+import { getPlaylists } from '@/server-actions/playlists/get-playlists'
+import { getSongs } from '@/server-actions/songs/get-songs'
 
-import MainContent from './_components/main-content'
+import { MainContent } from './_components/main-content'
 
 export const revalidate = 0
 

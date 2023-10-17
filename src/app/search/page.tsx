@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
 
-import Footer from '@/components/footer'
-import Header from '@/components/header'
-import Navbar from '@/components/navbar'
-import PageWrapper from '@/components/page-wrapper'
-import SearchInput from '@/components/search-input'
-import getSongsByTitle from '@/server-actions/songs/get-songs-by-title'
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
+import { Navbar } from '@/components/navbar'
+import { PageWrapper } from '@/components/page-wrapper'
+import { SearchInput } from '@/components/search-input'
+import { getSongsByTitle } from '@/server-actions/songs/get-songs-by-title'
 
-import SearchContent from './_components/search-content'
+import { SearchContent } from './_components/search-content'
 
 interface SearchPageProps {
   searchParams: {

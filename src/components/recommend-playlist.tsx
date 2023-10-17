@@ -3,16 +3,16 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import useAuthModal from '@/hooks/use-auth-modal'
-import useLoadImage from '@/hooks/use-load-image'
-import useSubscribeModal from '@/hooks/use-subcribe-modal'
+import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useLoadImage } from '@/hooks/use-load-image'
+import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import useHeader from '@/stores/use-header'
+import { useHeader } from '@/stores/use-header'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-import PlayButton from './play-button'
+import { PlayButton } from './play-button'
 
 interface RecommendPlaylistProps {
   data: Playlist
@@ -20,7 +20,7 @@ interface RecommendPlaylistProps {
   isHover: boolean
   setHover: React.Dispatch<React.SetStateAction<boolean>>
 }
-const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
+export const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
   data,
   isHover,
   setHover,
@@ -86,5 +86,3 @@ const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
     </div>
   )
 }
-
-export default RecommendPlaylist

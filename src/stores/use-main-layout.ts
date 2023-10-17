@@ -9,7 +9,7 @@ interface MainLayoutStore {
   setWidth: (width: number) => void
 }
 
-const useMainLayout = create<MainLayoutStore>()(
+export const useMainLayout = create<MainLayoutStore>()(
   persist(
     set => ({
       quantityCol: 4,
@@ -25,5 +25,3 @@ const useMainLayout = create<MainLayoutStore>()(
     }
   )
 )
-
-export default useMainLayout
