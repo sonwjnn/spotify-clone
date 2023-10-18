@@ -18,13 +18,13 @@ export const getPlaylistsByUserId = async (): Promise<Playlist[]> => {
   }
 
   if (!sessionData.session?.user.id) {
+    console.log('User ID is undefined')
     return []
   }
 
   const { data, error } = await supabase
     .from('playlists')
-    // .select('*, users!playlists_user_id_fkey(*)')
-    .select('*, users!liked_playlists(*)')
+    .select('*, users!playlists_user_id_fkey(*)')
     .eq('user_id', sessionData.session?.user.id)
     .order('created_at', { ascending: false })
 

@@ -89,7 +89,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
       setScroll(false)
     }
   }
-
+  console.log(playlists)
   return (
     <div
       className={twMerge(
