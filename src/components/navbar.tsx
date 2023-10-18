@@ -1,17 +1,18 @@
 'use client'
 
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import { toast } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import { FaUserAlt } from 'react-icons/fa'
+import { IoMdArrowDropdown } from 'react-icons/io'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
 import { useAuthModal } from '@/hooks/use-auth-modal'
 import { useOnPlay } from '@/hooks/use-on-play'
 import { useUser } from '@/hooks/use-user'
+import { postData } from '@/libs/helpers'
 import type { IconProps } from '@/public/icons'
 import {
   HomeActiveIcon,
@@ -28,7 +29,7 @@ import type { Playlist, Song } from '@/types/types'
 import { PlayButton } from './play-button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button'
-import { Tooltip } from './ui/tooltip'
+import { UserDropdown } from './user-dropdown'
 
 interface NavbarProps {
   type?:
@@ -62,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
 
   const router = useRouter()
   const authModal = useAuthModal()
-  const { user } = useUser()
+  const { user, subscription, isLoading } = useUser()
   const player = usePlayer()
   const params = useParams()
 
@@ -70,12 +71,11 @@ export const Navbar: React.FC<NavbarProps> = props => {
   const { opacity, playBtnVisible } = useStyleNavbar()
   const { setSelected } = useSelectedPlayer()
 
-  const supabaseClient = useSupabaseClient()
-
   const pathname = usePathname()
 
   const onPlay = useOnPlay(songs as Song[])
   const [isPlaying, setPlaying] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const routes = useMemo(
     () => [
@@ -114,17 +114,24 @@ export const Navbar: React.FC<NavbarProps> = props => {
     }
   }
 
-  const handleLogout = async (): Promise<void> => {
-    const { error } = await supabaseClient.auth.signOut()
-    player.reset()
-    router.refresh()
+  const redirectToCustomerPortal: () => Promise<void> = async () => {
+    setLoading(true)
 
-    if (error) {
-      toast.error(error.message)
-    } else {
-      toast.success('Logged out!')
+    try {
+      const { url } = await postData({
+        url: '/api/create-portal-link',
+      })
+
+      window.location.assign(url)
+    } catch (error) {
+      if (error) {
+        toast.error((error as Error).message)
+        return
+      }
     }
+    setLoading(false)
   }
+
   return (
     <div
       className={twMerge(
@@ -204,29 +211,44 @@ export const Navbar: React.FC<NavbarProps> = props => {
         <div className="flex items-center justify-between   gap-x-4">
           {user ? (
             <div className="flex items-center gap-x-4">
-              <Button onClick={handleLogout} className="bg-white px-6 py-2">
-                Logout
-              </Button>
+              {!subscription && (
+                <Button
+                  onClick={redirectToCustomerPortal}
+                  disabled={loading || isLoading}
+                  className="bg-white px-5 py-2 text-sm"
+                >
+                  Explore Premium
+                </Button>
+              )}
 
-              <Tooltip text={`${user.user_metadata.full_name || ''}`}>
-                <div className="rounded-full bg-transparent p-0 hover:scale-105 active:scale-100">
+              <UserDropdown>
+                {/* eslint-disable-next-line tailwindcss/migration-from-tailwind-2 */}
+                <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full  bg-black bg-opacity-30 p-1 hover:brightness-110">
                   <Avatar
-                    onClick={() => router.push('/account')}
-                    className="cursor-pointer bg-white"
+                    // onClick={() => router.push('/account')}
+                    className="h-9 w-9 cursor-pointer bg-white"
                   >
                     <AvatarImage src={`${user.user_metadata.avatar_url}`} />
                     <AvatarFallback>
                       <FaUserAlt />
                     </AvatarFallback>
                   </Avatar>
+
+                  <p className="truncate text-sm text-white">
+                    {user.user_metadata.full_name}
+                  </p>
+
+                  <div className="pr-1 text-white">
+                    <IoMdArrowDropdown size={20} />
+                  </div>
                 </div>
-              </Tooltip>
+              </UserDropdown>
             </div>
           ) : (
             <>
               <div>
                 <Button
-                  className="bg-transparent font-medium text-neutral-300"
+                  className="bg-transparent text-sm font-medium text-neutral-300"
                   onClick={authModal.onOpen}
                 >
                   Sign up
@@ -234,7 +256,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
               </div>
               <div>
                 <Button
-                  className="bg-white px-6 py-2"
+                  className="bg-white px-5 py-2 text-sm"
                   onClick={authModal.onOpen}
                 >
                   Log in
