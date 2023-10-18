@@ -28,6 +28,7 @@ import type { Playlist, Song } from '@/types/types'
 import { PlayButton } from './play-button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button'
+import { Tooltip } from './ui/tooltip'
 
 interface NavbarProps {
   type?:
@@ -124,7 +125,6 @@ export const Navbar: React.FC<NavbarProps> = props => {
       toast.success('Logged out!')
     }
   }
-
   return (
     <div
       className={twMerge(
@@ -151,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
       >
         <div className="hidden min-w-0 items-center gap-x-2  md:flex ">
           <button
-            className="items-center justify-center rounded-full bg-black transition active:scale-95"
+            className="items-center justify-center rounded-full bg-black transition active:scale-95 disabled:cursor-not-allowed disabled:select-none"
             onClick={() => router.back()}
           >
             <RxCaretLeft className="text-white" size={35} />
@@ -208,15 +208,19 @@ export const Navbar: React.FC<NavbarProps> = props => {
                 Logout
               </Button>
 
-              <Avatar
-                onClick={() => router.push('/account')}
-                className="cursor-pointer bg-white"
-              >
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>
-                  <FaUserAlt />
-                </AvatarFallback>
-              </Avatar>
+              <Tooltip text={`${user.user_metadata.full_name || ''}`}>
+                <div className="rounded-full bg-transparent p-0 hover:scale-105 active:scale-100">
+                  <Avatar
+                    onClick={() => router.push('/account')}
+                    className="cursor-pointer bg-white"
+                  >
+                    <AvatarImage src={`${user.user_metadata.avatar_url}`} />
+                    <AvatarFallback>
+                      <FaUserAlt />
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+              </Tooltip>
             </div>
           ) : (
             <>

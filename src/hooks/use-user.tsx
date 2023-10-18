@@ -85,7 +85,6 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
     subscription,
   }
 
-  console.log(value)
   return <UserContext.Provider value={value} {...props} />
 }
 

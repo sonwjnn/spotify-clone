@@ -59,7 +59,7 @@ export const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
       onMouseLeave={() => setBgColor(bgBase)}
       onClick={onClick}
     >
-      <div className="relative min-h-[80px] min-w-[80px] shadow-base">
+      <div className="relative h-[64px] w-[64px] shadow-base">
         {imageUrl ? (
           <Image
             className="object-cover"
@@ -81,7 +81,7 @@ export const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
       </p>
 
       <div className="absolute right-4">
-        <PlayButton className="translate-y-0" />
+        <PlayButton className="translate-y-0 p-[14px]" />
       </div>
     </div>
   )
