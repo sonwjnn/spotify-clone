@@ -1,5 +1,6 @@
 'use client'
 
+import { usePalette } from 'color-thief-react'
 import Link from 'next/link'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
@@ -29,6 +30,7 @@ import type { Playlist, Song } from '@/types/types'
 import { PlayButton } from './play-button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button'
+import { Tooltip } from './ui/tooltip'
 import { UserDropdown } from './user-dropdown'
 
 interface NavbarProps {
@@ -40,6 +42,7 @@ interface NavbarProps {
     | 'artist'
     | 'genre'
     | 'playlist'
+    | 'user'
   songs?: Song[]
   className?: string
   darker?: boolean
@@ -76,6 +79,14 @@ export const Navbar: React.FC<NavbarProps> = props => {
   const onPlay = useOnPlay(songs as Song[])
   const [isPlaying, setPlaying] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [bgColorUser, setBgColorUser] = useState<string>('')
+
+  const imageUrl = user?.user_metadata.avatar_url
+
+  const { data: dataColor } = usePalette(imageUrl as string, 10, 'hex', {
+    crossOrigin: 'Anonymous',
+    quality: 100,
+  })
 
   const routes = useMemo(
     () => [
@@ -103,6 +114,12 @@ export const Navbar: React.FC<NavbarProps> = props => {
       setPlaying(player.isPlaying)
     }
   }, [type, player.isPlaying, player.playlistPlayingId, params.id])
+
+  useEffect(() => {
+    if (dataColor) {
+      setBgColorUser(dataColor?.[2] ?? '#e0e0e0')
+    }
+  }, [dataColor])
 
   const handleClickPlay = (): void => {
     if (player.playlistPlayingId?.toString() !== params.id && songs?.length) {
@@ -149,7 +166,12 @@ export const Navbar: React.FC<NavbarProps> = props => {
           transition: 'background-color 1s ease',
           opacity,
           backgroundColor:
-            type === 'home' ? bgColorHome : bgColor || data?.bg_color,
+            // eslint-disable-next-line no-nested-ternary
+            type === 'home'
+              ? bgColorHome
+              : type === 'user'
+              ? bgColorUser
+              : bgColor || data?.bg_color,
         }}
       ></div>
 
@@ -211,15 +233,23 @@ export const Navbar: React.FC<NavbarProps> = props => {
         <div className="flex items-center justify-between   gap-x-4">
           {user ? (
             <div className="flex items-center gap-x-4">
-              {!subscription && (
+              <Tooltip
+                text={
+                  subscription
+                    ? 'You are current premium'
+                    : 'Subcribe premium for better'
+                }
+              >
                 <Button
-                  onClick={redirectToCustomerPortal}
+                  onClick={() => {
+                    if (!subscription) redirectToCustomerPortal()
+                  }}
                   disabled={loading || isLoading}
                   className="bg-white px-5 py-2 text-sm"
                 >
-                  Explore Premium
+                  {subscription ? 'Premium' : 'Explore Premium'}
                 </Button>
-              )}
+              </Tooltip>
 
               <UserDropdown>
                 {/* eslint-disable-next-line tailwindcss/migration-from-tailwind-2 */}
@@ -234,9 +264,11 @@ export const Navbar: React.FC<NavbarProps> = props => {
                     </AvatarFallback>
                   </Avatar>
 
-                  <p className="truncate text-sm text-white">
-                    {user.user_metadata.full_name}
-                  </p>
+                  {user.user_metadata.full_name && (
+                    <p className="truncate text-sm text-white">
+                      {user.user_metadata.full_name}
+                    </p>
+                  )}
 
                   <div className="pr-1 text-white">
                     <IoMdArrowDropdown size={20} />

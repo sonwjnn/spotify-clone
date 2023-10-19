@@ -8,7 +8,7 @@ import { getPlaylistById } from '@/server-actions/playlists/get-playlist-by-id'
 import { getSongsByIds } from '@/server-actions/songs/get-songs-by-ids'
 import { getSongsByTitle } from '@/server-actions/songs/get-songs-by-title'
 
-import { HeaderPlaylistContent } from './_components/header-playlist-content'
+import { HeaderContent } from './_components/header-content'
 import { PlaylistContent } from './_components/playlist-content'
 
 interface PlaylistPageProps {
@@ -37,7 +37,7 @@ const PlaylistPage: NextPage<PlaylistPageProps> = async ({
     <div className="h-full w-full">
       <Navbar type="playlist" data={playlist} songs={addedSongs} hasPlayBtn />
       <Header data={playlist} type="playlist">
-        <HeaderPlaylistContent data={playlist} songs={addedSongs} />
+        <HeaderContent data={playlist} songs={addedSongs} />
       </Header>
       <PlaylistContent
         playlist={playlist}

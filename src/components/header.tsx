@@ -1,8 +1,10 @@
 'use client'
 
-import { memo, useEffect, useRef } from 'react'
+import { usePalette } from 'color-thief-react'
+import { memo, useEffect, useRef, useState } from 'react'
 
 import { useComponentSize } from '@/hooks/use-component-size'
+import { useUser } from '@/hooks/use-user'
 import { useHeader } from '@/stores/use-header'
 import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
@@ -22,13 +24,29 @@ export const Header: React.FC<HeaderProps> = memo(
     const { bgColor: bgColorHeader } = useHeader()
     const { setHeight } = useHeader()
     const { width } = useMainLayout()
+    const { user } = useUser()
     const headerRef = useRef<HTMLDivElement>(null)
 
     const size = useComponentSize(headerRef)
 
+    const [bgColorUser, setBgColorUser] = useState<string>('')
+
+    const imageUrl = user?.user_metadata.avatar_url
+
+    const { data: dataColor } = usePalette(imageUrl as string, 10, 'hex', {
+      crossOrigin: 'Anonymous',
+      quality: 100,
+    })
+
     useEffect(() => {
       setHeight(size.height)
     }, [size.height, setHeight])
+
+    useEffect(() => {
+      if (dataColor) {
+        setBgColorUser(dataColor?.[2] ?? '#e0e0e0')
+      }
+    }, [dataColor])
 
     return (
       <div
@@ -38,14 +56,20 @@ export const Header: React.FC<HeaderProps> = memo(
           } `,
           className,
           {
-            'justify-center header-bg-img-sm': type === 'playlist',
+            'justify-center header-bg-img-sm':
+              type === 'playlist' || type === 'user',
             'justify-start header-bg-img-md': type === 'home',
           }
         )}
         style={{
           transition: `background-color 1s ease`,
           backgroundColor: `${
-            type === 'home' ? bgColorHeader : bgColor || data?.bg_color
+            // eslint-disable-next-line no-nested-ternary
+            type === 'home'
+              ? bgColorHeader
+              : type === 'user'
+              ? bgColorUser
+              : bgColor || data?.bg_color
           }`,
         }}
         ref={headerRef}

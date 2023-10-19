@@ -9,7 +9,7 @@ module.exports = withBundleAnalyzer({
   },
 
   images: {
-    domains: ['idjwhcstcxdvtjmjjbii.supabase.co'],
+    domains: ['idjwhcstcxdvtjmjjbii.supabase.co', 'lh3.googleusercontent.com'],
   },
 
   eslint: {

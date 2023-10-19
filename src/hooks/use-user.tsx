@@ -58,7 +58,7 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
         results => {
           const userDetailsPromise = results[0]
           const subscriptionPromise = results[1]
-          console.log(results)
+
           if (userDetailsPromise.status === 'fulfilled') {
             setUserDetails(userDetailsPromise.value.data as UserDetails)
           }
