@@ -10,8 +10,8 @@ import { PageWrapper } from '@/components/page-wrapper'
 const loading: React.FC = () => {
   return (
     <PageWrapper>
-      <Navbar type="playlist" bgColor={'#171717'} darker={false} />
-      <Header type="playlist" bgColor="#171717">
+      <Navbar bgColor={'#171717'} darker={false} />
+      <Header bgColor="#171717">
         <div className="mb-2 flex w-full flex-col  gap-y-6">
           <h1 className="pt-10 text-3xl font-semibold text-white">Queue</h1>
         </div>

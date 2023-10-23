@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import { SongItem } from '@/components/song-item'
 import { useOnPlay } from '@/hooks/use-on-play'
 import { useMainLayout } from '@/stores/use-main-layout'
@@ -12,10 +10,6 @@ interface MainContentProps {
 }
 
 export const MainContent: React.FC<MainContentProps> = ({ songs }) => {
-  useEffect(() => {
-    useMainLayout.persist.rehydrate()
-  }, [])
-
   const onPlay = useOnPlay(songs)
   const { width, quantityCol } = useMainLayout()
 

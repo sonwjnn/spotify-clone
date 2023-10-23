@@ -5,6 +5,7 @@ export const buckets = {
   songs: 'songs',
   images: 'images',
   playlist_images: 'playlist-images',
+  users: 'user-images',
 }
 
 export const socialNetworkLinks = [

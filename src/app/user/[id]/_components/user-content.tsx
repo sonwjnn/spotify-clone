@@ -4,22 +4,22 @@ import { usePalette } from 'color-thief-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
+import { CardList } from '@/components/card-list'
 import { useUser } from '@/hooks/use-user'
 import { SingleMusicNote } from '@/public/icons'
-import { useUserStore } from '@/stores/use-user-store'
+import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
 
 interface UserContentProp {
-  playlists: Playlist[]
+  data: Playlist[]
+  id: string
 }
 
-export const UserContent: React.FC<UserContentProp> = ({ playlists }) => {
+export const UserContent: React.FC<UserContentProp> = ({ data, id }) => {
   const router = useRouter()
-  const { likedSongs: songs } = useUserStore()
   const { isLoading, user } = useUser()
-
   const [bgColorUser, setBgColorUser] = useState<string>('')
+  const { quantityCol } = useMainLayout()
 
   const imageUrl = user?.user_metadata.avatar_url
 
@@ -40,7 +40,7 @@ export const UserContent: React.FC<UserContentProp> = ({ playlists }) => {
     }
   }, [dataColor])
 
-  if (!songs.length) {
+  if (!data?.length) {
     return (
       <div
         className=" header-bg-img-md flex h-[40vh] w-full flex-col items-center justify-center gap-y-4 px-5 pt-8 text-white"
@@ -52,30 +52,36 @@ export const UserContent: React.FC<UserContentProp> = ({ playlists }) => {
           <SingleMusicNote size={70} />
         </div>
         <h1 className="text-[32px] font-bold">
-          Songs you like will appear here
+          Playlists you create will appear here
         </h1>
         <p className="text-base font-semibold">
-          Save songs by tapping the heart icon.
+          Create playlists by tapping the plus icon.
         </p>
-        <Button
-          onClick={() => router.push('/search')}
-          className="w-[150px] bg-white px-6 py-2"
-        >
-          Find songs
-        </Button>
       </div>
     )
   }
 
+  const filteredPlaylists = data.slice(0, quantityCol)
+
   return (
-    <>
-      <div className="relative flex w-full gap-x-6 p-5 px-10">
+    <div className="relative flex w-full flex-col px-6">
+      <div
+        style={{ backgroundColor: bgColorUser }}
+        className="header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
+      ></div>
+      <div className="mt-6 h-16 w-full"></div>
+      <div className="z-10 flex w-full justify-between">
+        <div className="cursor-pointer text-2xl font-bold text-white hover:underline">
+          Public Playlists
+        </div>
         <div
-          style={{ backgroundColor: bgColorUser }}
-          className="header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
-        ></div>
-        <div className="h-14 w-14 translate-y-0 opacity-100"></div>
+          onClick={() => router.push(`/user/${id}/playlists`)}
+          className="cursor-pointer text-xl font-bold text-white hover:underline"
+        >
+          Show all
+        </div>
       </div>
-    </>
+      <CardList data={filteredPlaylists} />
+    </div>
   )
 }

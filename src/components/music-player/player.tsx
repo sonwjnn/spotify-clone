@@ -83,7 +83,10 @@ export const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
     setTrackProcess(0)
     clearInterval(intervalIdRef?.current)
     setHandlePlay(play, pause)
-
+    if (sound) {
+      // eslint-disable-next-line no-underscore-dangle
+      sound._volume = volume
+    }
     if (selectedPlayer.isSelected) {
       sound?.play()
       startTimer()

@@ -1,5 +1,5 @@
 import { headers } from 'next/headers'
-import { type NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import type Stripe from 'stripe'
 
 import { stripe } from '@/libs/stripe'
@@ -21,7 +21,7 @@ const relevantEvents = new Set([
 ])
 
 export async function POST(
-  request: NextRequest
+  request: Request
 ): Promise<NextResponse<unknown> | undefined> {
   const body = await request.text()
   const sig = headers().get('Stripe-Signature')

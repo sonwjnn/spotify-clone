@@ -10,7 +10,7 @@ import { SupabaseProvider } from '@/providers/supabase-provider'
 import { ToasterProvider } from '@/providers/toaster-provider'
 import { UserProvider } from '@/providers/user-provider'
 import { getLikedPlaylists } from '@/server-actions/playlists/get-liked-playlists'
-import { getPlaylistsByUserId } from '@/server-actions/playlists/get-playlists-by-user-id'
+import { getUserPlaylists } from '@/server-actions/playlists/get-user-playlists'
 import { getActiveProductsWithPrices } from '@/server-actions/products/get-active-products-with-prices'
 import { getLikedSongs } from '@/server-actions/songs/get-liked-songs'
 import { getSongsByUserId } from '@/server-actions/songs/get-songs-by-user-id'
@@ -43,7 +43,7 @@ export default async function RootLayout({
 }): Promise<JSX.Element> {
   const products = await getActiveProductsWithPrices()
   const userSongs = await getSongsByUserId()
-  const playlists = await getPlaylistsByUserId()
+  const playlists = await getUserPlaylists()
   const likedSongs = await getLikedSongs()
   const likedPlaylists = await getLikedPlaylists()
 

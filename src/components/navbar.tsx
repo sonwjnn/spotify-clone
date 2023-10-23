@@ -11,6 +11,7 @@ import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
 import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { useOnPlay } from '@/hooks/use-on-play'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/libs/helpers'
@@ -28,6 +29,7 @@ import { useSelectedPlayer } from '@/stores/use-selected-player'
 import { useStyleNavbar } from '@/stores/use-style-navbar'
 import type { Playlist, Song } from '@/types/types'
 import cn from '@/utils/cn'
+import { buckets } from '@/utils/constants'
 
 import { PlayButton } from './play-button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
@@ -70,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
 
   const router = useRouter()
   const authModal = useAuthModal()
-  const { user, subscription, isLoading } = useUser()
+  const { user, subscription, isLoading, userDetails } = useUser()
   const player = usePlayer()
   const params = useParams()
 
@@ -84,9 +86,14 @@ export const Navbar: React.FC<NavbarProps> = props => {
   const onPlay = useOnPlay(songs as Song[])
   const [isPlaying, setPlaying] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [bgColorUser, setBgColorUser] = useState<string>('')
+  const [bgColorUser, setBgColorUser] = useState<string>('#171717')
+  const imageLoadUrl = useLoadImage(
+    userDetails?.avatar_url || '',
+    buckets.users
+  )
 
-  const imageUrl = user?.user_metadata.avatar_url
+  const imageUrl = user?.user_metadata.avatar_url || imageLoadUrl
+  const fullName = user?.user_metadata.full_name || userDetails?.full_name
 
   const { data: dataColor } = usePalette(imageUrl as string, 10, 'hex', {
     crossOrigin: 'Anonymous',
@@ -221,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
                 usernameVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              {user?.user_metadata.full_name}
+              {fullName}
             </span>
           ) : null}
         </div>
@@ -279,16 +286,14 @@ export const Navbar: React.FC<NavbarProps> = props => {
                     // onClick={() => router.push('/account')}
                     className="h-9 w-9 cursor-pointer bg-white"
                   >
-                    <AvatarImage src={`${user.user_metadata.avatar_url}`} />
+                    <AvatarImage src={`${imageUrl}`} />
                     <AvatarFallback>
                       <FaUserAlt />
                     </AvatarFallback>
                   </Avatar>
 
-                  {user.user_metadata.full_name && (
-                    <p className="truncate text-sm text-white">
-                      {user.user_metadata.full_name}
-                    </p>
+                  {fullName && (
+                    <p className="truncate text-sm text-white">{fullName}</p>
                   )}
 
                   <div className="pr-1 text-white">

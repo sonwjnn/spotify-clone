@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 
 import type { Playlist } from '@/types/types'
 
-export const getPlaylistsByUserId = async (): Promise<Playlist[]> => {
+export const getUserPlaylists = async (): Promise<Playlist[]> => {
   const supabase = createServerComponentClient({
     cookies,
   })
@@ -14,11 +14,6 @@ export const getPlaylistsByUserId = async (): Promise<Playlist[]> => {
   if (sessionError) {
     console.log(sessionError.message)
 
-    return []
-  }
-
-  if (!sessionData.session?.user.id) {
-    console.log('User ID is undefined')
     return []
   }
 

@@ -4,10 +4,13 @@ import Skeleton from 'react-loading-skeleton'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { CardLoading } from '@/components/loading-layout/card-loading'
 import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'
+import { useMainLayout } from '@/stores/use-main-layout'
 
 const Loading: React.FC = () => {
+  const { quantityCol } = useMainLayout()
   return (
     <PageWrapper>
       <Navbar bgColor={'#171717'} darker={false} />
@@ -16,10 +19,20 @@ const Loading: React.FC = () => {
           <Skeleton height={'46px'} width={'200px'} borderRadius={50} />
         </div>
       </Header>
-      <div className="mb-7 px-6">
-        <div className="flex flex-col gap-y-4">
-          <Skeleton height={'100%'} width={'30%'} borderRadius={50} />
-          <Skeleton height={'50px'} width={'300px'} borderRadius={50} />
+      <div className="relative h-full overflow-hidden pb-8">
+        <div className="px-6 pb-2">
+          <div
+            className="mt-4  grid gap-4"
+            style={{
+              gridTemplateColumns: `repeat(${quantityCol}, minmax(0,1fr))`,
+            }}
+          >
+            {Array(8)
+              .fill(0)
+              .map((_, index) => (
+                <CardLoading key={index} />
+              ))}
+          </div>
         </div>
       </div>
       <Footer />
