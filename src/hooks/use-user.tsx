@@ -84,7 +84,6 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
     isLoading: isLoadingUser || isLoadingData,
     subscription,
   }
-
   return <UserContext.Provider value={value} {...props} />
 }
 

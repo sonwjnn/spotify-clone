@@ -22,10 +22,12 @@ import {
   SearchIcon,
 } from '@/public/icons'
 import { useHeader } from '@/stores/use-header'
+import { useMainLayout } from '@/stores/use-main-layout'
 import { usePlayer } from '@/stores/use-player'
 import { useSelectedPlayer } from '@/stores/use-selected-player'
 import { useStyleNavbar } from '@/stores/use-style-navbar'
 import type { Playlist, Song } from '@/types/types'
+import cn from '@/utils/cn'
 
 import { PlayButton } from './play-button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
@@ -49,6 +51,7 @@ interface NavbarProps {
   data?: Playlist
   bgColor?: string
   hasPlayBtn?: boolean
+  hasUsername?: boolean
   title?: string
   showTitle?: boolean
 }
@@ -62,6 +65,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
     darker = true,
     bgColor,
     hasPlayBtn = false,
+    hasUsername = false,
   } = props
 
   const router = useRouter()
@@ -71,8 +75,9 @@ export const Navbar: React.FC<NavbarProps> = props => {
   const params = useParams()
 
   const { bgColor: bgColorHome } = useHeader()
-  const { opacity, playBtnVisible } = useStyleNavbar()
+  const { opacity, playBtnVisible, usernameVisible } = useStyleNavbar()
   const { setSelected } = useSelectedPlayer()
+  const { width } = useMainLayout()
 
   const pathname = usePathname()
 
@@ -209,6 +214,16 @@ export const Navbar: React.FC<NavbarProps> = props => {
               </span>
             </div>
           ) : null}
+
+          {type === 'user' && hasUsername && usernameVisible ? (
+            <span
+              className={`mr-1 truncate text-2xl font-bold text-white transition ${
+                usernameVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {user?.user_metadata.full_name}
+            </span>
+          ) : null}
         </div>
 
         <div className="flex items-center gap-x-2 md:hidden ">
@@ -233,27 +248,33 @@ export const Navbar: React.FC<NavbarProps> = props => {
         <div className="flex items-center justify-between   gap-x-4">
           {user ? (
             <div className="flex items-center gap-x-4">
-              <Tooltip
-                text={
-                  subscription
-                    ? 'You are current premium'
-                    : 'Subcribe premium for better'
-                }
-              >
-                <Button
-                  onClick={() => {
-                    if (!subscription) redirectToCustomerPortal()
-                  }}
-                  disabled={loading || isLoading}
-                  className="bg-white px-5 py-2 text-sm"
+              {width >= 459 && (
+                <Tooltip
+                  text={
+                    subscription
+                      ? 'You are current premium'
+                      : 'Subcribe premium for better'
+                  }
                 >
-                  {subscription ? 'Premium' : 'Explore Premium'}
-                </Button>
-              </Tooltip>
+                  <div
+                    onClick={() => {
+                      if (!subscription) redirectToCustomerPortal()
+                    }}
+                    className={cn(
+                      `bg-white px-5 py-2 text-sm w-full rounded-full border border-transparent text-black font-bold cursor-pointer transition hover:scale-105 active:scale-100 truncate `,
+                      {
+                        'cursor-not-allowed opacity-50': loading || isLoading,
+                      }
+                    )}
+                  >
+                    {subscription ? 'Premium' : 'Explore Premium'}
+                  </div>
+                </Tooltip>
+              )}
 
               <UserDropdown>
                 {/* eslint-disable-next-line tailwindcss/migration-from-tailwind-2 */}
-                <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full  bg-black bg-opacity-30 p-1 hover:brightness-110">
+                <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full  bg-black bg-opacity-30 p-1 transition hover:bg-opacity-20 hover:brightness-110">
                   <Avatar
                     // onClick={() => router.push('/account')}
                     className="h-9 w-9 cursor-pointer bg-white"

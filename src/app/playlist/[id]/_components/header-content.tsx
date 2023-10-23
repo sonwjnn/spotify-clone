@@ -92,8 +92,11 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({
             </p>
           )}
           <div className="flex gap-x-2 text-sm text-white">
-            <p>{`${data?.users?.full_name || 'No name'} - ${data?.song_ids
-              ?.length} songs${data?.song_ids?.length ? ',' : ''}`}</p>
+            <p>{`${data?.users?.full_name || 'No name'} - ${
+              data?.likes || 0
+            } likes - ${data?.song_ids?.length} songs${
+              data?.song_ids?.length ? ',' : ''
+            }`}</p>
             <p className="text-desc">{`${duration()}`}</p>
           </div>
         </div>

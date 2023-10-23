@@ -19,16 +19,17 @@ import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUploadModal } from '@/hooks/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 import { DeleteIcon } from '@/public/icons'
+import type { Playlist } from '@/types/types'
 
 interface MediaDropdownProps {
   songId: string
-  playlistId: string
+  playlist: Playlist
   className?: string
 }
 
 export const MediaDropdown: React.FC<MediaDropdownProps> = ({
   songId,
-  playlistId,
+  playlist,
   className,
 }) => {
   const { user, subscription } = useUser()
@@ -61,7 +62,7 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
     const { data, error: playlistError } = await supabaseClient
       .from('playlists')
       .select('*')
-      .eq('id', playlistId)
+      .eq('id', playlist.id)
       .single()
     if (playlistError) {
       toast.error(playlistError.message)
@@ -75,7 +76,7 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
     }
 
     const { error } = await supabaseClient.from('playlists').upsert({
-      id: playlistId,
+      id: playlist,
       songIds,
       user_id: user.id,
     })
@@ -127,13 +128,15 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
           hidden={uploadModal.isOpen}
           side="top"
         >
-          <DropdownMenuItem
-            onSelect={onRemove}
-            className="dropdown-menu-item text-white"
-          >
-            <DeleteIcon color="#991b1b" />
-            Remove from this playlist
-          </DropdownMenuItem>
+          {user?.id === playlist.user_id ? (
+            <DropdownMenuItem
+              onSelect={onRemove}
+              className="dropdown-menu-item text-white"
+            >
+              <DeleteIcon color="#991b1b" />
+              Remove from this playlist
+            </DropdownMenuItem>
+          ) : null}
         </DropdownMenuContent>
       </DropdownMenuPortal>
     </DropdownMenu>

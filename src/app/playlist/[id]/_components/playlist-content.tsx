@@ -1,5 +1,6 @@
 'use client'
 
+import { useUser } from '@/hooks/use-user'
 import type { Playlist, Song } from '@/types/types'
 
 import { SearchPlaylist } from './search-playlist'
@@ -16,6 +17,7 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
   songs,
   addedSongs,
 }) => {
+  const { user } = useUser()
   const unaddedSongs = songs.filter(
     (song: Song) => !playlist?.song_ids?.includes(song.id)
   )
@@ -23,7 +25,9 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
   return (
     <>
       <SongPlaylist songs={addedSongs} playlist={playlist} />
-      <SearchPlaylist songs={unaddedSongs} playlist={playlist} />
+      {user?.id === playlist.user_id ? (
+        <SearchPlaylist songs={unaddedSongs} playlist={playlist} />
+      ) : null}
     </>
   )
 }

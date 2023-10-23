@@ -27,7 +27,7 @@ export const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
       <div className="relative aspect-square h-full w-full overflow-hidden rounded-md shadow-base">
         {imagePath ? (
           <Image
-            className="object-cover"
+            className="object-cover transition group-hover:scale-110"
             src={imagePath}
             fill
             alt="song img"

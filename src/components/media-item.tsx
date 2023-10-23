@@ -156,7 +156,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
           <MediaDropdown
             className={`${isHover ? 'opacity-100' : 'opacity-0'}`}
             songId={song.id}
-            playlistId={playlist.id}
+            playlist={playlist}
           />
         ) : null}
       </div>

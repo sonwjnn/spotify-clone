@@ -12,7 +12,7 @@ interface MainLayoutStore {
 export const useMainLayout = create<MainLayoutStore>()(
   persist(
     set => ({
-      quantityCol: 4,
+      quantityCol: 6,
       width: 0,
       height: 0,
       setQuantityCol: (quantityCol: number) => set({ quantityCol }),

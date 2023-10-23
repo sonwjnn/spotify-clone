@@ -29,17 +29,13 @@ export const MainContent: React.FC<MainContentProps> = ({
   likedSongs,
   likedPlaylists,
 }) => {
-  const [isLoading, setLoading] = useState(true)
   const player = usePlayer()
   const { user } = useUser()
   const { setLikedSongs, setLikedPlaylists } = useUserStore()
 
+  const [mounted, setMounted] = useState(false)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 300)
-
-    return () => clearTimeout(timer)
+    setMounted(true)
   }, [])
 
   useEffect(() => {
@@ -56,7 +52,7 @@ export const MainContent: React.FC<MainContentProps> = ({
 
   return (
     <>
-      {isLoading ? (
+      {!mounted ? (
         <GlobalLoading />
       ) : (
         <div
@@ -64,7 +60,6 @@ export const MainContent: React.FC<MainContentProps> = ({
             'h-[calc(100%-80px)]': user && player.activeId,
           })}
         >
-          {/* <Sidebar playlists={playlists} /> */}
           <ResizeSizebarBox minWidth={300} maxWidth={500}>
             <Sidebar playlists={playlists} />
           </ResizeSizebarBox>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
@@ -28,6 +29,8 @@ export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
 
   const { likedPlaylists, removeLikedPlaylist, addLikedPlaylist } =
     useUserStore()
+
+  const router = useRouter()
 
   const { user } = useUser()
 
@@ -62,6 +65,7 @@ export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
   }, [likedPlaylists])
 
   const handleLike = async (): Promise<void> => {
+    console.log(playlist.likes)
     if (!user) {
       authModal.onOpen()
       return
@@ -81,6 +85,19 @@ export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
         toast.error(error.message)
         return
       }
+      const updatedLikes = (playlist.likes || 0) - 1
+      const { error: updateError } = await supabaseClient
+        .from('playlists')
+        .update({
+          likes: updatedLikes >= 0 ? updatedLikes : 0,
+        })
+        .eq('id', playlist.id)
+
+      if (updateError) {
+        toast.error(updateError.message)
+        return
+      }
+
       setIsLiked(false)
       removeLikedPlaylist(playlist.id)
     } else {
@@ -94,10 +111,24 @@ export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
         return
       }
 
+      const updatedLikes = (playlist.likes || 0) + 1
+      const { error: updateError } = await supabaseClient
+        .from('playlists')
+        .update({
+          likes: updatedLikes >= 0 ? updatedLikes : 1,
+        })
+        .eq('id', playlist.id)
+
+      if (updateError) {
+        toast.error(updateError.message)
+        return
+      }
+
       setIsLiked(true)
       addLikedPlaylist(playlist)
       toast.success('Playlist liked!')
     }
+    router.refresh()
     setRequired(false)
   }
   const Icon = isLiked ? AiFillHeart : AiOutlineHeart

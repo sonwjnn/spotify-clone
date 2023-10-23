@@ -13,7 +13,7 @@ interface PageWrapperProps {
 }
 
 export const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
-  const { setOpacity, setPlayBtnVisible } = useStyleNavbar()
+  const { setOpacity, setPlayBtnVisible, setUsernameVisible } = useStyleNavbar()
   const { height } = useHeader()
 
   useEffect(() => {
@@ -34,6 +34,10 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
     if (yAxis > height + 14) {
       setPlayBtnVisible(true)
     } else setPlayBtnVisible(false)
+
+    if (yAxis > height) {
+      setUsernameVisible(true)
+    } else setUsernameVisible(false)
   }
 
   return (

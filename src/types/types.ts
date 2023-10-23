@@ -31,6 +31,7 @@ export interface Playlist {
   users?: UserDetails
   bg_color?: string
   created_at: string
+  likes?: number
 }
 
 export interface Product {

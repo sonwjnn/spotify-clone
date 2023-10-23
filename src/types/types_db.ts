@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json }
+  | { [key: string]: Json | undefined }
   | Json[]
 
 export interface Database {
@@ -26,6 +26,37 @@ export interface Database {
           {
             foreignKeyName: 'customers_id_fkey'
             columns: ['id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      liked_playlists: {
+        Row: {
+          created_at: string
+          playlist_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          playlist_id: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          playlist_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'liked_playlists_playlist_id_fkey'
+            columns: ['playlist_id']
+            referencedRelation: 'playlists'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'liked_playlists_user_id_fkey'
+            columns: ['user_id']
             referencedRelation: 'users'
             referencedColumns: ['id']
           },
@@ -56,6 +87,49 @@ export interface Database {
           },
           {
             foreignKeyName: 'liked_songs_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      playlists: {
+        Row: {
+          bg_color: string | null
+          created_at: string
+          description: string | null
+          id: number
+          image_path: string | null
+          likes: number | null
+          song_ids: number[] | null
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          bg_color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_path?: string | null
+          likes?: number | null
+          song_ids?: number[] | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          bg_color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_path?: string | null
+          likes?: number | null
+          song_ids?: number[] | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'playlists_user_id_fkey'
             columns: ['user_id']
             referencedRelation: 'users'
             referencedColumns: ['id']
@@ -142,6 +216,7 @@ export interface Database {
         Row: {
           author: string | null
           created_at: string | null
+          duration_ms: number | null
           id: number
           image_path: string | null
           song_path: string | null
@@ -151,6 +226,7 @@ export interface Database {
         Insert: {
           author?: string | null
           created_at?: string | null
+          duration_ms?: number | null
           id?: number
           image_path?: string | null
           song_path?: string | null
@@ -160,6 +236,7 @@ export interface Database {
         Update: {
           author?: string | null
           created_at?: string | null
+          duration_ms?: number | null
           id?: number
           image_path?: string | null
           song_path?: string | null

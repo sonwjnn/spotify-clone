@@ -25,7 +25,7 @@ const UserPage: NextPage<UserPageProps> = async ({ params }: UserPageProps) => {
   }
   return (
     <PageWrapper>
-      <Navbar type="user" />
+      <Navbar type="user" hasUsername />
       <Header type="user">
         <HeaderContent data={playlists} />
       </Header>

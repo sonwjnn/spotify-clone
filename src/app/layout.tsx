@@ -48,7 +48,7 @@ export default async function RootLayout({
   const likedPlaylists = await getLikedPlaylists()
 
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en">
       <body className={`${circularSp.variable} font-sans`}>
         <ToasterProvider />
         <SkeletonProvider>

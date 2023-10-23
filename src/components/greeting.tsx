@@ -51,8 +51,8 @@ export const Greeting: React.FC<GreetingProps> = memo(({ playlists }) => {
       </h1>
       <div
         className={cn(`grid mt-4 grid-cols-3 gap-3`, {
-          '!grid-cols-1': width <= 519,
-          '!grid-cols-2': width <= 878,
+          'grid-cols-1': width <= 519,
+          'grid-cols-2': width <= 878,
         })}
       >
         {playlists

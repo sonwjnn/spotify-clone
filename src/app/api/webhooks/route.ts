@@ -1,5 +1,5 @@
 import { headers } from 'next/headers'
-import { NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import type Stripe from 'stripe'
 
 import { stripe } from '@/libs/stripe'
@@ -21,7 +21,7 @@ const relevantEvents = new Set([
 ])
 
 export async function POST(
-  request: Request
+  request: NextRequest
 ): Promise<NextResponse<unknown> | undefined> {
   const body = await request.text()
   const sig = headers().get('Stripe-Signature')
@@ -77,7 +77,7 @@ export async function POST(
           }
           break
         default:
-          throw new Error('Unhandled relevant event!')
+          return new NextResponse('Unhandled relevant event', { status: 200 })
       }
     } catch (error) {
       console.log(error)

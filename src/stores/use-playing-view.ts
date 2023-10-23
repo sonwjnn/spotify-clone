@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
 
 interface PlayingViewProps {
   isShowed: boolean
@@ -12,39 +11,31 @@ interface PlayingViewProps {
   setResetMaxWidth: (resetMaxWidth: () => void) => void
 }
 
-export const usePlayingView = create<PlayingViewProps>()(
-  persist(
-    set => ({
-      isShowed: false,
-      setShowed: (isShowed: boolean) => set({ isShowed }),
-      collapsed: () => {},
-      setCollapsed: (collapse: () => void) => {
-        set({
-          collapsed: () => {
-            collapse()
-          },
-        })
+export const usePlayingView = create<PlayingViewProps>()(set => ({
+  isShowed: false,
+  setShowed: (isShowed: boolean) => set({ isShowed }),
+  collapsed: () => {},
+  setCollapsed: (collapse: () => void) => {
+    set({
+      collapsed: () => {
+        collapse()
       },
-      resetMinWidth: () => {},
-      resetMaxWidth: () => {},
-      setResetMinWidth: (resetMinWidth: () => void) => {
-        set({
-          resetMinWidth: () => {
-            resetMinWidth()
-          },
-        })
+    })
+  },
+  resetMinWidth: () => {},
+  resetMaxWidth: () => {},
+  setResetMinWidth: (resetMinWidth: () => void) => {
+    set({
+      resetMinWidth: () => {
+        resetMinWidth()
       },
-      setResetMaxWidth: (resetMaxWidth: () => void) => {
-        set({
-          resetMaxWidth: () => {
-            resetMaxWidth()
-          },
-        })
+    })
+  },
+  setResetMaxWidth: (resetMaxWidth: () => void) => {
+    set({
+      resetMaxWidth: () => {
+        resetMaxWidth()
       },
-    }),
-    {
-      name: 'playing-view-storage',
-      storage: createJSONStorage(() => sessionStorage),
-    }
-  )
-)
+    })
+  },
+}))
