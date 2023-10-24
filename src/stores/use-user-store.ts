@@ -4,9 +4,11 @@ import type { Playlist, Song } from '@/types/types'
 
 interface UserStore {
   likedSongs: Song[]
-  setLikedSongs: (songs: Song[]) => void
+  playlists: Playlist[]
   likedPlaylists: Playlist[]
+  setLikedSongs: (songs: Song[]) => void
   setLikedPlaylists: (playlists: Playlist[]) => void
+  setPlaylists: (playlists: Playlist[]) => void
   removeLikedSong: (id: string) => void
   addLikedSong: (song: Song) => void
   removeLikedPlaylist: (id: string) => void
@@ -16,9 +18,11 @@ interface UserStore {
 export const useUserStore = create<UserStore>()((set, get) => ({
   likedSongs: [],
   likedPlaylists: [],
+  playlists: [],
   setLikedSongs: (songs: Song[]) => set({ likedSongs: songs }),
   setLikedPlaylists: (playlists: Playlist[]) =>
     set({ likedPlaylists: playlists }),
+  setPlaylists: (playlists: Playlist[]) => set({ playlists }),
   removeLikedSong: (id: string) => {
     const { likedSongs } = get()
     const filteredLikedSongs = likedSongs.filter(song => song.id !== id)

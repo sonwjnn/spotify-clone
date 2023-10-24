@@ -31,12 +31,17 @@ export const MainContent: React.FC<MainContentProps> = ({
 }) => {
   const player = usePlayer()
   const { user } = useUser()
-  const { setLikedSongs, setLikedPlaylists } = useUserStore()
+  const { setPlaylists, setLikedSongs, setLikedPlaylists } = useUserStore()
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
     setMounted(true)
   }, [])
+  useEffect(() => {
+    if (playlists.length !== 0) {
+      setPlaylists(playlists)
+    }
+  }, [playlists, setPlaylists])
 
   useEffect(() => {
     if (likedPlaylists.length !== 0) {
@@ -61,7 +66,7 @@ export const MainContent: React.FC<MainContentProps> = ({
           })}
         >
           <ResizeSizebarBox minWidth={300} maxWidth={500}>
-            <Sidebar playlists={playlists} />
+            <Sidebar />
           </ResizeSizebarBox>
 
           <MainLayout>

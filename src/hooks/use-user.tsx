@@ -51,7 +51,6 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
   }
 
   useEffect(() => {
-    console.log(!user, !isLoadingData, !userDetails, !subscription)
     if (!isLoadingData && !userDetails && !subscription) {
       setIsLoadingData(true)
       Promise.allSettled([getUserDetails(), getSubscription()]).then(

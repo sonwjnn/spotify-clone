@@ -14,7 +14,6 @@ import {
   SearchIcon,
 } from '@/public/icons'
 import { useSidebar } from '@/stores/use-sidebar'
-import type { Playlist } from '@/types/types'
 
 import { Library } from './library'
 import { Box } from './ui/box'
@@ -22,7 +21,6 @@ import { ScrollArea } from './ui/scroll-area'
 import { Tooltip } from './ui/tooltip'
 
 interface SidebarProps {
-  playlists: Playlist[]
   className?: string
 }
 
@@ -58,7 +56,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   )
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   const pathname = usePathname()
   const { isCollapsed } = useSidebar()
   const routes = useMemo(
@@ -116,7 +114,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ playlists, className }) => {
         className="h-full w-full rounded-lg bg-neutral-900"
         onScroll={handleScroll}
       >
-        <Library playlists={playlists} isScroll={isScroll} />
+        <Library isScroll={isScroll} />
       </ScrollArea>
     </div>
   )

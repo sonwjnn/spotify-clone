@@ -8,7 +8,6 @@ import { useUser } from '@/hooks/use-user'
 import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
 import { useSidebar } from '@/stores/use-sidebar'
 import { useUserStore } from '@/stores/use-user-store'
-import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 
 import { CollapseList } from './collapse-list'
@@ -18,14 +17,11 @@ import { Tooltip } from './ui/tooltip'
 import { UploadDropdown } from './upload-dropdown'
 
 interface LibraryProps {
-  playlists: Playlist[]
   isScroll?: boolean
 }
 
-export const Library: React.FC<LibraryProps> = ({
-  playlists,
-  isScroll = false,
-}) => {
+export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
+  const { playlists } = useUserStore()
   const { user, subscription } = useUser()
   const { likedSongs, likedPlaylists } = useUserStore()
   const { isCollapsed, isMaxWidth, collapsed, resetMinWidth, resetMaxWidth } =
