@@ -23,7 +23,7 @@ const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
 
       {likedPlaylist.map(item => (
         <PlaylistItemDropdown key={item.id} data={item} type="otherPlaylist">
-          <PlaylistItem data={item} />
+          <PlaylistItem data={item} type="otherPlaylist" />
         </PlaylistItemDropdown>
       ))}
     </div>

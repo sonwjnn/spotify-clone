@@ -9,10 +9,12 @@ interface UserStore {
   setLikedSongs: (songs: Song[]) => void
   setLikedPlaylists: (playlists: Playlist[]) => void
   setPlaylists: (playlists: Playlist[]) => void
-  removeLikedSong: (id: string) => void
   addLikedSong: (song: Song) => void
-  removeLikedPlaylist: (id: string) => void
   addLikedPlaylist: (playlist: Playlist) => void
+  addPlaylist: (playlist: Playlist) => void
+  removeLikedSong: (id: string) => void
+  removeLikedPlaylist: (id: string) => void
+  removePlaylist: (id: string) => void
 }
 
 export const useUserStore = create<UserStore>()((set, get) => ({
@@ -23,13 +25,17 @@ export const useUserStore = create<UserStore>()((set, get) => ({
   setLikedPlaylists: (playlists: Playlist[]) =>
     set({ likedPlaylists: playlists }),
   setPlaylists: (playlists: Playlist[]) => set({ playlists }),
+  addLikedSong: (song: Song) =>
+    set({ likedSongs: [...get().likedSongs, song] }),
+  addPlaylist: (playlist: Playlist) =>
+    set({ playlists: [...get().playlists, playlist] }),
+  addLikedPlaylist: (playlist: Playlist) =>
+    set({ likedPlaylists: [...get().likedPlaylists, playlist] }),
   removeLikedSong: (id: string) => {
     const { likedSongs } = get()
     const filteredLikedSongs = likedSongs.filter(song => song.id !== id)
     set({ likedSongs: filteredLikedSongs })
   },
-  addLikedSong: (song: Song) =>
-    set({ likedSongs: [...get().likedSongs, song] }),
   removeLikedPlaylist: (id: string) => {
     const { likedPlaylists } = get()
     const filteredLikedPlaylists = likedPlaylists.filter(
@@ -37,6 +43,9 @@ export const useUserStore = create<UserStore>()((set, get) => ({
     )
     set({ likedPlaylists: filteredLikedPlaylists })
   },
-  addLikedPlaylist: (playlist: Playlist) =>
-    set({ likedPlaylists: [...get().likedPlaylists, playlist] }),
+  removePlaylist: (id: string) => {
+    const { playlists } = get()
+    const filteredPlaylists = playlists.filter(playlist => playlist.id !== id)
+    set({ playlists: filteredPlaylists })
+  },
 }))

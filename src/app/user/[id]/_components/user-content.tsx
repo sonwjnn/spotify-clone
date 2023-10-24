@@ -17,11 +17,11 @@ interface UserContentProp {
 
 export const UserContent: React.FC<UserContentProp> = ({ data, id }) => {
   const router = useRouter()
-  const { isLoading, user } = useUser()
+  const { isLoading, user, userDetails } = useUser()
   const [bgColorUser, setBgColorUser] = useState<string>('')
   const { quantityCol } = useMainLayout()
 
-  const imageUrl = user?.user_metadata.avatar_url
+  const imageUrl = userDetails?.avatar_url || user?.user_metadata.avatar_url
 
   const { data: dataColor } = usePalette(imageUrl as string, 10, 'hex', {
     crossOrigin: 'Anonymous',

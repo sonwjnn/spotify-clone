@@ -41,7 +41,7 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   const subcribeModal = useSubscribeModal()
 
   const supabaseClient = useSupabaseClient()
-  const { removeLikedPlaylist } = useUserStore()
+  const { removeLikedPlaylist, removePlaylist, addPlaylist } = useUserStore()
 
   const [isDropdown, setDropdown] = useState(false)
   const [isRequired, setRequired] = useState(false)
@@ -86,14 +86,12 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
       toast.error(supabaseError.message)
       return
     }
+    removePlaylist(data.id)
 
     setRequired(false)
     if (currentPath.includes(`playlist/${data.id}`)) {
       router.replace('/')
-      router.refresh()
-      return
     }
-    router.refresh()
   }
 
   const onCreatePlaylist = async (): Promise<void> => {
@@ -125,8 +123,8 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
       return
     }
     if (newPlaylist) {
+      addPlaylist(newPlaylist as Playlist)
       setRequired(false)
-      router.refresh()
       router.push(`/playlist/${data.id}`)
     }
   }

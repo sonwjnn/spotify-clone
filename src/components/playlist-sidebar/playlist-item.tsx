@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
+// import { useGetUserById } from '@/hooks/use-get-user-by-id.'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { usePlaylistModal } from '@/hooks/use-playlist-modal'
 import { MusicNote, SoundIconSolid } from '@/public/icons'
@@ -15,23 +16,37 @@ interface PlaylistItemProps {
   data: Playlist
   index?: number
   className?: string
+  type?: 'myPlaylist' | 'otherPlaylist'
 }
 
 export const PlaylistItem: React.FC<PlaylistItemProps> = ({
   data,
   className,
+  // type = 'myPlaylist',
 }) => {
   const { playlistPlayingId, isPlaying } = usePlayer()
   const router = useRouter()
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images)
   const uploadModal = usePlaylistModal()
   const { id } = useParams()
+  // const user = useGetUserById(data.user_id)
+  // console.log(type === 'otherPlaylist' && user)
 
   const onClick = (): void => {
     uploadModal.setPlaylist(data)
     router.push(`/playlist/${data.id}`)
   }
 
+  // const fullName = (): string => {
+  //   let name
+  //   if (type === 'otherPlaylist') {
+  //     name = user.user?.full_name
+  //   } else if (type === 'myPlaylist') {
+  //     name = data.users?.full_name
+  //   }
+  //   return name || 'No name'
+  // }
+  const fullName = data.users?.full_name
   const isActived = playlistPlayingId === data.id
   return (
     <div
@@ -70,7 +85,7 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({
             {data.title}
           </p>
           <p className="truncate text-sm text-neutral-400">
-            {`Playlist - ${data?.users?.full_name}`}
+            {`Playlist - ${fullName}`}
           </p>
         </div>
       </div>
