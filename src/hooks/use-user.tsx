@@ -18,7 +18,6 @@ type UserContextType = {
 }
 
 export const UserContext = createContext<UserContextType | undefined>(undefined)
-
 export interface Props {
   [propName: string]: any
 }
@@ -52,6 +51,7 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
   }
 
   useEffect(() => {
+    console.log(!user, !isLoadingData, !userDetails, !subscription)
     if (!isLoadingData && !userDetails && !subscription) {
       setIsLoadingData(true)
       Promise.allSettled([getUserDetails(), getSubscription()]).then(
@@ -74,7 +74,6 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
       setUserDetails(null)
       setSubscription(null)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isLoadingUser])
 
   const value = {
