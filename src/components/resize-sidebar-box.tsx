@@ -3,7 +3,6 @@
 import { type ElementRef, memo, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
-import { useComponentSize } from '@/hooks/use-component-size'
 import { useSidebar } from '@/stores/use-sidebar'
 import cn from '@/utils/cn'
 
@@ -24,10 +23,7 @@ export const ResizeSizebarBox: React.FC<ResizeSizebarBoxProps> = memo(
     const sidebarRef = useRef<ElementRef<'aside'>>(null)
     const [isResetting, setIsResetting] = useState(false)
 
-    const size = useComponentSize(sidebarRef)
-
     const {
-      setWidth,
       isCollapsed,
       setIsCollapsed,
       setIsMaxWidth,
@@ -49,9 +45,17 @@ export const ResizeSizebarBox: React.FC<ResizeSizebarBoxProps> = memo(
           setIsCollapsed(false)
         }
       }
-      if (newWidth > maxWidth) newWidth = maxWidth
+      if (newWidth >= maxWidth) {
+        setIsMaxWidth(true)
+
+        newWidth = maxWidth
+      }
+      if (minWidth < newWidth && newWidth < maxWidth) {
+        setIsMaxWidth(false)
+      }
 
       if (sidebarRef.current) {
+        sidebarRef.current.style.transition = ''
         sidebarRef.current.style.width = `${newWidth}px`
       }
     }
@@ -117,15 +121,6 @@ export const ResizeSizebarBox: React.FC<ResizeSizebarBoxProps> = memo(
         resetMinWidth()
       }
     }, [isCollapsed])
-
-    useEffect(() => {
-      if (size.width === maxWidth) setIsMaxWidth(true)
-      else {
-        setIsMaxWidth(false)
-      }
-
-      setWidth(size.width)
-    }, [size.width, setWidth])
 
     useEffect(() => {
       setResetMaxWidth(resetToMaxWidth)
