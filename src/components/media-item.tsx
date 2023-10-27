@@ -15,6 +15,7 @@ import { getDurationSong } from '@/utils/duration-convertor'
 
 import { LikeButton } from './like-button'
 import { MediaDropdown } from './media-dropdown'
+import { PlaylistButton } from './playlist-button'
 
 export const MediaItem: React.FC<MediaItemProps> = ({
   type = 'default',
@@ -23,6 +24,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
   playlist,
   isSelected,
   isActived,
+  hasAddTrackBtn = false,
 }) => {
   const { width } = useMainLayout()
   const imageUrl = useLoadImage(song.image_path, buckets.images)
@@ -139,25 +141,30 @@ export const MediaItem: React.FC<MediaItemProps> = ({
         </>
       )}
       <div className={`group flex items-center justify-end gap-x-3`}>
-        <LikeButton
-          isSelected={isSelected}
-          song={song}
-          songId={song.id}
-          size={20}
-        />
+        {!hasAddTrackBtn ? (
+          <>
+            <LikeButton
+              isSelected={isSelected}
+              song={song}
+              songId={song.id}
+              size={20}
+            />
 
-        <div className={'select-none text-sm text-neutral-400'}>
-          {getDurationSong({
-            milliseconds: song?.duration_ms ? song?.duration_ms : 0,
-          })}
-        </div>
+            <div className={'select-none text-sm text-neutral-400'}>
+              {getDurationSong({
+                milliseconds: song?.duration_ms ? song?.duration_ms : 0,
+              })}
+            </div>
+          </>
+        ) : null}
 
-        {playlist?.id && width > 480 ? (
-          <MediaDropdown
-            className={`${isHover ? 'opacity-100' : 'opacity-0'}`}
-            songId={song.id}
-            playlist={playlist}
-          />
+        {!hasAddTrackBtn && playlist !== undefined && width > 480 ? (
+          <MediaDropdown song={song} playlist={playlist} />
+        ) : null}
+        {hasAddTrackBtn && playlist?.id !== undefined && width > 480 ? (
+          <div className="h-10 w-10">
+            <PlaylistButton type="add" song={song} playlist={playlist} />
+          </div>
         ) : null}
       </div>
     </div>

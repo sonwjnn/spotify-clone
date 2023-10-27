@@ -10,19 +10,15 @@ import { useOnPlay } from '@/hooks/use-on-play'
 import { useUser } from '@/hooks/use-user'
 import { usePlayer } from '@/stores/use-player'
 import { usePlayingView } from '@/stores/use-playing-view'
+import { usePlaylistStore } from '@/stores/use-playlist-store'
 import { useSelectedPlayer } from '@/stores/use-selected-player'
-import type { Playlist, Song } from '@/types/types'
 
-interface SongPlaylistProps {
-  songs: Song[]
-  playlist: Playlist
-}
+interface SongPlaylistProps {}
 
-export const SongPlaylist: React.FC<SongPlaylistProps> = ({
-  songs,
-  playlist,
-}) => {
+export const SongPlaylist: React.FC<SongPlaylistProps> = () => {
+  const { playlistSongs: songs } = usePlaylistStore()
   const { user } = useUser()
+  const { playlist } = usePlaylistStore()
   const onPlay = useOnPlay(songs)
   const {
     playlistPlayingId,
@@ -57,7 +53,7 @@ export const SongPlaylist: React.FC<SongPlaylistProps> = ({
     <>
       <div className="relative flex w-full gap-x-6 p-5 px-10">
         <div
-          style={{ backgroundColor: `${playlist.bg_color}` }}
+          style={{ backgroundColor: `${playlist?.bg_color}` }}
           className="header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
         ></div>
         <PlayButton
@@ -66,14 +62,14 @@ export const SongPlaylist: React.FC<SongPlaylistProps> = ({
           isPlaying={isPlaying}
         />
         {/* <MediaDropdown /> */}
-        {user?.id !== playlist.user_id ? (
+        {user?.id !== playlist?.user_id ? (
           <div className="z-10 flex h-14 w-14 items-center justify-center">
-            <LikePlaylistButton playlist={playlist} size={36} />
+            <LikePlaylistButton size={36} />
           </div>
         ) : null}
       </div>
 
-      <MediaList songs={songs} playlist={playlist} type="playlist" />
+      <MediaList songs={songs} type="playlist" />
     </>
   )
 }

@@ -31,7 +31,7 @@ const Loading: React.FC = () => {
               <Skeleton height={'20px'} borderRadius={50} />
             </p>
             <h1
-              className={` w-[400px]  cursor-pointer text-7xl font-bold text-white`}
+              className={` max-w-[400px]  cursor-pointer text-7xl font-bold text-white`}
             >
               <Skeleton height={'48px'} borderRadius={50} />
             </h1>

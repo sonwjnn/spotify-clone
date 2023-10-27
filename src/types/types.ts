@@ -32,6 +32,7 @@ export interface Playlist {
   bg_color?: string
   created_at: string
   likes?: number
+  duration_ms?: number
 }
 
 export interface Product {

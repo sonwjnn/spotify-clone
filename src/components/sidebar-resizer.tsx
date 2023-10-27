@@ -6,7 +6,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import { useSidebar } from '@/stores/use-sidebar'
 import cn from '@/utils/cn'
 
-interface ResizeSizebarBoxProps {
+interface SidebarResizerProps {
   children: React.ReactNode
   minWidth?: number
   maxWidth?: number
@@ -14,7 +14,7 @@ interface ResizeSizebarBoxProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const ResizeSizebarBox: React.FC<ResizeSizebarBoxProps> = memo(
+export const SidebarResizer: React.FC<SidebarResizerProps> = memo(
   ({ children, minWidth = 300, maxWidth = 500, className }) => {
     const isTablet = useMediaQuery('(max-width: 768px)')
     const isMobile = useMediaQuery('(max-width: 585px)')

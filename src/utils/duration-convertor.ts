@@ -3,11 +3,6 @@ interface DurationSongParams {
   type?: 'short' | 'long'
 }
 
-interface DurationSongsParams {
-  durations?: number[]
-  type?: 'short' | 'long'
-}
-
 const getDurationSong = (params: Partial<DurationSongParams>): string => {
   const { milliseconds, type = 'short' } = params
   if (!milliseconds && milliseconds !== 0) return ''
@@ -30,17 +25,4 @@ const getDurationSong = (params: Partial<DurationSongParams>): string => {
   return `${minutes} min ${seconds} sec`
 }
 
-const getDurationSongs = (params: Partial<DurationSongsParams>): string => {
-  const { durations, type = 'short' } = params
-
-  if (!durations || durations.length === 0) return ''
-
-  const totalMilliseconds = durations.reduce(
-    (acc, milliseconds) => acc + milliseconds,
-    0
-  )
-
-  return getDurationSong({ milliseconds: totalMilliseconds, type })
-}
-
-export { getDurationSong, getDurationSongs }
+export { getDurationSong }

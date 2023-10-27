@@ -13,7 +13,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import { usePlayingView } from '@/stores/use-playing-view'
 import cn from '@/utils/cn'
 
-interface ResizePlayingBoxProps {
+interface PlayingViewResizerProps {
   children: React.ReactNode
   minWidth?: number
   maxWidth?: number
@@ -21,7 +21,7 @@ interface ResizePlayingBoxProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const ResizePlayingBox: FC<ResizePlayingBoxProps> = memo(
+export const PlayingViewResizer: FC<PlayingViewResizerProps> = memo(
   ({ children, minWidth = 300, maxWidth = 500, className }) => {
     const isMobile = useMediaQuery('(max-width: 768px)')
 

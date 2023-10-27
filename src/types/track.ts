@@ -20,6 +20,7 @@ export interface MediaItemProps {
   index?: number
   isSelected?: boolean
   isActived?: boolean
+  hasAddTrackBtn?: boolean
 }
 
 export interface MediaListProps {
@@ -31,4 +32,5 @@ export interface MediaListProps {
   // albumImages?: ImageSource[]
   inclHeader?: boolean
   adjustOrder?: number
+  hasAddTrackBtn?: boolean
 }

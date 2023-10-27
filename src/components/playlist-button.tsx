@@ -1,30 +1,34 @@
 'use client'
 
 import { useSessionContext } from '@supabase/auth-helpers-react'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { ClipLoader } from 'react-spinners'
+import { LuArrowBigUpDash, LuLoader2 } from 'react-icons/lu'
 
 import { useAuthModal } from '@/hooks/use-auth-modal'
 import { useUser } from '@/hooks/use-user'
+import { usePlaylistStore } from '@/stores/use-playlist-store'
+import type { Playlist, Song } from '@/types/types'
+
+import { Tooltip } from './ui/tooltip'
 
 interface PlaylistButtonProps {
   type: 'add' | 'remove'
-  songId: string
-  playlistId: string
+  song: Song
+  playlist: Playlist
 }
 
 export const PlaylistButton: React.FC<PlaylistButtonProps> = ({
   type,
-  songId,
-  playlistId,
+  song,
+  playlist,
 }) => {
-  const router = useRouter()
-
   const { supabaseClient } = useSessionContext()
 
   const { user } = useUser()
+
+  const { setDuration, removePlaylistSong, addPlaylistSong } =
+    usePlaylistStore()
 
   const authModal = useAuthModal()
 
@@ -41,79 +45,67 @@ export const PlaylistButton: React.FC<PlaylistButtonProps> = ({
     setRequired(true)
 
     if (type === 'add') {
-      const { data, error: playlistError } = await supabaseClient
-        .from('playlists')
-        .select('*')
-        .eq('id', playlistId)
-        .single()
-      if (playlistError) {
-        toast.error(playlistError.message)
-        return
-      }
-
-      const songIds = data.song_ids || []
-
-      const { error } = await supabaseClient.from('playlists').upsert({
-        id: playlistId,
-        songIds: [...songIds, songId],
-        user_id: user.id,
-      })
+      const { error } = await supabaseClient
+        .from('playlist_songs')
+        .insert({ playlist_id: playlist.id, song_id: song.id })
 
       if (error) {
         toast.error(error.message)
         return
       }
+
+      const updatedDuration = (playlist?.duration_ms || 0) + song.duration_ms
+
+      const { error: playlistError } = await supabaseClient
+        .from('playlists')
+        .update({ duration_ms: updatedDuration })
+        .eq('id', playlist.id)
+
+      if (playlistError) {
+        toast.error(playlistError.message)
+        return
+      }
+
+      setDuration(updatedDuration >= 0 ? updatedDuration : song.duration_ms)
+      addPlaylistSong(song)
 
       toast.success('Added!')
     } else {
-      const { data, error: playlistError } = await supabaseClient
-        .from('playlists')
-        .select('*')
-        .eq('id', playlistId)
-        .single()
-      if (playlistError) {
-        toast.error(playlistError.message)
-        return
-      }
-
-      let songIds = data.song_ids || []
-
-      if (songIds.length) {
-        songIds = [...songIds].filter(id => id !== songId)
-      }
-
-      const { error } = await supabaseClient.from('playlists').upsert({
-        id: playlistId,
-        songIds,
-        user_id: user.id,
-      })
+      const { error } = await supabaseClient
+        .from('playlist_songs')
+        .delete()
+        .eq('playlist_id', playlist.id)
+        .eq('song_id', song.id)
 
       if (error) {
         toast.error(error.message)
         return
       }
 
+      removePlaylistSong(song.id)
       toast.success('Removed!')
     }
 
     setRequired(false)
-
-    router.refresh()
   }
 
   return (
-    <button
-      onClick={handleLike}
-      className={`flex h-8 min-w-[50px] items-center justify-center rounded-full border border-white bg-transparent p-2 font-semibold text-white  transition hover:scale-105 active:scale-100 disabled:cursor-not-allowed disabled:opacity-50`}
-    >
-      {/* eslint-disable-next-line no-nested-ternary */}
-      {isRequired ? (
-        <ClipLoader color="white" size={18} />
-      ) : type === 'add' ? (
-        'Add'
-      ) : (
-        'Remove'
-      )}
-    </button>
+    <Tooltip text="Add to playlist">
+      <div
+        onClick={handleLike}
+        className={`flex h-8 min-w-[50px] cursor-pointer items-center justify-center rounded-full border border-neutral-400 bg-transparent p-2 font-semibold text-white  transition hover:scale-105 active:scale-100 ${
+          isRequired ? 'cursor-not-allowed opacity-50' : null
+        }`}
+      >
+        {/* eslint-disable-next-line no-nested-ternary */}
+        {isRequired ? (
+          <LuLoader2 color="white" size={16} className="animate-spin" />
+        ) : type === 'add' ? (
+          <LuArrowBigUpDash color="#a3a3a3" />
+        ) : (
+          'Remove'
+        )}
+      </div>
+    </Tooltip>
   )
 }

@@ -29,8 +29,6 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({
   const imageUrl = useLoadImage(data.image_path, buckets.playlist_images)
   const uploadModal = usePlaylistModal()
   const { id } = useParams()
-  // const user = useGetUserById(data.user_id)
-  // console.log(type === 'otherPlaylist' && user)
 
   const onClick = (): void => {
     uploadModal.setPlaylist(data)

@@ -1,7 +1,6 @@
 'use client'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { BsThreeDots } from 'react-icons/bs'
@@ -19,20 +18,22 @@ import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUploadModal } from '@/hooks/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 import { DeleteIcon } from '@/public/icons'
-import type { Playlist } from '@/types/types'
+import { usePlaylistStore } from '@/stores/use-playlist-store'
+import type { Playlist, Song } from '@/types/types'
 
 interface MediaDropdownProps {
-  songId: string
+  song: Song
   playlist: Playlist
   className?: string
 }
 
 export const MediaDropdown: React.FC<MediaDropdownProps> = ({
-  songId,
+  song,
   playlist,
   className,
 }) => {
   const { user, subscription } = useUser()
+  const { removePlaylistSong, setDuration } = usePlaylistStore()
   const authModal = useAuthModal()
   const uploadModal = useUploadModal()
   const [isDropdown, setDropdown] = useState(false)
@@ -41,8 +42,6 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
   const subcribeModal = useSubscribeModal()
 
   const supabaseClient = useSupabaseClient()
-
-  const router = useRouter()
 
   const onRemove: () => Promise<void> = async () => {
     if (isRequired) return
@@ -59,38 +58,33 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
 
     setRequired(true)
 
-    const { data, error: playlistError } = await supabaseClient
-      .from('playlists')
-      .select('*')
-      .eq('id', playlist.id)
-      .single()
-    if (playlistError) {
-      toast.error(playlistError.message)
-      return
-    }
-
-    let songIds = data.song_ids || []
-
-    if (songIds.length) {
-      songIds = [...songIds].filter(id => id !== songId)
-    }
-
-    const { error } = await supabaseClient.from('playlists').upsert({
-      id: playlist,
-      songIds,
-      user_id: user.id,
-    })
+    const { error } = await supabaseClient
+      .from('playlist_songs')
+      .delete()
+      .eq('playlist_id', playlist.id)
+      .eq('song_id', song.id)
 
     if (error) {
       toast.error(error.message)
       return
     }
 
+    const updatedDuration = (playlist?.duration_ms || 0) - song.duration_ms
+
+    const { error: playlistError } = await supabaseClient
+      .from('playlists')
+      .update({ duration_ms: updatedDuration })
+      .eq('id', playlist.id)
+
+    if (playlistError) {
+      toast.error(playlistError.message)
+      return
+    }
+
+    setDuration(updatedDuration >= 0 ? updatedDuration : 0)
+
+    removePlaylistSong(song.id)
     toast.success('Removed!')
-
-    setRequired(false)
-
-    router.refresh()
   }
 
   const onChange = (open: boolean): void => {

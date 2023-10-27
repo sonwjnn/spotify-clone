@@ -8,15 +8,15 @@ import { Input } from '@/components/ui/input'
 import { useDebounce } from '@/hooks/use-debounce'
 import { SearchIcon } from '@/public/icons'
 import { useMainLayout } from '@/stores/use-main-layout'
-import type { Playlist, Song } from '@/types/types'
+import { usePlaylistStore } from '@/stores/use-playlist-store'
+import type { Song } from '@/types/types'
 
-interface SearchPlaylistProps {
-  songs: Song[]
-  playlist: Playlist
-}
+interface SearchPlaylistProps {}
 
-export const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
+export const SearchPlaylist: React.FC<SearchPlaylistProps> = () => {
   const { width } = useMainLayout()
+
+  const { playlistSongs } = usePlaylistStore()
 
   const { supabaseClient } = useSessionContext()
 
@@ -39,15 +39,17 @@ export const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
         console.log(error)
       }
       if (data) {
-        const unaddedSongs = data.filter(
-          song => !playlist?.song_ids?.includes(song.id)
+        const playlistSongIds = playlistSongs.map(item => item.id)
+        const unplaylistSongs = data.filter(
+          song => !playlistSongIds.includes(song.id)
         )
-        setSongs(unaddedSongs as Song[])
+
+        setSongs(unplaylistSongs as Song[])
       }
     }
 
     fetchDataByTitle()
-  }, [debouncedValue, supabaseClient, playlist?.song_ids])
+  }, [debouncedValue, supabaseClient, playlistSongs])
 
   return (
     <>
@@ -66,7 +68,7 @@ export const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ playlist }) => {
         />
       </div>
 
-      <MediaList type="search" songs={songs} />
+      <MediaList type="search" songs={songs} hasAddTrackBtn />
     </>
   )
 }

@@ -8,15 +8,22 @@ import { useOnPlay } from '@/hooks/use-on-play'
 import { ClockIcon } from '@/public/icons'
 import { useMainLayout } from '@/stores/use-main-layout'
 import { usePlayer } from '@/stores/use-player'
+import { usePlaylistStore } from '@/stores/use-playlist-store'
 import type { MediaListProps } from '@/types/track'
+import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 
 interface ListBarProps {
   className?: string
   type: 'default' | 'playlist' | 'album' | 'search' | 'artist' | 'queue'
+  hasAddTrackBtn?: boolean
 }
 
-const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
+const ListBar: React.FC<ListBarProps> = ({
+  className,
+  type,
+  hasAddTrackBtn = false,
+}) => {
   const { width } = useMainLayout()
   return (
     <div
@@ -62,7 +69,7 @@ const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
             : 'translate-x-[-5px] justify-end'
         } items-center `}
       >
-        <ClockIcon />
+        {hasAddTrackBtn ? 'Action' : <ClockIcon />}
       </div>
     </div>
   )
@@ -70,10 +77,11 @@ const ListBar: React.FC<ListBarProps> = ({ className, type }) => {
 
 export const MediaList: React.FC<MediaListProps> = ({
   songs,
-  playlist,
   type = 'default',
+  hasAddTrackBtn = false,
 }) => {
   const player = usePlayer()
+  const { playlist } = usePlaylistStore()
   const onPlay = useOnPlay(songs)
   const [selectedId, setSelectedId] = useState<string>('')
 
@@ -95,7 +103,9 @@ export const MediaList: React.FC<MediaListProps> = ({
         className="z-10 flex min-h-[20vh]  w-full flex-col px-6 pb-2"
         ref={wrapperRef}
       >
-        {songs.length ? <ListBar type={type} /> : null}
+        {songs.length ? (
+          <ListBar type={type} hasAddTrackBtn={hasAddTrackBtn} />
+        ) : null}
         {songs.map((song, index) => (
           <div
             key={song.id}
@@ -108,10 +118,11 @@ export const MediaList: React.FC<MediaListProps> = ({
             <MediaItem
               type={type}
               song={song}
-              playlist={playlist}
+              playlist={playlist as Playlist}
               index={type !== 'queue' ? index + 1 : index + 2}
               isSelected={selectedId === song.id}
               isActived={player.activeId === song.id}
+              hasAddTrackBtn={hasAddTrackBtn}
             />
           </div>
         ))}
