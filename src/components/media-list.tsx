@@ -4,11 +4,11 @@ import { useRef, useState } from 'react'
 
 import { MediaItem } from '@/components/media-item'
 import { useClickOutside } from '@/hooks/use-click-outside'
+import { useMainLayout } from '@/hooks/use-main-layout'
 import { useOnPlay } from '@/hooks/use-on-play'
+import { usePlayer } from '@/hooks/use-player'
+import { usePlaylist } from '@/hooks/use-playlist'
 import { ClockIcon } from '@/public/icons'
-import { useMainLayout } from '@/stores/use-main-layout'
-import { usePlayer } from '@/stores/use-player'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
 import type { MediaListProps } from '@/types/track'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
@@ -81,7 +81,7 @@ export const MediaList: React.FC<MediaListProps> = ({
   hasAddTrackBtn = false,
 }) => {
   const player = usePlayer()
-  const { playlist } = usePlaylistStore()
+  const { playlist } = usePlaylist()
   const onPlay = useOnPlay(songs)
   const [selectedId, setSelectedId] = useState<string>('')
 

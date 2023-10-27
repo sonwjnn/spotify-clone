@@ -3,8 +3,8 @@
 import Image from 'next/image'
 
 import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlayer } from '@/hooks/use-player'
 import { MusicNote } from '@/public/icons'
-import { usePlayer } from '@/stores/use-player'
 import type { Song } from '@/types/types'
 
 import { PlayButton } from './play-button'

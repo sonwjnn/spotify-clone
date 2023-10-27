@@ -1,10 +1,10 @@
 import { usePathname } from 'next/navigation'
 
-import { usePlayer } from '@/stores/use-player'
-import { useSelectedPlayer } from '@/stores/use-selected-player'
+import { usePlayer } from '@/hooks/use-player'
+import { useSelectedPlayer } from '@/hooks/use-selected-player'
 import type { Song } from '@/types/types'
 
-import { useAuthModal } from './use-auth-modal'
+import { useAuthModal } from './modals/use-auth-modal'
 import { useUser } from './use-user'
 
 export const useOnPlay = (songs: Song[]): ((id: string) => void) => {

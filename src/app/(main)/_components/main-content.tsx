@@ -1,8 +1,8 @@
 'use client'
 
 import { SongItem } from '@/components/song-item'
+import { useMainLayout } from '@/hooks/use-main-layout'
 import { useOnPlay } from '@/hooks/use-on-play'
-import { useMainLayout } from '@/stores/use-main-layout'
 import type { Song } from '@/types/types'
 
 interface MainContentProps {

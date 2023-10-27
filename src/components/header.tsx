@@ -4,9 +4,9 @@ import { usePalette } from 'color-thief-react'
 import { memo, useEffect, useRef, useState } from 'react'
 
 import { useComponentSize } from '@/hooks/use-component-size'
+import { useHeader } from '@/hooks/use-header'
+import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
-import { useHeader } from '@/stores/use-header'
-import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 

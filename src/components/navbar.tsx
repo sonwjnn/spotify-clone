@@ -10,9 +10,14 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { useHeader } from '@/hooks/use-header'
 import { useLoadImage } from '@/hooks/use-load-image'
+import { useMainLayout } from '@/hooks/use-main-layout'
+import { useNavbar } from '@/hooks/use-navbar'
 import { useOnPlay } from '@/hooks/use-on-play'
+import { usePlayer } from '@/hooks/use-player'
+import { useSelectedPlayer } from '@/hooks/use-selected-player'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/libs/helpers'
 import type { IconProps } from '@/public/icons'
@@ -22,11 +27,6 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import { useHeader } from '@/stores/use-header'
-import { useMainLayout } from '@/stores/use-main-layout'
-import { usePlayer } from '@/stores/use-player'
-import { useSelectedPlayer } from '@/stores/use-selected-player'
-import { useStyleNavbar } from '@/stores/use-style-navbar'
 import type { Playlist, Song } from '@/types/types'
 import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
   const params = useParams()
 
   const { bgColor: bgColorHome } = useHeader()
-  const { opacity, playBtnVisible, usernameVisible } = useStyleNavbar()
+  const { opacity, playBtnVisible, usernameVisible } = useNavbar()
   const { setSelected } = useSelectedPlayer()
   const { width } = useMainLayout()
 

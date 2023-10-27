@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 
-import { useHeader } from '@/stores/use-header'
-import { useStyleNavbar } from '@/stores/use-style-navbar'
+import { useHeader } from '@/hooks/use-header'
+import { useNavbar } from '@/hooks/use-navbar'
 
 import { ScrollArea } from './ui/scroll-area'
 
@@ -13,7 +13,7 @@ interface PageWrapperProps {
 }
 
 export const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
-  const { setOpacity, setPlayBtnVisible, setUsernameVisible } = useStyleNavbar()
+  const { setOpacity, setPlayBtnVisible, setUsernameVisible } = useNavbar()
   const { height } = useHeader()
 
   useEffect(() => {

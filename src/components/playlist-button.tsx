@@ -5,9 +5,9 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { LuArrowBigUpDash, LuLoader2 } from 'react-icons/lu'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
 import type { Playlist, Song } from '@/types/types'
 
 import { Tooltip } from './ui/tooltip'
@@ -27,8 +27,7 @@ export const PlaylistButton: React.FC<PlaylistButtonProps> = ({
 
   const { user } = useUser()
 
-  const { setDuration, removePlaylistSong, addPlaylistSong } =
-    usePlaylistStore()
+  const { setDuration, removePlaylistSong, addPlaylistSong } = usePlaylist()
 
   const authModal = useAuthModal()
 

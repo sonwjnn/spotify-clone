@@ -13,12 +13,12 @@ import {
   DropdownMenuPortal,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useAuthModal } from '@/hooks/use-auth-modal'
-import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
-import { useUploadModal } from '@/hooks/use-upload-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useUploadModal } from '@/hooks/modals/use-upload-modal'
+import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { DeleteIcon } from '@/public/icons'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
 import type { Playlist, Song } from '@/types/types'
 
 interface MediaDropdownProps {
@@ -33,7 +33,7 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
   className,
 }) => {
   const { user, subscription } = useUser()
-  const { removePlaylistSong, setDuration } = usePlaylistStore()
+  const { removePlaylistSong, setDuration } = usePlaylist()
   const authModal = useAuthModal()
   const uploadModal = useUploadModal()
   const [isDropdown, setDropdown] = useState(false)

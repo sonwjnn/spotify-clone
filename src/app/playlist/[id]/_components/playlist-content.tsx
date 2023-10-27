@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 
+import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
 import type { Playlist, Song } from '@/types/types'
 
 import { SearchPlaylist } from './search-playlist'
@@ -20,7 +20,7 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
 }) => {
   const { user } = useUser()
 
-  const { setPlaylist, setPlaylistSongs } = usePlaylistStore()
+  const { setPlaylist, setPlaylistSongs } = usePlaylist()
 
   useEffect(() => {
     setPlaylist(playlist)

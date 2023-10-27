@@ -7,11 +7,11 @@ import { MediaList } from '@/components/media-list'
 import { PlayButton } from '@/components/play-button'
 import { Button } from '@/components/ui/button'
 import { useOnPlay } from '@/hooks/use-on-play'
+import { usePlayer } from '@/hooks/use-player'
+import { usePlayingView } from '@/hooks/use-playing-view'
 import { useUser } from '@/hooks/use-user'
+import { useUserStore } from '@/hooks/use-user-store'
 import { SingleMusicNote } from '@/public/icons'
-import { usePlayer } from '@/stores/use-player'
-import { usePlayingView } from '@/stores/use-playing-view'
-import { useUserStore } from '@/stores/use-user-store'
 
 interface LikedContentProp {
   bgColor?: string

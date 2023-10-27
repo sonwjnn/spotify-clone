@@ -10,7 +10,7 @@ import { MediaLoading } from '@/components/loading-layout/media-loading'
 import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'
 import { PlayButton } from '@/components/play-button'
-import { useMainLayout } from '@/stores/use-main-layout'
+import { useMainLayout } from '@/hooks/use-main-layout'
 
 const Loading: React.FC = () => {
   const { width } = useMainLayout()

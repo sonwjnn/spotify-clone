@@ -3,12 +3,12 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useHeader } from '@/hooks/use-header'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import { useHeader } from '@/stores/use-header'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 

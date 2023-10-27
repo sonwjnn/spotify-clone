@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import useSound from 'use-sound'
 
-import { usePlayer } from '@/stores/use-player'
-import { useSelectedPlayer } from '@/stores/use-selected-player'
+import { usePlayer } from '@/hooks/use-player'
+import { useSelectedPlayer } from '@/hooks/use-selected-player'
 import type { Song } from '@/types/types'
 
 import { PlayButton } from '../play-button'

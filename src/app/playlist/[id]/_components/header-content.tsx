@@ -3,20 +3,20 @@
 import Image from 'next/image'
 import { useCallback } from 'react'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
+import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlaylistModal } from '@/hooks/use-playlist-modal'
-import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
+import { useMainLayout } from '@/hooks/use-main-layout'
+import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import { useMainLayout } from '@/stores/use-main-layout'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 
 interface HeaderContentProps {}
 export const HeaderContent: React.FC<HeaderContentProps> = () => {
-  const { playlist: data, playlistSongs } = usePlaylistStore()
+  const { playlist: data, playlistSongs } = usePlaylist()
   const { width } = useMainLayout()
   const { user, subscription } = useUser()
   const authModal = useAuthModal()

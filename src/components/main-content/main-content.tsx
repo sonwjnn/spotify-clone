@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 
+import { usePlayer } from '@/hooks/use-player'
 import { useUser } from '@/hooks/use-user'
-import { usePlayer } from '@/stores/use-player'
-import { useUserStore } from '@/stores/use-user-store'
+import { useUserStore } from '@/hooks/use-user-store'
 import type { Playlist, Song } from '@/types/types'
 import cn from '@/utils/cn'
 

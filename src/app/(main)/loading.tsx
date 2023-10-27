@@ -7,8 +7,8 @@ import { Header } from '@/components/header'
 import { CardLoading } from '@/components/loading-layout/card-loading'
 import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'
-import { useHeader } from '@/stores/use-header'
-import { useMainLayout } from '@/stores/use-main-layout'
+import { useHeader } from '@/hooks/use-header'
+import { useMainLayout } from '@/hooks/use-main-layout'
 
 const Loading: React.FC = () => {
   const { width, quantityCol } = useMainLayout()

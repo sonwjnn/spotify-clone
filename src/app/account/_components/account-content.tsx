@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
-import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
+import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/libs/helpers'
 

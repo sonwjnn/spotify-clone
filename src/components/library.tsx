@@ -2,12 +2,12 @@
 
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
-import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useSidebar } from '@/hooks/use-sidebar'
 import { useUser } from '@/hooks/use-user'
+import { useUserStore } from '@/hooks/use-user-store'
 import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
-import { useSidebar } from '@/stores/use-sidebar'
-import { useUserStore } from '@/stores/use-user-store'
 import cn from '@/utils/cn'
 
 import { CollapseList } from './collapse-list'

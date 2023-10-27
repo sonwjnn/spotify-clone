@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { Playlist, Song } from '@/types/types'
 
-interface PlaylistStoreStore {
+interface PlaylistStore {
   playlist: Playlist | null
   playlistSongs: Song[]
   setPlaylist: (playlist: Playlist) => void
@@ -17,7 +17,7 @@ interface PlaylistStoreStore {
   removePlaylistSong: (id: string) => void
 }
 
-export const usePlaylistStore = create<PlaylistStoreStore>()(
+export const usePlaylist = create<PlaylistStore>()(
   persist(
     (set, get) => ({
       playlist: null,

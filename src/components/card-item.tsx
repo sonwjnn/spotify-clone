@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlayer } from '@/hooks/use-player'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import { usePlayer } from '@/stores/use-player'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 

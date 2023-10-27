@@ -7,18 +7,18 @@ import { LikePlaylistButton } from '@/components/like-playlist-button'
 import { MediaList } from '@/components/media-list'
 import { PlayButton } from '@/components/play-button'
 import { useOnPlay } from '@/hooks/use-on-play'
+import { usePlayer } from '@/hooks/use-player'
+import { usePlayingView } from '@/hooks/use-playing-view'
+import { usePlaylist } from '@/hooks/use-playlist'
+import { useSelectedPlayer } from '@/hooks/use-selected-player'
 import { useUser } from '@/hooks/use-user'
-import { usePlayer } from '@/stores/use-player'
-import { usePlayingView } from '@/stores/use-playing-view'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
-import { useSelectedPlayer } from '@/stores/use-selected-player'
 
 interface SongPlaylistProps {}
 
 export const SongPlaylist: React.FC<SongPlaylistProps> = () => {
-  const { playlistSongs: songs } = usePlaylistStore()
+  const { playlistSongs: songs } = usePlaylist()
   const { user } = useUser()
-  const { playlist } = usePlaylistStore()
+  const { playlist } = usePlaylist()
   const onPlay = useOnPlay(songs)
   const {
     playlistPlayingId,

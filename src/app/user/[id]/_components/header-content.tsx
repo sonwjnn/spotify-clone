@@ -2,13 +2,13 @@
 
 import Image from 'next/image'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
+import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlaylistModal } from '@/hooks/use-playlist-modal'
-import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
+import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 

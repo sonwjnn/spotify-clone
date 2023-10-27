@@ -4,11 +4,11 @@ import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
+import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 // import { useGetUserById } from '@/hooks/use-get-user-by-id.'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlaylistModal } from '@/hooks/use-playlist-modal'
+import { usePlayer } from '@/hooks/use-player'
 import { MusicNote, SoundIconSolid } from '@/public/icons'
-import { usePlayer } from '@/stores/use-player'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 

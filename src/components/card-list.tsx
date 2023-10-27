@@ -1,5 +1,5 @@
 import { CartItem } from '@/components/card-item'
-import { useMainLayout } from '@/stores/use-main-layout'
+import { useMainLayout } from '@/hooks/use-main-layout'
 import type { Playlist } from '@/types/types'
 
 interface CartListProps {

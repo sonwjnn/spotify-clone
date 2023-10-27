@@ -3,10 +3,10 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
+import { usePlayer } from '@/hooks/use-player'
+import { usePlayingView } from '@/hooks/use-playing-view'
 import type { SoundLevel } from '@/public/icons'
 import { PlayingViewIcon, QueueIcon, SoundIcon } from '@/public/icons'
-import { usePlayer } from '@/stores/use-player'
-import { usePlayingView } from '@/stores/use-playing-view'
 
 import { Slider } from '../ui/slider'
 import { Tooltip } from '../ui/tooltip'

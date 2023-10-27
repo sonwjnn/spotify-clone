@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { CardList } from '@/components/card-list'
+import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import { SingleMusicNote } from '@/public/icons'
-import { useMainLayout } from '@/stores/use-main-layout'
 import type { Playlist } from '@/types/types'
 
 interface UserContentProp {

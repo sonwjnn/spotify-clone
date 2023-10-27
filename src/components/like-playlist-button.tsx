@@ -6,10 +6,10 @@ import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { twMerge } from 'tailwind-merge'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
-import { useUserStore } from '@/stores/use-user-store'
+import { useUserStore } from '@/hooks/use-user-store'
 
 import { Tooltip } from './ui/tooltip'
 
@@ -27,7 +27,7 @@ export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
   const { likedPlaylists, removeLikedPlaylist, addLikedPlaylist } =
     useUserStore()
 
-  const { playlist, setLikes } = usePlaylistStore()
+  const { playlist, setLikes } = usePlaylist()
 
   const { user } = useUser()
 

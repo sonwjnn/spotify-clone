@@ -14,12 +14,12 @@ import {
   ContextMenuPortal,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
-import { useAuthModal } from '@/hooks/use-auth-modal'
-import { usePlaylistModal } from '@/hooks/use-playlist-modal'
-import { useSubscribeModal } from '@/hooks/use-subcribe-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
+import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
+import { useUserStore } from '@/hooks/use-user-store'
 import { AddPlaylistIcon, DeleteIcon } from '@/public/icons'
-import { useUserStore } from '@/stores/use-user-store'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 

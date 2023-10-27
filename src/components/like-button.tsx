@@ -6,9 +6,9 @@ import { toast } from 'react-hot-toast'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { twMerge } from 'tailwind-merge'
 
-import { useAuthModal } from '@/hooks/use-auth-modal'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/stores/use-user-store'
+import { useUserStore } from '@/hooks/use-user-store'
 import type { Song } from '@/types/types'
 
 import { Tooltip } from './ui/tooltip'

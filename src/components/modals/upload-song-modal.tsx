@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
 
-import { useUploadModal } from '@/hooks/use-upload-modal'
+import { useUploadModal } from '@/hooks/modals/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 
 import { Button } from '../ui/button'

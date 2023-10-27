@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlayer } from '@/hooks/use-player'
+import { usePlayingView } from '@/hooks/use-playing-view'
 import { CloseIcon, MusicNote } from '@/public/icons'
-import { usePlayer } from '@/stores/use-player'
-import { usePlayingView } from '@/stores/use-playing-view'
 import type { Song } from '@/types/types'
 
 import { LikeButton } from '../like-button'

@@ -3,7 +3,7 @@
 import { type ElementRef, memo, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
-import { useSidebar } from '@/stores/use-sidebar'
+import { useSidebar } from '@/hooks/use-sidebar'
 import cn from '@/utils/cn'
 
 interface SidebarResizerProps {

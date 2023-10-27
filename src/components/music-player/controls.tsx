@@ -1,12 +1,12 @@
 import React from 'react'
 
+import { usePlayer } from '@/hooks/use-player'
 import {
   RepeatIcon,
   ShuffleIcon,
   SkipBackIcon,
   SkipForwardIcon,
 } from '@/public/icons'
-import { usePlayer } from '@/stores/use-player'
 
 import { PlayButton } from '../play-button'
 import { Tooltip } from '../ui/tooltip'

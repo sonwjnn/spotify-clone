@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react'
 import { MediaList } from '@/components/media-list'
 import { Input } from '@/components/ui/input'
 import { useDebounce } from '@/hooks/use-debounce'
+import { useMainLayout } from '@/hooks/use-main-layout'
+import { usePlaylist } from '@/hooks/use-playlist'
 import { SearchIcon } from '@/public/icons'
-import { useMainLayout } from '@/stores/use-main-layout'
-import { usePlaylistStore } from '@/stores/use-playlist-store'
 import type { Song } from '@/types/types'
 
 interface SearchPlaylistProps {}
@@ -16,7 +16,7 @@ interface SearchPlaylistProps {}
 export const SearchPlaylist: React.FC<SearchPlaylistProps> = () => {
   const { width } = useMainLayout()
 
-  const { playlistSongs } = usePlaylistStore()
+  const { playlistSongs } = usePlaylist()
 
   const { supabaseClient } = useSessionContext()
 

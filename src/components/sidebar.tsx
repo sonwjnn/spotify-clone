@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react'
 import type { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge'
 
+import { useSidebar } from '@/hooks/use-sidebar'
 import {
   HomeActiveIcon,
   HomeIcon,
@@ -13,7 +14,6 @@ import {
   SearchActiveIcon,
   SearchIcon,
 } from '@/public/icons'
-import { useSidebar } from '@/stores/use-sidebar'
 
 import { Library } from './library'
 import { Box } from './ui/box'

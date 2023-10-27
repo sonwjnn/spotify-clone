@@ -17,9 +17,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useUploadModal } from '@/hooks/use-upload-modal'
+import { useUploadModal } from '@/hooks/modals/use-upload-modal'
+import { usePlayer } from '@/hooks/use-player'
 import { useUser } from '@/hooks/use-user'
-import { usePlayer } from '@/stores/use-player'
 
 interface UserDropdownProps {
   children: React.ReactNode
