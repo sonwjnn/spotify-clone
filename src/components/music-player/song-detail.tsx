@@ -48,7 +48,7 @@ export const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
           </div>
         </div>
       </div>
-      <LikeButton className="flex" song={data} songId={data.id} size={22} />
+      <LikeButton className="flex" song={data} size={22} />
     </div>
   )
 }

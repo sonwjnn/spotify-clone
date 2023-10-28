@@ -143,12 +143,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
       <div className={`group flex items-center justify-end gap-x-3`}>
         {!hasAddTrackBtn ? (
           <>
-            <LikeButton
-              isSelected={isSelected}
-              song={song}
-              songId={song.id}
-              size={20}
-            />
+            <LikeButton isSelected={isSelected} song={song} size={20} />
 
             <div className={'select-none text-sm text-neutral-400'}>
               {getDurationSong({
@@ -158,10 +153,10 @@ export const MediaItem: React.FC<MediaItemProps> = ({
           </>
         ) : null}
 
-        {!hasAddTrackBtn && playlist !== undefined && width > 480 ? (
+        {!hasAddTrackBtn && playlist && width > 480 ? (
           <MediaDropdown song={song} playlist={playlist} />
         ) : null}
-        {hasAddTrackBtn && playlist?.id !== undefined && width > 480 ? (
+        {hasAddTrackBtn && playlist && width > 480 ? (
           <div className="h-10 w-10">
             <PlaylistButton type="add" song={song} playlist={playlist} />
           </div>

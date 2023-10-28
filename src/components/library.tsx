@@ -21,9 +21,8 @@ interface LibraryProps {
 }
 
 export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
-  const { playlists } = useUserStore()
   const { user, subscription } = useUser()
-  const { likedSongs, likedPlaylists } = useUserStore()
+  const { playlists, likedSongs, likedPlaylists } = useUserStore()
   const { isCollapsed, isMaxWidth, collapsed, resetMinWidth, resetMaxWidth } =
     useSidebar()
   const authModal = useAuthModal()

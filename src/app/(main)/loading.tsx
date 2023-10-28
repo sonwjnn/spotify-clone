@@ -29,12 +29,12 @@ const Loading: React.FC = () => {
             {Array(6)
               .fill(0)
               .map((_, index) => (
-                <button
+                <div
                   key={index}
-                  className="group relative  flex h-[80px] items-center gap-x-4 overflow-hidden rounded-md bg-neutral-100/10  pr-4 transition hover:bg-neutral-100/20"
+                  className="group relative  flex  h-[64px] cursor-pointer items-center gap-x-4 overflow-hidden rounded-md  bg-neutral-100/10 pr-4 transition hover:bg-neutral-100/20"
                 >
-                  <div className="relative  min-w-[80px]">
-                    <Skeleton height={'80px'} width={'100%'} />
+                  <div className="relative min-h-[64px] min-w-[64px] shadow-base">
+                    <Skeleton height={'64px'} width={'100%'} />
                   </div>
                   <p className="w-[200px] truncate py-5  font-medium">
                     <Skeleton
@@ -43,7 +43,7 @@ const Loading: React.FC = () => {
                       width={'100%'}
                     />
                   </p>
-                </button>
+                </div>
               ))}
           </div>
         </div>

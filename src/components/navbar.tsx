@@ -268,9 +268,10 @@ export const Navbar: React.FC<NavbarProps> = props => {
                       if (!subscription) redirectToCustomerPortal()
                     }}
                     className={cn(
-                      `bg-white px-5 py-2 text-sm w-full rounded-full border border-transparent text-black font-bold cursor-pointer transition hover:scale-105 active:scale-100 truncate `,
+                      `bg-white px-5 py-2 text-sm w-full rounded-full border border-transparent text-black font-bold cursor-pointer transition hover:scale-105 active:scale-100 truncate animate-gradient-x`,
                       {
                         'cursor-not-allowed opacity-50': loading || isLoading,
+                        'bg-premium': subscription,
                       }
                     )}
                   >
@@ -293,7 +294,9 @@ export const Navbar: React.FC<NavbarProps> = props => {
                   </Avatar>
 
                   {fullName && (
-                    <p className="truncate text-sm text-white">{fullName}</p>
+                    <p className="truncate text-sm font-bold text-white">
+                      {fullName}
+                    </p>
                   )}
 
                   <div className="pr-1 text-white">

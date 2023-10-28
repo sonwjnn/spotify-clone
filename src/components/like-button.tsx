@@ -15,16 +15,13 @@ import { Tooltip } from './ui/tooltip'
 
 interface LikeButtonProps {
   song: Song
-  songId: string
   size?: number
   className?: string
-  playlistId?: string
   isSelected?: boolean
 }
 
 export const LikeButton: React.FC<LikeButtonProps> = ({
   song,
-  songId,
   size = 25,
   className,
   isSelected,
@@ -42,7 +39,7 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
   const [isRequired, setRequired] = useState<boolean>(false)
 
   useEffect(() => {
-    const isSongLiked = likedSongs.some(item => item.id === songId)
+    const isSongLiked = likedSongs.some(item => item.id === song.id)
     setIsLiked(isSongLiked)
   }, [likedSongs])
 
@@ -60,17 +57,17 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
         .from('liked_songs')
         .delete()
         .eq('user_id', user.id)
-        .eq('song_id', songId)
+        .eq('song_id', song.id)
 
       if (error) {
         toast.error(error.message)
         return
       }
       setIsLiked(false)
-      removeLikedSong(songId)
+      removeLikedSong(song.id)
     } else {
       const { error } = await supabaseClient.from('liked_songs').insert({
-        song_id: songId,
+        song_id: song.id,
         user_id: user.id,
       })
 
@@ -97,7 +94,7 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
         className={twMerge(
           `justify-center items-center ${
             isLiked || isSelected ? 'flex' : 'hidden'
-          }  group-hover/:flex transition`,
+          }  group-hover/:flex transition active:scale-110`,
           className
         )}
       >

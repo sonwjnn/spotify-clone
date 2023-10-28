@@ -104,12 +104,7 @@ export const PlayingView: React.FC = () => {
             <div
               className={'w-8 cursor-pointer text-neutral-400 hover:text-white'}
             >
-              <LikeButton
-                className="flex"
-                song={currentTrack}
-                songId={currentTrack?.id || ''}
-                size={24}
-              />
+              <LikeButton className="flex" song={currentTrack} size={24} />
             </div>
           </div>
 

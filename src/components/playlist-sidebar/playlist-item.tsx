@@ -44,6 +44,8 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({
   //   }
   //   return name || 'No name'
   // }
+  // console.log(type === 'otherPlaylist' && data)
+
   const fullName = data.users?.full_name
   const isActived = playlistPlayingId === data.id
   return (

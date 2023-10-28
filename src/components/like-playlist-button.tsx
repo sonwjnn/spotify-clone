@@ -119,7 +119,10 @@ export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
     >
       <div
         onClick={handleLike}
-        className={twMerge(`justify-center items-center transition`, className)}
+        className={twMerge(
+          `justify-center items-center transition active:scale-110`,
+          className
+        )}
       >
         <Icon
           className={` transition ${
