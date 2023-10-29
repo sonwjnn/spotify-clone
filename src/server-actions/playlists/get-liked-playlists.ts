@@ -14,7 +14,7 @@ export const getLikedPlaylists = async (): Promise<Playlist[]> => {
 
   const { error, data } = await supabase
     .from('liked_playlists')
-    .select('*,  playlists(*, users!playlists_user_id_fkey(*))')
+    .select('*, playlists(*)')
     .eq('user_id', session?.user.id)
     .order('created_at', { ascending: false })
 

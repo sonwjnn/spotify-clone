@@ -1,10 +1,10 @@
 'use client'
 
 import { usePalette } from 'color-thief-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
 import { FaUserAlt } from 'react-icons/fa'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
@@ -19,7 +19,6 @@ import { useOnPlay } from '@/hooks/use-on-play'
 import { usePlayer } from '@/hooks/use-player'
 import { useSelectedPlayer } from '@/hooks/use-selected-player'
 import { useUser } from '@/hooks/use-user'
-import { postData } from '@/libs/helpers'
 import type { IconProps } from '@/public/icons'
 import {
   HomeActiveIcon,
@@ -28,13 +27,11 @@ import {
   SearchIcon,
 } from '@/public/icons'
 import type { Playlist, Song } from '@/types/types'
-import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
 import { PlayButton } from './play-button'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { PremiumButton } from './premium-button'
 import { Button } from './ui/button'
-import { Tooltip } from './ui/tooltip'
 import { UserDropdown } from './user-dropdown'
 
 interface NavbarProps {
@@ -72,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
 
   const router = useRouter()
   const authModal = useAuthModal()
-  const { user, subscription, isLoading, userDetails } = useUser()
+  const { user, userDetails } = useUser()
   const player = usePlayer()
   const params = useParams()
 
@@ -85,7 +82,6 @@ export const Navbar: React.FC<NavbarProps> = props => {
 
   const onPlay = useOnPlay(songs as Song[])
   const [isPlaying, setPlaying] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [bgColorUser, setBgColorUser] = useState<string>('#171717')
   const imageLoadUrl = useLoadImage(
     userDetails?.avatar_url || '',
@@ -141,24 +137,6 @@ export const Navbar: React.FC<NavbarProps> = props => {
       setSelected(true)
       player.handlePlay()
     }
-  }
-
-  const redirectToCustomerPortal: () => Promise<void> = async () => {
-    setLoading(true)
-
-    try {
-      const { url } = await postData({
-        url: '/api/create-portal-link',
-      })
-
-      window.location.assign(url)
-    } catch (error) {
-      if (error) {
-        toast.error((error as Error).message)
-        return
-      }
-    }
-    setLoading(false)
   }
 
   return (
@@ -255,43 +233,26 @@ export const Navbar: React.FC<NavbarProps> = props => {
         <div className="flex items-center justify-between   gap-x-4">
           {user ? (
             <div className="flex items-center gap-x-4">
-              {width >= 459 && (
-                <Tooltip
-                  text={
-                    subscription
-                      ? 'You are current premium'
-                      : 'Subcribe premium for better'
-                  }
-                >
-                  <div
-                    onClick={() => {
-                      if (!subscription) redirectToCustomerPortal()
-                    }}
-                    className={cn(
-                      `bg-white px-5 py-2 text-sm w-full rounded-full border border-transparent text-black font-bold cursor-pointer transition hover:scale-105 active:scale-100 truncate animate-gradient-x`,
-                      {
-                        'cursor-not-allowed opacity-50': loading || isLoading,
-                        'bg-premium': subscription,
-                      }
-                    )}
-                  >
-                    {subscription ? 'Premium' : 'Explore Premium'}
-                  </div>
-                </Tooltip>
-              )}
+              {width >= 459 && <PremiumButton />}
 
               <UserDropdown>
                 {/* eslint-disable-next-line tailwindcss/migration-from-tailwind-2 */}
-                <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full  bg-black bg-opacity-30 p-1 transition hover:bg-opacity-20 hover:brightness-110">
-                  <Avatar
-                    // onClick={() => router.push('/account')}
-                    className="h-9 w-9 cursor-pointer bg-white"
-                  >
-                    <AvatarImage src={`${imageUrl}`} />
-                    <AvatarFallback>
-                      <FaUserAlt />
-                    </AvatarFallback>
-                  </Avatar>
+                <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-black bg-opacity-30 p-1 transition hover:bg-opacity-20 hover:brightness-110">
+                  <div className="relative h-9 w-9 cursor-pointer overflow-hidden rounded-full bg-white">
+                    {imageUrl ? (
+                      <Image
+                        className="object-cover"
+                        fill
+                        alt="avatar img"
+                        sizes="100%"
+                        src={imageUrl}
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <FaUserAlt />
+                      </div>
+                    )}
+                  </div>
 
                   {fullName && (
                     <p className="truncate text-sm font-bold text-white">

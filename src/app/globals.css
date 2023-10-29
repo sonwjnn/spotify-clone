@@ -100,7 +100,8 @@ body,
     @apply text-sm leading-none gap-x-1  rounded-[3px] flex items-center h-8 px-[5px]  relative  select-none outline-none  data-[disabled]:pointer-events-none  hover:bg-neutral-700 transition cursor-pointer;
   }
   .bg-premium {
-    @apply bg-[linear-gradient(103.3deg,_rgba(252,225,208,1)_30%,_rgba(255,173,214,1)_55.7%,_rgba(162,186,245,1)_81.8%)];
+    /* @apply bg-[linear-gradient(103.3deg,,_rgba(255,173,214,1)_55.7%,_rgba(162,186,245,1)_81.8%)]; */
+    @apply bg-[linear-gradient(to_right,_hsl(269_52.7%_52.7%),_hsl(325_31.7%_51.8%))];
   }
 
   .header-bg-img-md {
