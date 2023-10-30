@@ -9,7 +9,7 @@ interface PlaylistSidebarProps {
   data: Playlist[]
   likedPlaylist: Playlist[]
 }
-const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
+export const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
   data,
   likedPlaylist,
 }) => {
@@ -29,5 +29,3 @@ const PlaylistSidebar: React.FC<PlaylistSidebarProps> = ({
     </div>
   )
 }
-
-export default PlaylistSidebar

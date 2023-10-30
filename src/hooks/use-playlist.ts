@@ -11,6 +11,7 @@ interface PlaylistStore {
   setTitle: (title: string) => void
   setImagePath: (imagePath: string) => void
   setDescription: (description: string) => void
+  setBgColor: (bgColor: string) => void
   setLikes: (likes: number) => void
   setDuration: (duration: number) => void
   addPlaylistSong: (song: Song) => void
@@ -26,39 +27,36 @@ export const usePlaylist = create<PlaylistStore>()(
       setPlaylistSongs: (songs: Song[]) => set({ playlistSongs: songs }),
       setTitle: (title: string) => {
         const { playlist } = get()
-        const newPlaylist = { ...playlist, title }
-        set({ playlist: newPlaylist as Playlist })
+        set({ playlist: { ...playlist, title } as Playlist })
       },
       setImagePath: (imagePath: string) => {
         const { playlist } = get()
-        const newPlaylist = { ...playlist, imagePath }
-        set({ playlist: newPlaylist as Playlist })
+        set({ playlist: { ...playlist, image_path: imagePath } as Playlist })
+      },
+      setBgColor: (bgColor: string) => {
+        const { playlist } = get()
+        set({ playlist: { ...playlist, bg_color: bgColor } as Playlist })
       },
       setDescription: (description: string) => {
         const { playlist } = get()
-        const newPlaylist = { ...playlist, description }
-        set({ playlist: newPlaylist as Playlist })
+        set({ playlist: { ...playlist, description } as Playlist })
       },
 
       setLikes: (likes: number) => {
         const { playlist } = get()
-        const newplaylist = { ...playlist, likes }
-        set({ playlist: newplaylist as Playlist })
+        set({ playlist: { ...playlist, likes } as Playlist })
       },
       setDuration: (duration: number) => {
         const { playlist } = get()
-        const newPlaylist = { ...playlist, duration_ms: duration }
-        set({ playlist: newPlaylist as Playlist })
+        set({ playlist: { ...playlist, duration_ms: duration } as Playlist })
       },
       addPlaylistSong: (song: Song) => {
         const { playlistSongs: songs } = get()
-        const newSongs = [...songs, song]
-        set({ playlistSongs: newSongs })
+        set({ playlistSongs: [...songs, song] })
       },
       removePlaylistSong: (id: string) => {
         const { playlistSongs: songs } = get()
-        const newSongs = songs.filter(song => song.id !== id)
-        set({ playlistSongs: newSongs })
+        set({ playlistSongs: songs.filter(song => song.id !== id) })
       },
     }),
     {

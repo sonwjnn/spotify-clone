@@ -42,7 +42,7 @@ export const PremiumButton: React.FC = () => {
           if (!subscription) redirectToCustomerPortal()
         }}
         className={cn(
-          `relative bg-white px-5 py-2 text-sm w-full rounded-full border border-transparent text-black font-bold cursor-pointer transition animate-gradient-x `,
+          `relative bg-white px-5 py-2 text-sm w-full rounded-full border border-transparent text-black font-bold cursor-pointer transition`,
           {
             'cursor-not-allowed opacity-50': loading || isLoading,
             'bg-premium text-white': subscription,

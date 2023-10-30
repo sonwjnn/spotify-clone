@@ -2,60 +2,78 @@
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { usePalette } from 'color-thief-react'
-import Image from 'next/image'
-import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
 
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
-import { MusicNote } from '@/public/icons'
+import { useUserStore } from '@/hooks/use-user-store'
+import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
+import { SingleImageDropzone } from '../single-image-dropzone'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Modal } from '../ui/modal'
 
 export const UploadPlaylistModal: React.FC = () => {
+  const {
+    playlist,
+    setDescription,
+    setImagePath,
+    setTitle,
+    setBgColor: setBgColorStore,
+  } = usePlaylist()
   const [isLoading, setIsLoading] = useState(false)
   const uploadModal = usePlaylistModal()
+  const authModal = useAuthModal()
 
-  const playlistImgDefault = useLoadImage(
-    uploadModal.playlist?.image_path!,
+  const initImageUrl = useLoadImage(
+    playlist?.image_path || '',
     buckets.playlist_images
   )
   const { user } = useUser()
+  const { updatePlaylist } = useUserStore()
   const supabaseClient = useSupabaseClient()
-  const router = useRouter()
-  const params = useParams()
 
-  const [file, setFile] = useState<string>(playlistImgDefault || '')
+  const [file, setFile] = useState<string>(initImageUrl || '')
   const [bgColor, setBgColor] = useState<string>('')
-
-  const playlistId = uploadModal.playlist?.id || params.id
 
   const { data: dataColor } = usePalette(file as string, 10, 'hex', {
     crossOrigin: 'Anonymous',
     quality: 100,
   })
 
+  const { reset, handleSubmit, register } = useForm<FieldValues>({
+    defaultValues: {
+      description: playlist?.description,
+      title: playlist?.title,
+      playlist_img: null,
+    },
+  })
+
+  useEffect(() => {
+    // Update the default values when the playlist changes
+    reset({
+      description: playlist?.description || '',
+      title: playlist?.title || '',
+      playlist_img: null,
+    })
+    if (initImageUrl) setFile(initImageUrl)
+    else setFile('')
+  }, [playlist])
+
   useEffect(() => {
     if (dataColor) {
       setBgColor(dataColor?.[2] ?? '#e0e0e0')
     }
   }, [dataColor])
-
-  const { reset, handleSubmit, register } = useForm<FieldValues>({
-    defaultValues: {
-      description: uploadModal.playlist?.description,
-      title: uploadModal.playlist?.title,
-      playlist_img: null,
-    },
-  })
 
   const onChange = (open: boolean): void => {
     if (!open) {
@@ -73,63 +91,96 @@ export const UploadPlaylistModal: React.FC = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async values => {
     try {
+      if (!user) {
+        authModal.onOpen()
+        return
+      }
       setIsLoading(true)
 
       const imageFile = values.playlist_img?.[0]
 
-      if (!user || !imageFile) {
-        toast.error('Missing fields')
+      const isFormUnchanged =
+        values.title === playlist?.title &&
+        values.description === playlist?.description &&
+        file === initImageUrl
+
+      if (isFormUnchanged) {
+        uploadModal.onClose()
         return
       }
 
-      const uniqID = uniqid()
+      if (imageFile) {
+        const uniqID = uniqid()
 
-      // Upload images
-      const { data: imageData, error: imageError } =
-        await supabaseClient.storage
-          .from(buckets.playlist_images)
-          .upload(`playlist-image-${uniqID}`, imageFile, {
-            cacheControl: '3600',
-            upsert: false,
-          })
-      if (imageError) {
-        setIsLoading(false)
-        toast.error(imageError.message)
-        return
-      }
-
-      // Remove old images
-      if (uploadModal.playlist?.image_path) {
-        const { error: oldImageError } = await supabaseClient.storage
-          .from(buckets.playlist_images)
-          .remove([uploadModal.playlist?.image_path])
-
-        if (oldImageError) {
+        // Upload images
+        const { data: imageData, error: imageError } =
+          await supabaseClient.storage
+            .from(buckets.playlist_images)
+            .upload(`playlist-image-${uniqID}`, imageFile, {
+              cacheControl: '3600',
+              upsert: false,
+            })
+        if (imageError) {
           setIsLoading(false)
-          toast.error(oldImageError.message)
+          toast.error(imageError.message)
           return
         }
+
+        // Remove old images
+        if (playlist?.image_path) {
+          const { error: oldImageError } = await supabaseClient.storage
+            .from(buckets.playlist_images)
+            .remove([playlist?.image_path])
+
+          if (oldImageError) {
+            setIsLoading(false)
+            toast.error(oldImageError.message)
+            return
+          }
+        }
+
+        const { error: supabaseError } = await supabaseClient
+          .from('playlists')
+          .update({
+            title: values.title,
+            description: values.description,
+            image_path: imageData.path,
+            bg_color: bgColor,
+          })
+          .eq('id', playlist?.id)
+
+        if (supabaseError) {
+          setIsLoading(false)
+          toast.error(supabaseError.message)
+          return
+        }
+
+        setTitle(values.title)
+        setDescription(values.description)
+        setImagePath(imageData.path)
+        setBgColorStore(bgColor)
+        // router.refresh()
+      } else {
+        const { error: supabaseError } = await supabaseClient
+          .from('playlists')
+          .update({
+            title: values.title,
+            description: values.description,
+          })
+          .eq('id', playlist?.id)
+
+        if (supabaseError) {
+          setIsLoading(false)
+          toast.error(supabaseError.message)
+          return
+        }
+
+        setTitle(values.title)
+        setDescription(values.description)
       }
 
-      const { error: supabaseError } = await supabaseClient
-        .from('playlists')
-        .update({
-          title: values.title,
-          description: values.description,
-          image_path: imageData.path,
-          bg_color: bgColor,
-        })
-        .eq('id', playlistId)
-
-      if (supabaseError) {
-        setIsLoading(false)
-        toast.error(supabaseError.message)
-        return
-      }
-
-      router.refresh()
       setIsLoading(false)
-      toast.success('Playlist created!')
+      toast.success('Playlist edited!')
       reset()
       uploadModal.onClose()
     } catch (error) {
@@ -138,56 +189,33 @@ export const UploadPlaylistModal: React.FC = () => {
       setIsLoading(false)
     }
   }
+  useEffect(() => {
+    updatePlaylist(playlist as Playlist)
+  }, [playlist])
 
   return (
     <Modal
       className="md:max-w-[550px]"
-      title="Upload your playlist"
+      title="Edit details playlist"
       description="upload playlist description"
       isOpen={uploadModal.isOpen}
       onChange={onChange}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
-        <div className="flex flex-row gap-4 ">
-          <div className="h-[180px] w-[180px] shadow-xl">
-            <label
-              htmlFor="playlist_img"
-              className="flex h-[180px]  w-[180px] items-center justify-center rounded-sm text-white"
-            >
-              {file !== '' ? (
-                <div className="relative aspect-square h-full w-full overflow-hidden rounded-sm">
-                  <Image
-                    className="
-            object-cover
-          "
-                    src={file}
-                    fill
-                    alt="Img"
-                    sizes="100%"
-                  />
-                </div>
-              ) : (
-                <MusicNote size={50} />
-              )}
-            </label>
-            <Input
-              className="h-0 bg-neutral-800 p-0"
-              id="playlist_img"
-              disabled={isLoading}
-              type="file"
-              accept="image/*"
-              {...register('playlist_img', { required: true })}
-              onChange={handleChange}
-              placeholder="Song author"
-            />
-          </div>
+        <div className="flex flex-col items-center gap-4 md:flex-row md:items-start ">
+          <SingleImageDropzone
+            isLoading={isLoading}
+            register={register}
+            handleChange={handleChange}
+            url={file}
+          />
 
-          <div className="flex w-full flex-col gap-y-4 text-white ">
+          <div className="flex h-[180px] w-full flex-col gap-y-4 text-white ">
             <Input
               className="bg-neutral-800"
               id="title"
               disabled={isLoading}
-              {...register('title', { required: true })}
+              {...register('title', { required: false })}
               placeholder="Playlist title"
             />
             <textarea
@@ -200,7 +228,7 @@ export const UploadPlaylistModal: React.FC = () => {
         </div>
         <Button
           type="submit"
-          className="mx-auto mt-2 w-[50%]"
+          className="ml-auto  mt-2 w-full bg-white md:w-[30%]"
           disabled={isLoading}
         >
           Save

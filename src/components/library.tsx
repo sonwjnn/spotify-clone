@@ -12,7 +12,7 @@ import cn from '@/utils/cn'
 
 import { CollapseList } from './collapse-list'
 import { ListItem } from './list-item'
-import PlaylistSidebar from './playlist-sidebar/playlist-sidebar'
+import { PlaylistSidebar } from './playlist-sidebar/playlist-sidebar'
 import { Tooltip } from './ui/tooltip'
 import { UploadDropdown } from './upload-dropdown'
 

@@ -15,6 +15,7 @@ interface UserStore {
   removeLikedSong: (id: string) => void
   removeLikedPlaylist: (id: string) => void
   removePlaylist: (id: string) => void
+  updatePlaylist: (updatedPlaylist: Playlist) => void
 }
 
 export const useUserStore = create<UserStore>()((set, get) => ({
@@ -47,5 +48,15 @@ export const useUserStore = create<UserStore>()((set, get) => ({
     const { playlists } = get()
     const filteredPlaylists = playlists.filter(playlist => playlist.id !== id)
     set({ playlists: filteredPlaylists })
+  },
+  updatePlaylist: (updatedPlaylist: Playlist) => {
+    const { playlists } = get()
+    const updatedPlaylists = playlists.map(playlist => {
+      if (playlist.id === updatedPlaylist.id) {
+        return updatedPlaylist
+      }
+      return playlist
+    })
+    set({ playlists: updatedPlaylists })
   },
 }))

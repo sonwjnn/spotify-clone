@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useCallback } from 'react'
+import { FiEdit2 } from 'react-icons/fi'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
@@ -49,7 +50,14 @@ export const HeaderContent: React.FC<HeaderContentProps> = () => {
         } flex h-[232px] w-[232px] items-center justify-center rounded-sm bg-[#282828] text-white shadow-base `}
       >
         {imagePath ? (
-          <div className="relative aspect-square h-full w-full overflow-hidden rounded-sm">
+          <div
+            className="group relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-sm"
+            onClick={uploadModal.onOpen}
+          >
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
+              <FiEdit2 size={36} color="#ffffff" />
+              <p className="text-base text-white">Choose photo</p>
+            </div>
             <Image
               className="
             object-cover
