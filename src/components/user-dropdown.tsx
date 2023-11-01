@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { FaUserAlt } from 'react-icons/fa'
+import { GoSignOut } from 'react-icons/go'
 import { MdWorkspacePremium } from 'react-icons/md'
-import { RiLogoutCircleLine } from 'react-icons/ri'
 
 import {
   DropdownMenu,
@@ -78,24 +78,22 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
             onSelect={() => router.push('/account')}
             className=" text-white"
           >
-            <MdWorkspacePremium size={20} className="mr-2 text-neutral-400" />
+            <MdWorkspacePremium size={18} className="mr-2 text-neutral-400" />
             Account
           </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={() => router.push(`/user/${user?.id}`)}
             className={`  text-white`}
           >
-            <div className="  px-1 ">
-              <FaUserAlt className="mr-2 text-neutral-400" />
-            </div>
+            <FaUserAlt className="mr-3 text-neutral-400" />
             Profile
           </DropdownMenuItem>
 
           <DropdownMenuSeparator className="mx-1 bg-neutral-800" />
 
           <DropdownMenuItem onSelect={handleLogout} className={`  text-white`}>
-            <div className="  px-1 text-red-500">
-              <RiLogoutCircleLine className="mr-2" />
+            <div className=" text-red-500">
+              <GoSignOut className="mr-3" />
             </div>
             Log out
           </DropdownMenuItem>
