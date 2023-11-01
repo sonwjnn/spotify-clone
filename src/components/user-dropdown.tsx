@@ -20,6 +20,7 @@ import {
 import { useUploadModal } from '@/hooks/modals/use-upload-modal'
 import { usePlayer } from '@/hooks/use-player'
 import { useUser } from '@/hooks/use-user'
+import { useUserStore } from '@/hooks/use-user-store'
 
 interface UserDropdownProps {
   children: React.ReactNode
@@ -27,6 +28,7 @@ interface UserDropdownProps {
 
 export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
   const { user } = useUser()
+  const userStore = useUserStore()
   const uploadModal = useUploadModal()
   const [isDropdown, setDropdown] = useState(false)
   const player = usePlayer()
@@ -43,7 +45,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
   const handleLogout = async (): Promise<void> => {
     const { error } = await supabaseClient.auth.signOut()
     player.reset()
-    router.refresh()
+    userStore.reset()
 
     if (error) {
       toast.error(error.message)

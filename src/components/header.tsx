@@ -5,10 +5,12 @@ import { memo, useEffect, useRef, useState } from 'react'
 
 import { useComponentSize } from '@/hooks/use-component-size'
 import { useHeader } from '@/hooks/use-header'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
+import { buckets } from '@/utils/constants'
 
 interface HeaderProps {
   children: React.ReactNode
@@ -24,14 +26,14 @@ export const Header: React.FC<HeaderProps> = memo(
     const { bgColor: bgColorHeader } = useHeader()
     const { setHeight } = useHeader()
     const { width } = useMainLayout()
-    const { user } = useUser()
+    const { userDetails } = useUser()
     const headerRef = useRef<HTMLDivElement>(null)
 
     const size = useComponentSize(headerRef)
 
     const [bgColorUser, setBgColorUser] = useState<string>('')
 
-    const imageUrl = user?.user_metadata.avatar_url
+    const imageUrl = useLoadImage(userDetails?.avatar_url || '', buckets.users)
 
     const { data: dataColor } = usePalette(imageUrl as string, 10, 'hex', {
       crossOrigin: 'Anonymous',
@@ -48,6 +50,17 @@ export const Header: React.FC<HeaderProps> = memo(
       }
     }, [dataColor])
 
+    const headerStyles = {
+      transition: 'background-color 1s ease',
+      backgroundColor:
+        // eslint-disable-next-line no-nested-ternary
+        type === 'home'
+          ? bgColorHeader
+          : type === 'user'
+          ? bgColorUser
+          : bgColor || data?.bg_color,
+    }
+
     return (
       <div
         className={cn(
@@ -61,17 +74,7 @@ export const Header: React.FC<HeaderProps> = memo(
             'justify-start header-bg-img-md': type === 'home',
           }
         )}
-        style={{
-          transition: `background-color 1s ease`,
-          backgroundColor: `${
-            // eslint-disable-next-line no-nested-ternary
-            type === 'home'
-              ? bgColorHeader
-              : type === 'user'
-              ? bgColorUser
-              : bgColor || data?.bg_color
-          }`,
-        }}
+        style={headerStyles}
         ref={headerRef}
       >
         {children}

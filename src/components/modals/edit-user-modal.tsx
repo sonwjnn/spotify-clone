@@ -11,13 +11,11 @@ import { FiEdit2 } from 'react-icons/fi'
 import uniqid from 'uniqid'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
+import { useUserModal } from '@/hooks/modals/use-user-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/hooks/use-user-store'
 import { MusicNote } from '@/public/icons'
-import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
@@ -26,25 +24,23 @@ import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Modal } from '../ui/modal'
 
-export const UploadPlaylistModal: React.FC = () => {
+export const EditUserModal: React.FC = () => {
   const {
-    playlist,
-    setDescription,
-    setImagePath,
-    setTitle,
+    setAvatarUrl,
+    setFullName,
     setBgColor: setBgColorStore,
-  } = usePlaylist()
+  } = useUserStore()
   const [isLoading, setIsLoading] = useState(false)
-  const uploadModal = usePlaylistModal()
+  const userModal = useUserModal()
   const authModal = useAuthModal()
 
-  const initImageUrl = useLoadImage(
-    playlist?.image_path || '',
-    buckets.playlist_images
-  )
-  const { user } = useUser()
-  const { updatePlaylist } = useUserStore()
+  const { user, userDetails } = useUser()
   const supabaseClient = useSupabaseClient()
+
+  const initImageUrl = useLoadImage(
+    userDetails?.avatar_url || '',
+    buckets.users
+  )
 
   const [file, setFile] = useState<string>(initImageUrl || '')
   const [bgColor, setBgColor] = useState<string>('')
@@ -56,22 +52,20 @@ export const UploadPlaylistModal: React.FC = () => {
 
   const { reset, handleSubmit, register } = useForm<FieldValues>({
     defaultValues: {
-      description: playlist?.description,
-      title: playlist?.title,
-      playlist_img: null,
+      full_name: userDetails?.full_name,
+      user_img: null,
     },
   })
 
   useEffect(() => {
     // Update the default values when the playlist changes
     reset({
-      description: playlist?.description || '',
-      title: playlist?.title || '',
-      playlist_img: null,
+      full_name: userDetails?.full_name || '',
+      user_img: null,
     })
     if (initImageUrl) setFile(initImageUrl)
     else setFile('')
-  }, [playlist])
+  }, [userDetails])
 
   useEffect(() => {
     if (dataColor) {
@@ -82,7 +76,7 @@ export const UploadPlaylistModal: React.FC = () => {
   const onChange = (open: boolean): void => {
     if (!open) {
       reset()
-      uploadModal.onClose()
+      userModal.onClose()
     }
   }
 
@@ -101,15 +95,13 @@ export const UploadPlaylistModal: React.FC = () => {
       }
       setIsLoading(true)
 
-      const imageFile = values.playlist_img?.[0]
+      const imageFile = values.user_img?.[0]
 
       const isFormUnchanged =
-        values.title === playlist?.title &&
-        values.description === playlist?.description &&
-        file === initImageUrl
+        values.full_name === userDetails?.full_name && file === initImageUrl
 
       if (isFormUnchanged) {
-        uploadModal.onClose()
+        userModal.onClose()
         return
       }
 
@@ -119,8 +111,8 @@ export const UploadPlaylistModal: React.FC = () => {
         // Upload images
         const { data: imageData, error: imageError } =
           await supabaseClient.storage
-            .from(buckets.playlist_images)
-            .upload(`playlist-image-${uniqID}`, imageFile, {
+            .from(buckets.users)
+            .upload(`user-image-${uniqID}`, imageFile, {
               cacheControl: '3600',
               upsert: false,
             })
@@ -131,10 +123,10 @@ export const UploadPlaylistModal: React.FC = () => {
         }
 
         // Remove old images
-        if (playlist?.image_path) {
+        if (userDetails?.avatar_url) {
           const { error: oldImageError } = await supabaseClient.storage
-            .from(buckets.playlist_images)
-            .remove([playlist?.image_path])
+            .from(buckets.users)
+            .remove([userDetails.avatar_url])
 
           if (oldImageError) {
             setIsLoading(false)
@@ -144,14 +136,13 @@ export const UploadPlaylistModal: React.FC = () => {
         }
 
         const { error: supabaseError } = await supabaseClient
-          .from('playlists')
+          .from('users')
           .update({
-            title: values.title,
-            description: values.description,
-            image_path: imageData.path,
+            full_name: values.full_name,
+            avatar_url: imageData.path,
             bg_color: bgColor,
           })
-          .eq('id', playlist?.id)
+          .eq('id', userDetails?.id)
 
         if (supabaseError) {
           setIsLoading(false)
@@ -159,19 +150,18 @@ export const UploadPlaylistModal: React.FC = () => {
           return
         }
 
-        setTitle(values.title)
-        setDescription(values.description)
-        setImagePath(imageData.path)
+        setFullName(values.full_name)
+        setAvatarUrl(imageData.path)
         setBgColorStore(bgColor)
         // router.refresh()
       } else {
         const { error: supabaseError } = await supabaseClient
-          .from('playlists')
+          .from('users')
           .update({
             title: values.title,
             description: values.description,
           })
-          .eq('id', playlist?.id)
+          .eq('id', userDetails?.id)
 
         if (supabaseError) {
           setIsLoading(false)
@@ -179,44 +169,38 @@ export const UploadPlaylistModal: React.FC = () => {
           return
         }
 
-        setTitle(values.title)
-        setDescription(values.description)
+        setFullName(values.full_name)
       }
 
       setIsLoading(false)
-      toast.success('Playlist edited!')
+      toast.success('User edited!')
       reset()
-      uploadModal.onClose()
+      userModal.onClose()
     } catch (error) {
       toast.error('Something went wrong')
     } finally {
       setIsLoading(false)
     }
   }
-  useEffect(() => {
-    if (playlist) {
-      updatePlaylist(playlist as Playlist)
-    }
-  }, [playlist])
 
   return (
     <Modal
       className="md:max-w-[550px]"
       title="Edit details playlist"
       description="upload playlist description"
-      isOpen={uploadModal.isOpen}
+      isOpen={userModal.isOpen}
       onChange={onChange}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
         <div className="flex flex-col items-center gap-4 md:flex-row md:items-start ">
-          <div className="group  h-[180px] w-[180px] rounded-sm  shadow-xl">
+          <div className="group aspect-square h-[180px] w-[180px] rounded-full  shadow-xl">
             <label
-              htmlFor="playlist_img"
+              htmlFor="user_img"
               className="relative flex  h-full w-full cursor-pointer items-center justify-center  text-white"
             >
               <div
                 className={cn(
-                  `absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100`,
+                  `absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-full bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100`,
                   isLoading && 'opacity-100 cursor-not-allowed'
                 )}
               >
@@ -230,7 +214,7 @@ export const UploadPlaylistModal: React.FC = () => {
                 )}
               </div>
               {file !== '' ? (
-                <div className="relative aspect-square h-full w-full overflow-hidden rounded-sm">
+                <div className="relative h-full w-full overflow-hidden rounded-full">
                   <Image
                     className="object-cover"
                     src={file}
@@ -240,35 +224,28 @@ export const UploadPlaylistModal: React.FC = () => {
                   />
                 </div>
               ) : (
-                <div className="flex aspect-square h-full w-full items-center justify-center overflow-hidden rounded-sm">
+                <div className="flex aspect-square h-full w-full items-center justify-center overflow-hidden">
                   <MusicNote size={50} />
                 </div>
               )}
             </label>
             <Input
               className="h-0 bg-neutral-800 p-0"
-              id="playlist_img"
+              id="user_img"
               disabled={isLoading}
               type="file"
               accept="image/*"
-              {...register('playlist_img', { required: false })}
+              {...register('user_img', { required: false })}
               onChange={handleChange}
             />
           </div>
-
-          <div className="flex h-[180px] w-full flex-col gap-y-4 text-white ">
+          <div className="flex h-[180px] w-full  gap-y-4 text-white ">
             <Input
               className="bg-neutral-800"
-              id="title"
+              id="full_name"
               disabled={isLoading}
-              {...register('title', { required: false })}
-              placeholder="Playlist title"
-            />
-            <textarea
-              id="description"
-              className="h-full w-full resize-none rounded-md border  border-transparent bg-neutral-800 p-3 text-sm text-white outline-none placeholder:text-neutral-400 focus:outline-none disabled:cursor-not-allowed"
-              {...register('description', { required: false })}
-              placeholder="Write your description"
+              {...register('full_name', { required: false })}
+              placeholder="user fullname"
             />
           </div>
         </div>

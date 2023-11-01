@@ -1,11 +1,16 @@
 import { create } from 'zustand'
 
-import type { Playlist, Song } from '@/types/types'
+import type { Playlist, Song, UserDetails } from '@/types/types'
 
 interface UserStore {
+  userDetails: UserDetails | null
   likedSongs: Song[]
   playlists: Playlist[]
   likedPlaylists: Playlist[]
+  setUserDetails: (userDetails: UserDetails | null) => void
+  setFullName: (full_name: string) => void
+  setAvatarUrl: (avatar_url: string) => void
+  setBgColor: (bgColor: string) => void
   setLikedSongs: (songs: Song[]) => void
   setLikedPlaylists: (playlists: Playlist[]) => void
   setPlaylists: (playlists: Playlist[]) => void
@@ -16,12 +21,29 @@ interface UserStore {
   removeLikedPlaylist: (id: string) => void
   removePlaylist: (id: string) => void
   updatePlaylist: (updatedPlaylist: Playlist) => void
+  reset: () => void
 }
 
 export const useUserStore = create<UserStore>()((set, get) => ({
+  userDetails: null,
   likedSongs: [],
   likedPlaylists: [],
   playlists: [],
+  setUserDetails: (userDetails: UserDetails | null) => set({ userDetails }),
+  setFullName: (full_name: string) => {
+    const { userDetails } = get()
+    set({ userDetails: { ...userDetails, full_name } as UserDetails })
+  },
+  setAvatarUrl: (avatar_url: string) => {
+    const { userDetails } = get()
+    set({
+      userDetails: { ...userDetails, avatar_url } as UserDetails,
+    })
+  },
+  setBgColor: (bgColor: string) => {
+    const { userDetails } = get()
+    set({ userDetails: { ...userDetails, bg_color: bgColor } as UserDetails })
+  },
   setLikedSongs: (songs: Song[]) => set({ likedSongs: songs }),
   setLikedPlaylists: (playlists: Playlist[]) =>
     set({ likedPlaylists: playlists }),
@@ -58,5 +80,10 @@ export const useUserStore = create<UserStore>()((set, get) => ({
       return playlist
     })
     set({ playlists: updatedPlaylists })
+  },
+  reset: () => {
+    set({ playlists: [] })
+    set({ likedPlaylists: [] })
+    set({ likedSongs: [] })
   },
 }))

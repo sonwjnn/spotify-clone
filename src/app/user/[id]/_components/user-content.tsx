@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { CardList } from '@/components/card-list'
+import { useLoadImage } from '@/hooks/use-load-image'
 import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import { SingleMusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
+import { buckets } from '@/utils/constants'
 
 interface UserContentProp {
   data: Playlist[]
@@ -21,7 +23,7 @@ export const UserContent: React.FC<UserContentProp> = ({ data, id }) => {
   const [bgColorUser, setBgColorUser] = useState<string>('')
   const { quantityCol } = useMainLayout()
 
-  const imageUrl = userDetails?.avatar_url || user?.user_metadata.avatar_url
+  const imageUrl = useLoadImage(userDetails?.avatar_url || '', buckets.users)
 
   const { data: dataColor } = usePalette(imageUrl as string, 10, 'hex', {
     crossOrigin: 'Anonymous',

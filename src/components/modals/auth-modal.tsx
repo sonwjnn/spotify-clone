@@ -13,15 +13,6 @@ import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 
 import { Modal } from '../ui/modal'
 
-// const views: { id: ViewType; title: string }[] = [
-//   { id: 'sign_in', title: 'Sign In' },
-//   { id: 'sign_up', title: 'Sign Up' },
-//   { id: 'magic_link', title: 'Magic Link' },
-//   { id: 'forgotten_password', title: 'Forgotten Password' },
-//   { id: 'update_password', title: 'Update Password' },
-//   { id: 'verify_otp', title: 'Verify Otp' },
-// ]
-
 export const AuthModal = (): JSX.Element => {
   const router = useRouter()
   const supabaseClient = useSupabaseClient()

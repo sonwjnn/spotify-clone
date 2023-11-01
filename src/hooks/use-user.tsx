@@ -9,6 +9,8 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 import type { Subscription, UserDetails } from '@/types/types'
 
+import { useUserStore } from './use-user-store'
+
 type UserContextType = {
   accessToken: string | null
   user: User | null
@@ -29,10 +31,10 @@ export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
     supabaseClient: supabase,
   } = useSessionContext()
   const user = useSupaUser()
+  const { userDetails, setUserDetails } = useUserStore()
 
   const accessToken = session?.access_token ?? null
   const [isLoadingData, setIsLoadingData] = useState(false)
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
 
   const getUserDetails = (): any => {

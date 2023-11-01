@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 import { AuthModal } from '@/components/modals/auth-modal'
+import { EditUserModal } from '@/components/modals/edit-user-modal'
 import { SubscribeModal } from '@/components/modals/subcribe-modal'
 import { UploadPlaylistModal } from '@/components/modals/upload-playlist-modal'
 import { UploadSongModal } from '@/components/modals/upload-song-modal'
@@ -23,6 +24,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ products }) => {
 
   return (
     <>
+      <EditUserModal />
       <UploadPlaylistModal />
       <UploadSongModal />
       <AuthModal />

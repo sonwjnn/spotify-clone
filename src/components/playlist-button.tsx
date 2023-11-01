@@ -3,13 +3,14 @@
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { LuArrowBigUpDash, LuLoader2 } from 'react-icons/lu'
+import { LuArrowBigUpDash } from 'react-icons/lu'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import type { Playlist, Song } from '@/types/types'
 
+import { Spinner } from './spinner'
 import { Tooltip } from './ui/tooltip'
 
 interface PlaylistButtonProps {
@@ -98,7 +99,7 @@ export const PlaylistButton: React.FC<PlaylistButtonProps> = ({
       >
         {/* eslint-disable-next-line no-nested-ternary */}
         {isRequired ? (
-          <LuLoader2 color="white" size={16} className="animate-spin" />
+          <Spinner />
         ) : type === 'add' ? (
           <LuArrowBigUpDash color="#a3a3a3" />
         ) : (

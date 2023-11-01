@@ -1,10 +1,11 @@
 'use client'
 
 import Image from 'next/image'
+import { FiEdit2 } from 'react-icons/fi'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useUserModal } from '@/hooks/modals/use-user-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
@@ -19,17 +20,12 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({ data }) => {
   const { width } = useMainLayout()
   const { user, subscription, userDetails } = useUser()
   const authModal = useAuthModal()
-  const uploadModal = usePlaylistModal()
-  const loadImageUrl = useLoadImage(
-    userDetails?.avatar_url || '',
-    buckets.users
-  )
+  const userModal = useUserModal()
+  const imageUrl = useLoadImage(userDetails?.avatar_url || '', buckets.users)
 
   const subcribeModal = useSubscribeModal()
 
-  const imageUrl = user?.user_metadata.avatar_url || loadImageUrl
-  const fullName =
-    userDetails?.full_name || user?.user_metadata.full_name || 'User Name'
+  const fullName = userDetails?.full_name || 'User Name'
 
   const onClick = (): void => {
     if (!user) {
@@ -39,7 +35,7 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({ data }) => {
       return subcribeModal.onOpen()
     }
 
-    return uploadModal.onOpen()
+    return userModal.onOpen()
   }
 
   return (
@@ -50,7 +46,14 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({ data }) => {
         } flex h-[232px] w-[232px] items-center justify-center rounded-full bg-[#282828] text-white shadow-base `}
       >
         {imageUrl ? (
-          <div className="relative aspect-square h-full w-full overflow-hidden rounded-full">
+          <div
+            className="group relative  aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full"
+            onClick={userModal.onOpen}
+          >
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
+              <FiEdit2 size={36} color="#ffffff" />
+              <p className="text-base text-white">Choose photo</p>
+            </div>
             <Image
               className="
             object-cover
