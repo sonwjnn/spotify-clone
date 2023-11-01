@@ -122,22 +122,17 @@ export const UploadDropdown: React.FC = () => {
           sideOffset={5}
           hidden={uploadModal.isOpen}
         >
-          <DropdownMenuItem
-            onSelect={onUploadSong}
-            className="dropdown-menu-item text-white"
-          >
-            <div className="  pl-1 ">
+          <DropdownMenuItem onSelect={onUploadSong} className=" text-white">
+            <div className="mr-2   ">
               <LuListMusic size={20} color="#ec4899" />
             </div>
             Create a new song
           </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={onUploadPlaylist}
-            className={`dropdown-menu-item ${
-              isRequired && 'select-none'
-            } text-white`}
+            className={` ${isRequired && 'select-none'} text-white`}
           >
-            <div className="  px-1 ">
+            <div className="mr-2   ">
               <AddPlaylistIcon color="#3b82f6" />
             </div>
             Create a new playlist

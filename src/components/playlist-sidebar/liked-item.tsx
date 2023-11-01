@@ -5,15 +5,16 @@ import { usePathname, useRouter } from 'next/navigation'
 
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
+import cn from '@/utils/cn'
 
-interface ListItemProps {
+interface LikedItemProps {
   image: string
   name: string
   href: string
   count?: number
 }
 
-export const ListItem: React.FC<ListItemProps> = ({
+export const LikedItem: React.FC<LikedItemProps> = ({
   image,
   name,
   href,
@@ -31,9 +32,13 @@ export const ListItem: React.FC<ListItemProps> = ({
     <>
       {user ? (
         <div
-          className={` w-full cursor-pointer rounded-md p-2 transition hover:bg-neutral-800/50 ${
-            pathName.includes('/liked') && 'bg-neutral-800/50'
-          }`}
+          className={cn(
+            ` w-full cursor-pointer rounded-md p-2 transition`,
+            pathName.includes('/liked') &&
+              'bg-neutral-800 active:bg-neutral-800/75 hover:bg-neutral-700',
+            !pathName.includes('/liked') &&
+              'active:bg-black hover:bg-neutral-800/50'
+          )}
         >
           <div onClick={onClick} className="flex items-center gap-x-3">
             <div className="relative min-h-[48px] min-w-[48px] overflow-hidden rounded-md">
@@ -53,7 +58,7 @@ export const ListItem: React.FC<ListItemProps> = ({
             </div>
             <div className="flex flex-col gap-y-1 overflow-hidden">
               <p className="truncate text-white">{name}</p>
-              <p className="truncate text-sm text-neutral-400">{`Playlist - ${count} songs`}</p>
+              <p className="truncate text-sm text-neutral-400">{`Playliked - ${count} songs`}</p>
             </div>
           </div>
         </div>

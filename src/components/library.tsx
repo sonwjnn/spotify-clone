@@ -11,7 +11,7 @@ import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
 import cn from '@/utils/cn'
 
 import { CollapseList } from './collapse-list'
-import { ListItem } from './list-item'
+import { LikedItem } from './playlist-sidebar/liked-item'
 import { PlaylistSidebar } from './playlist-sidebar/playlist-sidebar'
 import { Tooltip } from './ui/tooltip'
 import { UploadDropdown } from './upload-dropdown'
@@ -157,7 +157,7 @@ export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
                 likedPlaylist={likedPlaylists}
               />
               <div className="px-3 pb-2">
-                <ListItem
+                <LikedItem
                   image="/images/liked.png"
                   name="Liked Songs"
                   href="/liked"

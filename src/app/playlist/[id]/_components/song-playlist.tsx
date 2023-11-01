@@ -12,6 +12,9 @@ import { usePlayingView } from '@/hooks/use-playing-view'
 import { usePlaylist } from '@/hooks/use-playlist'
 import { useSelectedPlayer } from '@/hooks/use-selected-player'
 import { useUser } from '@/hooks/use-user'
+import type { Playlist } from '@/types/types'
+
+import { PlaylistDropdown } from './playlist-dropdown'
 
 interface SongPlaylistProps {}
 
@@ -67,6 +70,7 @@ export const SongPlaylist: React.FC<SongPlaylistProps> = () => {
             <LikePlaylistButton size={36} />
           </div>
         ) : null}
+        <PlaylistDropdown data={playlist as Playlist} />
       </div>
 
       <MediaList songs={songs} type="playlist" />

@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
-import { twMerge } from 'tailwind-merge'
 
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 // import { useGetUserById } from '@/hooks/use-get-user-by-id.'
@@ -10,6 +9,7 @@ import { useLoadImage } from '@/hooks/use-load-image'
 import { usePlayer } from '@/hooks/use-player'
 import { MusicNote, SoundIconSolid } from '@/public/icons'
 import type { Playlist } from '@/types/types'
+import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
 interface PlaylistItemProps {
@@ -50,11 +50,12 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({
   const isActived = playlistPlayingId === data.id
   return (
     <div
-      className={twMerge(
-        ` cursor-pointer rounded-md p-2 flex justify-between items-center transition w-full hover:bg-neutral-800/50 ${
-          id === data.id.toString() && 'bg-neutral-800/50'
-        }`,
-        className
+      className={cn(
+        ` cursor-pointer rounded-md p-2 flex justify-between items-center transition w-full  `,
+        className,
+        id === data.id.toString() &&
+          'bg-neutral-800 active:bg-neutral-800/75 hover:bg-neutral-700',
+        id !== data.id.toString() && 'active:bg-black hover:bg-neutral-800/50'
       )}
       onClick={onClick}
     >
