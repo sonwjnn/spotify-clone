@@ -9,7 +9,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, disabled, type, startIcon, endIcon, ...props }, ref) => {
     return (
-      <div className="relative">
+      <div className="relative w-full">
         {startIcon && (
           <div className="pointer-events-none absolute inset-y-0 left-1 flex items-center pl-3 text-white">
             {startIcon}

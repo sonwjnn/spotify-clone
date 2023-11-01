@@ -12,6 +12,7 @@ import { useMainLayout } from '@/hooks/use-main-layout'
 import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
+import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 
@@ -28,14 +29,18 @@ export const HeaderContent: React.FC<HeaderContentProps> = () => {
   const imagePath = useLoadImage(data?.image_path!, buckets.playlist_images)
 
   const onClick = (): void => {
+    if (user?.id !== data?.user_id) return
+
     if (!user) {
-      return authModal.onOpen()
+      authModal.onOpen()
+      return
     }
     if (!subscription) {
-      return subcribeModal.onOpen()
+      subcribeModal.onOpen()
+      return
     }
 
-    return uploadModal.onOpen()
+    uploadModal.onOpen()
   }
 
   const duration = useCallback(() => {
@@ -51,13 +56,18 @@ export const HeaderContent: React.FC<HeaderContentProps> = () => {
       >
         {imagePath ? (
           <div
-            className="group relative aspect-square h-full w-full cursor-pointer overflow-hidden rounded-sm"
-            onClick={uploadModal.onOpen}
+            className={cn(
+              'group relative aspect-square h-full w-full overflow-hidden rounded-sm',
+              user?.id === data?.user_id && 'cursor-pointer'
+            )}
+            onClick={onClick}
           >
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
-              <FiEdit2 size={36} color="#ffffff" />
-              <p className="text-base text-white">Choose photo</p>
-            </div>
+            {user?.id === data?.user_id ? (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
+                <FiEdit2 size={36} color="#ffffff" />
+                <p className="text-base text-white">Choose photo</p>
+              </div>
+            ) : null}
             <Image
               className="
             object-cover
@@ -79,9 +89,12 @@ export const HeaderContent: React.FC<HeaderContentProps> = () => {
         <p className="hidden text-base text-white  md:block">Playlist</p>
         <div
           onClick={onClick}
-          className={`${width <= 1012 && '!text-5xl'} ${
+          className={cn(
+            'line-clamp-3 text-center text-7xl font-bold text-white md:text-left',
+            user?.id === data?.user_id && 'cursor-pointer',
+            width <= 1012 && '!text-5xl',
             width <= 901 && '!text-3xl'
-          } line-clamp-3  cursor-pointer text-center text-7xl font-bold text-white md:text-left`}
+          )}
         >
           {data?.title || 'Playlist Title'}
         </div>
