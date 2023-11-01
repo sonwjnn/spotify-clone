@@ -154,7 +154,7 @@ export const PlaylistDropdown: React.FC<PlaylistDropdownProps> = ({
           </DropdownMenuItem>
 
           <DropdownMenuSeparator className="mx-1 bg-neutral-800" />
-          {user?.id === data.user_id ? (
+          {user?.id === data?.user_id ? (
             <DropdownMenuItem
               className=" text-white"
               onSelect={onDeletePlaylist}
