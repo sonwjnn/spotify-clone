@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Tooltip } from '@/components/ui/tooltip'
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
@@ -131,19 +132,23 @@ export const PlaylistDropdown: React.FC<PlaylistDropdownProps> = ({
 
   return (
     <DropdownMenu modal={isDropdown} onOpenChange={onChange}>
-      <DropdownMenuTrigger>
-        <div
-          className={twMerge(
-            `w-8 h-8 rounded-full transition relative hover:text-white`,
-            className
-          )}
-        >
-          <button
-            className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
-            aria-label="Customise options"
-          >
-            <BsThreeDots size={32} />
-          </button>
+      <DropdownMenuTrigger asChild>
+        <div className="flex items-center justify-center">
+          <Tooltip text={`More options for this playlist`}>
+            <div
+              className={twMerge(
+                `w-8 h-8 rounded-full transition relative hover:text-white`,
+                className
+              )}
+            >
+              <div
+                className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
+                aria-label="Customise options"
+              >
+                <BsThreeDots size={32} />
+              </div>
+            </div>
+          </Tooltip>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuPortal>

@@ -274,7 +274,7 @@ export const EditPlaylistModal: React.FC = () => {
         </div>
         <Button
           type="submit"
-          className="ml-auto  mt-2 w-full bg-white md:w-[30%]"
+          className="ml-auto  mt-2 w-full md:w-[30%]"
           disabled={isLoading}
         >
           Save

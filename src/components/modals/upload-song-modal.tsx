@@ -182,7 +182,7 @@ export const UploadSongModal: React.FC = () => {
         </div>
         <Button
           type="submit"
-          className="mx-auto mt-2 w-[50%]"
+          className="mx-auto mt-3 w-[60%]"
           disabled={isLoading}
         >
           Create
