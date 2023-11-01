@@ -76,29 +76,26 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
         >
           <DropdownMenuItem
             onSelect={() => router.push('/account')}
-            className="dropdown-menu-item text-white"
+            className=" text-white"
           >
-            <MdWorkspacePremium size={20} className="text-neutral-400" />
+            <MdWorkspacePremium size={20} className="mr-2 text-neutral-400" />
             Account
           </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={() => router.push(`/user/${user?.id}`)}
-            className={`dropdown-menu-item  text-white`}
+            className={`  text-white`}
           >
             <div className="  px-1 ">
-              <FaUserAlt className="text-neutral-400" />
+              <FaUserAlt className="mr-2 text-neutral-400" />
             </div>
             Profile
           </DropdownMenuItem>
 
           <DropdownMenuSeparator className="mx-1 bg-neutral-800" />
 
-          <DropdownMenuItem
-            onSelect={handleLogout}
-            className={`dropdown-menu-item  text-white`}
-          >
+          <DropdownMenuItem onSelect={handleLogout} className={`  text-white`}>
             <div className="  px-1 text-red-500">
-              <RiLogoutCircleLine />
+              <RiLogoutCircleLine className="mr-2" />
             </div>
             Log out
           </DropdownMenuItem>
