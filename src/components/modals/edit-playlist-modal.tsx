@@ -57,7 +57,7 @@ export const EditPlaylistModal: React.FC = () => {
     quality: 100,
   })
 
-  const { reset, handleSubmit, register } = useForm<FieldValues>({
+  const { reset, handleSubmit, register, setValue } = useForm<FieldValues>({
     defaultValues: {
       description: playlist?.description,
       title: playlist?.title,
@@ -236,6 +236,7 @@ export const EditPlaylistModal: React.FC = () => {
   const onRemove = (e: any): void => {
     e.preventDefault()
     setRemove(true)
+    setValue('playlist_img', null)
     setFile('')
   }
 

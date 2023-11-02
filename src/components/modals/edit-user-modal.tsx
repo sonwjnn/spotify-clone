@@ -53,7 +53,7 @@ export const EditUserModal: React.FC = () => {
     quality: 100,
   })
 
-  const { reset, handleSubmit, register } = useForm<FieldValues>({
+  const { reset, handleSubmit, register, setValue } = useForm<FieldValues>({
     defaultValues: {
       full_name: userDetails?.full_name,
       user_img: null,
@@ -224,6 +224,7 @@ export const EditUserModal: React.FC = () => {
   const onRemove = (e: any): void => {
     e.preventDefault()
     setRemove(true)
+    setValue('user_img', null)
     setFile('')
   }
 
