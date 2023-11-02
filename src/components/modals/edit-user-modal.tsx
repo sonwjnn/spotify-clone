@@ -3,11 +3,11 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { usePalette } from 'color-thief-react'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import { FiEdit2 } from 'react-icons/fi'
+import { LuImage } from 'react-icons/lu'
 import uniqid from 'uniqid'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
@@ -15,7 +15,7 @@ import { useUserModal } from '@/hooks/modals/use-user-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/hooks/use-user-store'
-import { MusicNote } from '@/public/icons'
+import { DeleteIcon, MusicNote } from '@/public/icons'
 import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
@@ -42,8 +42,11 @@ export const EditUserModal: React.FC = () => {
     buckets.users
   )
 
-  const [file, setFile] = useState<string>(initImageUrl || '')
+  const [file, setFile] = useState<string>('')
   const [bgColor, setBgColor] = useState<string>('')
+  const [isRemove, setRemove] = useState<boolean>(false)
+
+  const labelRef = useRef<HTMLLabelElement>(null)
 
   const { data: dataColor } = usePalette(file as string, 10, 'hex', {
     crossOrigin: 'Anonymous',
@@ -56,6 +59,13 @@ export const EditUserModal: React.FC = () => {
       user_img: null,
     },
   })
+  useEffect(() => {
+    if (userModal.isOpen) {
+      setFile(initImageUrl || '')
+    } else {
+      setRemove(false)
+    }
+  }, [userModal.isOpen])
 
   useEffect(() => {
     // Update the default values when the playlist changes
@@ -154,12 +164,40 @@ export const EditUserModal: React.FC = () => {
         setAvatarUrl(imageData.path)
         setBgColorStore(bgColor)
         // router.refresh()
+      } else if (isRemove) {
+        if (userDetails?.avatar_url) {
+          const { error: oldImageError } = await supabaseClient.storage
+            .from(buckets.users)
+            .remove([userDetails.avatar_url])
+
+          if (oldImageError) {
+            setIsLoading(false)
+            toast.error(oldImageError.message)
+            return
+          }
+        }
+
+        const { error: supabaseError } = await supabaseClient
+          .from('users')
+          .update({
+            full_name: values.full_name,
+            avatar_url: null,
+          })
+          .eq('id', userDetails?.id)
+
+        if (supabaseError) {
+          setIsLoading(false)
+          toast.error(supabaseError.message)
+          return
+        }
+
+        setAvatarUrl('')
+        setFullName(values.full_name)
       } else {
         const { error: supabaseError } = await supabaseClient
           .from('users')
           .update({
-            title: values.title,
-            description: values.description,
+            full_name: values.full_name,
           })
           .eq('id', userDetails?.id)
 
@@ -183,20 +221,27 @@ export const EditUserModal: React.FC = () => {
     }
   }
 
+  const onRemove = (e: any): void => {
+    e.preventDefault()
+    setRemove(true)
+    setFile('')
+  }
+
   return (
     <Modal
       className="md:max-w-[550px]"
-      title="Edit details playlist"
-      description="upload playlist description"
+      title="Edit details user"
+      description=""
       isOpen={userModal.isOpen}
       onChange={onChange}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
-        <div className="flex flex-col items-center gap-4 md:flex-row md:items-start ">
+        <div className="flex flex-col items-center gap-4 md:flex-row  ">
           <div className="group aspect-square h-[180px] w-[180px] rounded-full  shadow-xl">
             <label
               htmlFor="user_img"
               className="relative flex  h-full w-full cursor-pointer items-center justify-center  text-white"
+              ref={labelRef}
             >
               <div
                 className={cn(
@@ -208,8 +253,24 @@ export const EditUserModal: React.FC = () => {
                   <Spinner size="lg" />
                 ) : (
                   <>
-                    <FiEdit2 size={36} color="#ffffff" />
-                    <p className="text-base text-white">Choose photo</p>
+                    {file && (
+                      <div className="absolute bottom-5 right-5 flex flex-col items-center justify-center gap-x-2 opacity-0 group-hover:opacity-100">
+                        <Button
+                          onClick={() => labelRef?.current?.click()}
+                          className="flex gap-x-2 bg-transparent text-sm text-white"
+                        >
+                          <LuImage />
+                          Change cover
+                        </Button>
+                        <Button
+                          onClick={onRemove}
+                          className="flex gap-x-2 bg-transparent text-sm text-white"
+                        >
+                          <DeleteIcon color="#991b1b" />
+                          Remove
+                        </Button>
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -230,7 +291,7 @@ export const EditUserModal: React.FC = () => {
               )}
             </label>
             <Input
-              className="h-0 bg-neutral-800 p-0"
+              className="h-0 bg-neutral-800 p-0 opacity-0"
               id="user_img"
               disabled={isLoading}
               type="file"
@@ -239,15 +300,13 @@ export const EditUserModal: React.FC = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="flex h-[180px] w-full  gap-y-4 text-white ">
-            <Input
-              className="bg-neutral-800"
-              id="full_name"
-              disabled={isLoading}
-              {...register('full_name', { required: false })}
-              placeholder="user fullname"
-            />
-          </div>
+          <Input
+            className="bg-neutral-800"
+            id="full_name"
+            disabled={isLoading}
+            {...register('full_name', { required: false })}
+            placeholder="user fullname"
+          />
         </div>
         <Button
           type="submit"

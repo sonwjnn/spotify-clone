@@ -3,11 +3,11 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { usePalette } from 'color-thief-react'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import { FiEdit2 } from 'react-icons/fi'
+import { LuImage } from 'react-icons/lu'
 import uniqid from 'uniqid'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
@@ -16,7 +16,7 @@ import { useLoadImage } from '@/hooks/use-load-image'
 import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/hooks/use-user-store'
-import { MusicNote } from '@/public/icons'
+import { DeleteIcon, MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
@@ -48,6 +48,9 @@ export const EditPlaylistModal: React.FC = () => {
 
   const [file, setFile] = useState<string>(initImageUrl || '')
   const [bgColor, setBgColor] = useState<string>('')
+  const [isRemove, setRemove] = useState<boolean>(false)
+
+  const labelRef = useRef<HTMLLabelElement>(null)
 
   const { data: dataColor } = usePalette(file as string, 10, 'hex', {
     crossOrigin: 'Anonymous',
@@ -164,6 +167,37 @@ export const EditPlaylistModal: React.FC = () => {
         setImagePath(imageData.path)
         setBgColorStore(bgColor)
         // router.refresh()
+      } else if (isRemove) {
+        if (playlist?.image_path) {
+          const { error: oldImageError } = await supabaseClient.storage
+            .from(buckets.playlist_images)
+            .remove([playlist?.image_path])
+
+          if (oldImageError) {
+            setIsLoading(false)
+            toast.error(oldImageError.message)
+            return
+          }
+        }
+
+        const { error: supabaseError } = await supabaseClient
+          .from('playlists')
+          .update({
+            title: values.title,
+            description: values.description,
+            image_path: null,
+          })
+          .eq('id', playlist?.id)
+
+        if (supabaseError) {
+          setIsLoading(false)
+          toast.error(supabaseError.message)
+          return
+        }
+
+        setTitle(values.title)
+        setDescription(values.description)
+        setImagePath('')
       } else {
         const { error: supabaseError } = await supabaseClient
           .from('playlists')
@@ -199,6 +233,12 @@ export const EditPlaylistModal: React.FC = () => {
     }
   }, [playlist])
 
+  const onRemove = (e: any): void => {
+    e.preventDefault()
+    setRemove(true)
+    setFile('')
+  }
+
   return (
     <Modal
       className="md:max-w-[550px]"
@@ -224,8 +264,24 @@ export const EditPlaylistModal: React.FC = () => {
                   <Spinner size="lg" />
                 ) : (
                   <>
-                    <FiEdit2 size={36} color="#ffffff" />
-                    <p className="text-base text-white">Choose photo</p>
+                    {file && (
+                      <div className="absolute bottom-5 right-5 flex flex-col items-center justify-center gap-x-2 opacity-0 group-hover:opacity-100">
+                        <Button
+                          onClick={() => labelRef?.current?.click()}
+                          className="flex gap-x-2 bg-transparent text-sm text-white"
+                        >
+                          <LuImage />
+                          Change cover
+                        </Button>
+                        <Button
+                          onClick={onRemove}
+                          className="flex gap-x-2 bg-transparent text-sm text-white"
+                        >
+                          <DeleteIcon color="#991b1b" />
+                          Remove
+                        </Button>
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -246,7 +302,7 @@ export const EditPlaylistModal: React.FC = () => {
               )}
             </label>
             <Input
-              className="h-0 bg-neutral-800 p-0"
+              className="h-0 bg-neutral-800 p-0 opacity-0"
               id="playlist_img"
               disabled={isLoading}
               type="file"

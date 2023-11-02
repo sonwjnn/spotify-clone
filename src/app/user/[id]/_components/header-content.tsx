@@ -11,6 +11,7 @@ import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
+import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
 interface HeaderContentProps {
@@ -41,19 +42,18 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({ data }) => {
   return (
     <div className="flex flex-col  items-center gap-x-5  md:flex-row md:items-end">
       <div
-        className={`${
+        className={cn(
+          `group relative flex h-[232px] w-[232px] cursor-pointer items-center justify-center rounded-full bg-[#282828] text-white shadow-base`,
           width <= 875 && '!h-[192px] !w-[192px]'
-        } flex h-[232px] w-[232px] items-center justify-center rounded-full bg-[#282828] text-white shadow-base `}
+        )}
+        onClick={userModal.onOpen}
       >
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-full bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
+          <FiEdit2 size={36} color="#ffffff" />
+          <p className="text-base text-white">Choose photo</p>
+        </div>
         {imageUrl ? (
-          <div
-            className="group relative  aspect-square h-full w-full cursor-pointer overflow-hidden rounded-full"
-            onClick={userModal.onOpen}
-          >
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
-              <FiEdit2 size={36} color="#ffffff" />
-              <p className="text-base text-white">Choose photo</p>
-            </div>
+          <div className="relative  aspect-square h-full w-full overflow-hidden rounded-full">
             <Image
               className="
             object-cover

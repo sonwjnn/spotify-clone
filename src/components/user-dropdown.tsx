@@ -5,9 +5,9 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { FaUserAlt } from 'react-icons/fa'
-import { GoSignOut } from 'react-icons/go'
-import { MdWorkspacePremium } from 'react-icons/md'
+import { CgProfile } from 'react-icons/cg'
+import { LuLogOut } from 'react-icons/lu'
+import { RiVipCrownLine } from 'react-icons/ri'
 
 import {
   DropdownMenu,
@@ -27,7 +27,7 @@ interface UserDropdownProps {
 }
 
 export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
-  const { user } = useUser()
+  const { user, subscription } = useUser()
   const userStore = useUserStore()
   const uploadModal = useUploadModal()
   const [isDropdown, setDropdown] = useState(false)
@@ -78,14 +78,19 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
             onSelect={() => router.push('/account')}
             className=" text-white"
           >
-            <MdWorkspacePremium size={18} className="mr-2 text-neutral-400" />
+            <RiVipCrownLine
+              size={18}
+              className={`mr-2 ${
+                subscription ? 'text-yellow-500' : 'text-neutral-400'
+              }`}
+            />
             Account
           </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={() => router.push(`/user/${user?.id}`)}
             className={`  text-white`}
           >
-            <FaUserAlt className="mr-3 text-neutral-400" />
+            <CgProfile size={18} className="mr-2 text-neutral-400" />
             Profile
           </DropdownMenuItem>
 
@@ -93,7 +98,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
 
           <DropdownMenuItem onSelect={handleLogout} className={`  text-white`}>
             <div className=" text-red-500">
-              <GoSignOut className="mr-3" />
+              <LuLogOut size={18} className="mr-2" />
             </div>
             Log out
           </DropdownMenuItem>
