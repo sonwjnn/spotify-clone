@@ -1,7 +1,8 @@
 'use client'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { usePathname, useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { FiEdit } from 'react-icons/fi'
@@ -17,20 +18,26 @@ import {
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useLoadImage } from '@/hooks/use-load-image'
+import { usePlayer } from '@/hooks/use-player'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/hooks/use-user-store'
-import { AddPlaylistIcon, DeleteIcon } from '@/public/icons'
+import {
+  AddPlaylistIcon,
+  DeleteIcon,
+  MusicNote,
+  SoundIconSolid,
+} from '@/public/icons'
 import type { Playlist } from '@/types/types'
+import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
-interface PlaylistItemDropdownProps {
-  children: React.ReactNode
+interface PlaylistItemProps {
   data: Playlist
   type?: 'myPlaylist' | 'otherPlaylist'
 }
 
-export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
-  children,
+export const PlaylistItem: React.FC<PlaylistItemProps> = ({
   data,
   type = 'myPlaylist',
 }) => {
@@ -43,10 +50,19 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
   const supabaseClient = useSupabaseClient()
   const { removeLikedPlaylist, removePlaylist, addPlaylist } = useUserStore()
 
-  const [isDropdown, setDropdown] = useState(false)
+  const [is, set] = useState(false)
   const [isRequired, setRequired] = useState(false)
   const router = useRouter()
   const currentPath = usePathname()
+
+  const { playlistPlayingId, isPlaying } = usePlayer()
+  const imageUrl = useLoadImage(data.image_path, buckets.playlist_images)
+  const { id } = useParams()
+
+  const onClick = (): void => {
+    uploadModal.setPlaylist(data)
+    router.push(`/playlist/${data.id}`)
+  }
 
   const onDeletePlaylist = async (): Promise<void> => {
     if (isRequired) return
@@ -60,7 +76,7 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
       return
     }
 
-    setDropdown(false)
+    set(false)
 
     setRequired(true)
 
@@ -103,7 +119,7 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
       subcribeModal.onOpen()
       return
     }
-    setDropdown(false)
+    set(false)
 
     setRequired(true)
 
@@ -139,7 +155,7 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
       return
     }
 
-    setDropdown(false)
+    set(false)
     uploadModal.setPlaylist(data)
     uploadModal.onOpen()
   }
@@ -158,15 +174,67 @@ export const PlaylistItemDropdown: React.FC<PlaylistItemDropdownProps> = ({
 
     removeLikedPlaylist(data.id)
   }
+
   const onChange = (open: boolean): void => {
     if (!open) {
-      setDropdown(false)
+      set(false)
     }
   }
 
+  const fullName = data.users?.full_name
+  const isActived = playlistPlayingId === data.id
+
   return (
-    <ContextMenu modal={isDropdown} onOpenChange={onChange}>
-      <ContextMenuTrigger>{children}</ContextMenuTrigger>
+    <ContextMenu modal={is} onOpenChange={onChange}>
+      <ContextMenuTrigger>
+        <div
+          className={cn(
+            ` cursor-pointer rounded-md p-2 flex justify-between items-center transition w-full  `,
+            id === data.id.toString() &&
+              'bg-neutral-800 active:bg-neutral-800/75 hover:bg-neutral-700',
+            id !== data.id.toString() &&
+              'active:bg-black hover:bg-neutral-800/50'
+          )}
+          onClick={onClick}
+        >
+          <div className="flex min-w-0 items-center gap-x-3">
+            <div className="relative min-h-[48px] min-w-[48px] overflow-hidden rounded-md">
+              {imageUrl ? (
+                <Image
+                  fill
+                  src={imageUrl}
+                  sizes="100%"
+                  alt="Media-Item"
+                  className="object-cover"
+                  blurDataURL={imageUrl}
+                  placeholder="blur"
+                />
+              ) : (
+                <div className="flex min-h-[48px] w-full items-center justify-center bg-neutral-800 text-white">
+                  <MusicNote size={20} />
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col gap-y-1 overflow-hidden ">
+              <p
+                className={` truncate  ${
+                  isActived ? 'text-[#2ed760]' : 'text-white'
+                }`}
+              >
+                {data.title}
+              </p>
+              <p className="truncate text-sm text-neutral-400">
+                {`Playlist - ${fullName}`}
+              </p>
+            </div>
+          </div>
+          {isActived && isPlaying ? (
+            <div className="pr-2">
+              <SoundIconSolid color="#2ed760" />
+            </div>
+          ) : null}
+        </div>
+      </ContextMenuTrigger>
       <ContextMenuPortal>
         <ContextMenuContent className="min-w-[220px] overflow-hidden rounded-md border-none bg-neutral-800 py-[5px] ">
           {type === 'myPlaylist' ? (

@@ -1,11 +1,13 @@
 'use client'
 
-// import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { CgProfile } from 'react-icons/cg'
+import { FaUserAlt } from 'react-icons/fa'
+import { IoMdArrowDropdown } from 'react-icons/io'
 import { LuLogOut } from 'react-icons/lu'
 import { RiVipCrownLine } from 'react-icons/ri'
 
@@ -23,11 +25,11 @@ import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/hooks/use-user-store'
 
 interface UserDropdownProps {
-  children: React.ReactNode
+  url: string
 }
 
-export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
-  const { user, subscription } = useUser()
+export const UserDropdown: React.FC<UserDropdownProps> = ({ url }) => {
+  const { user, subscription, userDetails } = useUser()
   const userStore = useUserStore()
   const uploadModal = useUploadModal()
   const [isDropdown, setDropdown] = useState(false)
@@ -53,6 +55,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
       toast.success('Logged out!')
     }
   }
+
   return (
     <DropdownMenu
       open={isDropdown}
@@ -64,7 +67,34 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ children }) => {
           className="flex items-center justify-center"
           onClick={() => setDropdown(!isDropdown)}
         >
-          {children}
+          {/* eslint-disable-next-line tailwindcss/migration-from-tailwind-2 */}
+          <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-black bg-opacity-30 p-1 transition hover:bg-opacity-20 hover:brightness-110">
+            <div className="relative h-9 w-9 cursor-pointer overflow-hidden rounded-full bg-white">
+              {url ? (
+                <Image
+                  className="object-cover"
+                  fill
+                  alt="avatar img"
+                  sizes="100%"
+                  src={url}
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <FaUserAlt />
+                </div>
+              )}
+            </div>
+
+            {userDetails?.full_name && (
+              <p className="truncate text-sm font-bold text-white">
+                {userDetails?.full_name}
+              </p>
+            )}
+
+            <div className="pr-1 text-white">
+              <IoMdArrowDropdown size={20} />
+            </div>
+          </div>
         </div>
       </DropdownMenuTrigger>
 

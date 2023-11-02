@@ -10,9 +10,7 @@ import cn from '@/utils/cn'
 
 import { GlobalLoading } from '../loading-layout/global-loading'
 import { PlayingView } from '../playing-view/playing-view'
-import { PlayingViewResizer } from '../playing-view/playing-view-resizer'
-import { Sidebar } from '../sidebar'
-import { SidebarResizer } from '../sidebar-resizer'
+import { Sidebar } from '../sidebar/sidebar'
 import { MainLayout } from './main-layout'
 
 interface MainContentProps {
@@ -65,9 +63,7 @@ export const MainContent: React.FC<MainContentProps> = ({
             'h-[calc(100%-80px)]': user && player.activeId,
           })}
         >
-          <SidebarResizer minWidth={300} maxWidth={500}>
-            <Sidebar />
-          </SidebarResizer>
+          <Sidebar />
 
           <MainLayout>
             <main className={`relative h-full grow overflow-y-auto py-2`}>
@@ -75,13 +71,7 @@ export const MainContent: React.FC<MainContentProps> = ({
             </main>
           </MainLayout>
 
-          <PlayingViewResizer
-            className={'hidden md:block'}
-            minWidth={300}
-            maxWidth={400}
-          >
-            <PlayingView />
-          </PlayingViewResizer>
+          <PlayingView />
         </div>
       )}
     </>

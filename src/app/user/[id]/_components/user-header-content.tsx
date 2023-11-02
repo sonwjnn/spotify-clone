@@ -14,10 +14,12 @@ import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
-interface HeaderContentProps {
+interface UserHeaderContentProps {
   data?: Playlist[]
 }
-export const HeaderContent: React.FC<HeaderContentProps> = ({ data }) => {
+export const UserHeaderContent: React.FC<UserHeaderContentProps> = ({
+  data,
+}) => {
   const { width } = useMainLayout()
   const { user, subscription, userDetails } = useUser()
   const authModal = useAuthModal()
@@ -73,9 +75,11 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({ data }) => {
         <p className="hidden text-base text-white  md:block">Profile</p>
         <h1
           onClick={onClick}
-          className={`${width <= 1012 && '!text-5xl'} ${
+          className={cn(
+            'flex cursor-pointer hover:underline text-center text-7xl font-bold text-white md:text-left',
+            width <= 1012 && '!text-5xl',
             width <= 901 && '!text-3xl'
-          } flex cursor-pointer text-center text-7xl font-bold text-white md:text-left`}
+          )}
         >
           {fullName}
         </h1>

@@ -7,8 +7,8 @@ import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'
 import { getOtherUserPlaylists } from '@/server-actions/playlists/get-other-user-playlists'
 
-import { HeaderContent } from './_components/header-content'
 import { UserContent } from './_components/user-content'
+import { UserHeaderContent } from './_components/user-header-content'
 
 interface UserPageProps {
   params: {
@@ -27,7 +27,7 @@ const UserPage: NextPage<UserPageProps> = async ({ params }: UserPageProps) => {
     <PageWrapper>
       <Navbar type="user" hasUsername />
       <Header type="user">
-        <HeaderContent data={playlists} />
+        <UserHeaderContent data={playlists} />
       </Header>
       <UserContent data={playlists} id={params.id} />
       <Footer />

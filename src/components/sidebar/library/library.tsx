@@ -10,11 +10,11 @@ import { useUserStore } from '@/hooks/use-user-store'
 import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
 import cn from '@/utils/cn'
 
-import { CollapseList } from './collapse-list'
-import { LikedItem } from './playlist-sidebar/liked-item'
-import { PlaylistSidebar } from './playlist-sidebar/playlist-sidebar'
-import { Tooltip } from './ui/tooltip'
-import { UploadDropdown } from './upload-dropdown'
+import { CollapseList } from '../../collapse-list'
+import { Tooltip } from '../../ui/tooltip'
+import { UploadDropdown } from '../../upload-dropdown'
+import { LikedItem } from './liked-item'
+import { PlaylistList } from './playlist-list'
 
 interface LibraryProps {
   isScroll?: boolean
@@ -152,10 +152,7 @@ export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
             <CollapseList playlists={[...playlists, ...likedPlaylists]} />
           ) : (
             <>
-              <PlaylistSidebar
-                data={playlists}
-                likedPlaylist={likedPlaylists}
-              />
+              <PlaylistList data={playlists} likedPlaylist={likedPlaylists} />
               <div className="px-3 pb-2">
                 <LikedItem
                   image="/images/liked.png"

@@ -1,12 +1,9 @@
 'use client'
 
 import { usePalette } from 'color-thief-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import { FaUserAlt } from 'react-icons/fa'
-import { IoMdArrowDropdown } from 'react-icons/io'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
@@ -83,13 +80,8 @@ export const Navbar: React.FC<NavbarProps> = props => {
   const onPlay = useOnPlay(songs as Song[])
   const [isPlaying, setPlaying] = useState(false)
   const [bgColorUser, setBgColorUser] = useState<string>('#171717')
-  const imageLoadUrl = useLoadImage(
-    userDetails?.avatar_url || '',
-    buckets.users
-  )
 
-  const imageUrl = user?.user_metadata.avatar_url || imageLoadUrl
-  const fullName = user?.user_metadata.full_name || userDetails?.full_name
+  const imageUrl = useLoadImage(userDetails?.avatar_url || '', buckets.users)
 
   const { data: dataColor } = usePalette(imageUrl as string, 10, 'hex', {
     crossOrigin: 'Anonymous',
@@ -206,7 +198,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
                 usernameVisible ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              {fullName}
+              {userDetails?.full_name}
             </span>
           ) : null}
         </div>
@@ -235,36 +227,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
             <div className="flex items-center gap-x-4">
               {width >= 459 && <PremiumButton />}
 
-              <UserDropdown>
-                {/* eslint-disable-next-line tailwindcss/migration-from-tailwind-2 */}
-                <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-black bg-opacity-30 p-1 transition hover:bg-opacity-20 hover:brightness-110">
-                  <div className="relative h-9 w-9 cursor-pointer overflow-hidden rounded-full bg-white">
-                    {imageUrl ? (
-                      <Image
-                        className="object-cover"
-                        fill
-                        alt="avatar img"
-                        sizes="100%"
-                        src={imageUrl}
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center">
-                        <FaUserAlt />
-                      </div>
-                    )}
-                  </div>
-
-                  {fullName && (
-                    <p className="truncate text-sm font-bold text-white">
-                      {fullName}
-                    </p>
-                  )}
-
-                  <div className="pr-1 text-white">
-                    <IoMdArrowDropdown size={20} />
-                  </div>
-                </div>
-              </UserDropdown>
+              <UserDropdown url={imageUrl || ''} />
             </div>
           ) : (
             <>

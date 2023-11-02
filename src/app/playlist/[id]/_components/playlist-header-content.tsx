@@ -16,8 +16,10 @@ import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 
-interface HeaderContentProps {}
-export const HeaderContent: React.FC<HeaderContentProps> = () => {
+interface PlaylistHeaderContentProps {}
+export const PlaylistHeaderContent: React.FC<
+  PlaylistHeaderContentProps
+> = () => {
   const { playlist: data, playlistSongs } = usePlaylist()
   const { width } = useMainLayout()
   const { user, subscription } = useUser()
@@ -50,24 +52,24 @@ export const HeaderContent: React.FC<HeaderContentProps> = () => {
   return (
     <div className="flex flex-col  items-center gap-x-5  md:flex-row md:items-end">
       <div
-        className={`${
+        className={cn(
+          ` group relative flex h-[232px] w-[232px] items-center justify-center rounded-sm bg-[#282828] text-white shadow-base `,
           width <= 875 && '!h-[192px] !w-[192px]'
-        } flex h-[232px] w-[232px] items-center justify-center rounded-sm bg-[#282828] text-white shadow-base `}
+        )}
+        onClick={onClick}
       >
+        {user?.id === data?.user_id ? (
+          <div className="absolute inset-0 z-10 flex cursor-pointer flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
+            <FiEdit2 size={36} color="#ffffff" />
+            <p className="text-base text-white">Choose photo</p>
+          </div>
+        ) : null}
         {imagePath ? (
           <div
             className={cn(
-              'group relative aspect-square h-full w-full overflow-hidden rounded-sm',
-              user?.id === data?.user_id && 'cursor-pointer'
+              'relative aspect-square h-full w-full overflow-hidden rounded-sm'
             )}
-            onClick={onClick}
           >
-            {user?.id === data?.user_id ? (
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100">
-                <FiEdit2 size={36} color="#ffffff" />
-                <p className="text-base text-white">Choose photo</p>
-              </div>
-            ) : null}
             <Image
               className="
             object-cover
@@ -91,7 +93,7 @@ export const HeaderContent: React.FC<HeaderContentProps> = () => {
           onClick={onClick}
           className={cn(
             'line-clamp-3 text-center text-7xl font-bold text-white md:text-left',
-            user?.id === data?.user_id && 'cursor-pointer',
+            user?.id === data?.user_id && 'cursor-pointer hover:underline',
             width <= 1012 && '!text-5xl',
             width <= 901 && '!text-3xl'
           )}
