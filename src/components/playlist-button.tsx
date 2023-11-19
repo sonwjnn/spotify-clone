@@ -3,7 +3,6 @@
 import { useSessionContext } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { LuArrowBigUpDash } from 'react-icons/lu'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylist } from '@/hooks/use-playlist'
@@ -12,6 +11,7 @@ import type { Playlist, Song } from '@/types/types'
 
 import { Spinner } from './spinner'
 import { Tooltip } from './ui/tooltip'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 interface PlaylistButtonProps {
   type: 'add' | 'remove'
@@ -93,7 +93,7 @@ export const PlaylistButton: React.FC<PlaylistButtonProps> = ({
     <Tooltip text="Add to playlist">
       <div
         onClick={handleLike}
-        className={`flex h-8 min-w-[50px] cursor-pointer items-center justify-center rounded-full border border-neutral-400 bg-transparent p-2 font-semibold text-white  transition hover:scale-105 active:scale-100 ${
+        className={`flex h-8 min-w-[50px] cursor-pointer items-center justify-center rounded-full border border-neutral-400 bg-transparent p-2  font-semibold text-white  transition hover:scale-105 active:scale-100 ${
           isRequired ? 'cursor-not-allowed opacity-50' : null
         }`}
       >
@@ -101,7 +101,7 @@ export const PlaylistButton: React.FC<PlaylistButtonProps> = ({
         {isRequired ? (
           <Spinner />
         ) : type === 'add' ? (
-          <LuArrowBigUpDash color="#a3a3a3" />
+          <AiOutlinePlus color="#a3a3a3" />
         ) : (
           'Remove'
         )}

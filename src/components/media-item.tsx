@@ -2,7 +2,7 @@
 
 import dayjs from 'dayjs'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useMainLayout } from '@/hooks/use-main-layout'
@@ -45,9 +45,9 @@ export const MediaItem: React.FC<MediaItemProps> = ({
     <div
       className={cn(
         `
-      grid grid-cols-list-5 group gap-4
+      group grid grid-cols-list-5 gap-4
       ${isSelected && 'bg-neutral-800/50'}
-      transition cursor-pointer rounded-md px-4 h-[56px] w-full hover:bg-white hover:bg-opacity-10 items-center
+      h-[56px] w-full cursor-pointer items-center rounded-md px-4 transition hover:bg-white hover:bg-opacity-10
     `,
         {
           'grid-cols-list-4': width <= 780 && type !== 'album',
@@ -153,13 +153,12 @@ export const MediaItem: React.FC<MediaItemProps> = ({
           </>
         ) : null}
 
-        {!hasAddTrackBtn && playlist && width > 480 ? (
-          <MediaDropdown song={song} playlist={playlist} />
-        ) : null}
-        {hasAddTrackBtn && playlist && width > 480 ? (
-          <div className="h-10 w-10">
+        {playlist && width > 480 ? (
+          hasAddTrackBtn ? (
             <PlaylistButton type="add" song={song} playlist={playlist} />
-          </div>
+          ) : (
+            <MediaDropdown song={song} playlist={playlist} />
+          )
         ) : null}
       </div>
     </div>
