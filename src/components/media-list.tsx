@@ -28,10 +28,8 @@ const ListBar: React.FC<ListBarProps> = ({
   return (
     <div
       className={cn(
-        `
-        grid grid-cols-list-5 group gap-4
-        w-full z-10  items-center px-4 h-9 border border-transparent border-b border-b-[hsla(0,0%,100%,0.1)] mb-2
-        `,
+        `group z-10 mb-2 grid h-9 w-full grid-cols-list-5 items-center gap-4 border border-b border-transparent
+        border-b-[hsla(0,0%,100%,0.1)] px-4`,
         className,
         {
           'grid-cols-list-4': width <= 780 && type !== 'album',
@@ -43,7 +41,7 @@ const ListBar: React.FC<ListBarProps> = ({
       )}
     >
       {type !== 'search' && width > 480 && (
-        <div className="relative text-right text-base text-neutral-400">#</div>
+        <div className="relative text-right text-base text-neutral-400 ">#</div>
       )}
       <div className={`flex items-center gap-4 pr-2`}>
         <div
@@ -100,7 +98,7 @@ export const MediaList: React.FC<MediaListProps> = ({
   return (
     <>
       <div
-        className="z-10 flex min-h-[20vh]  w-full flex-col px-6 pb-2"
+        className=" z-10  flex min-h-[20vh] w-full flex-col px-6 pb-2"
         ref={wrapperRef}
       >
         {songs.length ? (

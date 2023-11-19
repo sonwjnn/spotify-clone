@@ -152,7 +152,7 @@ export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
             <CollapseList playlists={[...playlists, ...likedPlaylists]} />
           ) : (
             <>
-              <PlaylistList data={playlists} likedPlaylist={likedPlaylists} />
+              <PlaylistList data={[...playlists, ...likedPlaylists]} />
               <div className="px-3 pb-2">
                 <LikedItem
                   image="/images/liked.png"

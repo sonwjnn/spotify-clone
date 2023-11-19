@@ -5,6 +5,7 @@ import { useMediaQuery } from 'usehooks-ts'
 
 import { useSidebar } from '@/hooks/use-sidebar'
 import cn from '@/utils/cn'
+import { usePlayingView } from '@/hooks/use-playing-view'
 
 interface SidebarResizerProps {
   children: React.ReactNode
@@ -18,10 +19,13 @@ export const SidebarResizer: React.FC<SidebarResizerProps> = memo(
   ({ children, minWidth = 300, maxWidth = 500, className }) => {
     const isTablet = useMediaQuery('(max-width: 768px)')
     const isMobile = useMediaQuery('(max-width: 585px)')
+    const isMediumScreen = useMediaQuery('(max-width: 987px)')
 
     const isResizingRef = useRef(false)
     const sidebarRef = useRef<ElementRef<'aside'>>(null)
     const [isResetting, setIsResetting] = useState(false)
+
+    const { isShowed } = usePlayingView()
 
     const {
       isCollapsed,
@@ -109,10 +113,18 @@ export const SidebarResizer: React.FC<SidebarResizerProps> = memo(
     }
 
     useEffect(() => {
-      if (isTablet) {
+      if (isTablet && !isCollapsed) {
         collapse()
       }
     }, [isTablet])
+
+    useEffect(() => {
+      if (isMediumScreen && !isCollapsed && isShowed) {
+        collapse()
+      } else if (!isMediumScreen && isCollapsed) {
+        resetMinWidth()
+      }
+    }, [isMediumScreen])
 
     useEffect(() => {
       if (isCollapsed) {
@@ -133,10 +145,10 @@ export const SidebarResizer: React.FC<SidebarResizerProps> = memo(
         <aside
           ref={sidebarRef}
           className={cn(
-            `group/sidebar h-full bg-secondary overflow-y-auto relative flex w-[${minWidth}px] flex-col`,
+            `group/sidebar relative flex h-full overflow-y-auto bg-secondary w-[${minWidth}px] flex-col`,
             className,
             isMobile && 'hidden',
-            isResetting && 'transition-all ease-in-out duration-300'
+            isResetting && 'transition-all duration-300 ease-in-out'
           )}
         >
           {children}
