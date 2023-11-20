@@ -126,15 +126,15 @@ export const PlayingViewResizer: FC<PlayingViewResizerProps> = memo(
         <aside
           ref={playingViewRef}
           className={cn(
-            `group/playing h-full bg-secondary overflow-y-auto relative flex flex-col `,
+            `group/playing relative flex h-full flex-col overflow-y-auto bg-secondary `,
             className,
-            isResetting && 'transition-all ease-in-out duration-300'
+            isResetting && 'transition-all duration-300 ease-in-out'
           )}
         >
           <div
             onMouseDown={handleMouseDown}
             // onClick={resetWidth}
-            className="absolute left-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
+            className="absolute left-0 top-0 h-full w-2 cursor-ew-resize border-r-transparent bg-black transition-all  ease-in-out hover:border-r hover:border-r-green-500"
           />
 
           {children}

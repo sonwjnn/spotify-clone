@@ -1,6 +1,6 @@
 'use client'
 
-import { SongItem } from '@/components/song-item'
+import { SongCard } from '@/components/song-card'
 import { useMainLayout } from '@/hooks/use-main-layout'
 import { useOnPlay } from '@/hooks/use-on-play'
 import type { Song } from '@/types/types'
@@ -28,7 +28,7 @@ export const MainContent: React.FC<MainContentProps> = ({ songs }) => {
       }}
     >
       {songs.map(item => (
-        <SongItem
+        <SongCard
           key={item.id}
           onClick={(id: string) => onPlay(id)}
           data={item}

@@ -1,4 +1,4 @@
-import { CartItem } from '@/components/card-item'
+import { PlaylistCard } from './playlist-card'
 import { useMainLayout } from '@/hooks/use-main-layout'
 import type { Playlist } from '@/types/types'
 
@@ -6,7 +6,7 @@ interface CartListProps {
   data: Playlist[]
 }
 
-export const CardList = ({ data }: CartListProps): JSX.Element => {
+export const PlaylistCardList = ({ data }: CartListProps): JSX.Element => {
   const { width, quantityCol } = useMainLayout()
 
   const columnWidth = (width - 2 * 24 - (quantityCol - 1) * 24) / quantityCol
@@ -19,7 +19,7 @@ export const CardList = ({ data }: CartListProps): JSX.Element => {
       }}
     >
       {data.map(item => (
-        <CartItem key={item.id} data={item} type="playlist" />
+        <PlaylistCard key={item.id} data={item} type="playlist" />
       ))}
     </div>
   )

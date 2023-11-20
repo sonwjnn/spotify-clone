@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import { LikePlaylistButton } from '@/components/like-playlist-button'
+import { LikePlaylistButton } from './like-playlist-button'
 import { MediaList } from '@/components/media-list'
 import { PlayButton } from '@/components/play-button'
 import { useOnPlay } from '@/hooks/use-on-play'

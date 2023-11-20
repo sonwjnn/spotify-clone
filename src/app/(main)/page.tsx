@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 
 import { Footer } from '@/components/footer'
-import { Greeting } from '@/components/greeting'
+import { Greeting } from './_components/greeting'
 import { Header } from '@/components/header'
 import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'

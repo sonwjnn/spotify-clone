@@ -156,7 +156,7 @@ export const SidebarResizer: React.FC<SidebarResizerProps> = memo(
           <div
             onMouseDown={handleMouseDown}
             // onClick={resetWidth}
-            className="absolute right-0 top-0 h-full w-2 cursor-ew-resize bg-black transition "
+            className="absolute right-0 top-0  h-full w-2 cursor-ew-resize border-l-transparent bg-black transition-all  ease-in-out hover:border-l hover:border-l-green-500"
           />
         </aside>
         {isMobile ? <div className="h-full w-2 bg-black "></div> : null}

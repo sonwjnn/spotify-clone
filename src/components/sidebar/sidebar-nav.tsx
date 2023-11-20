@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
@@ -32,11 +34,11 @@ const NavItem: React.FC<NavItemProps> = ({ icons, label, active, href }) => {
     <Link
       href={href}
       className={twMerge(
-        `flex flex-row h-auto items-center w-full gap-x-4 text-base font-bold cursor-pointer hover:text-white transition text-neutral-400 py-1 pl-1`,
+        `flex h-auto w-full cursor-pointer flex-row items-center gap-x-4 py-1 pl-1 text-base font-bold text-neutral-400 transition hover:text-white`,
         active && 'text-white'
       )}
     >
-      <div className="h-6 w-6">{Icon ? <Icon /> : null}</div>
+      <div className=" h-6 w-6">{Icon ? <Icon /> : null}</div>
 
       {!isCollapsed && <p className="w-full truncate">{label}</p>}
     </Link>

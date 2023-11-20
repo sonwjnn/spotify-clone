@@ -93,13 +93,13 @@ export const Navbar: React.FC<NavbarProps> = props => {
       {
         icon: [HomeActiveIcon, HomeIcon],
         label: 'Home',
-        active: pathname !== '/search',
+        active: pathname === '/',
         href: '/',
       },
       {
         icon: [SearchActiveIcon, SearchIcon],
         label: 'Search',
-        active: pathname === '/search',
+        active: pathname.includes('/search'),
         href: '/search',
       },
     ],
@@ -134,13 +134,13 @@ export const Navbar: React.FC<NavbarProps> = props => {
   return (
     <div
       className={twMerge(
-        `absolute top-0 right-0 left-0 h-16  rounded-t-lg z-50`,
+        `absolute left-0 right-0 top-0 z-50  h-16 rounded-t-lg`,
         className
       )}
     >
       <div
         className={twMerge(
-          `rounded-t-lg absolute top-0 h-full left-0  ${
+          `absolute left-0 top-0 h-full rounded-t-lg  ${
             darker && 'brightness-50'
           }  right-0 z-10`
         )}
@@ -213,10 +213,12 @@ export const Navbar: React.FC<NavbarProps> = props => {
                 key={index}
                 href={item.href}
                 className={twMerge(
-                  `flex rounded-full w-10 h-10 bg-white p-2 items-center justify-center hover:opacity-75 transition`
+                  `flex h-10 w-10 items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75`
                 )}
               >
-                {Icon ? <Icon size={22} color="#000000" /> : null}
+                {Icon ? (
+                  <Icon size={22} color="#000000" className="animate-none" />
+                ) : null}
               </Link>
             )
           })}

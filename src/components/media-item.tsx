@@ -15,7 +15,7 @@ import { getDurationSong } from '@/utils/duration-convertor'
 
 import { LikeButton } from './like-button'
 import { MediaDropdown } from './media-dropdown'
-import { PlaylistButton } from './playlist-button'
+import { AddSongPlaylist } from './add-song-playlist'
 
 export const MediaItem: React.FC<MediaItemProps> = ({
   type = 'default',
@@ -155,7 +155,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
 
         {playlist && width > 480 ? (
           hasAddTrackBtn ? (
-            <PlaylistButton type="add" song={song} playlist={playlist} />
+            <AddSongPlaylist song={song} playlist={playlist} />
           ) : (
             <MediaDropdown song={song} playlist={playlist} />
           )

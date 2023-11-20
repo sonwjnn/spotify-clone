@@ -1,6 +1,6 @@
 'use client'
 
-import { CardList } from '@/components/card-list'
+import { PlaylistCardList } from './playlist-card-list'
 import type { Playlist } from '@/types/types'
 
 interface UserPlaylistContentProps {
@@ -20,7 +20,7 @@ export const UserPlaylistContent: React.FC<UserPlaylistContentProps> = ({
 
   return (
     <div className="w-full px-6">
-      <CardList data={data} />
+      <PlaylistCardList data={data} />
     </div>
   )
 }

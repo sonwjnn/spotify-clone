@@ -4,7 +4,7 @@ import { usePalette } from 'color-thief-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import { CardList } from '@/components/card-list'
+import { PlaylistCardList } from '@/app/user/[id]/playlists/_components/playlist-card-list'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useMainLayout } from '@/hooks/use-main-layout'
 import { useUser } from '@/hooks/use-user'
@@ -83,7 +83,7 @@ export const UserContent: React.FC<UserContentProp> = ({ data, id }) => {
           Show all
         </div>
       </div>
-      <CardList data={filteredPlaylists} />
+      <PlaylistCardList data={filteredPlaylists} />
     </div>
   )
 }

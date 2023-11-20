@@ -12,7 +12,7 @@ import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-import { PlayButton } from './play-button'
+import { PlayButton } from '../../../components/play-button'
 
 interface RecommendPlaylistProps {
   data: Playlist

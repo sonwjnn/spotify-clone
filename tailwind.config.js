@@ -96,6 +96,17 @@ module.exports = {
             'background-position': 'right center',
           },
         },
+        'spin-once': {
+          '0%, 100%': {
+            transform: 'rotate(0deg)',
+          },
+          '25%': {
+            transform: 'rotate(-30deg)',
+          },
+          '75%': {
+            transform: 'rotate(30deg)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -103,6 +114,7 @@ module.exports = {
         'gradient-x': 'gradient-x 15s ease infinite',
         'gradient-y': 'gradient-y 15s ease infinite',
         'gradient-xy': 'gradient-xy 15s ease infinite',
+        'spin-once': 'spin-once 1s ease-in-out',
       },
       fontFamily: {
         sans: ['var(--font-circularSp)'],

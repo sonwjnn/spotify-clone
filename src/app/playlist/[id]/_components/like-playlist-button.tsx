@@ -11,7 +11,7 @@ import { usePlaylist } from '@/hooks/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/hooks/use-user-store'
 
-import { Tooltip } from './ui/tooltip'
+import { Tooltip } from '../../../../components/ui/tooltip'
 
 interface LikePlaylistButtonProps {
   size?: number
@@ -120,7 +120,7 @@ export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
       <div
         onClick={handleLike}
         className={twMerge(
-          `justify-center items-center transition active:scale-110`,
+          `items-center justify-center transition active:scale-110`,
           className
         )}
       >

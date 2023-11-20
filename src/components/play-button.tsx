@@ -23,23 +23,23 @@ export const PlayButton: React.FC<PlayButtonProps> = memo(
         className={twMerge(
           `
         opacity-${isPlaying ? '1' : '0'}
-        rounded-full
+        translate
         flex
         items-center
         justify-center
-      bg-green-500
+        rounded-full
+        bg-green-500
         p-4
         drop-shadow-md
-        translate
         ${isPlaying ? 'translate-y-0' : 'translate-y-1/4'}
-        group-hover:opacity-100
-        group-hover:translate-y-0
-        hover:brightness-110
-        hover:scale-110
-        transition
-        active:scale-100
-        shadow-[0_8px_8px_rgba(0,0,0,.3)]
         cursor-pointer
+        shadow-[0_8px_8px_rgba(0,0,0,.3)]
+        transition
+        hover:scale-110
+        hover:brightness-110
+        active:scale-100
+        group-hover:translate-y-0
+        group-hover:opacity-100
     `,
           className
         )}

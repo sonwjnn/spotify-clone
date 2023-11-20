@@ -1,6 +1,6 @@
 import type { Playlist, Song } from './types'
 
-export interface SongItemTagProps {
+export interface SongCardTagProps {
   thumbnailUrl?: string
   name?: string
   isLoading?: boolean

@@ -1,6 +1,9 @@
+import cn from '@/utils/cn'
+
 export interface IconProps {
   size?: number
   color?: string
+  className?: string
 }
 
 export function DeleteIcon(props: Partial<IconProps>): JSX.Element {
@@ -43,9 +46,10 @@ export function AddPlaylistIcon(props: Partial<IconProps>): JSX.Element {
 }
 
 export function SearchActiveIcon(props: Partial<IconProps>): JSX.Element {
-  const { color = 'currentColor', size = 24 } = props
+  const { color = 'currentColor', size = 24, className } = props
   return (
     <svg
+      className={cn(`animate-spin-once`, className)}
       role="img"
       fill={color}
       height={size}
@@ -78,9 +82,10 @@ export function SearchIcon(props: Partial<IconProps>): JSX.Element {
 }
 
 export function HomeActiveIcon(props: Partial<IconProps>): JSX.Element {
-  const { color = 'currentColor', size = 24 } = props
+  const { color = 'currentColor', size = 24, className } = props
   return (
     <svg
+      className={cn(`animate-spin-once`, className)}
       role="img"
       fill={color}
       height={size}
