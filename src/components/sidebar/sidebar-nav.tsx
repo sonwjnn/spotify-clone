@@ -8,28 +8,22 @@ import { twMerge } from 'tailwind-merge'
 
 import { useSidebar } from '@/hooks/use-sidebar'
 import type { IconProps } from '@/public/icons'
-import {
-  HomeActiveIcon,
-  HomeIcon,
-  SearchActiveIcon,
-  SearchIcon,
-} from '@/public/icons'
+import { HomeIcon, SearchIcon } from '@/public/icons'
 
 import { Box } from '../ui/box'
 import { Tooltip } from '../ui/tooltip'
 
 interface NavItemProps {
-  icons: IconType[]
+  icon: IconType
   label: string
   active?: boolean
   href: string
 }
 
-const NavItem: React.FC<NavItemProps> = ({ icons, label, active, href }) => {
+const NavItem: React.FC<NavItemProps> = ({ icon, label, active, href }) => {
   const { isCollapsed } = useSidebar()
-  const Icon: ((props: Partial<IconProps>) => JSX.Element) | undefined = active
-    ? icons[0]
-    : icons[1]
+  const Icon: ((props: Partial<IconProps>) => JSX.Element) | undefined = icon
+
   return (
     <Link
       href={href}
@@ -38,7 +32,14 @@ const NavItem: React.FC<NavItemProps> = ({ icons, label, active, href }) => {
         active && 'text-white'
       )}
     >
-      <div className="h-6 w-6">{Icon ? <Icon /> : null}</div>
+      <div className="h-6 w-6">
+        {Icon ? (
+          <Icon
+            className={`${active ? 'animate-spin-once' : null}`}
+            active={active ? true : false}
+          />
+        ) : null}
+      </div>
 
       {!isCollapsed && <p className="w-full truncate">{label}</p>}
     </Link>
@@ -51,13 +52,13 @@ export const SidebarNav: React.FC = () => {
   const routes = useMemo(
     () => [
       {
-        icons: [HomeActiveIcon, HomeIcon] as IconType[],
+        icon: HomeIcon as IconType,
         label: 'Home',
         active: pathname === '/',
         href: '/',
       },
       {
-        icons: [SearchActiveIcon, SearchIcon] as IconType[],
+        icon: SearchIcon as IconType,
         label: 'Search',
         active: pathname.includes('/search'),
         href: '/search',

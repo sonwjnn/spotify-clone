@@ -17,12 +17,7 @@ import { usePlayer } from '@/hooks/use-player'
 import { useSelectedPlayer } from '@/hooks/use-selected-player'
 import { useUser } from '@/hooks/use-user'
 import type { IconProps } from '@/public/icons'
-import {
-  HomeActiveIcon,
-  HomeIcon,
-  SearchActiveIcon,
-  SearchIcon,
-} from '@/public/icons'
+import { HomeIcon, SearchIcon } from '@/public/icons'
 import type { Playlist, Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
@@ -91,13 +86,13 @@ export const Navbar: React.FC<NavbarProps> = props => {
   const routes = useMemo(
     () => [
       {
-        icon: [HomeActiveIcon, HomeIcon],
+        icon: HomeIcon,
         label: 'Home',
         active: pathname === '/',
         href: '/',
       },
       {
-        icon: [SearchActiveIcon, SearchIcon],
+        icon: SearchIcon,
         label: 'Search',
         active: pathname.includes('/search'),
         href: '/search',
@@ -207,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
           {routes.map((item, index) => {
             const Icon:
               | ((props: Partial<IconProps>) => JSX.Element)
-              | undefined = item.active ? item.icon[0] : item.icon[1]
+              | undefined = item.icon
             return (
               <Link
                 key={index}
@@ -217,7 +212,12 @@ export const Navbar: React.FC<NavbarProps> = props => {
                 )}
               >
                 {Icon ? (
-                  <Icon size={22} color="#000000" className="animate-none" />
+                  <Icon
+                    size={22}
+                    color="#000000"
+                    className="animate-none"
+                    active={item.active ? true : false}
+                  />
                 ) : null}
               </Link>
             )
