@@ -38,7 +38,7 @@ const NavItem: React.FC<NavItemProps> = ({ icons, label, active, href }) => {
         active && 'text-white'
       )}
     >
-      <div className=" h-6 w-6">{Icon ? <Icon /> : null}</div>
+      <div className="h-6 w-6">{Icon ? <Icon /> : null}</div>
 
       {!isCollapsed && <p className="w-full truncate">{label}</p>}
     </Link>
