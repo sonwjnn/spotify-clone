@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from 'react'
 
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/hooks/use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 import type { Playlist, Song } from '@/types/types'
 import cn from '@/utils/cn'
 
-import { GlobalLoading } from '../loading-layout/global-loading'
-import { PlayingView } from '../playing-view/playing-view'
-import { Sidebar } from '../sidebar/sidebar'
+import { GlobalLoading } from '@/components/loading-layout/global-loading'
+import { PlayingView } from '@/components/playing-view/playing-view'
+import { Sidebar } from '@/components/sidebar/sidebar'
 import { MainLayout } from './main-layout'
 
 interface MainContentProps {
@@ -59,7 +59,7 @@ export const MainContent: React.FC<MainContentProps> = ({
         <GlobalLoading />
       ) : (
         <div
-          className={cn(`flex  flex-row h-full`, {
+          className={cn(`flex  h-full flex-row`, {
             'h-[calc(100%-80px)]': user && player.activeId,
           })}
         >

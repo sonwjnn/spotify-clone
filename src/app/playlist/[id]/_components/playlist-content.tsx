@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { usePlaylist } from '@/hooks/use-playlist'
+import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import type { Playlist, Song } from '@/types/types'
 

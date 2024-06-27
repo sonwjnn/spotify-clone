@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import { MusicNote, SoundIconSolid } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'

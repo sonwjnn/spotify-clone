@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 
-import { useComponentSize } from '@/hooks/use-component-size'
-import { useMainLayout } from '@/hooks/use-main-layout'
+import { useComponentSize } from '@/store/use-component-size'
+import { useMainLayout } from '@/store/use-main-layout'
 
 interface MainLayoutProps {
   children: React.ReactNode

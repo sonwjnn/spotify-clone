@@ -7,11 +7,11 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { twMerge } from 'tailwind-merge'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { usePlaylist } from '@/hooks/use-playlist'
+import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/hooks/use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 
-import { Tooltip } from '../../../../components/ui/tooltip'
+import { Tooltip } from '@/components/ui/tooltip'
 
 interface LikePlaylistButtonProps {
   size?: number

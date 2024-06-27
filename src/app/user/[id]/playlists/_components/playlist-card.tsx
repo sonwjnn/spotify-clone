@@ -4,13 +4,13 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-import { PlayButton } from '../../../../../components/play-button'
+import { PlayButton } from '@/components/play-button'
 
 interface PlaylistCardProps {
   data: Playlist

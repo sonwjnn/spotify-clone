@@ -1,7 +1,7 @@
 import { usePathname } from 'next/navigation'
 
-import { usePlayer } from '@/hooks/use-player'
-import { useSelectedPlayer } from '@/hooks/use-selected-player'
+import { usePlayer } from '@/store/use-player'
+import { useSelectedPlayer } from '@/store/use-selected-player'
 import type { Song } from '@/types/types'
 
 import { useAuthModal } from './modals/use-auth-modal'

@@ -3,13 +3,13 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
-import { usePlayer } from '@/hooks/use-player'
-import { usePlayingView } from '@/hooks/use-playing-view'
+import { usePlayer } from '@/store/use-player'
+import { usePlayingView } from '@/store/use-playing-view'
 import type { SoundLevel } from '@/public/icons'
 import { PlayingViewIcon, QueueIcon, SoundIcon } from '@/public/icons'
 
-import { Slider } from '../ui/slider'
-import { Tooltip } from '../ui/tooltip'
+import { Slider } from '@/components/ui/slider'
+import { Tooltip } from '@/components/ui/tooltip'
 
 export const VolumeBar: React.FC = () => {
   const { volume, setVolume } = usePlayer()

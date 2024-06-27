@@ -8,13 +8,13 @@ import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { useHeader } from '@/hooks/use-header'
+import { useHeader } from '@/store/use-header'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { useMainLayout } from '@/hooks/use-main-layout'
-import { useNavbar } from '@/hooks/use-navbar'
+import { useMainLayout } from '@/store/use-main-layout'
+import { useNavbar } from '@/store/use-navbar'
 import { useOnPlay } from '@/hooks/use-on-play'
-import { usePlayer } from '@/hooks/use-player'
-import { useSelectedPlayer } from '@/hooks/use-selected-player'
+import { usePlayer } from '@/store/use-player'
+import { useSelectedPlayer } from '@/store/use-selected-player'
 import { useUser } from '@/hooks/use-user'
 import type { IconProps } from '@/public/icons'
 import { HomeIcon, SearchIcon } from '@/public/icons'
@@ -147,8 +147,8 @@ export const Navbar: React.FC<NavbarProps> = props => {
             type === 'home'
               ? bgColorHome
               : type === 'user'
-              ? bgColorUser
-              : bgColor || data?.bg_color,
+                ? bgColorUser
+                : bgColor || data?.bg_color,
         }}
       ></div>
 

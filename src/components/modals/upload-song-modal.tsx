@@ -11,9 +11,9 @@ import uniqid from 'uniqid'
 import { useUploadModal } from '@/hooks/modals/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
-import { Modal } from '../ui/modal'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Modal } from '@/components/ui/modal'
 
 export const UploadSongModal: React.FC = () => {
   const uploadModal = useUploadModal()

@@ -9,8 +9,8 @@ import { postData } from '@/libs/helpers'
 import { getStripe } from '@/libs/stripe-client'
 import type { Price, ProductWithPrice } from '@/types/types'
 
-import { Button } from '../ui/button'
-import { Modal } from '../ui/modal'
+import { Button } from '@/components/ui/button'
+import { Modal } from '@/components/ui/modal'
 
 interface SubscribeModalProps {
   products: ProductWithPrice[]

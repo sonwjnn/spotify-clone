@@ -9,7 +9,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 import type { Subscription, UserDetails } from '@/types/types'
 
-import { useUserStore } from './use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 
 type UserContextType = {
   accessToken: string | null

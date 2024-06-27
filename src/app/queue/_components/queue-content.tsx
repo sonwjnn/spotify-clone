@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { MediaItem } from '@/components/media-item'
 import { MediaList } from '@/components/media-list'
 import { Button } from '@/components/ui/button'
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 
 interface QueueContentProps {}
 

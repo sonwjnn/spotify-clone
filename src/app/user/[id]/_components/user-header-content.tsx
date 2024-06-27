@@ -7,7 +7,7 @@ import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUserModal } from '@/hooks/modals/use-user-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { useMainLayout } from '@/hooks/use-main-layout'
+import { useMainLayout } from '@/store/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
@@ -76,7 +76,7 @@ export const UserHeaderContent: React.FC<UserHeaderContentProps> = ({
         <h1
           onClick={onClick}
           className={cn(
-            'flex cursor-pointer hover:underline text-center text-7xl font-bold text-white md:text-left',
+            'flex cursor-pointer text-center text-7xl font-bold text-white hover:underline md:text-left',
             width <= 1012 && '!text-5xl',
             width <= 901 && '!text-3xl'
           )}

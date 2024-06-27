@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import {
   RepeatIcon,
   ShuffleIcon,
@@ -8,8 +8,8 @@ import {
   SkipForwardIcon,
 } from '@/public/icons'
 
-import { PlayButton } from '../play-button'
-import { Tooltip } from '../ui/tooltip'
+import { PlayButton } from '@/components/play-button'
+import { Tooltip } from '@/components/ui/tooltip'
 
 interface ControlsProps {
   onPlayPrevious: () => void

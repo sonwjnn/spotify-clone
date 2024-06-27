@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 
-import { useHeader } from '@/hooks/use-header'
-import { useNavbar } from '@/hooks/use-navbar'
+import { useHeader } from '@/store/use-header'
+import { useNavbar } from '@/store/use-navbar'
 
 import { ScrollArea } from './ui/scroll-area'
 

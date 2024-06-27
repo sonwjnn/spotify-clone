@@ -7,7 +7,7 @@ import { MusicNote } from '@/public/icons'
 import type { Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-import { LikeButton } from '../like-button'
+import { LikeButton } from '@/components/like-button'
 
 interface SongDetailsProps {
   data: Song

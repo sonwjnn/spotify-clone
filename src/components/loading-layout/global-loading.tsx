@@ -2,7 +2,7 @@
 
 import { SyncLoader } from 'react-spinners'
 
-import { Box } from '../ui/box'
+import { Box } from '@/components/ui/box'
 
 export const GlobalLoading: React.FC = () => {
   return (

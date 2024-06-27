@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import useSound from 'use-sound'
 
-import { usePlayer } from '@/hooks/use-player'
-import { useSelectedPlayer } from '@/hooks/use-selected-player'
+import { usePlayer } from '@/store/use-player'
+import { useSelectedPlayer } from '@/store/use-selected-player'
 import type { Song } from '@/types/types'
 
-import { PlayButton } from '../play-button'
+import { PlayButton } from '@/components/play-button'
 import { Controls } from './controls'
 import { SeekBar } from './seek-bar'
 import { SongDetails } from './song-detail'

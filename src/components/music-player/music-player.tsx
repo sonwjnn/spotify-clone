@@ -1,7 +1,7 @@
 'use client'
 
 import { useLoadSongUrl } from '@/hooks/use-load-song-url'
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
 
 import { Player } from './player'

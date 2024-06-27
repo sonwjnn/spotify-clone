@@ -5,14 +5,14 @@ import { useRouter } from 'next/navigation'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
-import { useHeader } from '@/hooks/use-header'
+import { useHeader } from '@/store/use-header'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-import { PlayButton } from '../../../components/play-button'
+import { PlayButton } from '@/components/play-button'
 
 interface RecommendPlaylistProps {
   data: Playlist

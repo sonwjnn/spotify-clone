@@ -21,7 +21,7 @@ import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/hooks/use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 import { DeleteIcon } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
@@ -106,7 +106,6 @@ export const PlaylistDropdown: React.FC<PlaylistDropdownProps> = ({
     }
 
     setDropdown(false)
-    uploadModal.setPlaylist(data)
     uploadModal.onOpen()
   }
 
@@ -137,7 +136,7 @@ export const PlaylistDropdown: React.FC<PlaylistDropdownProps> = ({
           <Tooltip text={`More options for this playlist`}>
             <div
               className={twMerge(
-                `w-8 h-8 rounded-full transition relative hover:text-white`,
+                `relative h-8 w-8 rounded-full transition hover:text-white`,
                 className
               )}
             >

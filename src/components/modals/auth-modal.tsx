@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 
-import { Modal } from '../ui/modal'
+import { Modal } from '@/components/ui/modal'
 
 export const AuthModal = (): JSX.Element => {
   const router = useRouter()

@@ -4,13 +4,13 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlayer } from '@/hooks/use-player'
-import { usePlayingView } from '@/hooks/use-playing-view'
+import { usePlayer } from '@/store/use-player'
+import { usePlayingView } from '@/store/use-playing-view'
 import { CloseIcon, MusicNote } from '@/public/icons'
 import type { Song } from '@/types/types'
 
-import { LikeButton } from '../like-button'
-import { ScrollArea } from '../ui/scroll-area'
+import { LikeButton } from '@/components/like-button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { NextSong } from './next-song'
 import { PlayingViewResizer } from './playing-view-resizer'
 

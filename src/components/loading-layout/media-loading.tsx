@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton'
 export const MediaLoading: React.FC = () => {
   return (
     <div
-      className={`group grid h-[56px] w-full cursor-pointer grid-cols-list-5 items-center gap-4 rounded-md px-4     transition hover:bg-neutral-800 hover:opacity-100`}
+      className={`group grid h-[56px] w-full cursor-pointer grid-cols-list-5 items-center gap-4 rounded-md px-4 transition hover:bg-neutral-800 hover:opacity-100`}
     >
       <div className="relative select-none text-base text-neutral-400">
         <div className="relative ml-2 flex  h-full w-3 items-center overflow-hidden "></div>

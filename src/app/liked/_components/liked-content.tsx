@@ -7,10 +7,10 @@ import { MediaList } from '@/components/media-list'
 import { PlayButton } from '@/components/play-button'
 import { Button } from '@/components/ui/button'
 import { useOnPlay } from '@/hooks/use-on-play'
-import { usePlayer } from '@/hooks/use-player'
-import { usePlayingView } from '@/hooks/use-playing-view'
+import { usePlayer } from '@/store/use-player'
+import { usePlayingView } from '@/store/use-playing-view'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/hooks/use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 import { SingleMusicNote } from '@/public/icons'
 
 interface LikedContentProp {

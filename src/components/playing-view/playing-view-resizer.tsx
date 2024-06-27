@@ -10,7 +10,7 @@ import {
 } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
-import { usePlayingView } from '@/hooks/use-playing-view'
+import { usePlayingView } from '@/store/use-playing-view'
 import cn from '@/utils/cn'
 
 interface PlayingViewResizerProps {

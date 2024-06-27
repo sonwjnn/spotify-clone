@@ -20,9 +20,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useUploadModal } from '@/hooks/modals/use-upload-modal'
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/hooks/use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 
 interface UserDropdownProps {
   url: string

@@ -2,8 +2,8 @@
 
 import { memo, useEffect, useMemo, useState } from 'react'
 
-import { useHeader } from '@/hooks/use-header'
-import { useMainLayout } from '@/hooks/use-main-layout'
+import { useHeader } from '@/store/use-header'
+import { useMainLayout } from '@/store/use-main-layout'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 

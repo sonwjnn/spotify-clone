@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import { ScrollArea } from '../ui/scroll-area'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Library } from './library/library'
 import { SidebarNav } from './sidebar-nav'
 import { SidebarResizer } from './sidebar-resizer'
@@ -28,7 +28,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     <SidebarResizer minWidth={300} maxWidth={500}>
       <div
         className={twMerge(
-          `flex flex-col bg-black gap-y-2 h-full  p-2`,
+          `flex h-full flex-col gap-y-2 bg-black  p-2`,
           className
         )}
       >

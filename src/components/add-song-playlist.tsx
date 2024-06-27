@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { usePlaylist } from '@/hooks/use-playlist'
+import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import type { Playlist, Song } from '@/types/types'
 

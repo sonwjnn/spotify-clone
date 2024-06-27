@@ -6,12 +6,12 @@ import { useMemo } from 'react'
 import type { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge'
 
-import { useSidebar } from '@/hooks/use-sidebar'
+import { useSidebar } from '@/store/use-sidebar'
 import type { IconProps } from '@/public/icons'
 import { HomeIcon, SearchIcon } from '@/public/icons'
 
-import { Box } from '../ui/box'
-import { Tooltip } from '../ui/tooltip'
+import { Box } from '@/components/ui/box'
+import { Tooltip } from '@/components/ui/tooltip'
 
 interface NavItemProps {
   icon: IconType

@@ -8,7 +8,7 @@ import { twMerge } from 'tailwind-merge'
 
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/hooks/use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 import type { Song } from '@/types/types'
 
 import { Tooltip } from './ui/tooltip'
@@ -92,9 +92,9 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
       <div
         onClick={handleLike}
         className={twMerge(
-          `justify-center items-center ${
+          `items-center justify-center ${
             isLiked || isSelected ? 'flex' : 'hidden'
-          }  group-hover/:flex transition active:scale-110`,
+          }  transition active:scale-110 group-hover/:flex`,
           className
         )}
       >

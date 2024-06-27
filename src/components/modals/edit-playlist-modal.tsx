@@ -13,18 +13,18 @@ import uniqid from 'uniqid'
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlaylist } from '@/hooks/use-playlist'
+import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
-import { useUserStore } from '@/hooks/use-user-store'
+import { useUserStore } from '@/store/use-user-store'
 import { DeleteIcon, MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
 import { buckets } from '@/utils/constants'
 
-import { Spinner } from '../spinner'
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
-import { Modal } from '../ui/modal'
+import { Spinner } from '@/components/spinner'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Modal } from '@/components/ui/modal'
 
 export const EditPlaylistModal: React.FC = () => {
   const {
@@ -258,7 +258,7 @@ export const EditPlaylistModal: React.FC = () => {
               <div
                 className={cn(
                   `absolute inset-0 z-10 flex flex-col items-center justify-center gap-y-2 rounded-sm bg-[rgba(0,0,0,.7)] opacity-0 transition group-hover:opacity-100`,
-                  isLoading && 'opacity-100 cursor-not-allowed'
+                  isLoading && 'cursor-not-allowed opacity-100'
                 )}
               >
                 {isLoading ? (

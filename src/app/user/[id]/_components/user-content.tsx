@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 import { PlaylistCardList } from '@/app/user/[id]/playlists/_components/playlist-card-list'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { useMainLayout } from '@/hooks/use-main-layout'
+import { useMainLayout } from '@/store/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import { SingleMusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'

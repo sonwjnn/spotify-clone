@@ -16,7 +16,7 @@ import {
 import { useAuthModal } from '@/hooks/modals/use-auth-modal'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUploadModal } from '@/hooks/modals/use-upload-modal'
-import { usePlaylist } from '@/hooks/use-playlist'
+import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { DeleteIcon } from '@/public/icons'
 import type { Playlist, Song } from '@/types/types'
@@ -101,7 +101,7 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
       <DropdownMenuTrigger asChild>
         <div
           className={twMerge(
-            `w-8 h-8 rounded-full transition relative hover:bg-neutral-800`,
+            `relative h-8 w-8 rounded-full transition hover:bg-neutral-800`,
             className
           )}
         >

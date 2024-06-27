@@ -5,9 +5,9 @@ import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
 import { useUser } from '@/hooks/use-user'
-import { HomeActiveIcon, SearchIcon } from '@/public/icons'
+import { HomeIcon, SearchIcon } from '@/public/icons'
 
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 
 interface HeaderProps {
   children: React.ReactNode
@@ -38,7 +38,7 @@ export const HeaderLoading: React.FC<HeaderProps> = ({
         </div>
         <div className="flex items-center gap-x-2 md:hidden">
           <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
-            <HomeActiveIcon size={20} color="#000000" />
+            <HomeIcon size={20} color="#000000" />
           </button>
           <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
             <SearchIcon size={20} color="#000000" />

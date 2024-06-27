@@ -3,9 +3,9 @@
 import { type ElementRef, memo, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
-import { useSidebar } from '@/hooks/use-sidebar'
+import { useSidebar } from '@/store/use-sidebar'
 import cn from '@/utils/cn'
-import { usePlayingView } from '@/hooks/use-playing-view'
+import { usePlayingView } from '@/store/use-playing-view'
 
 interface SidebarResizerProps {
   children: React.ReactNode

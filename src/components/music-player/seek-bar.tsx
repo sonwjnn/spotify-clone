@@ -2,7 +2,7 @@ import React from 'react'
 
 import { getDurationSong } from '@/utils/duration-convertor'
 
-import { Slider } from '../ui/slider'
+import { Slider } from '@/components/ui/slider'
 
 interface SeekBarProps {
   sound: any

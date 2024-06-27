@@ -3,10 +3,10 @@
 import { usePalette } from 'color-thief-react'
 import { memo, useEffect, useRef, useState } from 'react'
 
-import { useComponentSize } from '@/hooks/use-component-size'
-import { useHeader } from '@/hooks/use-header'
+import { useComponentSize } from '@/store/use-component-size'
+import { useHeader } from '@/store/use-header'
 import { useLoadImage } from '@/hooks/use-load-image'
-import { useMainLayout } from '@/hooks/use-main-layout'
+import { useMainLayout } from '@/store/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import type { Playlist } from '@/types/types'
 import cn from '@/utils/cn'
@@ -57,21 +57,21 @@ export const Header: React.FC<HeaderProps> = memo(
         type === 'home'
           ? bgColorHeader
           : type === 'user'
-          ? bgColorUser
-          : bgColor || data?.bg_color,
+            ? bgColorUser
+            : bgColor || data?.bg_color,
     }
 
     return (
       <div
         className={cn(
-          ` h-fit flex justify-center md:justify-start items-end  p-6 pt-16 ${
+          ` flex h-fit items-end justify-center p-6  pt-16 md:justify-start ${
             type === 'playlist' && width <= 768 ? '550px' : '340px'
           } `,
           className,
           {
-            'justify-center header-bg-img-sm':
+            'header-bg-img-sm justify-center':
               type === 'playlist' || type === 'user',
-            'justify-start header-bg-img-md': type === 'home',
+            'header-bg-img-md justify-start': type === 'home',
           }
         )}
         style={headerStyles}

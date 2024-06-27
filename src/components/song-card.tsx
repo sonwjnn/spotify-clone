@@ -3,7 +3,7 @@
 import Image from 'next/image'
 
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import { MusicNote } from '@/public/icons'
 import type { Song } from '@/types/types'
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { SongCard } from '@/components/song-card'
-import { useMainLayout } from '@/hooks/use-main-layout'
+import { useMainLayout } from '@/store/use-main-layout'
 import { useOnPlay } from '@/hooks/use-on-play'
 import type { Song } from '@/types/types'
 

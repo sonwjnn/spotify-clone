@@ -7,7 +7,7 @@ import { useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import { useLoadImage } from '@/hooks/use-load-image'
-import { usePlayer } from '@/hooks/use-player'
+import { usePlayer } from '@/store/use-player'
 import { MusicNote, PlayIcon, SingleMusicNote } from '@/public/icons'
 import type { Song } from '@/types/types'
 
