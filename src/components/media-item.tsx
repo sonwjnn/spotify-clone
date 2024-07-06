@@ -9,7 +9,7 @@ import { useMainLayout } from '@/store/use-main-layout'
 import { usePlayer } from '@/store/use-player'
 import { PlayIcon, SingleMusicNote } from '@/public/icons'
 import type { MediaItemProps } from '@/types/track'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 
@@ -47,7 +47,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
         `
       group grid grid-cols-list-5 gap-4
       ${isSelected && 'bg-neutral-800/50'}
-      h-[56px] w-full cursor-pointer items-center rounded-md px-4 transition hover:bg-white hover:bg-opacity-10
+      h-[56px] w-full cursor-pointer items-center rounded-md px-4 transition hover:bg-zinc-700/10  dark:hover:bg-white
     `,
         {
           'grid-cols-list-4': width <= 780 && type !== 'album',
@@ -61,7 +61,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
       onMouseLeave={() => setHover(false)}
     >
       {type !== 'search' && width > 480 && (
-        <div className="relative select-none text-base text-neutral-400">
+        <div className="relative select-none text-base text-zinc-500 dark:text-neutral-400">
           {index && player.isPlaying && handleActive() ? (
             <div className="relative ml-2 flex  h-full w-3 items-center overflow-hidden ">
               <Image
@@ -76,7 +76,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
             <div
               className={`
                 flex w-4 items-center  justify-end text-sm 
-                ${handleActive() ? 'text-[#2ed760]' : 'text-neutral-400'}
+                ${handleActive() ? 'text-[#2ed760]' : 'text-zinc-500 dark:text-neutral-400'}
               `}
             >
               {isHover ? <PlayIcon size={12} color={`#a3a3a3`} /> : index}
@@ -99,7 +99,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
               />
             ) : (
               <div
-                className={`flex h-full w-full items-center justify-center bg-neutral-800 text-white`}
+                className={`flex h-full w-full items-center justify-center bg-zinc-300 text-white dark:bg-neutral-800`}
               >
                 <SingleMusicNote />
               </div>
@@ -111,7 +111,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
         >
           <p
             className={`
-              ${handleActive() ? 'text-[#2ed760]' : 'text-white'}
+              ${handleActive() ? 'text-[#2ed760]' : 'text-zinc-600 dark:text-white'}
               m-0 select-none truncate p-0 text-base`}
           >
             {song.title}
@@ -119,7 +119,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
           {type !== 'artist' && (
             <div className={`flex w-full items-center gap-[3px] truncate`}>
               {/* <SubTitle data={artists} /> */}
-              <p className="select-none truncate text-sm text-neutral-400">
+              <p className="select-none truncate text-sm  dark:text-neutral-400">
                 {song.author}
               </p>
             </div>
@@ -129,12 +129,16 @@ export const MediaItem: React.FC<MediaItemProps> = ({
       {type !== 'album' && type !== 'search' && (
         <>
           {width > 640 && (
-            <p className="select-none truncate text-sm text-neutral-400">
+            <p className="select-none truncate text-sm text-zinc-500 dark:text-neutral-400">
               {song.title}
             </p>
           )}
           {width > 780 && (
-            <div className={'select-none text-sm text-neutral-400'}>
+            <div
+              className={
+                'select-none text-sm text-zinc-500 dark:text-neutral-400'
+              }
+            >
               {dayjs(song.created_at).format('DD-MM-YYYY')}
             </div>
           )}
@@ -145,7 +149,11 @@ export const MediaItem: React.FC<MediaItemProps> = ({
           <>
             <LikeButton isSelected={isSelected} song={song} size={20} />
 
-            <div className={'select-none text-sm text-neutral-400'}>
+            <div
+              className={
+                'select-none text-sm text-zinc-500 dark:text-neutral-400'
+              }
+            >
               {getDurationSong({
                 milliseconds: song?.duration_ms ? song?.duration_ms : 0,
               })}

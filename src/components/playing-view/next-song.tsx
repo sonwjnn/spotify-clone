@@ -41,14 +41,18 @@ export const NextSong: FC<NextSongProps> = ({ song }) => {
       className={'flex w-full flex-col rounded-2xl bg-neutral-400/5 p-4 pb-2 '}
     >
       <div className={'flex flex-row justify-between '}>
-        <span className={'truncate text-base font-bold text-white'}>
+        <span
+          className={
+            'truncate text-base font-bold text-zinc-600 dark:text-white'
+          }
+        >
           Next in queue
         </span>
 
         <div className="scale-[1.04] underline hover:text-white ">
           <button
             onClick={handleClickQueueBtn}
-            className="origin-center cursor-pointer border-none bg-transparent text-sm font-bold text-neutral-400 outline-none transition hover:underline focus:outline-none"
+            className="origin-center cursor-pointer border-none bg-transparent text-sm font-bold text-zinc-600 outline-none transition hover:underline focus:outline-none dark:text-neutral-400"
           >
             Open queue
           </button>
@@ -63,12 +67,8 @@ export const NextSong: FC<NextSongProps> = ({ song }) => {
             'flex h-[64px] cursor-pointer flex-row items-center gap-3 overflow-hidden rounded-lg  p-2 transition hover:bg-neutral-400/10'
           }
         >
-          <div className={'w-4 text-white'}>
-            {isHover ? (
-              <PlayIcon color="#ffffff" size={14} />
-            ) : (
-              <SingleMusicNote size={16} />
-            )}
+          <div className={'w-4 text-zinc-700 dark:text-white'}>
+            {isHover ? <PlayIcon size={14} /> : <SingleMusicNote size={16} />}
           </div>
           <div className={' h-12 w-12'}>
             {imagePath ? (
@@ -103,7 +103,7 @@ export const NextSong: FC<NextSongProps> = ({ song }) => {
             {song?.title ? (
               <span
                 className={
-                  'cursor-pointer truncate text-base font-bold text-white hover:underline '
+                  'cursor-pointer truncate text-base font-bold text-zinc-600 hover:underline dark:text-white '
                 }
               >
                 {song?.title}
@@ -112,7 +112,11 @@ export const NextSong: FC<NextSongProps> = ({ song }) => {
               <Skeleton height={'100%'} borderRadius={50} />
             )}
             {song?.author ? (
-              <span className={'select-none truncate text-sm text-neutral-400'}>
+              <span
+                className={
+                  'select-none truncate text-sm text-zinc-500 dark:text-neutral-400'
+                }
+              >
                 {song?.author}
               </span>
             ) : (

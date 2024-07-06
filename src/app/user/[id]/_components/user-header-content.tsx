@@ -11,7 +11,7 @@ import { useMainLayout } from '@/store/use-main-layout'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 
 interface UserHeaderContentProps {

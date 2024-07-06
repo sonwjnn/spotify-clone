@@ -25,7 +25,7 @@ export const Modal: React.FC<ModalProps> = ({
         <Dialog.Overlay className="fixed inset-0 z-50 bg-neutral-900/90 backdrop-blur-sm" />
         <Dialog.Content
           className={twMerge(
-            `fixed drop-shadow-sm border border-neutral-700 top-[50%] left-[50%] max-h-ful h-full md:h-auto md:max-h-[85vh] w-full md:w-[90vw] md:max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-primary p-[25px] focus:outline-none z-[60]`,
+            `max-h-ful fixed left-[50%] top-[50%] z-[60] h-full w-full translate-x-[-50%] translate-y-[-50%] rounded-xl border border-neutral-700 bg-primary p-[25px] drop-shadow-sm focus:outline-none md:h-auto md:max-h-[85vh] md:w-[90vw] md:max-w-[450px]`,
             className
           )}
         >

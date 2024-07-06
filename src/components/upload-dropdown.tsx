@@ -101,11 +101,11 @@ export const UploadDropdown: React.FC = () => {
           <Tooltip text="Create song or playlist">
             <div
               className={
-                'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
+                'relative h-8 w-8 rounded-full transition hover:bg-zinc-700/10 dark:hover:bg-neutral-800'
               }
             >
               <div
-                className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
+                className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-zinc-500 outline-none transition hover:text-white focus:outline-none dark:text-neutral-400"
                 aria-label="Customise options"
                 onClick={() => setDropdown(!isDropdown)}
               >
@@ -118,11 +118,11 @@ export const UploadDropdown: React.FC = () => {
 
       <DropdownMenuPortal>
         <DropdownMenuContent
-          className="min-w-[220px] rounded-md border-none p-[5px] "
+          className="min-w-[220px] rounded-md border-none  p-[5px]"
           sideOffset={5}
           hidden={uploadModal.isOpen}
         >
-          <DropdownMenuItem onSelect={onUploadSong} className=" text-white">
+          <DropdownMenuItem onSelect={onUploadSong}>
             <div className="mr-2   ">
               <LuListMusic size={20} color="#ec4899" />
             </div>
@@ -130,7 +130,7 @@ export const UploadDropdown: React.FC = () => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={onUploadPlaylist}
-            className={` ${isRequired && 'select-none'} text-white`}
+            className={` ${isRequired && 'select-none'} `}
           >
             <div className="mr-2   ">
               <AddPlaylistIcon color="#3b82f6" />

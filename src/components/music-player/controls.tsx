@@ -36,7 +36,7 @@ export const Controls: React.FC<ControlsProps> = ({
         <div
           onClick={() => setRandom(!isRandom)}
           className={
-            'cursor-pointer  text-neutral-400  transition hover:text-white'
+            'cursor-pointer  text-zinc-700 transition dark:text-neutral-400 dark:hover:text-white'
           }
         >
           <ShuffleIcon color={isRandom ? '#22e55c' : undefined} />
@@ -49,7 +49,7 @@ export const Controls: React.FC<ControlsProps> = ({
             setPlaying(false)
             onPlayPrevious()
           }}
-          className="cursor-pointer text-neutral-400 transition hover:text-white"
+          className=" cursor-pointer text-zinc-700 transition dark:text-neutral-400 dark:hover:text-white"
         >
           <SkipBackIcon />
         </div>
@@ -60,7 +60,7 @@ export const Controls: React.FC<ControlsProps> = ({
           onClick={handlePlay}
           isPlaying={isPlaying}
           iconSize={18}
-          className="h-[36px] w-[36px] translate-y-0 bg-white p-2 opacity-100"
+          className="h-[36px] w-[36px] translate-y-0 bg-green-500 p-2 opacity-100 dark:bg-white"
         />
       </Tooltip>
 
@@ -70,7 +70,7 @@ export const Controls: React.FC<ControlsProps> = ({
             setPlaying(false)
             onPlayNext()
           }}
-          className="cursor-pointer text-neutral-400 transition hover:text-white"
+          className="cursor-pointer text-zinc-700 transition dark:text-neutral-400 dark:hover:text-white"
         >
           <SkipForwardIcon />
         </div>
@@ -79,7 +79,7 @@ export const Controls: React.FC<ControlsProps> = ({
       <Tooltip text={`${isReplay ? 'Disable' : 'Enable'} replay`}>
         <div
           onClick={() => setReplay(!isReplay)}
-          className={`cursor-pointer text-neutral-400 transition hover:text-white`}
+          className={`cursor-pointer text-zinc-700 transition dark:text-neutral-400 dark:hover:text-white`}
         >
           <RepeatIcon color={isReplay ? '#22e55c' : undefined} />
         </div>

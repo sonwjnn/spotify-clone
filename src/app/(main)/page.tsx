@@ -25,7 +25,9 @@ const MainPage: NextPage = async () => {
       </Header>
       <div className="mt-2 px-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-white">Newest songs</h1>
+          <h1 className="text-2xl font-semibold text-zinc-600 dark:text-white">
+            Newest songs
+          </h1>
         </div>
         <MainContent songs={songs} />
         <Footer />

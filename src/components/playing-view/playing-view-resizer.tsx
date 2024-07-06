@@ -11,7 +11,7 @@ import {
 import { useMediaQuery } from 'usehooks-ts'
 
 import { usePlayingView } from '@/store/use-playing-view'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 interface PlayingViewResizerProps {
   children: React.ReactNode
@@ -134,12 +134,14 @@ export const PlayingViewResizer: FC<PlayingViewResizerProps> = memo(
           <div
             onMouseDown={handleMouseDown}
             // onClick={resetWidth}
-            className="absolute left-0 top-0 h-full w-2 cursor-ew-resize border-r-transparent bg-black transition-all  ease-in-out hover:border-r hover:border-r-green-500"
+            className="absolute left-0 top-0 h-full w-2 cursor-ew-resize border-r-transparent bg-white transition-all ease-in-out  hover:border-r hover:border-r-green-500 dark:bg-black"
           />
 
           {children}
         </aside>
-        {!isShowed ? <div className="h-full w-2 bg-black "></div> : null}
+        {!isShowed ? (
+          <div className="h-full w-2 bg-white dark:bg-black "></div>
+        ) : null}
       </>
     )
   }

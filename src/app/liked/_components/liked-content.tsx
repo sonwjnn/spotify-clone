@@ -42,7 +42,7 @@ export const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
   if (!songs.length) {
     return (
       <div
-        className=" header-bg-img-md flex h-[40vh] w-full flex-col items-center justify-center gap-y-4 px-5 pt-8 text-white"
+        className=" header-bg-img-md-light dark:header-bg-img-md flex h-[40vh] w-full flex-col items-center justify-center gap-y-4 px-5 pt-8 text-white"
         style={{
           background: bgColor,
         }}
@@ -83,7 +83,7 @@ export const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
       <div className="relative flex w-full gap-x-6 p-5 px-10">
         <div
           style={{ backgroundColor: `${bgColor}` }}
-          className="header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
+          className="header-bg-img-md-light dark:header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
         ></div>
         <PlayButton
           className="h-14 w-14 translate-y-0 opacity-100"

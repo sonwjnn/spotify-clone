@@ -5,8 +5,8 @@ import { toast } from 'react-hot-toast'
 
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
-import { postData } from '@/libs/helpers'
-import { getStripe } from '@/libs/stripe-client'
+import { postData } from '@/lib/helpers'
+import { getStripe } from '@/lib/stripe-client'
 import type { Price, ProductWithPrice } from '@/types/types'
 
 import { Button } from '@/components/ui/button'

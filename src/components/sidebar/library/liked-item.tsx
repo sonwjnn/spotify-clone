@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 interface LikedItemProps {
   image: string
@@ -35,9 +35,9 @@ export const LikedItem: React.FC<LikedItemProps> = ({
           className={cn(
             ` w-full cursor-pointer rounded-md p-2 transition`,
             pathName.includes('/liked') &&
-              'bg-neutral-800 active:bg-neutral-800/75 hover:bg-neutral-700',
+              'bg-neutral-800 bg-zinc-700/20 hover:bg-neutral-700 hover:bg-zinc-700/30 active:bg-zinc-700/40 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:active:bg-neutral-800/75',
             !pathName.includes('/liked') &&
-              'active:bg-black hover:bg-neutral-800/50'
+              'hover:bg-zinc-700/10 active:bg-zinc-700/20 dark:hover:bg-neutral-800/50 dark:active:bg-black'
           )}
         >
           <div onClick={onClick} className="flex items-center gap-x-3">
@@ -57,8 +57,8 @@ export const LikedItem: React.FC<LikedItemProps> = ({
               )}
             </div>
             <div className="flex flex-col gap-y-1 overflow-hidden">
-              <p className="truncate text-white">{name}</p>
-              <p className="truncate text-sm text-neutral-400">{`Playliked - ${count} songs`}</p>
+              <p className="truncate text-zinc-600 dark:text-white">{name}</p>
+              <p className="truncate text-sm text-zinc-500 dark:text-neutral-400">{`Playliked - ${count} songs`}</p>
             </div>
           </div>
         </div>

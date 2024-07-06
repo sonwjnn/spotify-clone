@@ -20,7 +20,7 @@ export const MusicPlayer: React.FC = () => {
   }
 
   return (
-    <div className="fixed bottom-0 h-[80px] w-full bg-black px-4 py-2">
+    <div className="fixed bottom-0 h-[80px] w-full bg-white px-4 py-2 dark:bg-black">
       <Player key={songUrl} song={song} songUrl={songUrl} />
     </div>
   )

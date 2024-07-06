@@ -102,7 +102,7 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
           className={` transition ${
             isLiked
               ? 'text-[#22c55e] hover:brightness-125'
-              : ' text-neutral-400 hover:text-white'
+              : 'text-zinc-500 hover:text-zinc-600 dark:text-neutral-400 dark:hover:text-white'
           }`}
           size={size}
         />

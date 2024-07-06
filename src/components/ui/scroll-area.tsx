@@ -3,7 +3,7 @@
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 import * as React from 'react'
 
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 const ScrollBar = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
@@ -24,7 +24,7 @@ const ScrollBar = React.forwardRef<
   >
     <ScrollAreaPrimitive.ScrollAreaThumb
       className={cn(
-        'relative rounded-full bg-border bg-neutral-700 hover:brightness-125 z-50',
+        'relative z-50 rounded-full bg-border bg-zinc-400 hover:bg-zinc-500 dark:bg-neutral-700 dark:hover:brightness-125',
         orientation === 'vertical' && 'flex-1'
       )}
     />

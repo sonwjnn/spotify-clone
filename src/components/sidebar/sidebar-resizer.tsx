@@ -4,7 +4,7 @@ import { type ElementRef, memo, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
 import { useSidebar } from '@/store/use-sidebar'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 import { usePlayingView } from '@/store/use-playing-view'
 
 interface SidebarResizerProps {
@@ -156,10 +156,12 @@ export const SidebarResizer: React.FC<SidebarResizerProps> = memo(
           <div
             onMouseDown={handleMouseDown}
             // onClick={resetWidth}
-            className="absolute right-0 top-0  h-full w-2 cursor-ew-resize border-l-transparent bg-black transition-all  ease-in-out hover:border-l hover:border-l-green-500"
+            className="absolute right-0 top-0  h-full w-2 cursor-ew-resize border-l-transparent bg-white transition-all ease-in-out  hover:border-l hover:border-l-white dark:bg-black"
           />
         </aside>
-        {isMobile ? <div className="h-full w-2 bg-black "></div> : null}
+        {isMobile ? (
+          <div className="h-full w-2 bg-white dark:bg-black "></div>
+        ) : null}
       </>
     )
   }

@@ -12,7 +12,7 @@ import { useMainLayout } from '@/store/use-main-layout'
 import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 

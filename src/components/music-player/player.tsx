@@ -214,7 +214,7 @@ export const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
       {/* Right */}
       <div className="flex items-center   justify-end md:hidden">
         <PlayButton
-          className="h-14 w-14 translate-y-0 bg-white opacity-100"
+          className="h-14 w-14 translate-y-0 bg-green-500 opacity-100 dark:bg-white"
           onClick={handlePlay}
           isPlaying={isPlaying}
         />

@@ -28,14 +28,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     <SidebarResizer minWidth={300} maxWidth={500}>
       <div
         className={twMerge(
-          `flex h-full flex-col gap-y-2 bg-black  p-2`,
+          `flex h-full flex-col gap-y-2 bg-white p-2  dark:bg-black`,
           className
         )}
       >
         <SidebarNav />
 
         <ScrollArea
-          className="h-full w-full rounded-lg bg-neutral-900"
+          className="h-full w-full rounded-lg bg-[#F1F2F4] dark:bg-neutral-900"
           onScroll={handleScroll}
         >
           <Library isScroll={isScroll} />

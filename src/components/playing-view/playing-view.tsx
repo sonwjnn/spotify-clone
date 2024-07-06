@@ -43,19 +43,19 @@ export const PlayingView: React.FC = () => {
       minWidth={300}
       maxWidth={400}
     >
-      <div className="h-full  bg-black p-2 ">
+      <div className="h-full bg-white  p-2 dark:bg-black ">
         <ScrollArea
-          className="relative h-full w-full rounded-lg bg-neutral-900"
+          className="relative h-full w-full rounded-lg bg-[#F1F2F4] dark:bg-neutral-900"
           onScroll={handleScroll}
         >
           <div
-            className={` sticky top-0  z-10 flex flex-row justify-end bg-neutral-900 p-4 pb-3 ${
+            className={` sticky top-0  z-10 flex flex-row justify-end bg-[#F1F2F4] p-4 pb-3 dark:bg-neutral-900 ${
               isScroll ? 'shadow-2xl' : ''
             }`}
           >
             <div
               className={
-                'relative h-8 w-8 rounded-full transition hover:bg-neutral-800'
+                'relative h-8 w-8 rounded-full transition hover:bg-zinc-700/10 dark:hover:bg-neutral-800'
               }
             >
               <button
@@ -96,13 +96,13 @@ export const PlayingView: React.FC = () => {
               <div className={'flex flex-1 flex-col overflow-hidden '}>
                 <h2
                   className={
-                    'm-0 truncate pb-2 text-2xl font-bold text-white hover:underline hover:decoration-2'
+                    'datk:text-white m-0 truncate pb-2 text-2xl font-bold text-zinc-600 hover:underline hover:decoration-2'
                   }
                 >
                   {currentTrack?.title}
                 </h2>
                 <span className={''}>
-                  <p className="w-full truncate pb-4 text-base text-neutral-400">
+                  <p className="w-full truncate pb-4 text-base text-zinc-500 dark:text-neutral-400">
                     {currentTrack?.author}
                   </p>
                 </span>

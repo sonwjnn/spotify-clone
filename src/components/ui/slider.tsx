@@ -30,7 +30,7 @@ export const Slider: React.FC<SliderProps> = ({
   return (
     <SliderPrimitive.Root
       className={twMerge(
-        'group  relative flex items-center select-none cursor-pointer touch-none w-full h-10',
+        'group  relative flex h-10 w-full cursor-pointer touch-none select-none items-center',
         className
       )}
       defaultValue={[0]}
@@ -41,9 +41,9 @@ export const Slider: React.FC<SliderProps> = ({
       step={step}
     >
       <SliderPrimitive.Track className="relative  h-[3px] grow rounded-full bg-neutral-600">
-        <SliderPrimitive.Range className="absolute h-full  rounded-full bg-white group-hover:bg-[#22c55e]"></SliderPrimitive.Range>
+        <SliderPrimitive.Range className="absolute h-full  rounded-full bg-green-500 group-hover:bg-green-500 dark:bg-white"></SliderPrimitive.Range>
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className="absolute right-[-7px] h-3 w-3 translate-y-[-50%] scale-0 rounded-[10px] bg-white  transition focus:outline-none group-hover:scale-100 " />
+      <SliderPrimitive.Thumb className="absolute right-[-7px] h-3 w-3 translate-y-[-50%] scale-0 rounded-[10px] bg-green-500 transition  focus:outline-none group-hover:scale-100 dark:bg-white " />
     </SliderPrimitive.Root>
   )
 }

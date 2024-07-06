@@ -18,7 +18,7 @@ import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
 import { DeleteIcon, MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 
 import { Spinner } from '@/components/spinner'

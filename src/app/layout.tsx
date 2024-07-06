@@ -14,6 +14,7 @@ import { getUserPlaylists } from '@/server-actions/playlists/get-user-playlists'
 import { getActiveProductsWithPrices } from '@/server-actions/products/get-active-products-with-prices'
 import { getLikedSongs } from '@/server-actions/songs/get-liked-songs'
 import { getSongsByUserId } from '@/server-actions/songs/get-songs-by-user-id'
+import { ThemeProvider } from 'next-themes'
 
 const circularSp = localFont({
   src: [
@@ -41,32 +42,48 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }): Promise<JSX.Element> {
-  const products = await getActiveProductsWithPrices()
-  const userSongs = await getSongsByUserId()
-  const playlists = await getUserPlaylists()
-  const likedSongs = await getLikedSongs()
-  const likedPlaylists = await getLikedPlaylists()
+  const productsData = getActiveProductsWithPrices()
+  const userSongsData = getSongsByUserId()
+  const playlistsData = getUserPlaylists()
+  const likedSongsData = getLikedSongs()
+  const likedPlaylistsData = getLikedPlaylists()
+
+  const [products, userSongs, playlists, likedSongs, likedPlaylists] =
+    await Promise.all([
+      productsData,
+      userSongsData,
+      playlistsData,
+      likedSongsData,
+      likedPlaylistsData,
+    ])
 
   return (
     <html lang="en">
       <body className={`${circularSp.variable} font-sans`}>
-        <ToasterProvider />
-        <SkeletonProvider>
-          <SupabaseProvider>
-            <UserProvider>
-              <ModalProvider products={products} />
-              <MainContent
-                songs={userSongs}
-                playlists={playlists}
-                likedSongs={likedSongs}
-                likedPlaylists={likedPlaylists}
-              >
-                {children}
-              </MainContent>
-              <MusicPlayer />
-            </UserProvider>
-          </SupabaseProvider>
-        </SkeletonProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          storageKey="spotify-theme"
+        >
+          <ToasterProvider />
+          <SkeletonProvider>
+            <SupabaseProvider>
+              <UserProvider>
+                <ModalProvider products={products} />
+                <MainContent
+                  songs={userSongs}
+                  playlists={playlists}
+                  likedSongs={likedSongs}
+                  likedPlaylists={likedPlaylists}
+                >
+                  {children}
+                </MainContent>
+                <MusicPlayer />
+              </UserProvider>
+            </SupabaseProvider>
+          </SkeletonProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -54,17 +54,19 @@ export const SearchPlaylist: React.FC<SearchPlaylistProps> = () => {
   return (
     <>
       <div className="mb-4 px-6">
-        <div className='relative mt-2 line-clamp-2 w-full  py-6 text-3xl font-semibold text-white  before:absolute before:left-0 before:top-0 before:h-[1px] before:w-full  before:bg-neutral-800 before:content-[""]'>
+        <div className='relative mt-2 line-clamp-2 w-full  py-6 text-3xl font-semibold text-zinc-600 before:absolute  before:left-0 before:top-0 before:h-[1px] before:w-full before:bg-neutral-800  before:content-[""] dark:text-white'>
           Lets find content for your playlist !
         </div>
         <Input
           placeholder={'Search for your song to want to listen to !'}
           value={value}
           onChange={e => setValue(e.target.value)}
-          className={`w-[40%] rounded-full bg-neutral-800 px-4 pl-10 ${
+          className={`w-[40%] rounded-full bg-zinc-300 px-4 pl-10 text-zinc-500 placeholder:text-zinc-500 dark:bg-neutral-800 ${
             width <= 780 && 'w-[60%]'
           } ${width <= 550 && 'w-full'}`}
-          startIcon={<SearchIcon size={18} />}
+          startIcon={
+            <SearchIcon size={18} className="text-zinc-600 dark:text-white" />
+          }
         />
       </div>
 

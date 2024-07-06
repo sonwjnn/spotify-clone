@@ -54,7 +54,7 @@ export const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
 
   return (
     <div
-      className="group relative flex cursor-pointer items-center gap-x-4 overflow-hidden rounded-md bg-neutral-100/10 transition hover:bg-neutral-100/20 "
+      className="group relative flex cursor-pointer items-center gap-x-4 overflow-hidden rounded-md bg-neutral-100/20 transition hover:bg-neutral-100/20 dark:bg-neutral-100/10 "
       onMouseEnter={handleHover}
       onMouseLeave={() => setBgColor(bgBase)}
       onClick={onClick}
@@ -71,12 +71,12 @@ export const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
             placeholder="blur"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-neutral-800 text-white">
+          <div className="absolute inset-0 flex items-center justify-center bg-zinc-300 text-white dark:bg-neutral-800">
             <MusicNote size={25} />
           </div>
         )}
       </div>
-      <p className="truncate py-5 pr-2 text-base font-bold text-white">
+      <p className="truncate py-5 pr-2 text-base font-bold text-zinc-600 dark:text-white">
         {data.title}
       </p>
 

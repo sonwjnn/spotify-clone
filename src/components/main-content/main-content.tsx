@@ -6,7 +6,7 @@ import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
 import type { Playlist, Song } from '@/types/types'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 import { GlobalLoading } from '@/components/loading-layout/global-loading'
 import { PlayingView } from '@/components/playing-view/playing-view'
@@ -66,7 +66,9 @@ export const MainContent: React.FC<MainContentProps> = ({
           <Sidebar />
 
           <MainLayout>
-            <main className={`relative h-full grow overflow-y-auto py-2`}>
+            <main
+              className={`relative h-full grow overflow-y-auto bg-white py-2 dark:bg-black`}
+            >
               {children}
             </main>
           </MainLayout>

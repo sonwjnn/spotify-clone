@@ -8,7 +8,7 @@ import { useSidebar } from '@/store/use-sidebar'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
 import { LibraryActiveIcon, LibraryIcon } from '@/public/icons'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 import { CollapseList } from '@/components/collapse-list'
 import { Tooltip } from '@/components/ui/tooltip'
@@ -58,7 +58,7 @@ export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
     <div className="flex flex-col ">
       <div
         className={cn(
-          `sticky top-0 z-10 flex flex-col items-center bg-neutral-900 px-5 pb-0 pt-4`,
+          `sticky top-0 z-10 flex flex-col items-center bg-[#F1F2F4] px-5 pb-0 pt-4 dark:bg-neutral-900`,
           {
             'shadow-2xl': isScroll,
             'pb-3': isCollapsed,
@@ -76,11 +76,11 @@ export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
               className="group flex cursor-pointer gap-x-2 "
               onClick={handleScale}
             >
-              <div className="  pl-1 text-neutral-400 transition group-hover:text-white ">
+              <div className="  pl-1 text-zinc-700 transition group-hover:text-zinc-600 dark:text-neutral-400 dark:group-hover:text-white">
                 {isCollapsed ? <LibraryActiveIcon /> : <LibraryIcon />}
               </div>
               {!isCollapsed && (
-                <p className=" select-none truncate pl-1 text-base font-bold text-neutral-400 transition group-hover:text-white">
+                <p className=" select-none truncate pl-1 text-base font-bold text-zinc-700 transition group-hover:text-zinc-600 dark:text-neutral-400 dark:group-hover:text-white">
                   Your Library
                 </p>
               )}
@@ -95,7 +95,7 @@ export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
               <Tooltip text={`${isMaxWidth ? 'Show less' : 'Show more'}`}>
                 <div
                   onClick={handleShowMore}
-                  className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+                  className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-zinc-500 transition hover:bg-zinc-700/10 hover:text-white dark:text-neutral-400 dark:hover:bg-neutral-800"
                 >
                   {isMaxWidth ? (
                     <HiArrowLeft size={20} />
@@ -112,13 +112,13 @@ export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
             <div className="mt-2 flex h-12 w-full items-center gap-x-2">
               <button
                 disabled={!playlists.length}
-                className="rounded-full border border-transparent bg-neutral-800 px-3 py-1 text-sm text-white  transition hover:brightness-110 disabled:opacity-50"
+                className="rounded-full border border-transparent bg-zinc-600 px-3 py-1 text-sm text-white transition  hover:brightness-110 disabled:opacity-50 dark:bg-neutral-800"
               >
                 Playlists
               </button>
               <button
                 disabled
-                className=" rounded-full border border-transparent bg-neutral-800 px-3 py-1 text-sm text-white transition  hover:brightness-110 disabled:select-none disabled:opacity-50"
+                className=" rounded-full border border-transparent bg-zinc-600 px-3 py-1 text-sm text-white transition hover:brightness-110  disabled:select-none disabled:opacity-50 dark:bg-neutral-800"
               >
                 Albums
               </button>

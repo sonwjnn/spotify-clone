@@ -45,7 +45,7 @@ export const UserContent: React.FC<UserContentProp> = ({ data, id }) => {
   if (!data?.length) {
     return (
       <div
-        className=" header-bg-img-md flex h-[40vh] w-full flex-col items-center justify-center gap-y-4 px-5 pt-8 text-white"
+        className=" header-bg-img-md-light dark:header-bg-img-md flex h-[40vh] w-full flex-col items-center justify-center gap-y-4 px-5 pt-8 text-white"
         style={{
           background: bgColorUser,
         }}
@@ -69,16 +69,16 @@ export const UserContent: React.FC<UserContentProp> = ({ data, id }) => {
     <div className="relative flex w-full flex-col px-6">
       <div
         style={{ backgroundColor: bgColorUser }}
-        className="header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
+        className="header-bg-img-md-light dark:header-bg-img-md absolute inset-x-0 top-0 z-0 h-[232px]"
       ></div>
       <div className="mt-6 h-16 w-full"></div>
       <div className="z-10 flex w-full justify-between">
-        <div className="cursor-pointer text-2xl font-bold text-white hover:underline">
+        <div className="cursor-pointer text-2xl font-bold text-zinc-600 hover:underline dark:text-white">
           Public Playlists
         </div>
         <div
           onClick={() => router.push(`/user/${id}/playlists`)}
-          className="cursor-pointer text-xl font-bold text-white hover:underline"
+          className="cursor-pointer text-xl font-bold text-zinc-600 hover:underline dark:text-white"
         >
           Show all
         </div>

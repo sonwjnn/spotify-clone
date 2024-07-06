@@ -28,8 +28,8 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, active, href }) => {
     <Link
       href={href}
       className={twMerge(
-        `flex h-auto w-full cursor-pointer flex-row items-center gap-x-4 py-1 pl-1 text-base font-bold text-neutral-400 transition hover:text-white`,
-        active && 'text-white'
+        `flex h-auto w-full cursor-pointer flex-row items-center gap-x-4 py-1 pl-1 text-base font-bold text-zinc-700 transition dark:text-neutral-400 dark:hover:text-white`,
+        active && 'text-green-600 dark:text-white'
       )}
     >
       <div className="h-6 w-6">

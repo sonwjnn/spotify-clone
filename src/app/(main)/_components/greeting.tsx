@@ -5,7 +5,7 @@ import { memo, useEffect, useMemo, useState } from 'react'
 import { useHeader } from '@/store/use-header'
 import { useMainLayout } from '@/store/use-main-layout'
 import type { Playlist } from '@/types/types'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 import { RecommendPlaylist } from './recommend-playlist'
 

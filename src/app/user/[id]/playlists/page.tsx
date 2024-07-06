@@ -29,7 +29,7 @@ const UserPlaylistPage: NextPage<UserPlaylistPageProps> = async ({
       <Navbar bgColor={'#171717'} darker={false} />
       <Header bgColor="#171717">
         <div className="mb-2  w-full ">
-          <h1 className="pt-10 text-3xl font-bold text-white">
+          <h1 className="pt-10 text-3xl font-bold text-zinc-600 dark:text-white">
             Public Playlists
           </h1>
         </div>

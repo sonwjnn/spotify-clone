@@ -49,15 +49,17 @@ export const PlaylistCard: React.FC<PlaylistCardProps> = ({
             placeholder="blur"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-neutral-800 text-white">
+          <div className="flex h-full w-full items-center justify-center bg-zinc-300 text-white dark:bg-neutral-800">
             <MusicNote size={50} />
           </div>
         )}
       </div>
 
       <div className="flex w-full flex-col items-start gap-y-1 pt-4">
-        <p className="w-full truncate font-semibold text-white">{data.title}</p>
-        <p className="w-full truncate pb-4 text-sm text-neutral-400">
+        <p className="w-full truncate font-semibold text-zinc-600 dark:text-white">
+          {data.title}
+        </p>
+        <p className="w-full truncate pb-4 text-sm text-zinc-500 dark:text-neutral-400">
           By {userDetails?.full_name}
         </p>
       </div>

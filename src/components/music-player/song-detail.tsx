@@ -37,14 +37,18 @@ export const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
                 placeholder="blur"
               />
             ) : (
-              <div className="flex aspect-square h-full w-full items-center justify-center bg-neutral-800 text-white">
+              <div className="flex aspect-square h-full w-full items-center justify-center bg-zinc-300 text-white dark:bg-neutral-800">
                 <MusicNote size={22} />
               </div>
             )}
           </div>
           <div className="flex flex-col gap-y-1 overflow-hidden">
-            <p className="truncate text-sm text-white">{data.title}</p>
-            <p className="truncate text-xs text-neutral-400">{data.author}</p>
+            <p className="truncate text-sm text-zinc-600 dark:text-white">
+              {data.title}
+            </p>
+            <p className="truncate text-xs text-zinc-500 dark:text-neutral-400">
+              {data.author}
+            </p>
           </div>
         </div>
       </div>

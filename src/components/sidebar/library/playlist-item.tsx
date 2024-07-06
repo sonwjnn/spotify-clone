@@ -3,13 +3,13 @@
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 
-import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { usePlayer } from '@/store/use-player'
 import { MusicNote, SoundIconSolid } from '@/public/icons'
 import type { Playlist } from '@/types/types'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
+import { useTheme } from 'next-themes'
 
 interface PlaylistItemProps {
   data: Playlist
@@ -17,8 +17,7 @@ interface PlaylistItemProps {
 }
 
 export const PlaylistItem: React.FC<PlaylistItemProps> = ({ data }) => {
-  const uploadModal = usePlaylistModal()
-
+  const { theme } = useTheme()
   const router = useRouter()
 
   const { playlistPlayingId, isPlaying } = usePlayer()
@@ -26,20 +25,20 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({ data }) => {
   const { id } = useParams()
 
   const onClick = (): void => {
-    uploadModal.setPlaylist(data)
     router.push(`/playlist/${data.id}`)
   }
 
   const fullName = data.users?.full_name
   const isActived = playlistPlayingId === data.id
-
+  const isDark = theme === 'dark'
   return (
     <div
       className={cn(
         ` flex w-full cursor-pointer items-center justify-between rounded-md p-2 transition  `,
         id === data.id.toString() &&
-          'bg-neutral-800 hover:bg-neutral-700 active:bg-neutral-800/75',
-        id !== data.id.toString() && 'hover:bg-neutral-800/50 active:bg-black'
+          'bg-zinc-700/20 hover:bg-zinc-700/30 active:bg-zinc-700/40 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:active:bg-neutral-800/75',
+        id !== data.id.toString() &&
+          'hover:bg-zinc-700/10 active:bg-zinc-700/20 dark:hover:bg-neutral-800/50 dark:active:bg-black'
       )}
       onClick={onClick}
     >
@@ -56,7 +55,7 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({ data }) => {
               placeholder="blur"
             />
           ) : (
-            <div className="flex min-h-[48px] w-full items-center justify-center bg-neutral-800 text-white">
+            <div className="flex min-h-[48px] w-full items-center justify-center bg-zinc-300 text-white dark:bg-neutral-800">
               <MusicNote size={20} />
             </div>
           )}
@@ -64,19 +63,21 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({ data }) => {
         <div className="flex flex-col gap-y-1 overflow-hidden ">
           <p
             className={` truncate  ${
-              isActived ? 'text-[#2ed760]' : 'text-white'
+              isActived
+                ? 'text-green-600 dark:text-[#2ed760]'
+                : 'text-zinc-600 dark:text-white'
             }`}
           >
             {data.title}
           </p>
-          <p className="truncate text-sm text-neutral-400">
+          <p className="truncate text-sm text-zinc-500 dark:text-neutral-400">
             {`Playlist - ${fullName}`}
           </p>
         </div>
       </div>
       {isActived && isPlaying ? (
         <div className="pr-2">
-          <SoundIconSolid color="#2ed760" />
+          <SoundIconSolid color={isDark ? '#2ed760' : '#16a34a'} />
         </div>
       ) : null}
     </div>

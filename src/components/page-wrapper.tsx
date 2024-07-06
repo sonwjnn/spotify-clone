@@ -42,7 +42,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
 
   return (
     <ScrollArea
-      className="relative h-full w-full rounded-lg bg-neutral-900"
+      className="relative h-full w-full rounded-lg bg-[#F1F2F4] dark:bg-neutral-900"
       onScroll={handleScroll}
     >
       {children}

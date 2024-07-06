@@ -11,7 +11,7 @@ import { usePlaylist } from '@/store/use-playlist'
 import { ClockIcon } from '@/public/icons'
 import type { MediaListProps } from '@/types/track'
 import type { Playlist } from '@/types/types'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 interface ListBarProps {
   className?: string
@@ -41,27 +41,33 @@ const ListBar: React.FC<ListBarProps> = ({
       )}
     >
       {type !== 'search' && width > 480 && (
-        <div className="relative text-right text-base text-neutral-400 ">#</div>
+        <div className="relative text-right text-base text-zinc-700 dark:text-neutral-400 ">
+          #
+        </div>
       )}
       <div className={`flex items-center gap-4 pr-2`}>
         <div
           className={`flex h-full flex-1 flex-col justify-between gap-[5px] overflow-hidden`}
         >
-          <p className="text-sm text-neutral-400">Title</p>
+          <p className="text-sm text-zinc-700 dark:text-neutral-400">Title</p>
         </div>
       </div>
       {type !== 'album' && type !== 'search' && (
         <>
           {width > 640 && (
-            <p className="truncate text-sm text-neutral-400">Album</p>
+            <p className="truncate text-sm text-zinc-700 dark:text-neutral-400">
+              Album
+            </p>
           )}
           {width > 780 && (
-            <div className={'text-sm text-neutral-400'}>Date added</div>
+            <div className={'text-sm text-zinc-700 dark:text-neutral-400'}>
+              Date added
+            </div>
           )}
         </>
       )}
       <div
-        className={`flex gap-x-3 text-neutral-400 ${
+        className={`flex gap-x-3 text-zinc-700 dark:text-neutral-400 ${
           type === 'playlist'
             ? 'translate-x-2 justify-center'
             : 'translate-x-[-5px] justify-end'

@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton'
 
 export const CardLoading: React.FC = () => {
   return (
-    <div className="group relative flex cursor-pointer flex-col items-center justify-center gap-x-4 overflow-hidden rounded-md bg-neutral-400/5 p-3 transition hover:bg-neutral-400/10">
+    <div className="group relative flex cursor-pointer flex-col items-center justify-center gap-x-4 overflow-hidden rounded-md bg-zinc-200 p-3 transition dark:bg-neutral-400/5 dark:hover:bg-neutral-400/10">
       <div className="relative aspect-square h-full w-full overflow-hidden rounded-md">
         <Skeleton height={'100%'} width={'100%'} />
       </div>

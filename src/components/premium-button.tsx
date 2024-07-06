@@ -4,8 +4,8 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { useUser } from '@/hooks/use-user'
-import { postData } from '@/libs/helpers'
-import cn from '@/utils/cn'
+import { postData } from '@/lib/helpers'
+import { cn } from '@/lib/utils'
 
 import { Tooltip } from './ui/tooltip'
 
@@ -42,7 +42,7 @@ export const PremiumButton: React.FC = () => {
           if (!subscription) redirectToCustomerPortal()
         }}
         className={cn(
-          `relative bg-white px-5 py-2 text-sm w-full rounded-full border border-transparent text-black font-bold cursor-pointer transition`,
+          `relative w-full cursor-pointer rounded-full border border-transparent bg-white px-5 py-2 text-sm font-bold text-black transition`,
           {
             'cursor-not-allowed opacity-50': loading || isLoading,
             'bg-premium text-white': subscription,

@@ -157,7 +157,7 @@ export const Navbar: React.FC<NavbarProps> = props => {
       >
         <div className="hidden min-w-0 items-center gap-x-2  md:flex ">
           <button
-            className="items-center justify-center rounded-full bg-black transition active:scale-95 disabled:cursor-not-allowed disabled:select-none"
+            className="items-center justify-center rounded-full  bg-black transition active:scale-95 disabled:cursor-not-allowed disabled:select-none"
             onClick={() => router.back()}
           >
             <RxCaretLeft className="text-white" size={35} />

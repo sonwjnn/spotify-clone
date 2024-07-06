@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast'
 import { Button } from '@/components/ui/button'
 import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
-import { postData } from '@/libs/helpers'
+import { postData } from '@/lib/helpers'
 
 export const AccountContent: React.FC = () => {
   const router = useRouter()

@@ -20,6 +20,7 @@ import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { DeleteIcon } from '@/public/icons'
 import type { Playlist, Song } from '@/types/types'
+import { useConfirm } from '@/hooks/use-confirm'
 
 interface MediaDropdownProps {
   song: Song
@@ -32,6 +33,11 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
   playlist,
   className,
 }) => {
+  const [ConfirmDialog, confirm] = useConfirm(
+    'Are you sure?',
+    'You are about to delete this playlist'
+  )
+
   const { user, subscription } = useUser()
   const { removePlaylistSong, setDuration } = usePlaylist()
   const authModal = useAuthModal()
@@ -92,47 +98,59 @@ export const MediaDropdown: React.FC<MediaDropdownProps> = ({
       setDropdown(false)
     }
   }
-  return (
-    <DropdownMenu
-      open={isDropdown}
-      defaultOpen={isDropdown}
-      onOpenChange={onChange}
-    >
-      <DropdownMenuTrigger asChild>
-        <div
-          className={twMerge(
-            `relative h-8 w-8 rounded-full transition hover:bg-neutral-800`,
-            className
-          )}
-        >
-          <button
-            className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
-            aria-label="Customise options"
-            onClick={() => setDropdown(!isDropdown)}
-          >
-            <BsThreeDots size={20} />
-          </button>
-        </div>
-      </DropdownMenuTrigger>
 
-      <DropdownMenuPortal>
-        <DropdownMenuContent
-          className=" mr-12 min-w-[220px] rounded-md bg-neutral-800 py-1 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
-          sideOffset={5}
-          hidden={uploadModal.isOpen}
-          side="top"
-        >
-          {user?.id === playlist.user_id ? (
-            <DropdownMenuItem
-              onSelect={onRemove}
-              className="dropdown-menu-item text-white"
+  const handleRemove = async () => {
+    const ok = await confirm()
+
+    if (ok) {
+      onRemove()
+    }
+  }
+  return (
+    <>
+      <ConfirmDialog />
+
+      <DropdownMenu
+        open={isDropdown}
+        defaultOpen={isDropdown}
+        onOpenChange={onChange}
+      >
+        <DropdownMenuTrigger asChild>
+          <div
+            className={twMerge(
+              `relative h-8 w-8 rounded-full transition hover:bg-neutral-800`,
+              className
+            )}
+          >
+            <button
+              className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
+              aria-label="Customise options"
+              onClick={() => setDropdown(!isDropdown)}
             >
-              <DeleteIcon color="#991b1b" />
-              Remove from this playlist
-            </DropdownMenuItem>
-          ) : null}
-        </DropdownMenuContent>
-      </DropdownMenuPortal>
-    </DropdownMenu>
+              <BsThreeDots size={20} />
+            </button>
+          </div>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuPortal>
+          <DropdownMenuContent
+            className=" mr-12 min-w-[220px] rounded-md bg-neutral-800 py-1 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform]"
+            sideOffset={5}
+            hidden={uploadModal.isOpen}
+            side="top"
+          >
+            {user?.id === playlist.user_id ? (
+              <DropdownMenuItem
+                onSelect={handleRemove}
+                className="dropdown-menu-item text-white"
+              >
+                <DeleteIcon color="#991b1b" />
+                Remove from this playlist
+              </DropdownMenuItem>
+            ) : null}
+          </DropdownMenuContent>
+        </DropdownMenuPortal>
+      </DropdownMenu>
+    </>
   )
 }

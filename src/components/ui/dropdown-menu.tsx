@@ -8,7 +8,7 @@ import {
   FiCircle as Circle,
 } from 'react-icons/fi'
 
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 
@@ -51,7 +51,7 @@ const DropdownMenuSubContent = React.forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cn(
-      'z-[9999] min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      'z-[9999] min-w-[8rem] overflow-hidden rounded-md border bg-white p-1 text-slate-500 shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:bg-neutral-900 dark:text-white',
       className
     )}
     {...props}
@@ -69,7 +69,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'z-[99999] min-w-[8rem] overflow-hidden rounded-md border bg-primary p-1 text-pribg-primary-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 shadow-base border-none',
+        'z-[99999] min-w-[8rem] overflow-hidden rounded-md border border-none bg-white p-1 text-slate-500 shadow-base data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:bg-neutral-900 dark:text-white',
         className
       )}
       {...props}
@@ -87,7 +87,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex select-none items-center rounded-sm px-3 py-2 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-neutral-700 cursor-pointer',
+      'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-zinc-700/10 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:hover:bg-neutral-700',
       inset && 'pl-8',
       className
     )}
@@ -166,7 +166,7 @@ const DropdownMenuSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-muted', className)}
+    className={cn('-mx-1 my-1 h-px bg-muted ', className)}
     {...props}
   />
 ))

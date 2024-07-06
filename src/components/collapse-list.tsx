@@ -31,7 +31,7 @@ const CollapseListItem: React.FC<CollapseListItemProps> = ({ playlist }) => {
           />
         </div>
       ) : (
-        <div className="flex h-14 w-14 items-center justify-center bg-neutral-800 text-white">
+        <div className="flex h-14 w-14 items-center justify-center bg-zinc-300 text-white dark:bg-neutral-800">
           <MusicNote size={20} />
         </div>
       )}

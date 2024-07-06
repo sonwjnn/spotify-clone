@@ -36,7 +36,7 @@ export const SeekBar: React.FC<SeekBarProps> = ({
 
   return (
     <div className="flex items-center justify-center gap-x-1">
-      <div className="w-10 text-right text-xs text-neutral-400">
+      <div className="w-10 text-right text-xs text-zinc-700 dark:text-neutral-400">
         {getDurationSong({
           milliseconds: +trackProcess * 1000,
         })}
@@ -51,7 +51,7 @@ export const SeekBar: React.FC<SeekBarProps> = ({
         onMouseUp={handleMouseUp}
       />
 
-      <div className="w-10 text-left text-xs text-neutral-400">
+      <div className="w-10 text-left text-xs text-zinc-700 dark:text-neutral-400">
         {getDurationSong({
           milliseconds: duration || 0,
         })}

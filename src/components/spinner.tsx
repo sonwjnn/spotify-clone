@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { LuLoader } from 'react-icons/lu'
 
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 
 const spinnerVariants = cva('animate-spin text-neutral-400', {
   variants: {

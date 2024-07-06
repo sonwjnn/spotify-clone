@@ -13,7 +13,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuPortal,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Tooltip } from '@/components/ui/tooltip'
@@ -25,6 +24,7 @@ import { useUserStore } from '@/store/use-user-store'
 import { DeleteIcon } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
+import { useConfirm } from '@/hooks/use-confirm'
 
 interface PlaylistDropdownProps {
   data: Playlist
@@ -35,6 +35,10 @@ export const PlaylistDropdown: React.FC<PlaylistDropdownProps> = ({
   data,
   className,
 }) => {
+  const [ConfirmDialog, confirm] = useConfirm(
+    'Are you sure?',
+    'You are about to delete this playlist'
+  )
   const { user, subscription } = useUser()
   const authModal = useAuthModal()
   const uploadModal = usePlaylistModal()
@@ -129,58 +133,70 @@ export const PlaylistDropdown: React.FC<PlaylistDropdownProps> = ({
     }
   }
 
-  return (
-    <DropdownMenu modal={isDropdown} onOpenChange={onChange}>
-      <DropdownMenuTrigger asChild>
-        <div className="flex items-center justify-center">
-          <Tooltip text={`More options for this playlist`}>
-            <div
-              className={twMerge(
-                `relative h-8 w-8 rounded-full transition hover:text-white`,
-                className
-              )}
-            >
-              <div
-                className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
-                aria-label="Customise options"
-              >
-                <BsThreeDots size={32} />
-              </div>
-            </div>
-          </Tooltip>
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuPortal>
-        <DropdownMenuContent className="min-w-[220px] overflow-hidden rounded-md border-none py-[5px] ">
-          <DropdownMenuItem className=" text-white" onSelect={onEditPlaylist}>
-            <FiEdit className="mr-2 text-neutral-400" size={16} />
-            Edit details
-          </DropdownMenuItem>
+  const handleDeletePlaylist = async () => {
+    const ok = await confirm()
 
-          <DropdownMenuSeparator className="mx-1 bg-neutral-800" />
-          {user?.id === data?.user_id ? (
-            <DropdownMenuItem
-              className=" text-white"
-              onSelect={onDeletePlaylist}
-            >
-              <div className="mr-2">
-                <DeleteIcon color="#991b1b" />
+    if (ok) {
+      onDeletePlaylist()
+    }
+  }
+
+  const handleDeleteFromLibrary = async () => {
+    const ok = await confirm()
+
+    if (ok) {
+      onRemoveFromLibrary()
+    }
+  }
+
+  return (
+    <>
+      <ConfirmDialog />
+      <DropdownMenu modal={isDropdown} onOpenChange={onChange}>
+        <DropdownMenuTrigger asChild>
+          <div className="flex items-center justify-center">
+            <Tooltip text={`More options for this playlist`}>
+              <div
+                className={twMerge(
+                  `relative h-8 w-8 rounded-full transition hover:text-white`,
+                  className
+                )}
+              >
+                <div
+                  className="absolute right-[1px] flex h-full  w-full cursor-pointer items-center justify-center border-none bg-transparent text-neutral-400 outline-none transition hover:text-white focus:outline-none"
+                  aria-label="Customise options"
+                >
+                  <BsThreeDots size={32} />
+                </div>
               </div>
-              Remove from your profile
+            </Tooltip>
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuContent className="min-w-[220px] overflow-hidden rounded-md border-none py-[5px] ">
+            <DropdownMenuItem onSelect={onEditPlaylist}>
+              <FiEdit className="mr-2 text-neutral-400" size={16} />
+              Edit details
             </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem
-              className=" text-white"
-              onSelect={onRemoveFromLibrary}
-            >
-              <div className="mr-2">
-                <DeleteIcon color="#991b1b" />
-              </div>
-              Remove from your library
-            </DropdownMenuItem>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenuPortal>
-    </DropdownMenu>
+
+            {user?.id === data?.user_id ? (
+              <DropdownMenuItem onSelect={handleDeletePlaylist}>
+                <div className="mr-2">
+                  <DeleteIcon color="#991b1b" />
+                </div>
+                Remove from your profile
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem onSelect={handleDeleteFromLibrary}>
+                <div className="mr-2">
+                  <DeleteIcon color="#991b1b" />
+                </div>
+                Remove from your library
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenuPortal>
+      </DropdownMenu>
+    </>
   )
 }

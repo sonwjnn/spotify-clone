@@ -16,7 +16,7 @@ import { useLoadImage } from '@/hooks/use-load-image'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
 import { DeleteIcon, MusicNote } from '@/public/icons'
-import cn from '@/utils/cn'
+import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 
 import { Spinner } from '@/components/spinner'
