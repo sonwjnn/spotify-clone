@@ -1,22 +1,16 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { LuAlignJustify } from 'react-icons/lu'
-import { StaticSidebar } from '@/components/static-sidebar'
+import { useSidebarSheet } from '@/store/use-sidebar-sheet'
 
 const MobileToggle = () => {
+  const { onOpen } = useSidebarSheet()
+
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button className="sm:hidden">
-          <LuAlignJustify />
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="flex gap-0 p-0">
-        <StaticSidebar />
-      </SheetContent>
-    </Sheet>
+    <Button className="sm:hidden" onClick={() => onOpen()}>
+      <LuAlignJustify />
+    </Button>
   )
 }
 

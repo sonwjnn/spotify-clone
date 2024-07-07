@@ -54,6 +54,7 @@
     "react-icons": "^4.9.0",
     "react-loading-skeleton": "^3.3.1",
     "react-spinners": "^0.13.8",
+    "react-use": "^17.5.0",
     "stripe": "^12.9.0",
     "supabase": ">=1.8.1",
     "tailwind-merge": "^1.14.0",

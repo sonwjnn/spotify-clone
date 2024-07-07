@@ -15,6 +15,7 @@ import { getActiveProductsWithPrices } from '@/server-actions/products/get-activ
 import { getLikedSongs } from '@/server-actions/songs/get-liked-songs'
 import { getSongsByUserId } from '@/server-actions/songs/get-songs-by-user-id'
 import { ThemeProvider } from 'next-themes'
+import SheetProvider from '@/providers/sheet-provider'
 
 const circularSp = localFont({
   src: [
@@ -71,6 +72,7 @@ export default async function RootLayout({
             <SupabaseProvider>
               <UserProvider>
                 <ModalProvider products={products} />
+                <SheetProvider />
                 <MainContent
                   songs={userSongs}
                   playlists={playlists}
