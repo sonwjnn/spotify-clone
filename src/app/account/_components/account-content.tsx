@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { Button } from '@/components/ui/button'
-import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useSubscribeModal } from '@/store/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/lib/helpers'
 
@@ -58,6 +58,7 @@ export const AccountContent = () => {
           <Button
             onClick={redirectToCustomerPortal}
             className="w-[300px]"
+            variant="primary"
             disabled={loading || isLoading}
           >
             Open customer portal

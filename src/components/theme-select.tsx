@@ -7,30 +7,34 @@ import { MdComputer } from 'react-icons/md'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { Tooltip } from '@/components/ui/tooltip'
+import { useMemo } from 'react'
 
 const ThemeSelect = () => {
   const { theme, setTheme } = useTheme()
 
-  const options = [
-    {
-      icon: <MdComputer />,
-      onClick: () => setTheme('system'),
-      isActive: theme === 'system',
-      tooltipLabel: 'System',
-    },
-    {
-      icon: <RiSunLine />,
-      onClick: () => setTheme('light'),
-      isActive: theme === 'light',
-      tooltipLabel: 'Light',
-    },
-    {
-      icon: <RiMoonClearFill />,
-      onClick: () => setTheme('dark'),
-      isActive: theme === 'dark',
-      tooltipLabel: 'Dark',
-    },
-  ]
+  const options = useMemo(
+    () => [
+      {
+        icon: <MdComputer />,
+        onClick: () => setTheme('system'),
+        isActive: theme === 'system',
+        tooltipLabel: 'System',
+      },
+      {
+        icon: <RiSunLine />,
+        onClick: () => setTheme('light'),
+        isActive: theme === 'light',
+        tooltipLabel: 'Light',
+      },
+      {
+        icon: <RiMoonClearFill />,
+        onClick: () => setTheme('dark'),
+        isActive: theme === 'dark',
+        tooltipLabel: 'Dark',
+      },
+    ],
+    [theme]
+  )
 
   return (
     <div className="flex cursor-pointer items-center justify-between rounded-sm px-3 py-2 text-sm transition-colors hover:bg-zinc-700/10 dark:hover:bg-neutral-700">

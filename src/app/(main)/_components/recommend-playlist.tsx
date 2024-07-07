@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useAuthModal } from '@/store/modals/use-auth-modal'
+import { useSubscribeModal } from '@/store/modals/use-subcribe-modal'
 import { useHeader } from '@/store/use-header'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useUser } from '@/hooks/use-user'

@@ -20,7 +20,7 @@ type NavItemProps = {
   href: string
 }
 
-const NavItem = ({ icon, label, active, href }: NavItemProps) => {
+export const NavItem = ({ icon, label, active, href }: NavItemProps) => {
   const { isCollapsed } = useSidebar()
   const Icon: ((props: Partial<IconProps>) => JSX.Element) | undefined = icon
 

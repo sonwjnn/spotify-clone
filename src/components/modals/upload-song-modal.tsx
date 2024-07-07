@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import uniqid from 'uniqid'
 
-import { useUploadModal } from '@/hooks/modals/use-upload-modal'
+import { useUploadModal } from '@/store/modals/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 
 import { Button } from '@/components/ui/button'
@@ -143,23 +143,22 @@ export const UploadSongModal = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
         <Input
-          className="bg-neutral-800"
           id="title"
           disabled={isLoading}
           {...register('title', { required: true })}
           placeholder="Song title..."
         />
         <Input
-          className="bg-neutral-800"
           id="author"
           disabled={isLoading}
           {...register('author', { required: true })}
           placeholder="Song author..."
         />
         <div>
-          <div className="pb-1 text-white">Select a song file</div>
+          <div className="pb-1 text-zinc-600 dark:text-white">
+            Select a song file
+          </div>
           <Input
-            className="bg-neutral-800 text-neutral-400"
             id="song"
             disabled={isLoading}
             type="file"
@@ -170,9 +169,10 @@ export const UploadSongModal = () => {
         </div>
 
         <div>
-          <div className="pb-1 text-white">Select an image</div>
+          <div className="pb-1 text-zinc-600 dark:text-white">
+            Select an image
+          </div>
           <Input
-            className="bg-neutral-800 text-neutral-400"
             id="image"
             disabled={isLoading}
             type="file"

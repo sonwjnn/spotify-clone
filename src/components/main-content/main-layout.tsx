@@ -33,7 +33,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
   }, [size.width, setWidth, setQuantityCol])
 
   return (
-    <div className="flex-1 " ref={mainRef}>
+    <div className="flex-1" ref={mainRef}>
       {children}
     </div>
   )

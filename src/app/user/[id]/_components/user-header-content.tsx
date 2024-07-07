@@ -3,9 +3,9 @@
 import Image from 'next/image'
 import { FiEdit2 } from 'react-icons/fi'
 
-import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
-import { useUserModal } from '@/hooks/modals/use-user-modal'
+import { useAuthModal } from '@/store/modals/use-auth-modal'
+import { useSubscribeModal } from '@/store/modals/use-subcribe-modal'
+import { useUserModal } from '@/store/modals/use-user-modal'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useMainLayout } from '@/store/use-main-layout'
 import { useUser } from '@/hooks/use-user'

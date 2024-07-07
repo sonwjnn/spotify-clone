@@ -59,16 +59,14 @@ export const MainContent = ({
         <GlobalLoading />
       ) : (
         <div
-          className={cn(`flex  h-full flex-row`, {
+          className={cn(`flex h-full flex-row`, {
             'h-[calc(100%-80px)]': user && player.activeId,
           })}
         >
           <Sidebar />
 
           <MainLayout>
-            <main
-              className={`relative h-full grow overflow-y-auto bg-white py-2 dark:bg-black`}
-            >
+            <main className="relative h-full grow overflow-y-auto bg-white py-2 dark:bg-black">
               {children}
             </main>
           </MainLayout>

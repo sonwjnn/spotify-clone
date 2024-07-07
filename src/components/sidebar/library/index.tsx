@@ -2,8 +2,8 @@
 
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi'
 
-import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useAuthModal } from '@/store/modals/use-auth-modal'
+import { useSubscribeModal } from '@/store/modals/use-subcribe-modal'
 import { useSidebar } from '@/store/use-sidebar'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'

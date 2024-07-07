@@ -1,13 +1,12 @@
 'use client'
 
 import { usePalette } from 'color-thief-react'
-import Link from 'next/link'
-import { useParams, usePathname, useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 
-import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { useAuthModal } from '@/store/modals/use-auth-modal'
 import { useHeader } from '@/store/use-header'
 import { useLoadImage } from '@/hooks/use-load-image'
 import { useMainLayout } from '@/store/use-main-layout'
@@ -16,8 +15,6 @@ import { useOnPlay } from '@/hooks/use-on-play'
 import { usePlayer } from '@/store/use-player'
 import { useSelectedPlayer } from '@/store/use-selected-player'
 import { useUser } from '@/hooks/use-user'
-import type { IconProps } from '@/public/icons'
-import { HomeIcon, SearchIcon } from '@/public/icons'
 import type { Playlist, Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
@@ -25,6 +22,7 @@ import { PlayButton } from '@/components/play-button'
 import { PremiumButton } from '@/components/premium-button'
 import { Button } from '@/components/ui/button'
 import { UserDropdown } from '@/components/user-dropdown'
+import MobileToggle from './mobile-toggle'
 
 type NavbarProps = {
   type?:
@@ -70,8 +68,6 @@ export const Navbar = (props: NavbarProps) => {
   const { setSelected } = useSelectedPlayer()
   const { width } = useMainLayout()
 
-  const pathname = usePathname()
-
   const onPlay = useOnPlay(songs as Song[])
   const [isPlaying, setPlaying] = useState(false)
   const [bgColorUser, setBgColorUser] = useState<string>('#171717')
@@ -83,23 +79,23 @@ export const Navbar = (props: NavbarProps) => {
     quality: 100,
   })
 
-  const routes = useMemo(
-    () => [
-      {
-        icon: HomeIcon,
-        label: 'Home',
-        active: pathname === '/',
-        href: '/',
-      },
-      {
-        icon: SearchIcon,
-        label: 'Search',
-        active: pathname.includes('/search'),
-        href: '/search',
-      },
-    ],
-    [pathname]
-  )
+  // const routes = useMemo(
+  //   () => [
+  //     {
+  //       icon: HomeIcon,
+  //       label: 'Home',
+  //       active: pathname === '/',
+  //       href: '/',
+  //     },
+  //     {
+  //       icon: SearchIcon,
+  //       label: 'Search',
+  //       active: pathname.includes('/search'),
+  //       href: '/search',
+  //     },
+  //   ],
+  //   [pathname]
+  // )
 
   useEffect(() => {
     if (
@@ -198,7 +194,7 @@ export const Navbar = (props: NavbarProps) => {
           ) : null}
         </div>
 
-        <div className="flex items-center gap-x-2 md:hidden ">
+        {/* <div className="flex items-center gap-x-2 md:hidden ">
           {routes.map((item, index) => {
             const Icon:
               | ((props: Partial<IconProps>) => JSX.Element)
@@ -222,7 +218,8 @@ export const Navbar = (props: NavbarProps) => {
               </Link>
             )
           })}
-        </div>
+        </div> */}
+        <MobileToggle />
 
         <div className="flex items-center justify-between   gap-x-4">
           {user ? (

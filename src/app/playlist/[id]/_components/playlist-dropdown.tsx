@@ -16,9 +16,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Tooltip } from '@/components/ui/tooltip'
-import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { usePlaylistModal } from '@/hooks/modals/use-playlist-modal'
-import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useAuthModal } from '@/store/modals/use-auth-modal'
+import { usePlaylistModal } from '@/store/modals/use-playlist-modal'
+import { useSubscribeModal } from '@/store/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
 import { DeleteIcon } from '@/public/icons'

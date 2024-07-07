@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
+import { useSubscribeModal } from '@/store/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/lib/helpers'
 import { getStripe } from '@/lib/stripe-client'

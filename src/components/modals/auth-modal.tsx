@@ -9,7 +9,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { useAuthModal } from '@/store/modals/use-auth-modal'
 
 import { Modal } from '@/components/ui/modal'
 

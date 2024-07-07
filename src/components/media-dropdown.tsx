@@ -13,9 +13,9 @@ import {
   DropdownMenuPortal,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useAuthModal } from '@/hooks/modals/use-auth-modal'
-import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
-import { useUploadModal } from '@/hooks/modals/use-upload-modal'
+import { useAuthModal } from '@/store/modals/use-auth-modal'
+import { useSubscribeModal } from '@/store/modals/use-subcribe-modal'
+import { useUploadModal } from '@/store/modals/use-upload-modal'
 import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import { DeleteIcon } from '@/public/icons'

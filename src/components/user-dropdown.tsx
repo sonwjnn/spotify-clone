@@ -18,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useUploadModal } from '@/hooks/modals/use-upload-modal'
+import { useUploadModal } from '@/store/modals/use-upload-modal'
 import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
@@ -70,7 +70,7 @@ export const UserDropdown = ({ url }: UserDropdownProps) => {
             onClick={() => setDropdown(!isDropdown)}
           >
             {/* eslint-disable-next-line tailwindcss/migration-from-tailwind-2 */}
-            <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-white bg-opacity-30 p-1 transition hover:bg-opacity-20 hover:brightness-110 dark:bg-black">
+            <div className="flex cursor-pointer items-center justify-center gap-x-2 rounded-full bg-white bg-opacity-30 p-1 transition hover:bg-opacity-20 hover:brightness-110 ">
               <div className="relative h-9 w-9 cursor-pointer overflow-hidden rounded-full bg-white">
                 {url ? (
                   <Image
