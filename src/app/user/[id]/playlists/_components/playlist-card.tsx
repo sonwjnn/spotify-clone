@@ -12,17 +12,17 @@ import { buckets } from '@/utils/constants'
 
 import { PlayButton } from '@/components/play-button'
 
-interface PlaylistCardProps {
+type PlaylistCardProps = {
   data: Playlist
   onClick?: (id: string) => void
   type: 'track' | 'playlist'
 }
 
-export const PlaylistCard: React.FC<PlaylistCardProps> = ({
+export const PlaylistCard = ({
   data,
   // onClick,
   type = 'track',
-}) => {
+}: PlaylistCardProps) => {
   const { currentTrack, isPlaying, handlePlay } = usePlayer()
   const { userDetails } = useUser()
   const router = useRouter()

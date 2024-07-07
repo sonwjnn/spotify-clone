@@ -21,12 +21,12 @@ import { HomeIcon, SearchIcon } from '@/public/icons'
 import type { Playlist, Song } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-import { PlayButton } from './play-button'
-import { PremiumButton } from './premium-button'
-import { Button } from './ui/button'
-import { UserDropdown } from './user-dropdown'
+import { PlayButton } from '@/components/play-button'
+import { PremiumButton } from '@/components/premium-button'
+import { Button } from '@/components/ui/button'
+import { UserDropdown } from '@/components/user-dropdown'
 
-interface NavbarProps {
+type NavbarProps = {
   type?:
     | 'default'
     | 'home'
@@ -47,7 +47,7 @@ interface NavbarProps {
   showTitle?: boolean
 }
 
-export const Navbar: React.FC<NavbarProps> = props => {
+export const Navbar = (props: NavbarProps) => {
   const {
     type = 'default',
     songs,

@@ -16,7 +16,7 @@ const QueuePage: NextPage = async () => {
       <PageWrapper>
         <Header bgColor="#171717" type="queue">
           <div className="mb-2 flex w-full flex-col  gap-y-6">
-            <h1 className="pt-10 text-3xl font-semibold text-slate-500 dark:text-white">
+            <h1 className="pt-10 text-3xl font-semibold text-zinc-600 dark:text-white">
               Queue
             </h1>
           </div>

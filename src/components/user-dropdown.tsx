@@ -16,37 +16,20 @@ import {
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useUploadModal } from '@/hooks/modals/use-upload-modal'
 import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
-import { useTheme } from 'next-themes'
-import { MdDarkMode } from 'react-icons/md'
-import { MdLightMode } from 'react-icons/md'
-import { Tooltip } from './ui/tooltip'
-interface UserDropdownProps {
+import { Tooltip } from '@/components/ui/tooltip'
+import ThemeSelect from '@/components/theme-select'
+type UserDropdownProps = {
   url: string
 }
 
-const themeIconMap = {
-  LIGHT: {
-    label: 'Light',
-    icon: <MdLightMode size={20} className="size-4 ml-1 text-yellow-500" />,
-  },
-  DARK: {
-    label: 'Dark',
-    icon: <MdDarkMode size={20} className="size-4 ml-1 text-indigo-500" />,
-  },
-}
-
-export const UserDropdown: React.FC<UserDropdownProps> = ({ url }) => {
+export const UserDropdown = ({ url }: UserDropdownProps) => {
   const { user, subscription, userDetails } = useUser()
-  const { setTheme, theme } = useTheme()
 
   const userStore = useUserStore()
   const uploadModal = useUploadModal()
@@ -73,12 +56,6 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ url }) => {
       toast.success('Logged out!')
     }
   }
-
-  const icon =
-    theme === 'light' ? themeIconMap.LIGHT.icon : themeIconMap.DARK.icon
-
-  const label =
-    theme === 'light' ? themeIconMap.LIGHT.label : themeIconMap.DARK.label
 
   return (
     <DropdownMenu
@@ -134,28 +111,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ url }) => {
             Profile
           </DropdownMenuItem>
 
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <span className="flex items-center gap-x-2 ">
-                {icon} {label}
-              </span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem onSelect={() => setTheme('light')}>
-                  <span className="flex items-center  gap-x-2 ">
-                    {themeIconMap.LIGHT.icon} Light
-                  </span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => setTheme('dark')}>
-                  <span className="flex items-center gap-x-2 ">
-                    {themeIconMap.DARK.icon} Dark
-                  </span>
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
+          <ThemeSelect />
           <DropdownMenuSeparator className="mx-1 bg-zinc-300 dark:bg-neutral-800" />
 
           <DropdownMenuItem onSelect={handleLogout}>

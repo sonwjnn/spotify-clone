@@ -12,12 +12,12 @@ import { SingleMusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-interface UserContentProp {
+type UserContentProp = {
   data: Playlist[]
   id: string
 }
 
-export const UserContent: React.FC<UserContentProp> = ({ data, id }) => {
+export const UserContent = ({ data, id }: UserContentProp) => {
   const router = useRouter()
   const { isLoading, user, userDetails } = useUser()
   const [bgColorUser, setBgColorUser] = useState<string>('')

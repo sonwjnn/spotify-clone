@@ -8,12 +8,12 @@ export type ModalType =
   | 'upload'
   | 'subcribe'
 
-interface ModalData {
+type ModalData = {
   apiUrl?: string
   query?: Record<string, any>
 }
 
-interface ModalStore {
+type ModalStore = {
   type: ModalType | null
   data: ModalData
   isOpen: boolean

@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge'
 
 import { PauseIcon, PlayIcon } from '@/public/icons'
 
-interface PlayButtonProps {
+type PlayButtonProps = {
   onClick?: (value?: any) => void
   className?: string
   isPlaying?: boolean
@@ -13,8 +13,13 @@ interface PlayButtonProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const PlayButton: React.FC<PlayButtonProps> = memo(
-  ({ className, isPlaying = false, iconSize = 20, onClick }) => {
+export const PlayButton = memo(
+  ({
+    className,
+    isPlaying = false,
+    iconSize = 20,
+    onClick,
+  }: PlayButtonProps) => {
     const Icon = isPlaying ? PauseIcon : PlayIcon
 
     return (

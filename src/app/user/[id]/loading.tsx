@@ -9,7 +9,7 @@ import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'
 import { useMainLayout } from '@/store/use-main-layout'
 
-const Loading: React.FC = () => {
+const Loading = () => {
   const { width, quantityCol } = useMainLayout()
   return (
     <PageWrapper>

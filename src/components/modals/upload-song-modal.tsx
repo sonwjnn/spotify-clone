@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Modal } from '@/components/ui/modal'
 
-export const UploadSongModal: React.FC = () => {
+export const UploadSongModal = () => {
   const uploadModal = useUploadModal()
   const { user } = useUser()
   const supabaseClient = useSupabaseClient()

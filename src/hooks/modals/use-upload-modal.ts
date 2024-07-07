@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface UploadModalStore {
+type UploadModalStore = {
   url?: string
   isOpen: boolean
   onOpen: () => void

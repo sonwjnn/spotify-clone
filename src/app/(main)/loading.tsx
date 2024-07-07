@@ -10,7 +10,7 @@ import { PageWrapper } from '@/components/page-wrapper'
 import { useHeader } from '@/store/use-header'
 import { useMainLayout } from '@/store/use-main-layout'
 
-const Loading: React.FC = () => {
+const Loading = () => {
   const { width, quantityCol } = useMainLayout()
   const { bgColor } = useHeader()
   return (

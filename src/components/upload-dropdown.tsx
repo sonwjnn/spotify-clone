@@ -21,9 +21,9 @@ import { useUploadModal } from '@/hooks/modals/use-upload-modal'
 import { useUser } from '@/hooks/use-user'
 import { AddPlaylistIcon } from '@/public/icons'
 
-import { Tooltip } from './ui/tooltip'
+import { Tooltip } from '@/components/ui/tooltip'
 
-export const UploadDropdown: React.FC = () => {
+export const UploadDropdown = () => {
   const { user, subscription } = useUser()
   const authModal = useAuthModal()
   const uploadModal = useUploadModal()

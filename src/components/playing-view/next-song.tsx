@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import type { FC } from 'react'
 import { useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
@@ -11,10 +10,10 @@ import { usePlayer } from '@/store/use-player'
 import { MusicNote, PlayIcon, SingleMusicNote } from '@/public/icons'
 import type { Song } from '@/types/types'
 
-interface NextSongProps {
+type NextSongProps = {
   song: Song | undefined
 }
-export const NextSong: FC<NextSongProps> = ({ song }) => {
+export const NextSong = ({ song }: NextSongProps) => {
   const player = usePlayer()
   const imagePath = useLoadImage(song?.image_path!, 'images')
   const router = useRouter()

@@ -24,7 +24,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Modal } from '@/components/ui/modal'
 
-export const EditUserModal: React.FC = () => {
+export const EditUserModal = () => {
   const {
     setAvatarUrl,
     setFullName,

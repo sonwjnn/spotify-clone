@@ -1,6 +1,6 @@
 import { ClockIcon } from '@/public/icons'
 
-export const ListBarLoading: React.FC = () => {
+export const ListBarLoading = () => {
   return (
     <div
       className={`group z-10 mb-2 grid h-9 w-full  grid-cols-list-5 items-center gap-4 border border-transparent border-b-[hsla(0,0%,100%,0.1)] px-4`}

@@ -1,6 +1,6 @@
 import type { Playlist, Song } from './types'
 
-export interface SongCardTagProps {
+export type SongCardTagProps = {
   thumbnailUrl?: string
   name?: string
   isLoading?: boolean
@@ -9,7 +9,7 @@ export interface SongCardTagProps {
   albumId?: string
 }
 
-export interface MediaItemProps {
+export type MediaItemProps = {
   isLoading?: boolean
   isExplicit?: boolean
   type?: 'default' | 'playlist' | 'album' | 'search' | 'artist' | 'queue'
@@ -23,7 +23,7 @@ export interface MediaItemProps {
   hasAddTrackBtn?: boolean
 }
 
-export interface MediaListProps {
+export type MediaListProps = {
   songs: Song[]
   playlist?: Playlist
   pivotTop?: number

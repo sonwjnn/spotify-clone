@@ -5,14 +5,14 @@ import { useEffect } from 'react'
 import { useHeader } from '@/store/use-header'
 import { useNavbar } from '@/store/use-navbar'
 
-import { ScrollArea } from './ui/scroll-area'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
-interface PageWrapperProps {
+type PageWrapperProps = {
   hasPlayBtn?: boolean
   children: React.ReactNode
 }
 
-export const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
+export const PageWrapper = ({ children }: PageWrapperProps) => {
   const { setOpacity, setPlayBtnVisible, setUsernameVisible } = useNavbar()
   const { height } = useHeader()
 

@@ -7,7 +7,7 @@ import { MediaLoading } from '@/components/loading-layout/media-loading'
 import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'
 
-const loading: React.FC = () => {
+const loading = () => {
   return (
     <PageWrapper>
       <Navbar bgColor={'#171717'} darker={false} />

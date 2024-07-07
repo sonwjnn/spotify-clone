@@ -26,7 +26,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Modal } from '@/components/ui/modal'
 
-export const EditPlaylistModal: React.FC = () => {
+export const EditPlaylistModal = () => {
   const {
     playlist,
     setDescription,

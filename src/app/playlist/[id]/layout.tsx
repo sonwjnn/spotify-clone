@@ -7,15 +7,11 @@ import { Alert } from '@/components/alert'
 import { PageWrapper } from '@/components/page-wrapper'
 import { useUser } from '@/hooks/use-user'
 
-interface PlaylistLayoutProps {
+type PlaylistLayoutProps = {
   children: React.ReactNode
 }
 
-const PlaylistLayout: React.FC<PlaylistLayoutProps> = ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+const PlaylistLayout = ({ children }: PlaylistLayoutProps) => {
   const router = useRouter()
 
   const { user, isLoading, subscription } = useUser()

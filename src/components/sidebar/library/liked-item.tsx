@@ -7,19 +7,14 @@ import { useUser } from '@/hooks/use-user'
 import { MusicNote } from '@/public/icons'
 import { cn } from '@/lib/utils'
 
-interface LikedItemProps {
+type LikedItemProps = {
   image: string
   name: string
   href: string
   count?: number
 }
 
-export const LikedItem: React.FC<LikedItemProps> = ({
-  image,
-  name,
-  href,
-  count,
-}) => {
+export const LikedItem = ({ image, name, href, count }: LikedItemProps) => {
   const { user } = useUser()
   const router = useRouter()
   const pathName = usePathname()

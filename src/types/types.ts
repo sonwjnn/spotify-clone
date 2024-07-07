@@ -1,6 +1,6 @@
 import type Stripe from 'stripe'
 
-export interface UserDetails {
+export type UserDetails = {
   id: string
   first_name: string
   last_name: string
@@ -11,7 +11,7 @@ export interface UserDetails {
   bg_color?: string
 }
 
-export interface Song {
+export type Song = {
   id: string
   user_id: string
   author: string
@@ -22,7 +22,7 @@ export interface Song {
   created_at: string
 }
 
-export interface Playlist {
+export type Playlist = {
   id: string
   user_id: string
   song_ids?: string[]
@@ -36,7 +36,7 @@ export interface Playlist {
   duration_ms?: number
 }
 
-export interface Product {
+export type Product = {
   id: string
   active?: boolean
   name?: string
@@ -49,7 +49,7 @@ export interface ProductWithPrice extends Product {
   prices?: Price[]
 }
 
-export interface Price {
+export type Price = {
   id: string
   product_id?: string
   active?: boolean
@@ -64,7 +64,7 @@ export interface Price {
   product?: Product
 }
 
-export interface Subscription {
+export type Subscription = {
   id: string
   user_id: string
   status?: Stripe.Subscription.Status

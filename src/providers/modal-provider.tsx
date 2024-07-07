@@ -9,11 +9,11 @@ import { SubscribeModal } from '@/components/modals/subcribe-modal'
 import { UploadSongModal } from '@/components/modals/upload-song-modal'
 import type { ProductWithPrice } from '@/types/types'
 
-interface ModalProviderProps {
+type ModalProviderProps = {
   products: ProductWithPrice[]
 }
 
-export const ModalProvider: React.FC<ModalProviderProps> = ({ products }) => {
+export const ModalProvider = ({ products }: ModalProviderProps) => {
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {

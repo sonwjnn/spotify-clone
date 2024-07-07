@@ -9,12 +9,12 @@ import { cn } from '@/lib/utils'
 
 import { RecommendPlaylist } from './recommend-playlist'
 
-interface GreetingProps {
+type GreetingProps = {
   playlists: Playlist[]
 }
 
 // eslint-disable-next-line react/display-name
-export const Greeting: React.FC<GreetingProps> = memo(({ playlists }) => {
+export const Greeting = memo(({ playlists }: GreetingProps) => {
   const [currentHour, setCurrentHour] = useState(new Date().getHours())
   const [isHover, setHover] = useState(false)
   const { width } = useMainLayout()

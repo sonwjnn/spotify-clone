@@ -11,9 +11,7 @@ import { usePlaylist } from '@/store/use-playlist'
 import { SearchIcon } from '@/public/icons'
 import type { Song } from '@/types/types'
 
-interface SearchPlaylistProps {}
-
-export const SearchPlaylist: React.FC<SearchPlaylistProps> = () => {
+export const SearchPlaylist = () => {
   const { width } = useMainLayout()
 
   const { playlistSongs } = usePlaylist()
@@ -58,10 +56,10 @@ export const SearchPlaylist: React.FC<SearchPlaylistProps> = () => {
           Lets find content for your playlist !
         </div>
         <Input
-          placeholder={'Search for your song to want to listen to !'}
+          placeholder="Search for your song to want to listen to !"
           value={value}
           onChange={e => setValue(e.target.value)}
-          className={`w-[40%] rounded-full bg-zinc-300 px-4 pl-10 text-zinc-500 placeholder:text-zinc-500 dark:bg-neutral-800 ${
+          className={`w-[40%] rounded-full px-4 pl-10  ${
             width <= 780 && 'w-[60%]'
           } ${width <= 550 && 'w-full'}`}
           startIcon={

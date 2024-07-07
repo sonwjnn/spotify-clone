@@ -14,12 +14,10 @@ import type { Playlist } from '@/types/types'
 import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 
-interface UserHeaderContentProps {
+type UserHeaderContentProps = {
   data?: Playlist[]
 }
-export const UserHeaderContent: React.FC<UserHeaderContentProps> = ({
-  data,
-}) => {
+export const UserHeaderContent = ({ data }: UserHeaderContentProps) => {
   const { width } = useMainLayout()
   const { user, subscription, userDetails } = useUser()
   const authModal = useAuthModal()

@@ -13,11 +13,11 @@ import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
 import { SingleMusicNote } from '@/public/icons'
 
-interface LikedContentProp {
+type LikedContentProp = {
   bgColor?: string
 }
 
-export const LikedContent: React.FC<LikedContentProp> = ({ bgColor }) => {
+export const LikedContent = ({ bgColor }: LikedContentProp) => {
   const router = useRouter()
   const { likedSongs: songs } = useUserStore()
   const { isLoading, user } = useUser()

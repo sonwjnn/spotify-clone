@@ -3,7 +3,7 @@
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import { twMerge } from 'tailwind-merge'
 
-interface SliderProps {
+type SliderProps = {
   value?: number
   maxValue?: number
   step?: number
@@ -12,14 +12,14 @@ interface SliderProps {
   className?: string
 }
 
-export const Slider: React.FC<SliderProps> = ({
+export const Slider = ({
   className,
   value = 0,
   maxValue = 100,
   step = 1,
   onChange,
   onMouseUp,
-}) => {
+}: SliderProps) => {
   const handleMouseUp = (newValue: number[]): void => {
     onMouseUp?.(newValue[0] as number)
   }

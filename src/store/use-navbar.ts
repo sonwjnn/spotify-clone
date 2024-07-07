@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface NavStylesStore {
+type NavStylesStore = {
   playBtnVisible: boolean
   setPlayBtnVisible: (playBtnVisible: boolean) => void
   usernameVisible: boolean

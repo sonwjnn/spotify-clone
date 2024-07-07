@@ -5,19 +5,19 @@ import Marquee from 'react-fast-marquee'
 
 import { useIsOverflow } from '@/hooks/use-is-overflow'
 
-interface MarqueeWrapperProps {
+type MarqueeWrapperProps = {
   children: React.ReactNode
-  pauseOnHover?: true
+  pauseOnHover?: boolean
   speed?: number
   direction?: 'left' | 'right' | 'up' | 'down'
 }
 
-export const MarqueeWrapper: React.FC<MarqueeWrapperProps> = ({
+export const MarqueeWrapper = ({
   children,
   pauseOnHover = false,
   speed = 20,
   direction = 'left',
-}) => {
+}: MarqueeWrapperProps) => {
   const marqueeRef = useRef<HTMLDivElement>(null)
 
   const isOverflow = useIsOverflow(marqueeRef)

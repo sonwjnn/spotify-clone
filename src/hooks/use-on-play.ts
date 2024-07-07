@@ -4,8 +4,8 @@ import { usePlayer } from '@/store/use-player'
 import { useSelectedPlayer } from '@/store/use-selected-player'
 import type { Song } from '@/types/types'
 
-import { useAuthModal } from './modals/use-auth-modal'
-import { useUser } from './use-user'
+import { useAuthModal } from '@/hooks/modals/use-auth-modal'
+import { useUser } from '@/hooks/use-user'
 
 export const useOnPlay = (songs: Song[]): ((id: string) => void) => {
   const {

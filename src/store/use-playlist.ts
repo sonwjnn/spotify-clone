@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { Playlist, Song } from '@/types/types'
 
-interface PlaylistStore {
+type PlaylistStore = {
   playlist: Playlist | null
   playlistSongs: Song[]
   setPlaylist: (playlist: Playlist) => void

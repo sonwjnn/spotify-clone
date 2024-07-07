@@ -16,10 +16,7 @@ import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 
-interface PlaylistHeaderContentProps {}
-export const PlaylistHeaderContent: React.FC<
-  PlaylistHeaderContentProps
-> = () => {
+export const PlaylistHeaderContent = () => {
   const { playlist: data, playlistSongs } = usePlaylist()
   const { width } = useMainLayout()
   const { user, subscription } = useUser()

@@ -2,7 +2,7 @@
 
 import { Alert } from '@/components/alert'
 
-const Error: React.FC = () => {
+const Error = () => {
   return <Alert type="wrong" />
 }
 

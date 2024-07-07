@@ -9,19 +9,16 @@ import { usePlaylist } from '@/store/use-playlist'
 import { useUser } from '@/hooks/use-user'
 import type { Playlist, Song } from '@/types/types'
 
-import { Spinner } from './spinner'
-import { Tooltip } from './ui/tooltip'
+import { Spinner } from '@/components/spinner'
+import { Tooltip } from '@/components/ui/tooltip'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-interface AddSongPlaylistProps {
+type AddSongPlaylistProps = {
   song: Song
   playlist: Playlist
 }
 
-export const AddSongPlaylist: React.FC<AddSongPlaylistProps> = ({
-  song,
-  playlist,
-}) => {
+export const AddSongPlaylist = ({ song, playlist }: AddSongPlaylistProps) => {
   const { supabaseClient } = useSessionContext()
 
   const { user } = useUser()

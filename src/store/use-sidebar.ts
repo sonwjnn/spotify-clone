@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-interface SidebarProps {
+type SidebarProps = {
   width: number
   height: number
   setWidth: (width: number) => void

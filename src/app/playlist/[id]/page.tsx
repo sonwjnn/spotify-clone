@@ -10,7 +10,7 @@ import { getPlaylistSongs } from '@/server-actions/playlists/get-playlist-songs'
 import { PlaylistContent } from './_components/playlist-content'
 import { PlaylistHeaderContent } from './_components/playlist-header-content'
 
-interface PlaylistPageProps {
+type PlaylistPageProps = {
   params: {
     id: string
   }

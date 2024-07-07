@@ -13,11 +13,11 @@ import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 import { getDurationSong } from '@/utils/duration-convertor'
 
-import { LikeButton } from './like-button'
-import { MediaDropdown } from './media-dropdown'
-import { AddSongPlaylist } from './add-song-playlist'
+import { LikeButton } from '@/components/like-button'
+import { MediaDropdown } from '@/components/media-dropdown'
+import { AddSongPlaylist } from '@/components/add-song-playlist'
 
-export const MediaItem: React.FC<MediaItemProps> = ({
+export const MediaItem = ({
   type = 'default',
   index,
   song,
@@ -25,7 +25,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
   isSelected,
   isActived,
   hasAddTrackBtn = false,
-}) => {
+}: MediaItemProps) => {
   const { width } = useMainLayout()
   const imageUrl = useLoadImage(song.image_path, buckets.images)
   const player = usePlayer()
@@ -47,7 +47,7 @@ export const MediaItem: React.FC<MediaItemProps> = ({
         `
       group grid grid-cols-list-5 gap-4
       ${isSelected && 'bg-neutral-800/50'}
-      h-[56px] w-full cursor-pointer items-center rounded-md px-4 transition hover:bg-zinc-700/10  dark:hover:bg-white
+      h-[56px] w-full cursor-pointer items-center rounded-md px-4 transition hover:bg-white  dark:hover:bg-zinc-700/10
     `,
         {
           'grid-cols-list-4': width <= 780 && type !== 'album',

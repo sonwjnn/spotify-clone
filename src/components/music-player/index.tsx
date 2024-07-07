@@ -4,9 +4,9 @@ import { useLoadSongUrl } from '@/hooks/use-load-song-url'
 import { usePlayer } from '@/store/use-player'
 import { useUser } from '@/hooks/use-user'
 
-import { Player } from './player'
+import { Player } from '@/components/music-player/player'
 
-export const MusicPlayer: React.FC = () => {
+export const MusicPlayer = () => {
   const player = usePlayer()
 
   const { currentTrack: song } = usePlayer()

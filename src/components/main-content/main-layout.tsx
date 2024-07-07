@@ -5,11 +5,11 @@ import { useEffect, useRef } from 'react'
 import { useComponentSize } from '@/store/use-component-size'
 import { useMainLayout } from '@/store/use-main-layout'
 
-interface MainLayoutProps {
+type MainLayoutProps = {
   children: React.ReactNode
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout = ({ children }: MainLayoutProps) => {
   useEffect(() => {
     useMainLayout.persist.rehydrate()
   }, [])

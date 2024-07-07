@@ -1,6 +1,6 @@
 'use client'
 
-import { type FC, memo } from 'react'
+import { memo } from 'react'
 
 import {
   bottomLinks,
@@ -8,16 +8,16 @@ import {
   topLinkGroups,
 } from '@/utils/constants'
 
-import { LinkGroup } from './link-group'
+import { LinkGroup } from '@/components/link-group'
 
 // eslint-disable-next-line react/display-name
-const Footer: FC = memo(() => {
+const Footer = memo(() => {
   return (
     <footer className="mt-10 flex flex-col px-8 pb-10 pt-2  ">
       <nav className="mt-8 flex justify-between">
         <div className="flex flex-wrap">
-          {topLinkGroups.map(links => (
-            <LinkGroup key={links.title} groupLink={links} />
+          {topLinkGroups.map(item => (
+            <LinkGroup key={item.title} links={item.links} title={item.title} />
           ))}
         </div>
         <div className="flex h-fit flex-wrap justify-end gap-4">

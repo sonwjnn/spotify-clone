@@ -9,15 +9,12 @@ import { HomeIcon, SearchIcon } from '@/public/icons'
 
 import { Button } from '@/components/ui/button'
 
-interface HeaderProps {
+type HeaderProps = {
   children: React.ReactNode
   className?: string
 }
 
-export const HeaderLoading: React.FC<HeaderProps> = ({
-  children,
-  className,
-}) => {
+export const HeaderLoading = ({ children, className }: HeaderProps) => {
   const { user } = useUser()
 
   return (

@@ -4,7 +4,7 @@ import { getDurationSong } from '@/utils/duration-convertor'
 
 import { Slider } from '@/components/ui/slider'
 
-interface SeekBarProps {
+type SeekBarProps = {
   sound: any
   intervalIdRef: any
   trackProcess: number
@@ -14,7 +14,7 @@ interface SeekBarProps {
   duration: number | null
 }
 
-export const SeekBar: React.FC<SeekBarProps> = ({
+export const SeekBar = ({
   sound,
   intervalIdRef,
   trackProcess,
@@ -22,7 +22,7 @@ export const SeekBar: React.FC<SeekBarProps> = ({
   setTrackProcess,
   setCurrentTime,
   startTimer,
-}) => {
+}: SeekBarProps) => {
   const handleSliderChange = (value: number): void => {
     clearInterval(intervalIdRef?.current)
     setTrackProcess(value)

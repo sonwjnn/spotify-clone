@@ -9,11 +9,11 @@ import { buckets } from '@/utils/constants'
 
 import { LikeButton } from '@/components/like-button'
 
-interface SongDetailsProps {
+type SongDetailsProps = {
   data: Song
 }
 
-export const SongDetails: React.FC<SongDetailsProps> = ({ data }) => {
+export const SongDetails = ({ data }: SongDetailsProps) => {
   const imageUrl = useLoadImage(data.image_path, buckets.images)
 
   return (

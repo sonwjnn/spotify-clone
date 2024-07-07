@@ -11,10 +11,10 @@ import type { Song } from '@/types/types'
 
 import { LikeButton } from '@/components/like-button'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { NextSong } from './next-song'
-import { PlayingViewResizer } from './playing-view-resizer'
+import { NextSong } from '@/components/playing-view/next-song'
+import { PlayingViewResizer } from '@/components/playing-view/playing-view-resizer'
 
-export const PlayingView: React.FC = () => {
+export const PlayingView = () => {
   const { collapsed } = usePlayingView()
   const { currentTrack, queue, nextTrackIndex } = usePlayer()
   const imagePath = useLoadImage(currentTrack?.image_path!, 'images')

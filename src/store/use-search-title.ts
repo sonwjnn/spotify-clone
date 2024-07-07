@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface SearchTitleProps {
+type SearchTitleProps = {
   title: string
   setTitle: (title: string) => void
 }

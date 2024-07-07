@@ -8,19 +8,19 @@ import { twMerge } from 'tailwind-merge'
 import { useDebounce } from '@/hooks/use-debounce'
 import { SearchIcon } from '@/public/icons'
 
-import { Input } from './ui/input'
+import { Input } from '@/components/ui/input'
 
-interface SearchInputProps {
+type SearchInputProps = {
   url: string
   placeholder?: string
   className?: string
 }
 
-export const SearchInput: React.FC<SearchInputProps> = ({
+export const SearchInput = ({
   className,
   url,
   placeholder,
-}) => {
+}: SearchInputProps) => {
   const router = useRouter()
 
   const [value, setValue] = useState<string>('')
@@ -44,8 +44,10 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       placeholder={placeholder || 'Search for your song to want to listen to !'}
       value={value}
       onChange={e => setValue(e.target.value)}
-      className={twMerge(` rounded-full px-4 pl-10 bg-neutral-800`, className)}
-      startIcon={<SearchIcon size={18} />}
+      className={twMerge(` rounded-full px-4 pl-10`, className)}
+      startIcon={
+        <SearchIcon size={18} className="text-zinc-600 dark:text-white" />
+      }
     />
   )
 }

@@ -11,12 +11,12 @@ import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 import { useTheme } from 'next-themes'
 
-interface PlaylistItemProps {
+type PlaylistItemProps = {
   data: Playlist
   type?: 'myPlaylist' | 'otherPlaylist'
 }
 
-export const PlaylistItem: React.FC<PlaylistItemProps> = ({ data }) => {
+export const PlaylistItem = ({ data }: PlaylistItemProps) => {
   const { theme } = useTheme()
   const router = useRouter()
 

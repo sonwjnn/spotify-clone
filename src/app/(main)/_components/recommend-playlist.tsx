@@ -14,17 +14,17 @@ import { buckets } from '@/utils/constants'
 
 import { PlayButton } from '@/components/play-button'
 
-interface RecommendPlaylistProps {
+type RecommendPlaylistProps = {
   data: Playlist
   index: number
   isHover: boolean
   setHover: React.Dispatch<React.SetStateAction<boolean>>
 }
-export const RecommendPlaylist: React.FC<RecommendPlaylistProps> = ({
+export const RecommendPlaylist = ({
   data,
   isHover,
   setHover,
-}) => {
+}: RecommendPlaylistProps) => {
   const router = useRouter()
   const authModal = useAuthModal()
   const subscribeModal = useSubscribeModal()

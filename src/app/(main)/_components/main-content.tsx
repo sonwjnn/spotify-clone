@@ -5,11 +5,11 @@ import { useMainLayout } from '@/store/use-main-layout'
 import { useOnPlay } from '@/hooks/use-on-play'
 import type { Song } from '@/types/types'
 
-interface MainContentProps {
+type MainContentProps = {
   songs: Song[]
 }
 
-export const MainContent: React.FC<MainContentProps> = ({ songs }) => {
+export const MainContent = ({ songs }: MainContentProps) => {
   const onPlay = useOnPlay(songs)
   const { width, quantityCol } = useMainLayout()
 

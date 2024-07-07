@@ -3,14 +3,14 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { Song } from '@/types/types'
 
-export interface PlayOptions {
+export type PlayOptions = {
   id?: string
   forceSoundEnabled?: boolean
   playbackRate?: number
 }
 export declare type PlayFunction = (options?: PlayOptions) => void
 
-interface PlayerStore {
+type PlayerStore = {
   ids: string[]
   activeId?: string
   isPlaying: boolean

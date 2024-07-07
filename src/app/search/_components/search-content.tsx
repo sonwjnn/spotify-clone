@@ -3,11 +3,11 @@
 import { MediaList } from '@/components/media-list'
 import type { Song } from '@/types/types'
 
-interface SearchContentProps {
+type SearchContentProps = {
   songs: Song[]
 }
 
-export const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
+export const SearchContent = ({ songs }: SearchContentProps) => {
   if (songs.length === 0) {
     return (
       <div className="flex w-full flex-col gap-y-2 px-6 text-neutral-400">

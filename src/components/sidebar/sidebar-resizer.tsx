@@ -7,7 +7,7 @@ import { useSidebar } from '@/store/use-sidebar'
 import { cn } from '@/lib/utils'
 import { usePlayingView } from '@/store/use-playing-view'
 
-interface SidebarResizerProps {
+type SidebarResizerProps = {
   children: React.ReactNode
   minWidth?: number
   maxWidth?: number
@@ -15,8 +15,13 @@ interface SidebarResizerProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const SidebarResizer: React.FC<SidebarResizerProps> = memo(
-  ({ children, minWidth = 300, maxWidth = 500, className }) => {
+export const SidebarResizer = memo(
+  ({
+    children,
+    minWidth = 300,
+    maxWidth = 500,
+    className,
+  }: SidebarResizerProps) => {
     const isTablet = useMediaQuery('(max-width: 768px)')
     const isMobile = useMediaQuery('(max-width: 585px)')
     const isMediumScreen = useMediaQuery('(max-width: 987px)')

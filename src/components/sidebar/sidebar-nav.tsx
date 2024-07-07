@@ -13,14 +13,14 @@ import { HomeIcon, SearchIcon } from '@/public/icons'
 import { Box } from '@/components/ui/box'
 import { Tooltip } from '@/components/ui/tooltip'
 
-interface NavItemProps {
+type NavItemProps = {
   icon: IconType
   label: string
   active?: boolean
   href: string
 }
 
-const NavItem: React.FC<NavItemProps> = ({ icon, label, active, href }) => {
+const NavItem = ({ icon, label, active, href }: NavItemProps) => {
   const { isCollapsed } = useSidebar()
   const Icon: ((props: Partial<IconProps>) => JSX.Element) | undefined = icon
 
@@ -46,7 +46,7 @@ const NavItem: React.FC<NavItemProps> = ({ icon, label, active, href }) => {
   )
 }
 
-export const SidebarNav: React.FC = () => {
+export const SidebarNav = () => {
   const pathname = usePathname()
   const { isCollapsed } = useSidebar()
   const routes = useMemo(

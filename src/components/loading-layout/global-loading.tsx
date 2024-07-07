@@ -4,7 +4,7 @@ import { SyncLoader } from 'react-spinners'
 
 import { Box } from '@/components/ui/box'
 
-export const GlobalLoading: React.FC = () => {
+export const GlobalLoading = () => {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <Box className=" flex h-[calc(100%-16px)] w-[calc(100%-16px)] items-center justify-center gap-x-2  ">

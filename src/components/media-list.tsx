@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 
 import { MediaItem } from '@/components/media-item'
-import { useClickOutside } from '@/hooks/use-click-outside'
+import { useOnClickOutside } from '@/hooks/use-click-outside'
 import { useMainLayout } from '@/store/use-main-layout'
 import { useOnPlay } from '@/hooks/use-on-play'
 import { usePlayer } from '@/store/use-player'
@@ -13,17 +13,13 @@ import type { MediaListProps } from '@/types/track'
 import type { Playlist } from '@/types/types'
 import { cn } from '@/lib/utils'
 
-interface ListBarProps {
+type ListBarProps = {
   className?: string
   type: 'default' | 'playlist' | 'album' | 'search' | 'artist' | 'queue'
   hasAddTrackBtn?: boolean
 }
 
-const ListBar: React.FC<ListBarProps> = ({
-  className,
-  type,
-  hasAddTrackBtn = false,
-}) => {
+const ListBar = ({ className, type, hasAddTrackBtn = false }: ListBarProps) => {
   const { width } = useMainLayout()
   return (
     <div
@@ -79,18 +75,18 @@ const ListBar: React.FC<ListBarProps> = ({
   )
 }
 
-export const MediaList: React.FC<MediaListProps> = ({
+export const MediaList = ({
   songs,
   type = 'default',
   hasAddTrackBtn = false,
-}) => {
+}: MediaListProps) => {
   const player = usePlayer()
   const { playlist } = usePlaylist()
   const onPlay = useOnPlay(songs)
   const [selectedId, setSelectedId] = useState<string>('')
 
   const wrapperRef = useRef(null)
-  useClickOutside(wrapperRef, () => {
+  useOnClickOutside(wrapperRef, () => {
     setSelectedId('')
   })
 

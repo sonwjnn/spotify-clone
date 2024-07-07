@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { IoMdClose } from 'react-icons/io'
 import { twMerge } from 'tailwind-merge'
 
-interface ModalProps {
+type ModalProps = {
   className?: string
   isOpen: boolean
   onChange: (open: boolean) => void
@@ -11,14 +11,14 @@ interface ModalProps {
   children: React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modal = ({
   isOpen,
   onChange,
   title,
   description,
   children,
   className,
-}) => {
+}: ModalProps) => {
   return (
     <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
       <Dialog.Portal>

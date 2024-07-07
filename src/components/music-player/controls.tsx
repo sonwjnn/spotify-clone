@@ -11,15 +11,12 @@ import {
 import { PlayButton } from '@/components/play-button'
 import { Tooltip } from '@/components/ui/tooltip'
 
-interface ControlsProps {
+type ControlsProps = {
   onPlayPrevious: () => void
   onPlayNext: () => void
 }
 
-export const Controls: React.FC<ControlsProps> = ({
-  onPlayPrevious,
-  onPlayNext,
-}) => {
+export const Controls = ({ onPlayPrevious, onPlayNext }: ControlsProps) => {
   const {
     isRandom,
     setRandom,

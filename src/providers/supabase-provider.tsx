@@ -6,13 +6,11 @@ import { useState } from 'react'
 
 import type { Database } from '@/types/types_db'
 
-interface SupabaseProviderProps {
+type SupabaseProviderProps = {
   children: React.ReactNode
 }
 
-export const SupabaseProvider: React.FC<SupabaseProviderProps> = ({
-  children,
-}) => {
+export const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
   const [supabaseClient] = useState(() =>
     createClientComponentClient<Database>()
   )

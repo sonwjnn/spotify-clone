@@ -9,11 +9,11 @@ import type { Playlist, Song } from '@/types/types'
 import { cn } from '@/lib/utils'
 
 import { GlobalLoading } from '@/components/loading-layout/global-loading'
-import { PlayingView } from '@/components/playing-view/playing-view'
-import { Sidebar } from '@/components/sidebar/sidebar'
-import { MainLayout } from './main-layout'
+import { PlayingView } from '@/components/playing-view'
+import { Sidebar } from '@/components/sidebar'
+import { MainLayout } from '@/components/main-content/main-layout'
 
-interface MainContentProps {
+type MainContentProps = {
   children: React.ReactNode
   songs: Song[]
   playlists: Playlist[]
@@ -21,12 +21,12 @@ interface MainContentProps {
   likedPlaylists: Playlist[]
 }
 
-export const MainContent: React.FC<MainContentProps> = ({
+export const MainContent = ({
   children,
   playlists,
   likedSongs,
   likedPlaylists,
-}) => {
+}: MainContentProps) => {
   const player = usePlayer()
   const { user } = useUser()
   const { setPlaylists, setLikedSongs, setLikedPlaylists } = useUserStore()

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 import type { UserDetails } from '@/types/types'
 
-interface UserModalStore {
+type UserModalStore = {
   isOpen: boolean
   userDetails: UserDetails | null
   setUserDetails: (userDetails: UserDetails) => void

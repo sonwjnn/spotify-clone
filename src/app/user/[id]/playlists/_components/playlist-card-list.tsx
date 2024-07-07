@@ -2,7 +2,7 @@ import { PlaylistCard } from './playlist-card'
 import { useMainLayout } from '@/store/use-main-layout'
 import type { Playlist } from '@/types/types'
 
-interface CartListProps {
+type CartListProps = {
   data: Playlist[]
 }
 

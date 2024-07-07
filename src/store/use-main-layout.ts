@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-interface MainLayoutStore {
+type MainLayoutStore = {
   quantityCol: number
   width: number
   height: number

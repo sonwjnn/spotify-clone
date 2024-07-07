@@ -5,13 +5,11 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import { useTheme } from 'next-themes'
 
-interface SkeletonProviderProps {
+type SkeletonProviderProps = {
   children: React.ReactNode
 }
 
-export const SkeletonProvider: React.FC<SkeletonProviderProps> = ({
-  children,
-}) => {
+export const SkeletonProvider = ({ children }: SkeletonProviderProps) => {
   const { theme } = useTheme()
 
   const color = theme === 'dark' ? '#333' : '#d4d4d8'

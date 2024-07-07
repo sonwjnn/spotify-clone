@@ -1,19 +1,12 @@
 'use client'
 
-import {
-  type ElementRef,
-  type FC,
-  memo,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { type ElementRef, memo, useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'usehooks-ts'
 
 import { usePlayingView } from '@/store/use-playing-view'
 import { cn } from '@/lib/utils'
 
-interface PlayingViewResizerProps {
+type PlayingViewResizerProps = {
   children: React.ReactNode
   minWidth?: number
   maxWidth?: number
@@ -21,8 +14,13 @@ interface PlayingViewResizerProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const PlayingViewResizer: FC<PlayingViewResizerProps> = memo(
-  ({ children, minWidth = 300, maxWidth = 500, className }) => {
+export const PlayingViewResizer = memo(
+  ({
+    children,
+    minWidth = 300,
+    maxWidth = 500,
+    className,
+  }: PlayingViewResizerProps) => {
     const isMobile = useMediaQuery('(max-width: 768px)')
 
     const isResizingRef = useRef(false)

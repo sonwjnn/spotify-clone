@@ -7,7 +7,7 @@ import { Header } from '@/components/header'
 import { Navbar } from '@/components/navbar'
 import { PageWrapper } from '@/components/page-wrapper'
 
-const Loading: React.FC = () => {
+const Loading = () => {
   return (
     <PageWrapper>
       <Navbar bgColor={'#171717'} darker={false} />

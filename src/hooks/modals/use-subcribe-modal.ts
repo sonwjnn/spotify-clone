@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface SubscribeModalStore {
+type SubscribeModalStore = {
   isOpen: boolean
   onOpen: () => void
   onClose: () => void

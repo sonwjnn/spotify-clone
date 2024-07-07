@@ -2,8 +2,8 @@ import './globals.css'
 
 import localFont from 'next/font/local'
 
-import { MainContent } from '@/components/main-content/main-content'
-import { MusicPlayer } from '@/components/music-player/music-player'
+import { MainContent } from '@/components/main-content'
+import { MusicPlayer } from '@/components/music-player'
 import { ModalProvider } from '@/providers/modal-provider'
 import { SkeletonProvider } from '@/providers/skeleton-provider'
 import { SupabaseProvider } from '@/providers/supabase-provider'

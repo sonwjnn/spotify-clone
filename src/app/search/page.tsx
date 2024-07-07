@@ -9,7 +9,7 @@ import { getSongsByTitle } from '@/server-actions/songs/get-songs-by-title'
 
 import { SearchContent } from './_components/search-content'
 
-interface SearchPageProps {
+type SearchPageProps = {
   searchParams: {
     title: string
   }
@@ -27,7 +27,9 @@ const SearchPage: NextPage<SearchPageProps> = async ({
       <Navbar bgColor={'#171717'} darker={false} />
       <Header type="search" bgColor="#171717">
         <div className="mb-2 flex w-full flex-col  gap-y-6">
-          <h1 className="pt-10 text-3xl font-semibold text-white">Search</h1>
+          <h1 className="pt-10 text-3xl font-semibold text-zinc-600 dark:text-white">
+            Search
+          </h1>
           <SearchInput url="/search" />
         </div>
       </Header>

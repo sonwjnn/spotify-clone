@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface PlaylistModalStore {
+type PlaylistModalStore = {
   isOpen: boolean
   onOpen: () => void
   onClose: () => void

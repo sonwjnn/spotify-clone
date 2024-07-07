@@ -7,9 +7,9 @@ import { useUser } from '@/hooks/use-user'
 import { postData } from '@/lib/helpers'
 import { cn } from '@/lib/utils'
 
-import { Tooltip } from './ui/tooltip'
+import { Tooltip } from '@/components/ui/tooltip'
 
-export const PremiumButton: React.FC = () => {
+export const PremiumButton = () => {
   const { isLoading, subscription } = useUser()
 
   const [loading, setLoading] = useState(false)

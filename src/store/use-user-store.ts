@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 import type { Playlist, Song, UserDetails } from '@/types/types'
 
-interface UserStore {
+type UserStore = {
   userDetails: UserDetails | null
   likedSongs: Song[]
   playlists: Playlist[]

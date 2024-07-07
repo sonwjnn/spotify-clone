@@ -10,7 +10,7 @@ import { getOtherUserPlaylists } from '@/server-actions/playlists/get-other-user
 import { UserContent } from './_components/user-content'
 import { UserHeaderContent } from './_components/user-header-content'
 
-interface UserPageProps {
+type UserPageProps = {
   params: {
     id: string
   }

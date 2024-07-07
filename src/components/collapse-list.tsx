@@ -6,15 +6,15 @@ import { MusicNote } from '@/public/icons'
 import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 
-interface CollapseListProps {
+type CollapseListProps = {
   playlists: Playlist[]
 }
 
-interface CollapseListItemProps {
+type CollapseListItemProps = {
   playlist: Playlist
 }
 
-const CollapseListItem: React.FC<CollapseListItemProps> = ({ playlist }) => {
+const CollapseListItem = ({ playlist }: CollapseListItemProps) => {
   const imageUrl = useLoadImage(playlist.image_path, buckets.playlist_images)
   return (
     <div className="flex items-center justify-center  rounded-lg  py-2  transition hover:bg-neutral-800 ">
@@ -39,7 +39,7 @@ const CollapseListItem: React.FC<CollapseListItemProps> = ({ playlist }) => {
   )
 }
 
-export const CollapseList: React.FC<CollapseListProps> = ({ playlists }) => {
+export const CollapseList = ({ playlists }: CollapseListProps) => {
   return (
     <div className="flex h-full w-full flex-col ">
       {playlists.map(playlist => (

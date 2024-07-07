@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface SelectedPlayerStore {
+type SelectedPlayerStore = {
   isSelected: boolean
   setSelected: (isSelected: boolean) => void
 }

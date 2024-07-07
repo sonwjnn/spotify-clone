@@ -19,6 +19,6 @@ const spinnerVariants = cva('animate-spin text-neutral-400', {
 
 interface SpinnerProps extends VariantProps<typeof spinnerVariants> {}
 
-export const Spinner: React.FC<SpinnerProps> = ({ size }) => {
+export const Spinner = ({ size }: SpinnerProps) => {
   return <LuLoader className={cn(spinnerVariants({ size }))} />
 }

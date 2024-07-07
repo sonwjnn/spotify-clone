@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils'
 import { buckets } from '@/utils/constants'
 import { useTheme } from 'next-themes'
 
-interface HeaderProps {
+type HeaderProps = {
   children: React.ReactNode
   className?: string
   data?: Playlist
@@ -22,8 +22,8 @@ interface HeaderProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const Header: React.FC<HeaderProps> = memo(
-  ({ children, className, data, bgColor, type }) => {
+export const Header = memo(
+  ({ children, className, data, bgColor, type }: HeaderProps) => {
     const { theme } = useTheme()
     const { bgColor: bgColorHeader } = useHeader()
     const { setHeight } = useHeader()

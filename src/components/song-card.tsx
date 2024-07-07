@@ -7,14 +7,14 @@ import { usePlayer } from '@/store/use-player'
 import { MusicNote } from '@/public/icons'
 import type { Song } from '@/types/types'
 
-import { PlayButton } from './play-button'
+import { PlayButton } from '@/components/play-button'
 
-interface SongCardProps {
+type SongCardProps = {
   data: Song
   onClick: (id: string) => void
 }
 
-export const SongCard: React.FC<SongCardProps> = ({ data, onClick }) => {
+export const SongCard = ({ data, onClick }: SongCardProps) => {
   const { currentTrack, isPlaying, handlePlay } = usePlayer()
 
   const isPlayingCurrentTrack = currentTrack?.id === data.id && isPlaying

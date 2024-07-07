@@ -4,15 +4,15 @@ import React, { useMemo } from 'react'
 
 import logo from '@/public/images/logos/spotify_logo.svg'
 
-import { Box } from './ui/box'
-import { Button } from './ui/button'
+import { Box } from '@/components/ui/box'
+import { Button } from '@/components/ui/button'
 
-interface AlertProps {
+type AlertProps = {
   type?: 'notfound' | 'wrong' | 'noAuth'
   text?: string
 }
 
-export const Alert: React.FC<AlertProps> = props => {
+export const Alert = (props: AlertProps) => {
   const { type = 'notfound', text = '' } = props
 
   const { message } = useMemo(() => {

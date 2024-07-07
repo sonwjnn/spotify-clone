@@ -2,7 +2,7 @@
 
 import { Alert } from '@/components/alert'
 
-const notFoundPage: React.FC = () => {
+const notFoundPage = () => {
   return <Alert type="notfound" />
 }
 

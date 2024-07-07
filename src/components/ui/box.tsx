@@ -1,12 +1,12 @@
 import { twMerge } from 'tailwind-merge'
 
-interface BoxProps {
+type BoxProps = {
   children: React.ReactNode
   className?: string
   onScroll?: (e: React.UIEvent<HTMLDivElement, UIEvent>) => void
 }
 
-export const Box: React.FC<BoxProps> = ({ children, className, onScroll }) => {
+export const Box = ({ children, className, onScroll }: BoxProps) => {
   return (
     <div
       onScroll={onScroll}

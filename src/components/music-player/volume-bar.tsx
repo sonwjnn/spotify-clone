@@ -11,7 +11,7 @@ import { PlayingViewIcon, QueueIcon, SoundIcon } from '@/public/icons'
 import { Slider } from '@/components/ui/slider'
 import { Tooltip } from '@/components/ui/tooltip'
 
-export const VolumeBar: React.FC = () => {
+export const VolumeBar = () => {
   const { volume, setVolume } = usePlayer()
   const { isShowed, collapsed, resetMaxWidth } = usePlayingView()
   const [previousVolume, setPreviousVolume] = useState<number>(volume)

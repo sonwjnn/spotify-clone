@@ -16,9 +16,7 @@ import type { Playlist } from '@/types/types'
 
 import { PlaylistDropdown } from './playlist-dropdown'
 
-interface SongPlaylistProps {}
-
-export const SongPlaylist: React.FC<SongPlaylistProps> = () => {
+export const SongPlaylist = () => {
   const { playlistSongs: songs } = usePlaylist()
   const { user } = useUser()
   const { playlist } = usePlaylist()

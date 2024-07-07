@@ -12,7 +12,7 @@ import type { Price, ProductWithPrice } from '@/types/types'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
 
-interface SubscribeModalProps {
+type SubscribeModalProps = {
   products: ProductWithPrice[]
 }
 
@@ -26,7 +26,7 @@ const formatPrice = (price: Price): string => {
   return priceString
 }
 
-export const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
+export const SubscribeModal = ({ products }: SubscribeModalProps) => {
   let content = <div className="text-center">No products available</div>
 
   const { user, isLoading, subscription } = useUser()

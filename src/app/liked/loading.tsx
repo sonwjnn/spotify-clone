@@ -12,7 +12,7 @@ import { PageWrapper } from '@/components/page-wrapper'
 import { PlayButton } from '@/components/play-button'
 import { useMainLayout } from '@/store/use-main-layout'
 
-const Loading: React.FC = () => {
+const Loading = () => {
   const { width } = useMainLayout()
   return (
     <PageWrapper>

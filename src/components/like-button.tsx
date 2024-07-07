@@ -11,21 +11,21 @@ import { useUser } from '@/hooks/use-user'
 import { useUserStore } from '@/store/use-user-store'
 import type { Song } from '@/types/types'
 
-import { Tooltip } from './ui/tooltip'
+import { Tooltip } from '@/components/ui/tooltip'
 
-interface LikeButtonProps {
+type LikeButtonProps = {
   song: Song
   size?: number
   className?: string
   isSelected?: boolean
 }
 
-export const LikeButton: React.FC<LikeButtonProps> = ({
+export const LikeButton = ({
   song,
   size = 25,
   className,
   isSelected,
-}) => {
+}: LikeButtonProps) => {
   const { likedSongs, addLikedSong, removeLikedSong } = useUserStore()
 
   const { supabaseClient } = useSessionContext()

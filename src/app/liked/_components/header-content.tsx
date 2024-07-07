@@ -4,8 +4,7 @@ import Image from 'next/image'
 
 import { useMainLayout } from '@/store/use-main-layout'
 
-interface HeaderContentProps {}
-export const HeaderContent: React.FC<HeaderContentProps> = () => {
+export const HeaderContent = () => {
   const { width } = useMainLayout()
 
   return (

@@ -20,11 +20,11 @@ type UserContextType = {
 }
 
 export const UserContext = createContext<UserContextType | undefined>(undefined)
-export interface Props {
+export type Props = {
   [propName: string]: any
 }
 
-export const MyUserContextProvider: React.FC<Props> = (props: Props) => {
+export const MyUserContextProvider = (props: Props) => {
   const {
     session,
     isLoading: isLoadingUser,

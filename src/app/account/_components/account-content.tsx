@@ -9,7 +9,7 @@ import { useSubscribeModal } from '@/hooks/modals/use-subcribe-modal'
 import { useUser } from '@/hooks/use-user'
 import { postData } from '@/lib/helpers'
 
-export const AccountContent: React.FC = () => {
+export const AccountContent = () => {
   const router = useRouter()
 
   const subscribeModal = useSubscribeModal()

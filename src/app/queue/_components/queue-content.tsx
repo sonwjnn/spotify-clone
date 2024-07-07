@@ -7,9 +7,7 @@ import { MediaList } from '@/components/media-list'
 import { Button } from '@/components/ui/button'
 import { usePlayer } from '@/store/use-player'
 
-interface QueueContentProps {}
-
-export const QueueContent: React.FC<QueueContentProps> = () => {
+export const QueueContent = () => {
   const { queue, currentTrack, currentTrackIndex, isRandom } = usePlayer()
 
   const queueNormalized = queue.filter(item => item)

@@ -13,14 +13,14 @@ import { cn } from '@/lib/utils'
 import { CollapseList } from '@/components/collapse-list'
 import { Tooltip } from '@/components/ui/tooltip'
 import { UploadDropdown } from '@/components/upload-dropdown'
-import { LikedItem } from './liked-item'
-import { PlaylistList } from './playlist-list'
+import { LikedItem } from '@/components/sidebar/library/liked-item'
+import { PlaylistList } from '@/components/sidebar/library/playlist-list'
 
-interface LibraryProps {
+type LibraryProps = {
   isScroll?: boolean
 }
 
-export const Library: React.FC<LibraryProps> = ({ isScroll = false }) => {
+export const Library = ({ isScroll = false }: LibraryProps) => {
   const { user, subscription } = useUser()
   const { playlists, likedSongs, likedPlaylists } = useUserStore()
   const { isCollapsed, isMaxWidth, collapsed, resetMinWidth, resetMaxWidth } =

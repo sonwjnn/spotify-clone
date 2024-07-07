@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface AuthModalStore {
+type AuthModalStore = {
   isOpen: boolean
   onOpen: () => void
   onClose: () => void

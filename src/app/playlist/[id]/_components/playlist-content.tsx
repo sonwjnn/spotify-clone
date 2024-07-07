@@ -9,15 +9,15 @@ import type { Playlist, Song } from '@/types/types'
 import { SearchPlaylist } from './search-playlist'
 import { SongPlaylist } from './song-playlist'
 
-interface PlaylistContentProps {
+type PlaylistContentProps = {
   playlist: Playlist
   playlistSongs: Song[]
 }
 
-export const PlaylistContent: React.FC<PlaylistContentProps> = ({
+export const PlaylistContent = ({
   playlist,
   playlistSongs,
-}) => {
+}: PlaylistContentProps) => {
   const { user } = useUser()
 
   const { setPlaylist, setPlaylistSongs } = usePlaylist()

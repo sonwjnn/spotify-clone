@@ -8,17 +8,17 @@ import { useSelectedPlayer } from '@/store/use-selected-player'
 import type { Song } from '@/types/types'
 
 import { PlayButton } from '@/components/play-button'
-import { Controls } from './controls'
-import { SeekBar } from './seek-bar'
-import { SongDetails } from './song-detail'
-import { VolumeBar } from './volume-bar'
+import { Controls } from '@/components/music-player/controls'
+import { SeekBar } from '@/components/music-player/seek-bar'
+import { SongDetails } from '@/components/music-player/song-detail'
+import { VolumeBar } from '@/components/music-player/volume-bar'
 
-interface PlayerProps {
+type PlayerProps = {
   song: Song
   songUrl: string
 }
 
-export const Player: React.FC<PlayerProps> = ({ song, songUrl }) => {
+export const Player = ({ song, songUrl }: PlayerProps) => {
   const {
     ids: playerIds,
     activeId,

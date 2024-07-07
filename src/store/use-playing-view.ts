@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface PlayingViewProps {
+type PlayingViewProps = {
   isShowed: boolean
   setShowed: (isShowed: boolean) => void
   collapsed: () => void

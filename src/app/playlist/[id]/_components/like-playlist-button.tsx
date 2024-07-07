@@ -13,15 +13,15 @@ import { useUserStore } from '@/store/use-user-store'
 
 import { Tooltip } from '@/components/ui/tooltip'
 
-interface LikePlaylistButtonProps {
+type LikePlaylistButtonProps = {
   size?: number
   className?: string
 }
 
-export const LikePlaylistButton: React.FC<LikePlaylistButtonProps> = ({
+export const LikePlaylistButton = ({
   size = 25,
   className,
-}) => {
+}: LikePlaylistButtonProps) => {
   const { supabaseClient } = useSessionContext()
 
   const { likedPlaylists, removeLikedPlaylist, addLikedPlaylist } =

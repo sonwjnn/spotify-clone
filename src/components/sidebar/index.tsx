@@ -4,15 +4,15 @@ import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Library } from './library/library'
-import { SidebarNav } from './sidebar-nav'
-import { SidebarResizer } from './sidebar-resizer'
+import { Library } from '@/components/sidebar/library'
+import { SidebarNav } from '@/components/sidebar/sidebar-nav'
+import { SidebarResizer } from '@/components/sidebar/sidebar-resizer'
 
-interface SidebarProps {
+type SidebarProps = {
   className?: string
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
+export const Sidebar = ({ className }: SidebarProps) => {
   const [isScroll, setScroll] = useState<boolean>(false)
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {

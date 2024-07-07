@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { useEffect, useState } from 'react'
 
-interface ComponentSize {
+type ComponentSize = {
   height: number
   width: number
 }

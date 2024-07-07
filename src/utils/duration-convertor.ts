@@ -1,4 +1,4 @@
-interface DurationSongParams {
+type DurationSongParams = {
   milliseconds?: number
   type?: 'short' | 'long'
 }

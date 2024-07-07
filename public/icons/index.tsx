@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-export interface IconProps {
+export type IconProps = {
   size?: number
   color?: string
   className?: string
@@ -361,7 +361,7 @@ export function QueueIcon(props: Partial<IconProps>): JSX.Element {
 }
 
 export type SoundLevel = 'mute' | 'low' | 'medium' | 'high'
-interface SoundIconLevel {
+type SoundIconLevel = {
   level: SoundLevel
 }
 

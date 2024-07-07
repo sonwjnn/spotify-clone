@@ -26,15 +26,15 @@ import type { Playlist } from '@/types/types'
 import { buckets } from '@/utils/constants'
 import { useConfirm } from '@/hooks/use-confirm'
 
-interface PlaylistDropdownProps {
+type PlaylistDropdownProps = {
   data: Playlist
   className?: string
 }
 
-export const PlaylistDropdown: React.FC<PlaylistDropdownProps> = ({
+export const PlaylistDropdown = ({
   data,
   className,
-}) => {
+}: PlaylistDropdownProps) => {
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
     'You are about to delete this playlist'

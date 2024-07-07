@@ -9,7 +9,7 @@ import { getOtherUserPlaylists } from '@/server-actions/playlists/get-other-user
 
 import { UserPlaylistContent } from './_components/user-playlist-content'
 
-interface UserPlaylistPageProps {
+type UserPlaylistPageProps = {
   params: {
     id: string
   }

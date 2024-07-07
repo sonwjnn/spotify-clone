@@ -22,17 +22,17 @@ import { DeleteIcon } from '@/public/icons'
 import type { Playlist, Song } from '@/types/types'
 import { useConfirm } from '@/hooks/use-confirm'
 
-interface MediaDropdownProps {
+type MediaDropdownProps = {
   song: Song
   playlist: Playlist
   className?: string
 }
 
-export const MediaDropdown: React.FC<MediaDropdownProps> = ({
+export const MediaDropdown = ({
   song,
   playlist,
   className,
-}) => {
+}: MediaDropdownProps) => {
   const [ConfirmDialog, confirm] = useConfirm(
     'Are you sure?',
     'You are about to delete this playlist'
